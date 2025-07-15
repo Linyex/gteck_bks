@@ -1,0 +1,116 @@
+# Медиа файлы
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mkv
+*.m4v
+*.3gp
+*.mpg
+*.mpeg
+*.ts
+
+# Аудио файлы
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.wma
+*.m4a
+*.opus
+
+# Изображения
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.tif
+*.svg
+*.webp
+*.ico
+*.raw
+*.psd
+*.ai
+*.eps
+
+# PDF файлы
+*.pdf
+
+# Текстовые файлы
+*.txt
+*.log
+*.md
+*.doc
+*.docx
+*.rtf
+*.odt
+
+# Архивы
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+
+# Временные файлы
+*.tmp
+*.temp
+*.cache
+*.bak
+*.backup
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE файлы
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи
+logs/
+*.log
+
+# Кэш
+cache/
+tmp/
+
+# Загрузки пользователей
+uploads/
+downloads/
+
+# База данных
+*.sql
+*.db
+*.sqlite
+
+# Конфигурационные файлы с секретами
+config.php
+.env
+*.env
+
+# Node modules (если есть)
+node_modules/
+
+# Composer (если используется)
+vendor/
+composer.lock
+
+# Другие медиа папки
+media/
+videos/
+audio/
+images/
+photos/
+documents/
+files/ 

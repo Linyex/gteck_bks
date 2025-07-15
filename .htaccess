@@ -1,0 +1,60 @@
+# Установка кодировки
+AddDefaultCharset utf-8
+
+# Запрет листинга директории
+Options -Indexes
+
+# Заголовки для изображений
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|bmp)$">
+    Header set Cache-Control "public, max-age=31536000"
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+RewriteEngine on 
+
+# Редирект с поддоменов
+#RewriteCond %{HTTP_HOST} ^domain.ru
+#RewriteRule (.*) http://domain.ru/$1 [R=301,L]
+
+#Скрытие страниц с веб страницы
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} !=/assets
+RewriteCond %{REQUEST_URI} !=/assets/
+
+RewriteCond %{REQUEST_URI} !=/common
+RewriteCond %{REQUEST_URI} !=/common/
+RewriteCond %{REQUEST_URI} !=/common/header
+RewriteCond %{REQUEST_URI} !=/common/footer
+RewriteCond %{REQUEST_URI} !=/common/header/
+RewriteCond %{REQUEST_URI} !=/common/footer/
+
+RewriteCond %{REQUEST_URI} !=/admin/common
+RewriteCond %{REQUEST_URI} !=/admin/common/
+RewriteCond %{REQUEST_URI} !=/admin/common/header
+RewriteCond %{REQUEST_URI} !=/admin/common/footer
+RewriteCond %{REQUEST_URI} !=/admin/common/header/
+RewriteCond %{REQUEST_URI} !=/admin/common/footer/
+
+# Настройки ЧПУ
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|webp|bmp|ico|pdf|doc|docx|xls|xlsx|zip|rar)$ [NC]
+
+ErrorDocument 404 /error
+ErrorDocument 403 /error
+
+RewriteRule ^(.*)$ index.php?action=$1 [L,QSA]
+
+# Защита от хотлинкинга изображений (только для внешних доменов)
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?gtec-bks\.by/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?127\.0\.0\.1/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?nocontrgtec/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?gtec-bks\.by/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?localhost/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?127\.0\.0\.1/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?nocontrgtec/.*$ [NC]
+RewriteRule \.(jpg|jpeg|gif|png|bmp|webp)$ - [F,NC]
+
