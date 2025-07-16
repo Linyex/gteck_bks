@@ -6,7 +6,7 @@ define('ENGINE_DIR', dirname(__FILE__) . '/engine/');
 define('APPLICATION_DIR', dirname(__FILE__) . '/application/');
 
 // Загружаем основные классы
-require_once(ENGINE_DIR . 'Database.php');
+require_once(ENGINE_DIR . 'main/db.php');
 require_once(ENGINE_DIR . 'BaseController.php');
 require_once(ENGINE_DIR . 'Router.php');
 
