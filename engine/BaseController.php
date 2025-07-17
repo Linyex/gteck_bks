@@ -37,9 +37,14 @@ class BaseController {
         // Начинаем буферизацию
         ob_start();
         
-        // Подключаем header
-        if (file_exists(APPLICATION_DIR . 'views/common/header.php')) {
-            include(APPLICATION_DIR . 'views/common/header.php');
+        // Проверяем, является ли это админским view
+        $isAdminView = strpos($view, 'admin/') === 0;
+        
+        if (!$isAdminView) {
+            // Подключаем header только для не-админских страниц
+            if (file_exists(APPLICATION_DIR . 'views/common/header.php')) {
+                include(APPLICATION_DIR . 'views/common/header.php');
+            }
         }
         
         // Подключаем основной view
@@ -50,9 +55,11 @@ class BaseController {
             throw new Exception("View {$view} not found");
         }
         
-        // Подключаем footer
-        if (file_exists(APPLICATION_DIR . 'views/common/footer.php')) {
-            include(APPLICATION_DIR . 'views/common/footer.php');
+        if (!$isAdminView) {
+            // Подключаем footer только для не-админских страниц
+            if (file_exists(APPLICATION_DIR . 'views/common/footer.php')) {
+                include(APPLICATION_DIR . 'views/common/footer.php');
+            }
         }
         
         // Возвращаем содержимое буфера
