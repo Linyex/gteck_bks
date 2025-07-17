@@ -10,36 +10,28 @@ Options -Indexes
     Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
 
+# Заголовки для CSS и JS файлов
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=86400"
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
 RewriteEngine on 
-
-# Редирект с поддоменов
-#RewriteCond %{HTTP_HOST} ^domain.ru
-#RewriteRule (.*) http://domain.ru/$1 [R=301,L]
-
-#Скрытие страниц с веб страницы
 RewriteBase /
 
-RewriteCond %{REQUEST_URI} !=/assets
-RewriteCond %{REQUEST_URI} !=/assets/
+# Разрешаем прямой доступ к статическим файлам
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|webp|bmp|ico|pdf|doc|docx|xls|xlsx|zip|rar|ttf|woff|woff2|eot)$ [NC]
+RewriteRule ^(.*)$ - [L]
 
-RewriteCond %{REQUEST_URI} !=/common
-RewriteCond %{REQUEST_URI} !=/common/
-RewriteCond %{REQUEST_URI} !=/common/header
-RewriteCond %{REQUEST_URI} !=/common/footer
-RewriteCond %{REQUEST_URI} !=/common/header/
-RewriteCond %{REQUEST_URI} !=/common/footer/
+# Разрешаем доступ к папке assets
+RewriteCond %{REQUEST_URI} ^/assets/
+RewriteRule ^(.*)$ - [L]
 
-RewriteCond %{REQUEST_URI} !=/admin/common
-RewriteCond %{REQUEST_URI} !=/admin/common/
-RewriteCond %{REQUEST_URI} !=/admin/common/header
-RewriteCond %{REQUEST_URI} !=/admin/common/footer
-RewriteCond %{REQUEST_URI} !=/admin/common/header/
-RewriteCond %{REQUEST_URI} !=/admin/common/footer/
-
-# Настройки ЧПУ
+# Настройки ЧПУ для остальных запросов
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|webp|bmp|ico|pdf|doc|docx|xls|xlsx|zip|rar)$ [NC]
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|webp|bmp|ico|pdf|doc|docx|xls|xlsx|zip|rar|ttf|woff|woff2|eot)$ [NC]
 
 ErrorDocument 404 /error
 ErrorDocument 403 /error
