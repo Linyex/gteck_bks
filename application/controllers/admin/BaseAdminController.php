@@ -105,4 +105,17 @@ class BaseAdminController extends BaseController {
     protected function isEditor() {
         return $this->adminUser && $this->adminUser['user_access_level'] >= 1;
     }
+    
+    protected function getAccessLevelName($level) {
+        switch ($level) {
+            case 10:
+                return 'Администратор';
+            case 5:
+                return 'Модератор';
+            case 1:
+                return 'Редактор';
+            default:
+                return 'Пользователь';
+        }
+    }
 } 
