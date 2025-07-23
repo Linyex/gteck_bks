@@ -30,8 +30,14 @@ class AuthController extends BaseController {
                         $_SESSION['admin_fio'] = $user['user_fio'];
                         $_SESSION['admin_access_level'] = $user['user_access_level'];
                         
-                        // Логируем вход
-                        $this->logLogin($user['user_id'], $_SERVER['REMOTE_ADDR'], 'success');
+                        // Логируем успешный вход
+                        $this->logLoginAttempt($user['user_id'], $username, $_SERVER['REMOTE_ADDR'], true, 'Успешный вход');
+                        
+                        // Создаем сессию
+                        $this->createUserSession($user['user_id'], $_SERVER['REMOTE_ADDR']);
+                        
+                        // Логируем активность
+                        $this->logUserActivity($user['user_id'], 'login', 'Успешный вход в систему', $_SERVER['REMOTE_ADDR']);
                         
                         return $this->redirect('/admin/dashboard');
                     } else {
@@ -39,7 +45,11 @@ class AuthController extends BaseController {
                         
                         // Логируем неудачную попытку
                         if ($user) {
-                            $this->logLogin($user['user_id'], $_SERVER['REMOTE_ADDR'], 'failed');
+                            $this->logLoginAttempt($user['user_id'], $username, $_SERVER['REMOTE_ADDR'], false, 'Неверный пароль');
+                            $this->logUserActivity($user['user_id'], 'failed_login', 'Неудачная попытка входа', $_SERVER['REMOTE_ADDR']);
+                        } else {
+                            // Логируем попытку входа с несуществующим пользователем
+                            $this->logLoginAttempt(null, $username, $_SERVER['REMOTE_ADDR'], false, 'Несуществующий пользователь');
                         }
                     }
                 } catch (Exception $e) {
@@ -57,7 +67,8 @@ class AuthController extends BaseController {
     public function logout() {
         // Логируем выход
         if (isset($_SESSION['admin_user_id'])) {
-            $this->logLogout($_SESSION['admin_user_id'], $_SERVER['REMOTE_ADDR']);
+            $this->logUserActivity($_SESSION['admin_user_id'], 'logout', 'Выход из системы', $_SERVER['REMOTE_ADDR']);
+            $this->terminateUserSession($_SESSION['admin_user_id']);
         }
         
         // Очищаем сессию
@@ -66,32 +77,60 @@ class AuthController extends BaseController {
         return $this->redirect('/admin/login');
     }
     
-    private function logLogin($userId, $ip, $status) {
+    private function logLoginAttempt($userId, $username, $ip, $success, $reason = '') {
         try {
             require_once 'engine/main/db.php';
             
-            // Проверяем, есть ли таблица auth_log
-            $tableExists = Database::fetchOne("SHOW TABLES LIKE 'auth_log'");
-            
-            if ($tableExists) {
-                Database::execute("INSERT INTO auth_log (user_id, ip_address, status, login_time) VALUES (?, ?, ?, NOW())", 
-                    [$userId, $ip, $status]);
-            }
+            Database::execute(
+                "INSERT INTO login_attempts (user_id, username, ip_address, success, attempt_time, failure_reason) VALUES (?, ?, ?, ?, NOW(), ?)",
+                [$userId, $username, $ip, $success ? 1 : 0, $reason]
+            );
         } catch (Exception $e) {
             // Игнорируем ошибки логирования
         }
     }
     
-    private function logLogout($userId, $ip) {
+    private function createUserSession($userId, $ip) {
         try {
             require_once 'engine/main/db.php';
             
-            $tableExists = Database::fetchOne("SHOW TABLES LIKE 'auth_log'");
+            $sessionToken = session_id();
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
             
-            if ($tableExists) {
-                Database::execute("INSERT INTO auth_log (user_id, ip_address, status, login_time) VALUES (?, ?, 'logout', NOW())", 
-                    [$userId, $ip]);
-            }
+            Database::execute(
+                "INSERT INTO user_sessions (user_id, session_token, ip_address, user_agent, is_active, created_at, last_activity) VALUES (?, ?, ?, ?, 1, NOW(), NOW())",
+                [$userId, $sessionToken, $ip, $userAgent]
+            );
+        } catch (Exception $e) {
+            // Игнорируем ошибки логирования
+        }
+    }
+    
+    private function terminateUserSession($userId) {
+        try {
+            require_once 'engine/main/db.php';
+            
+            $sessionToken = session_id();
+            
+            Database::execute(
+                "UPDATE user_sessions SET is_active = 0, logout_time = NOW() WHERE user_id = ? AND session_token = ?",
+                [$userId, $sessionToken]
+            );
+        } catch (Exception $e) {
+            // Игнорируем ошибки логирования
+        }
+    }
+    
+    private function logUserActivity($userId, $actionType, $description, $ip) {
+        try {
+            require_once 'engine/main/db.php';
+            
+            $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            
+            Database::execute(
+                "INSERT INTO user_activity (user_id, action_type, activity_description, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, ?, NOW())",
+                [$userId, $actionType, $description, $ip, $userAgent]
+            );
         } catch (Exception $e) {
             // Игнорируем ошибки логирования
         }

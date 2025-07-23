@@ -3,12 +3,22 @@
 class studController extends BaseController {
     
     public function index() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
         return $this->render('stud/index', [
             'title' => 'Студенческий раздел'
         ]);
     }
     
     public function kontrolnui() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
         $model = $this->loadModel('dkrfiles');
         $files = $model->getAllFilesWithGroups();
         
@@ -19,6 +29,11 @@ class studController extends BaseController {
     }
     
     public function admin_upload() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
         $model = $this->loadModel('dkrfiles');
         $groups = $model->getAllGroups();
         $files = $model->getAllFilesWithGroups();
@@ -63,6 +78,11 @@ class studController extends BaseController {
     }
     
     public function add_kontrolnui() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
         $model = $this->loadModel('dkrfiles');
         $groups = $model->getAllGroups();
         $message = '';

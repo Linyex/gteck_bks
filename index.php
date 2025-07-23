@@ -34,11 +34,17 @@ if ($isStaticFile) {
         switch ($extension) {
             case 'css':
                 header('Content-Type: text/css; charset=utf-8');
-                header('Cache-Control: public, max-age=86400');
+                // Отключаем кеширование для CSS файлов в режиме разработки
+                header('Cache-Control: no-cache, no-store, must-revalidate');
+                header('Pragma: no-cache');
+                header('Expires: 0');
                 break;
             case 'js':
                 header('Content-Type: application/javascript; charset=utf-8');
-                header('Cache-Control: public, max-age=86400');
+                // Отключаем кеширование для JS файлов в режиме разработки
+                header('Cache-Control: no-cache, no-store, must-revalidate');
+                header('Pragma: no-cache');
+                header('Expires: 0');
                 break;
             case 'png':
                 header('Content-Type: image/png');

@@ -4,11 +4,22 @@ class mainController extends BaseController {
     private $limit = 10; // Изменено с 4 на 10
     
     public function index($page = 1) {
+        // Включаем кэширование для улучшения производительности
+        header('Cache-Control: public, max-age=3600');
+        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
+        
         // Загружаем модели
         $newsModel = $this->loadModel('news');
         $zamenaModel = $this->loadModel('zamena');
         
-        // Получаем новости
+        // Получаем важные новости для слайдера
+        $importantNews = $newsModel->getImportantNews(6);
+        
+        // Получаем обычные новости для сетки
+        $regularNews = $newsModel->getRegularNews(4);
+        
+        // Получаем все новости для пагинации
         $sort = ['news_date_add' => 'DESC'];
         $options = [
             'start' => ((int)$page - 1) * $this->limit,
@@ -30,6 +41,8 @@ class mainController extends BaseController {
         
         // Подготавливаем данные для view
         $data = [
+            'important_news' => $importantNews,
+            'regular_news' => $regularNews,
             'news' => $news,
             'pagination' => $pagination,
             'lastzamena' => $lastzamena,
@@ -39,7 +52,8 @@ class mainController extends BaseController {
             'current_page' => $page
         ];
         
-        return $this->render('mane/mane', $data);
+        // Рендерим новый файл main/index.php вместо старого mane/mane.php
+        return $this->render('main/index', $data);
     }
     
     public function ajax() {
@@ -80,52 +94,8 @@ class mainController extends BaseController {
     }
     
     private function performSearch($searchText) {
-        $filesFile = "application/views/allfile.dat";
+        // Временно отключаем поиск по файлам, так как allfile.dat был удален
         $results = [];
-        
-        if (!file_exists($filesFile)) {
-            return $results;
-        }
-        
-        $files = file($filesFile);
-        $totalFound = 0;
-        
-        // Сначала подсчитываем общее количество найденных файлов
-        foreach ($files as $file) {
-            $content = file_get_contents(trim($file));
-            if (strpos(mb_strtolower($content), mb_strtolower($searchText)) !== false) {
-                $totalFound++;
-            }
-        }
-        
-        // Теперь формируем результаты
-        foreach ($files as $file) {
-            $content = file_get_contents(trim($file));
-            if (strpos(mb_strtolower($content), mb_strtolower($searchText)) !== false) {
-                $fullstr = mb_strtolower(mb_substr(
-                    preg_replace('/[^а-яА-Я,.]/ui', ' ', 
-                    stristr(mb_strtolower($content), mb_strtolower($searchText))), 0, 500));
-                
-                $fullstr2 = $this->mb_ucfirst($fullstr);
-                
-                $silka = mb_substr(trim($file), 18);
-                $extension = trim($silka, ".php");
-                
-                $mytext = preg_replace('/'.$searchText.'/', 
-                    '<span style="background-color: #ffe403;">'.$searchText.'</span>', $fullstr2);
-                $mytext2 = preg_replace('/'.$this->mb_ucfirst($searchText).'/', 
-                    '<span style="background-color: #ffe403;">'.$this->mb_ucfirst($searchText).'</span>', $mytext);
-                
-                $results[] = [
-                    'title' => "<h3>".trim($file)."</h3>",
-                    'stroka' => $searchText,
-                    'total' => $totalFound,
-                    'fullstr' => $mytext2,
-                    'silks' => $extension,
-                ];
-            }
-        }
-        
         return $results;
     }
     

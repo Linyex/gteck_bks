@@ -163,4 +163,90 @@ class newsModel {
         $result = $this->db->fetch($sql);
         return $result['count'];
     }
+    
+    /**
+     * Получает важные новости с оптимизацией
+     */
+    public function getImportantNews($limit = 6) {
+        try {
+            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name 
+                    FROM news n 
+                    LEFT JOIN category c ON n.category_id = c.category_id 
+                    WHERE n.category_id IN (1, 5, 6) 
+                    ORDER BY n.news_date_add DESC 
+                    LIMIT :limit";
+            
+            return $this->db->fetchAll($sql, ['limit' => (int)$limit]);
+        } catch (Exception $e) {
+            error_log('Error in getImportantNews: ' . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Получает обычные новости с оптимизацией
+     */
+    public function getRegularNews($limit = 4) {
+        try {
+            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name 
+                    FROM news n 
+                    LEFT JOIN category c ON n.category_id = c.category_id 
+                    WHERE n.category_id NOT IN (1, 5, 6) 
+                    ORDER BY n.news_date_add DESC 
+                    LIMIT :limit";
+            
+            return $this->db->fetchAll($sql, ['limit' => (int)$limit]);
+        } catch (Exception $e) {
+            error_log('Error in getRegularNews: ' . $e->getMessage());
+            return [];
+        }
+    }
+    
+    // Получение всех новостей с пагинацией
+    public function getAllNewsWithPagination($page = 1, $limit = 10) {
+        $offset = ($page - 1) * $limit;
+        
+        $sql = "SELECT n.*, c.category_name 
+                FROM news n 
+                LEFT JOIN category c ON n.category_id = c.category_id 
+                ORDER BY n.news_date_add DESC 
+                LIMIT :limit OFFSET :offset";
+        
+        return $this->db->fetchAll($sql, [
+            'limit' => (int)$limit,
+            'offset' => (int)$offset
+        ]);
+    }
+    
+    // Получение новостей по категории
+    public function getNewsByCategory($categoryId, $limit = 10) {
+        $sql = "SELECT n.*, c.category_name 
+                FROM news n 
+                LEFT JOIN category c ON n.category_id = c.category_id 
+                WHERE n.category_id = :category_id 
+                ORDER BY n.news_date_add DESC 
+                LIMIT :limit";
+        
+        return $this->db->fetchAll($sql, [
+            'category_id' => (int)$categoryId,
+            'limit' => (int)$limit
+        ]);
+    }
+    
+    // Поиск новостей
+    public function searchNews($searchText, $limit = 10) {
+        $sql = "SELECT n.*, c.category_name 
+                FROM news n 
+                LEFT JOIN category c ON n.category_id = c.category_id 
+                WHERE n.news_title LIKE :search OR n.news_text LIKE :search 
+                ORDER BY n.news_date_add DESC 
+                LIMIT :limit";
+        
+        $searchTerm = '%' . $searchText . '%';
+        
+        return $this->db->fetchAll($sql, [
+            'search' => $searchTerm,
+            'limit' => (int)$limit
+        ]);
+    }
 }

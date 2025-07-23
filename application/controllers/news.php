@@ -8,6 +8,11 @@ class newsController extends BaseController {
     }
     
     public function mane($page = 1) {
+        // Включаем кэширование для улучшения производительности
+        header('Cache-Control: public, max-age=3600');
+        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
+        
         $newsModel = $this->loadModel('news');
         
         $sort = ['news_date_add' => 'DESC'];
@@ -29,6 +34,11 @@ class newsController extends BaseController {
     }
     
     public function view($newsid = null) {
+        // Включаем кэширование для улучшения производительности
+        header('Cache-Control: public, max-age=3600');
+        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
+        
         if (!$newsid) {
             return $this->redirect('/news');
         }
@@ -48,6 +58,11 @@ class newsController extends BaseController {
     }
     
     public function category($categoryname = null, $page = 1) {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
         if (!$categoryname) {
             return $this->redirect('/news');
         }

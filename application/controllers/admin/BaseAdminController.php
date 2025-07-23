@@ -1,4 +1,5 @@
 <?php
+require_once ENGINE_DIR . 'BaseController.php';
 
 class BaseAdminController extends BaseController {
     
@@ -7,6 +8,7 @@ class BaseAdminController extends BaseController {
     public function __construct() {
         $this->checkAuth();
         $this->loadAdminUser();
+        $this->logActivity();
     }
     
     protected function checkAuth() {
@@ -19,11 +21,40 @@ class BaseAdminController extends BaseController {
     protected function loadAdminUser() {
         if (isset($_SESSION['admin_user_id'])) {
             try {
-                require_once 'engine/main/db.php';
+                require_once ENGINE_DIR . 'main/db.php';
                 $this->adminUser = Database::fetchOne("SELECT * FROM users WHERE user_id = ?", [$_SESSION['admin_user_id']]);
             } catch (Exception $e) {
                 // Если не удалось загрузить пользователя, разлогиниваем
                 $this->logout();
+            }
+        }
+    }
+    
+    protected function logActivity() {
+        if (isset($_SESSION['admin_user_id']) && $this->adminUser) {
+            try {
+                require_once ENGINE_DIR . 'main/db.php';
+                
+                $action = $_SERVER['REQUEST_URI'] ?? '';
+                $description = "Просмотр страницы: $action";
+                $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+                $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+                
+                // Логируем активность пользователя
+                Database::execute(
+                    "INSERT INTO user_activity (user_id, action_type, activity_description, ip_address, user_agent, created_at) VALUES (?, ?, ?, ?, ?, NOW())",
+                    [$_SESSION['admin_user_id'], 'page_view', $description, $ip, $userAgent]
+                );
+                
+                // Обновляем время последней активности в сессии
+                $sessionToken = session_id();
+                Database::execute(
+                    "UPDATE user_sessions SET last_activity = NOW() WHERE user_id = ? AND session_token = ? AND is_active = 1",
+                    [$_SESSION['admin_user_id'], $sessionToken]
+                );
+                
+            } catch (Exception $e) {
+                // Игнорируем ошибки логирования
             }
         }
     }
@@ -55,11 +86,14 @@ class BaseAdminController extends BaseController {
             // Извлекаем переменные снова для layout
             extract($data);
             
+            // Добавляем контент страницы в данные для layout
+            $page_content = $content;
+            
             // Начинаем новую буферизацию для layout
             ob_start();
             
             // Подключаем layout
-            $layoutFile = APPLICATION_DIR . 'views/admin/layouts/main.php';
+            $layoutFile = APPLICATION_DIR . 'views/admin/layouts/base.php';
             if (file_exists($layoutFile)) {
                 include($layoutFile);
             } else {
