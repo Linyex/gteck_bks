@@ -1,0 +1,613 @@
+/**
+ * Modern Soft Hi-Tech Theme for GTEC
+ * Версия: 2.0.0
+ * Автор: Frontend Developer
+ * 
+ * Особенности:
+ * - Мягкие постельные тона
+ * - Hi-tech элементы
+ * - Плавные анимации
+ * - Современный дизайн
+ * - Accessibility (a11y)
+ */
+
+/* ===== НОВАЯ ЦВЕТОВАЯ СХЕМА ===== */
+:root {
+  /* Основные цвета - мягкие постельные тона */
+  --color-primary: #8B7EC8;        /* Мягкий лавандовый */
+  --color-primary-light: #A8A4D8;   /* Светлый лавандовый */
+  --color-primary-dark: #6B5B9A;    /* Темный лавандовый */
+  --color-secondary: #B8E6B8;       /* Мягкий мятный */
+  --color-secondary-light: #D4F0D4; /* Светлый мятный */
+  --color-secondary-dark: #9CD69C;  /* Темный мятный */
+  --color-accent: #FFB6C1;          /* Мягкий розовый */
+  --color-accent-light: #FFC8D1;    /* Светлый розовый */
+  --color-accent-dark: #FF9AAC;     /* Темный розовый */
+  
+  /* Нейтральные цвета - теплые оттенки */
+  --color-white: #FFFFFF;
+  --color-gray-50: #FDFCFE;         /* Очень светлый лавандовый */
+  --color-gray-100: #F7F5FA;        /* Светлый лавандовый */
+  --color-gray-200: #E8E4F0;        /* Мягкий серый с лавандовым */
+  --color-gray-300: #D4CFE0;        /* Средний серый */
+  --color-gray-400: #B8B2C8;        /* Серый с оттенком */
+  --color-gray-500: #9A94A8;        /* Средний серый */
+  --color-gray-600: #7A7488;        /* Темный серый */
+  --color-gray-700: #5A5468;        /* Очень темный серый */
+  --color-gray-800: #3A3448;        /* Почти черный */
+  --color-gray-900: #1A1428;        /* Черный с оттенком */
+  
+  /* Дополнительные цвета */
+  --color-success: #A8D8A8;         /* Мягкий зеленый */
+  --color-warning: #FFD8A8;         /* Мягкий оранжевый */
+  --color-danger: #FFA8A8;          /* Мягкий красный */
+  --color-info: #A8D8F0;            /* Мягкий голубой */
+  
+  /* Hi-tech акценты */
+  --color-neon-purple: rgba(139, 126, 200, 0.8);
+  --color-neon-mint: rgba(184, 230, 184, 0.8);
+  --color-neon-pink: rgba(255, 182, 193, 0.8);
+  
+  /* Градиенты */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  --gradient-soft: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-gray-100) 100%);
+  
+  /* Тени - мягкие */
+  --shadow-soft: 0 2px 20px rgba(139, 126, 200, 0.1);
+  --shadow-medium: 0 4px 30px rgba(139, 126, 200, 0.15);
+  --shadow-strong: 0 8px 40px rgba(139, 126, 200, 0.2);
+  --shadow-neon: 0 0 20px rgba(139, 126, 200, 0.3);
+  
+  /* Стеклянный эффект */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  --glass-backdrop: blur(10px);
+}
+
+/* ===== ОБНОВЛЕННЫЕ КОМПОНЕНТЫ ===== */
+
+/* Header - мягкий стеклянный эффект */
+.header {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all var(--transition-base);
+}
+
+.header:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Навигация */
+.navbar-nav .nav-link {
+  color: var(--color-gray-700);
+  position: relative;
+  transition: all var(--transition-base);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.navbar-nav .nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: all var(--transition-base);
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::before {
+  width: 80%;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--color-primary);
+  background: var(--glass-bg);
+  transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+  color: var(--color-primary);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Кнопки - мягкие с градиентами */
+.btn {
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.5px;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left var(--transition-slow);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+  color: var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-secondary-dark) 100%);
+}
+
+.btn-secondary {
+  background: var(--gradient-secondary);
+  border: none;
+  color: var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+  background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-accent-dark) 100%);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-outline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left var(--transition-base);
+  z-index: -1;
+}
+
+.btn-outline:hover::after {
+  left: 0;
+}
+
+.btn-outline:hover {
+  color: var(--color-white);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Карточки - стеклянные */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-base);
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-medium);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-header {
+  background: var(--glass-bg);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+.card-body {
+  background: transparent;
+}
+
+.card-footer {
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+/* Формы - мягкие */
+.form-control {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-gray-700);
+  backdrop-filter: var(--glass-backdrop);
+  transition: all var(--transition-base);
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(139, 126, 200, 0.1);
+  transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+  color: var(--color-gray-400);
+}
+
+/* Алерты - мягкие */
+.alert {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: var(--glass-backdrop);
+  box-shadow: var(--shadow-soft);
+}
+
+.alert-success {
+  background: rgba(168, 216, 168, 0.1);
+  border-color: var(--color-success);
+  color: var(--color-gray-700);
+}
+
+.alert-info {
+  background: rgba(168, 216, 240, 0.1);
+  border-color: var(--color-info);
+  color: var(--color-gray-700);
+}
+
+.alert-warning {
+  background: rgba(255, 216, 168, 0.1);
+  border-color: var(--color-warning);
+  color: var(--color-gray-700);
+}
+
+.alert-danger {
+  background: rgba(255, 168, 168, 0.1);
+  border-color: var(--color-danger);
+  color: var(--color-gray-700);
+}
+
+/* Модальные окна - стеклянные */
+.modal-content {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-strong);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+}
+
+/* ===== HI-TECH ЭЛЕМЕНТЫ ===== */
+
+/* Анимированные частицы */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-neon-purple);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(even) {
+  background: var(--color-neon-mint);
+  animation-duration: 8s;
+}
+
+.particle:nth-child(3n) {
+  background: var(--color-neon-pink);
+  animation-duration: 10s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Сетка */
+.grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(139, 126, 200, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 126, 200, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Неоновые эффекты */
+.neon-glow {
+  box-shadow: 
+    0 0 5px var(--color-neon-purple),
+    0 0 10px var(--color-neon-purple),
+    0 0 15px var(--color-neon-purple);
+}
+
+.neon-text {
+  text-shadow: 
+    0 0 5px var(--color-neon-purple),
+    0 0 10px var(--color-neon-purple);
+}
+
+/* ===== АНИМАЦИИ ===== */
+
+/* Плавное появление */
+@keyframes fadeInSoft {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-soft {
+  animation: fadeInSoft 0.8s ease-out;
+}
+
+/* Пульсация */
+@keyframes pulseSoft {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.pulse-soft {
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+
+/* Волна */
+@keyframes wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.wave-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: translateX(-100%);
+  animation: wave 3s ease-in-out infinite;
+}
+
+/* ===== ОБНОВЛЕННЫЕ СЕКЦИИ ===== */
+
+/* Hero Section */
+.hero-section {
+  background: var(--gradient-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  color: var(--color-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Основной контент */
+.main-content {
+  background: var(--gradient-soft);
+  position: relative;
+}
+
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--grid-pattern);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Секции */
+.section {
+  position: relative;
+  padding: var(--space-16) 0;
+}
+
+.section:nth-child(even) {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+.section-title {
+  color: var(--color-gray-800);
+  text-align: center;
+  margin-bottom: var(--space-8);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .header {
+    backdrop-filter: blur(5px);
+  }
+  
+  .card {
+    margin-bottom: var(--space-6);
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: var(--space-2);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .particle,
+  .grid-pattern {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-primary: #6B5B9A;
+    --color-secondary: #9CD69C;
+    --color-accent: #FF9AAC;
+  }
+  
+  .card,
+  .form-control {
+    border: 2px solid var(--color-primary);
+  }
+}
+
+/* ===== ПЕЧАТЬ ===== */
+
+@media print {
+  .header,
+  .particles,
+  .grid-pattern {
+    display: none;
+  }
+  
+  .card {
+    border: 1px solid var(--color-gray-300);
+    box-shadow: none;
+  }
+} 
