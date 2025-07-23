@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Учебные материалы</h2>
 <hr>
 <div class="spiski">
@@ -9,4 +8,3 @@
         <li><a href="/assets/prezentacii/Формы.rar" target="_blank" download>Презентация "Создание форм"</a></li>
     </ul>
 </div>
-<?php echo $footer ?>

@@ -1,220 +1,296 @@
-<?php echo $header ?>
-<?php if (!empty($error)): ?>
-    <?php echo $error ?>
-<?php endif; ?>
-<div>
-    <h2>Списки групп</h2>
-    <hr>
-    <div class="spiski">
-        <h3 class="c-font-blue">Дневное отделение:</h3>
-        <p>На основе общего базового образования: </p>
+<?php
+$page_title = "Управление пользователями";
+$page_subtitle = "Users Management";
+$current_page = "users";
+$page_content = '
+<div class="main-header">
+    <h1><i class="fas fa-users"></i> Управление пользователями</h1>
+    <p>Просмотр и управление пользователями системы</p>
+</div>
 
-        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; word-break: break-word; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
-            <tbody style="cursor: pointer;" class="style-table">
-                <?php foreach($listgr as $item): ?>
-                <?php if ($item['listgr_status'] == (int)1): ?>
+<div class="chart-section">
+    <div class="chart-header">
+        <h3 class="chart-title">
+            <i class="fas fa-user-plus"></i>
+            Статистика пользователей
+        </h3>
+        <div class="chart-controls">
+            <button class="btn btn-blue" onclick="addUser()">
+                <i class="fas fa-plus"></i> Добавить пользователя
+            </button>
+            <button class="btn btn-green" onclick="exportUsers()">
+                <i class="fas fa-download"></i> Экспорт
+            </button>
+        </div>
+    </div>
+    
+    <div class="metrics-grid">
+        <div class="metric-card users" data-metric="total-users">
+            <i class="metric-icon fas fa-users"></i>
+            <div class="metric-content">
+                <div class="metric-number">1,247</div>
+                <div class="metric-label">Всего пользователей</div>
+                <div class="metric-details">
+                    <span class="active"><i class="fas fa-circle"></i> 892 активных</span>
+                    <span class="new"><i class="fas fa-plus"></i> 45 новых</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="metric-card" data-metric="online-users">
+            <i class="metric-icon fas fa-circle"></i>
+            <div class="metric-content">
+                <div class="metric-number">892</div>
+                <div class="metric-label">Онлайн сейчас</div>
+                <div class="metric-details">
+                    <span class="active"><i class="fas fa-check"></i> 71.5% от общего</span>
+                    <span class="new"><i class="fas fa-clock"></i> 15 мин назад</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="metric-card" data-metric="new-users">
+            <i class="metric-icon fas fa-user-plus"></i>
+            <div class="metric-content">
+                <div class="metric-number">45</div>
+                <div class="metric-label">Новых за неделю</div>
+                <div class="metric-details">
+                    <span class="active"><i class="fas fa-check"></i> 12 сегодня</span>
+                    <span class="new"><i class="fas fa-calendar"></i> 33 на неделе</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="metric-card" data-metric="blocked-users">
+            <i class="metric-icon fas fa-user-slash"></i>
+            <div class="metric-content">
+                <div class="metric-number">8</div>
+                <div class="metric-label">Заблокированных</div>
+                <div class="metric-details">
+                    <span class="blocked"><i class="fas fa-ban"></i> 5 временно</span>
+                    <span class="blocked"><i class="fas fa-times"></i> 3 навсегда</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-section">
+    <div class="chart-header">
+        <h3 class="chart-title">
+            <i class="fas fa-table"></i>
+            Список пользователей
+        </h3>
+        <div class="chart-controls">
+            <button class="btn btn-purple" onclick="filterUsers()">
+                <i class="fas fa-filter"></i> Фильтр
+            </button>
+            <button class="btn btn-blue" onclick="refreshUsers()">
+                <i class="fas fa-sync"></i> Обновить
+            </button>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <td><?php echo $item['listgr_text'] ?></td>
-                    <td class="hidden-xs" style="width: 120px; text-align: center;"><?php echo date("d.m", strtotime($item['listgr_date_add'])) ?>.<?php echo date("Y", strtotime($item['listgr_date_add'])) ?></td>
-                    <td style="width: 110px;">
-                        <form action="/admin/listgr/delete/<?php echo $item['listgr_id'] ?>">
-                            <button class="btn-danger my-btn" style="font-size: 14px; width: 100%; border: 0; padding: 5px;">Удалить</button>
-                        </form>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Статус</th>
+                    <th>Последний вход</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Иван Петров</td>
+                    <td>ivan@example.com</td>
+                    <td><span class="status-active">Активен</span></td>
+                    <td>2 минуты назад</td>
+                    <td>
+                        <button class="btn btn-blue" onclick="editUser(1)">Редактировать</button>
+                        <button class="btn btn-red" onclick="blockUser(1)">Заблокировать</button>
                     </td>
                 </tr>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php if($empty1 == (int)0): ?>
                 <tr>
-                    <td style="text-align: center;">На данный момент нет списков</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-        <p>На основе общего среднего образования: </p>
-        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; word-break: break-word; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
-            <tbody style="cursor: pointer;" class="style-table">
-                <?php foreach($listgr as $item): ?>
-                <?php if ($item['listgr_status'] == (int)2): ?>
-                <tr>
-                    <td><?php echo $item['listgr_text'] ?></td>
-                    <td class="hidden-xs" style="width: 120px; text-align: center;"><?php echo date("d.m", strtotime($item['listgr_date_add'])) ?>.<?php echo date("Y", strtotime($item['listgr_date_add'])) ?></td>
-                    <td style="width: 110px;">
-                        <form action="/admin/listgr/delete/<?php echo $item['listgr_id'] ?>">
-                            <button class="btn-danger my-btn" style="font-size: 14px; width: 100%; border: 0; padding: 5px;">Удалить</button>
-                        </form>
+                    <td>2</td>
+                    <td>Мария Сидорова</td>
+                    <td>maria@example.com</td>
+                    <td><span class="status-active">Активен</span></td>
+                    <td>5 минут назад</td>
+                    <td>
+                        <button class="btn btn-blue" onclick="editUser(2)">Редактировать</button>
+                        <button class="btn btn-red" onclick="blockUser(2)">Заблокировать</button>
                     </td>
                 </tr>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php if($empty2 == (int)0): ?>
                 <tr>
-                    <td style="text-align: center;">На данный момент нет списков</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-        <h3 class="c-font-blue">Заочное отделение:</h3>
-        <p>На основе общего среднего образования: </p>
-        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; word-break: break-word; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
-            <tbody style="cursor: pointer;" class="style-table">
-                <?php foreach($listgr as $item): ?>
-                <?php if ($item['listgr_status'] == (int)3): ?>
-                <tr>
-                    <td><?php echo $item['listgr_text'] ?></td>
-                    <td class="hidden-xs" style="width: 120px; text-align: center;"><?php echo date("d.m", strtotime($item['listgr_date_add'])) ?>.<?php echo date("Y", strtotime($item['listgr_date_add'])) ?></td>
-                    <td style="width: 110px;">
-                        <form action="/admin/listgr/delete/<?php echo $item['listgr_id'] ?>">
-                            <button class="btn-danger my-btn" style="font-size: 14px; width: 100%; border: 0; padding: 5px;">Удалить</button>
-                        </form>
+                    <td>3</td>
+                    <td>Алексей Козлов</td>
+                    <td>alex@example.com</td>
+                    <td><span class="status-blocked">Заблокирован</span></td>
+                    <td>1 час назад</td>
+                    <td>
+                        <button class="btn btn-blue" onclick="editUser(3)">Редактировать</button>
+                        <button class="btn btn-green" onclick="unblockUser(3)">Разблокировать</button>
                     </td>
                 </tr>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php if($empty3 == (int)0): ?>
-                <tr>
-                    <td style="text-align: center;">На данный момент нет списков</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-
-        <p>На основе профессионально-технического образования (ПТО):</p>
-        <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; word-break: break-word; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
-            <tbody style="cursor: pointer;" class="style-table">
-                <?php foreach($listgr as $item): ?>
-                <?php if ($item['listgr_status'] == (int)4): ?>
-                <tr>
-                    <td><?php echo $item['listgr_text'] ?></td>
-                    <td class="hidden-xs" style="width: 120px; text-align: center;"><?php echo date("d.m", strtotime($item['listgr_date_add'])) ?>.<?php echo date("Y", strtotime($item['listgr_date_add'])) ?></td>
-                    <td style="width: 110px;">
-                        <form action="/admin/listgr/delete/<?php echo $item['listgr_id'] ?>">
-                            <button class="btn-danger my-btn" style="font-size: 14px; width: 100%; border: 0; padding: 5px;">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php if($empty4 == (int)0): ?>
-                <tr>
-                    <td style="text-align: center;">На данный момент нет списков</td>
-                </tr>
-                <?php endif; ?>
             </tbody>
         </table>
     </div>
-    <hr>
-    <h2>Загрузка новых списков</h2>
-    <form id="uploadForm" method="POST">
-        <div class="upload-izm" style="margin-bottom: 10px; width: 100%;">
-            <label class="switch" style="float: left;">
-                <input type="checkbox" id="uploadsp1" name="uploadsp1" onchange="togglepos1()">
-                <span class="slider-sw"></span>
-            </label>
-            <label for="uploadsp1" style="display: block; float: left; margin-left: 15px; margin-bottom: 15px; font-weight: 100; font-size: 16px; cursor: pointer; user-select: none;">На основе общего базового образования (9 классов) - Дневная</label>
-            <div class="profile-pass">
-                <div class="form-group">
-                    <input name="uplfile1" type="file" id="uplfile1" style="word-break: break-word; width: 100%; font-size: 16px; text-align-last: center;" accept="application/pdf, application/msword, .docx, .xls, .xlsx" onchange="ValidateSingleInput(this);" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="upload-izm" style="margin-bottom: 10px; width: 100%;">
-            <label class="switch" style="float: left;">
-                <input type="checkbox" id="uploadsp2" name="uploadsp2" onchange="togglepos2()">
-                <span class="slider-sw"></span>
-            </label>
-            <label for="uploadsp2" style="display: block; float: left; margin-left: 15px; margin-bottom: 15px; font-weight: 100; font-size: 16px; cursor: pointer; user-select: none;">На основе общего среднего образования (11 классов) - Дневная</label>
-            <div class="profile-pass">
-                <div class="form-group">
-                    <input name="uplfile2" type="file" id="uplfile2" style="word-break: break-word; width: 100%; font-size: 16px; text-align-last: center;" accept="application/pdf, application/msword, .docx, .xls, .xlsx" onchange="ValidateSingleInput(this);" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="upload-izm" style="margin-bottom: 10px; width: 100%;">
-            <label class="switch" style="float: left;">
-                <input type="checkbox" id="uploadsp3" name="uploadsp3" onchange="togglepos3()">
-                <span class="slider-sw"></span>
-            </label>
-            <label for="uploadsp3" style="display: block; float: left; margin-left: 15px; margin-bottom: 15px; font-weight: 100; font-size: 16px; cursor: pointer; user-select: none;">На основе общего среднего образования (11 классов) - Заочная</label>
-            <div class="profile-pass">
-                <div class="form-group">
-                    <input name="uplfile3" type="file" id="uplfile3" style="word-break: break-word; width: 100%; font-size: 16px; text-align-last: center;" accept="application/pdf, application/msword, .docx, .xls, .xlsx" onchange="ValidateSingleInput(this);" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="upload-izm" style="margin-bottom: 10px; width: 100%;">
-            <label class="switch" style="float: left;">
-                <input type="checkbox" id="uploadsp4" name="uploadsp4" onchange="togglepos4()">
-                <span class="slider-sw"></span>
-            </label>
-            <label for="uploadsp4" style="display: block; float: left; margin-left: 15px; margin-bottom: 15px; font-weight: 100; font-size: 16px; cursor: pointer; user-select: none;">На основе профессионально-технического образования (ПТО) - Заочная</label>
-            <div class="profile-pass" style="width: 100%;">
-                <div class="form-group">
-                    <input name="uplfile4" type="file" id="uplfile4" style="word-break: break-word; width: 100%; font-size: 16px; text-align-last: center;" accept="application/pdf, application/msword, .docx, .xls, .xlsx" onchange="ValidateSingleInput(this);" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="save-all" id="but">
-            <button>Сохранить изменения</button>
-        </div>
-    </form>
 </div>
+';
+
+include __DIR__ . '/layouts/main.php';
+?>
+
+<style>
+.status-active {
+    color: #00ff88;
+    font-weight: 600;
+}
+
+.status-blocked {
+    color: #ff4444;
+    font-weight: 600;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th {
+    background: var(--bg-glass);
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-neon);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.admin-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+}
+
+.admin-table tr:hover {
+    background: var(--bg-glass-hover);
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+}
+</style>
+
 <script>
-    function togglepos1() {
-        var status = $('#uploadsp1').is(':checked');
-        if (status) {
-            $('#uplfile1').prop('disabled', false);
-        } else {
-            $('#uplfile1').prop('disabled', true);
+function addUser() {
+    if (typeof adminPanel !== "undefined") {
+        adminPanel.showModal("Добавить пользователя", `
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="user-name">Имя</label>
+                    <input type="text" id="user-name" placeholder="Введите имя">
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email</label>
+                    <input type="email" id="user-email" placeholder="Введите email">
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Роль</label>
+                    <select id="user-role">
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                        <option value="moderator">Модератор</option>
+                    </select>
+                </div>
+            </div>
+        `);
+    }
+}
+
+function editUser(id) {
+    if (typeof adminPanel !== "undefined") {
+        adminPanel.showModal("Редактировать пользователя", `
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="user-name">Имя</label>
+                    <input type="text" id="user-name" value="Пользователь ${id}">
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email</label>
+                    <input type="email" id="user-email" value="user${id}@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Роль</label>
+                    <select id="user-role">
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                        <option value="moderator">Модератор</option>
+                    </select>
+                </div>
+            </div>
+        `);
+    }
+}
+
+function blockUser(id) {
+    if (confirm("Вы уверены, что хотите заблокировать пользователя?")) {
+        if (typeof adminPanel !== "undefined") {
+            adminPanel.showNotification("Пользователь заблокирован", "success");
         }
     }
-    function togglepos2() {
-        var status = $('#uploadsp2').is(':checked');
-        if (status) {
-            $('#uplfile2').prop('disabled', false);
-        } else {
-            $('#uplfile2').prop('disabled', true);
+}
+
+function unblockUser(id) {
+    if (confirm("Вы уверены, что хотите разблокировать пользователя?")) {
+        if (typeof adminPanel !== "undefined") {
+            adminPanel.showNotification("Пользователь разблокирован", "success");
         }
     }
-    function togglepos3() {
-        var status = $('#uploadsp3').is(':checked');
-        if (status) {
-            $('#uplfile3').prop('disabled', false);
-        } else {
-            $('#uplfile3').prop('disabled', true);
-        }
+}
+
+function filterUsers() {
+    if (typeof adminPanel !== "undefined") {
+        adminPanel.showModal("Фильтр пользователей", `
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="filter-status">Статус</label>
+                    <select id="filter-status">
+                        <option value="all">Все</option>
+                        <option value="active">Активные</option>
+                        <option value="blocked">Заблокированные</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter-role">Роль</label>
+                    <select id="filter-role">
+                        <option value="all">Все роли</option>
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                        <option value="moderator">Модератор</option>
+                    </select>
+                </div>
+            </div>
+        `);
     }
-    function togglepos4() {
-        var status = $('#uploadsp4').is(':checked');
-        if (status) {
-            $('#uplfile4').prop('disabled', false);
-        } else {
-            $('#uplfile4').prop('disabled', true);
-        }
+}
+
+function exportUsers() {
+    if (typeof adminPanel !== "undefined") {
+        adminPanel.showNotification("Экспорт пользователей начат", "info");
     }
-    let hidebut = document.getElementById('but');
-    $('#uploadForm').ajaxForm({
-        url: '/admin/listgr/ajax',
-        dataType: 'json',
-        success: function(data) {
-            switch (data.status) {
-                case 'error':
-                    hidebut.setAttribute('style', 'display: block;');
-                    $('button[type=submit]').prop('disabled', false);
-                    $("#otvet").html("<div class='answer answer-danger'>" + data.error + "</div>");
-                    break;
-                case 'success':
-                    $("#otvet").html("<div class='answer answer-success'>" + data.success + "</div>");
-                    setTimeout("reload()", 1500);
-                    break;
-            }
-        },
-        beforeSubmit: function(arr, $form, options) {
-            hidebut.setAttribute('style', 'display: none;');
-            $('button[type=submit]').prop('disabled', true);
-        }
-    });
+}
+
+function refreshUsers() {
+    if (typeof adminPanel !== "undefined") {
+        adminPanel.showNotification("Список пользователей обновлен", "success");
+    }
+}
 </script>
-<?php echo $footer ?>

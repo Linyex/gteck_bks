@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Правила безопасного поведения</h2>
 <hr>
 <div class="spiski">

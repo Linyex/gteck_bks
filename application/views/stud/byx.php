@@ -1,4 +1,3 @@
-<?php echo $header ?> 
 <h2>Бухгалтерия</h2>
 <hr><br>
 <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; word-break: break-word; border: 0;" class="table table-striped table-advance table-hover">
@@ -56,4 +55,4 @@
           <p style="padding-left: 50px;">до 1 июня за период июль-декабрь</p>
     </div>
 </div>
-<?php echo $footer ?> 
+ 

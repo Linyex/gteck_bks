@@ -1,4 +1,3 @@
-<?php echo $header; ?>
 
 <div class="c-layout-page" style="color: #464646;">
     <div class="c-content-box c-size-md">
@@ -65,4 +64,3 @@
     </div>
 </div>
 
-<?php echo $footer; ?>

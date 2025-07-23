@@ -5,29 +5,59 @@
       <div class="col-lg-8">
         <div class="hero-slider">
           <div class="slider-item active">
-            <img src="/assets/media/priem.png" alt="Приемная кампания" class="slider-image">
-            <div class="slider-content">
-              <h2>Приемная кампания 2025</h2>
-              <p>Добро пожаловать в Гомельский торгово-экономический колледж Белкоопсоюза</p>
+            <div class="slider-div-image">
+              <div class="animated-background">
+                <div class="floating-elements">
+                  <div class="element">🎓</div>
+                  <div class="element">📚</div>
+                  <div class="element">⚡</div>
+                  <div class="element">💡</div>
+                </div>
+                <div class="gradient-overlay"></div>
+                <div class="content-overlay">
+                  <h2>Приемная кампания 2025</h2>
+                  <p>Добро пожаловать в Гомельский торгово-экономический колледж Белкоопсоюза</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="slider-item">
-            <img src="/assets/media/kolledj.jpg" alt="Колледж" class="slider-image">
-            <div class="slider-content">
-              <h2>Учреждение образования "Гомельский торгово-экономический колледж" Белкоопсоюза</h2>
+            <div class="slider-div-image">
+              <div class="animated-background">
+                <div class="floating-elements">
+                  <div class="element">🏛️</div>
+                  <div class="element">📖</div>
+                  <div class="element">🔬</div>
+                  <div class="element">🎯</div>
+                </div>
+                <div class="gradient-overlay"></div>
+                <div class="content-overlay">
+                  <h2>Учреждение образования "Гомельский торгово-экономический колледж" Белкоопсоюза</h2>
+                </div>
+              </div>
             </div>
           </div>
           <div class="slider-item">
-            <img src="/assets/media/img/slider/belka.jpg" alt="Специальности" class="slider-image">
-            <div class="slider-content">
-              <h2>Обучение по специальностям:</h2>
-              <ul>
-                <li>Правоведение</li>
-                <li>Торговая деятельность</li>
-                <li>Бух. учет, анализ и контроль</li>
-                <li>Планово-экономическая и аналитическая деятельность</li>
-                <li>Разработка и сопровождение программного обеспечения информационных систем</li>
-              </ul>
+            <div class="slider-div-image">
+              <div class="animated-background">
+                <div class="floating-elements">
+                  <div class="element">⚖️</div>
+                  <div class="element">s🛒</div>
+                  <div class="element">📊</div>
+                  <div class="element">💻</div>
+                </div>
+                <div class="gradient-overlay"></div>
+                <div class="content-overlay">
+                  <h2>Обучение по специальностям:</h2>
+                  <ul>
+                    <li>Правоведение</li>
+                    <li>Торговая деятельность</li>
+                    <li>Бух. учет, анализ и контроль</li>
+                    <li>Планово-экономическая и аналитическая деятельность</li>
+                    <li>Разработка и сопровождение программного обеспечения информационных систем</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

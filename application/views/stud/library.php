@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Библиотека</h2>
 <hr><br>
 <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
@@ -56,4 +55,3 @@
     <li>читая книги о профессионалах, сразу включайте профессиональное самосознание и представляйте себе, как бы поступил на месте изображаемого специалиста очень хороший специалист. То есть вы в будущем. </li>
     <li>книга всегда даст знание в системе. О профессионале в его труде год за годом. О карьере в развитии.</li>
 </ul>
-<?php echo $footer ?>

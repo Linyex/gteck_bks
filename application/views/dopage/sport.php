@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Наши спортивные достижения</h2>
 <hr>
 <div class="spiski">

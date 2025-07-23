@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 
 <style type="text/css">
     a{ 

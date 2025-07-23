@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Лучшие спортсмены</h2>
 <hr>
 <?php if($empty1 == (int)0): ?>
@@ -31,4 +31,3 @@
 </div>
 
 <?php endif; ?>
-<?php echo $footer ?>

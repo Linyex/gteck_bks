@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Секции</h2>
 <hr>
 <div style="text-align: center;">

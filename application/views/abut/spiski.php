@@ -1,4 +1,3 @@
-<?php echo $header ?>    
  <div>
     <h2>Списки зачисленных</h2>
     <hr>
@@ -33,4 +32,3 @@
         </ul>
     </div>
 </div>
-<?php echo $footer ?>

@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Наши достижения</h2><hr><br>
 <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0px;" class="tablica-spec achiv praktika-t table table-striped table-advance table-hover">
     <tbody class="style-table">
@@ -52,4 +51,3 @@
         </tr>
     </tbody>
 </table><br>
-<?php echo $footer ?>

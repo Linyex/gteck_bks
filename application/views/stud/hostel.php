@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Общежитие</h2>
 <hr>
 <span>
@@ -41,4 +40,3 @@
     </div>
     
 </span>
-<?php echo $footer ?>

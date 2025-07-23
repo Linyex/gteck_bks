@@ -1,4 +1,3 @@
-<?php echo $header ?> 
 <h2>Отделение дополнительного образования и повышения квалификации</h2>
 <hr>  
 <div style="text-align: center;">
@@ -54,4 +53,3 @@
         <li><a href="/assets/dopfiles/Карточка слушателя.doc" target="_blank" download>Учетная карточка слушателя</a></li>
     </ul>
 </div><br>
-<?php echo $footer ?>  

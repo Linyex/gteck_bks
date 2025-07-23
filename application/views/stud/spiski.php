@@ -1,4 +1,3 @@
-<?php echo $header ?> 
 <h2>Списки групп</h2>
 <hr>
 <span>
@@ -51,4 +50,3 @@
         </ul>
     </div>
 </span>  
-<?php echo $footer ?> 

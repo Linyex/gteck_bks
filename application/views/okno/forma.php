@@ -1,4 +1,3 @@
-<?php echo $header ?>    
 <h2>Формы документов</h2>
 <hr>
 <div class="spiski">
@@ -8,4 +7,3 @@
         <li><a href="/assets/dopfiles/Форма3.docx" download>Форма для выдачи дубликата выписки оценок к диплому об окончании</a></li>
     </ul>
 </div><br>
-<?php echo $footer ?>

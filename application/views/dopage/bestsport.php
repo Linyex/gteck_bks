@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Лучшие спортсмены колледжа</h2>
 <hr>
 <div style="display: table; width: 100%; text-align: center;">
@@ -306,4 +305,3 @@
         </div>
     </div>
 </div>
-<?php echo $footer ?>

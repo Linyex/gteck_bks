@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>График приема</h2>
 <hr>
 <div style="text-align: center;">

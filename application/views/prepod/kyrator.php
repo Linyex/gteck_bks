@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Куратору</h2>
 <hr>
 <p align="right"><em>"Воспитанием можно изменить мир,<br>
@@ -82,4 +81,3 @@
         <li><a href="/assets/dopfiles/Безопасное поведение2.rar" target="_blank" download>Памятка по безопасному поведению учащихся</a></li>
     </ul>
 </div><br>
-<?php echo $footer ?>

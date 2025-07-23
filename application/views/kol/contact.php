@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Контакты</h2>
 <hr>
 <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
@@ -65,4 +64,3 @@
 <p>246017, г. Гомель, ул. Привокзальная, 4<br><strong>E-mail:gtec@mail.gomel.by </strong><br><i> принимаются только почтовые сообщения, поступившие из доменов .by и .ru </i><br> <br>
     <iframe src="https://yandex.ru/map-widget/v1/?lang=ru_RU&scroll=true&um=constructor%3Ae798f6ea0a5ca5adbac9af965d38aaa441e0d38407f2c9948deae00a4ae05587" frameborder="0" allowfullscreen="true" width="auto" height="348px" style="display: table; width: 100%;"></iframe> 
 </p><br>
-<?php echo $footer ?>

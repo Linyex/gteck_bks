@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Платные услуги</h2>
 <hr>
 <div style="text-align: center;">
@@ -105,4 +104,3 @@
         </tr>
     </tbody>
 </table>
-<?php echo $footer ?>

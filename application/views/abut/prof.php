@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Кабинет профориентации</h2>
 <hr> 
 <div class="spiski">
@@ -11,4 +10,3 @@
         <li><a href="/assets/dopfiles/Товароведам.doc" download>Информация будущим товароведам</a></li>
         <li><a href="/assets/prezentacii/Разработка и сопровождение ПО.ppt" download>Презентация специальности "Разработка и сопровождение программного обеспечения информационных систем"</a></li>
 </div>
-<?php echo $footer ?>

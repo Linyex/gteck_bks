@@ -1,4 +1,3 @@
-<?php echo $header ?> 
 <h2>Заочная форма получения образования</h2>
 <hr>  
 <div style="text-align: center;">
@@ -138,4 +137,3 @@
 
     </ul>
 </div><br>
-<?php echo $footer ?>

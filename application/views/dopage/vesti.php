@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Вести колледжа</h2>
 <hr>
 <div class="spiski">

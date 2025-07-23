@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <div class="col-md-12" style="margin-bottom: 20px; padding: 0;">
     <h2>Часто задаваемые вопросы (FAQ) </h2>
     <hr>

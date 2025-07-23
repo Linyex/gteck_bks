@@ -1,4 +1,3 @@
-<?php echo $header ?> 
 <h2>Лучшие учащиеся</h2>
 <hr>
 <?php if($empty1 == (int)0): ?>
@@ -34,4 +33,4 @@
 
 
 
-<?php echo $footer ?> 
+ 

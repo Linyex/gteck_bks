@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>ОО "Белорусский республиканский союз молодежи"</h2>
 <hr>
 <div style="width: 100%; display: table;">

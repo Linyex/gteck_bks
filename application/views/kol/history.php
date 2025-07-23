@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>История колледжа</h2>
 <hr>
 </ul>
@@ -38,4 +37,3 @@
     <p>Квалификация:</p>
     <p><em>Юрист</em></p>
 </span>
-<?php echo $footer ?>

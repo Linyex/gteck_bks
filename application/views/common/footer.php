@@ -2,8 +2,8 @@
             </div>
             
             <!-- Banner Slider -->
-            <div class="banner-section" data-aos="fade-up">
-                <div class="container">
+            <div class="banner-section" data-aos="fade-up" style="background: var(--glass-bg); backdrop-filter: var(--glass-backdrop); border-radius: var(--radius-xl); margin: var(--space-8) 0; padding: var(--space-8); box-shadow: var(--shadow-soft); width: 100%; max-width: none;">
+                <div class="container-fluid">
                     <h3 class="section-title">Информационные баннеры</h3>
                     <div class="banner-slider">
                         <div class="banner-item active">
@@ -68,7 +68,7 @@
             </div>
 
             <!-- College Info -->
-            <div class="college-info" data-aos="fade-up">
+            <div class="college-info" data-aos="fade-up" style="background: var(--glass-bg); backdrop-filter: var(--glass-backdrop); border-radius: var(--radius-xl); margin: var(--space-8) 0; padding: var(--space-8); box-shadow: var(--shadow-soft);">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -84,68 +84,118 @@
             </div>
 
             <!-- Footer -->
-            <footer class="c-layout-footer" data-aos="fade-up">
+            <footer class="modern-footer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <h5><i class="fa fa-phone"></i> Контакты</h5>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-map-marker"></i> г. Гомель, ул. Привокзальная, 4</a></li>
-                                <li><a href="tel:80232337002"><i class="fa fa-phone"></i> тел. 8 (0232) 33-70-02</a></li>
-                                <li><a href="mailto:gtec@mail.gomel.by"><i class="fa fa-envelope"></i> gtec@mail.gomel.by</a></li>
-                                <li><a href="#"><i class="fa fa-info-circle"></i> принимаются сообщения из доменов .by и .ru</a></li>
-                            </ul>
-                            <div class="c-socials">
-                                <ul>
-                                    <li><a href="https://vk.com/id322365773" target="_blank"><i class="fa fa-vk"></i></a></li>
-                                    <li><a href="/dopage/vesti"><i class="fa fa-newspaper-o"></i></a></li>
-                                    <li><a href="tel:80232337002"><i class="fa fa-phone"></i></a></li>
-                                    <li><a href="https://www.youtube.com/channel/UC4gAJzPJcC9gkXnDDbKoUFw" target="_blank"><i class="fa fa-youtube"></i></a></li>
-                                </ul>
+                        <!-- Информация о колледже -->
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="footer-logo">
+                                <img src="/assets/media/logo.png" alt="ГТЭК" class="footer-logo-img">
+                                <h4 class="footer-heading">Гомельский торгово-экономический колледж</h4>
+                            </div>
+                            <p class="footer-text">
+                                Старейшее учебное заведение потребительской кооперации Республики Беларусь. 
+                                Свою историю колледж ведет с 1944 года.
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link">
+                                    <i class="fa fa-vk"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fa fa-telegram"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-4 text-center">
-                            <h5><i class="fa fa-info-circle"></i> О колледже</h5>
-                            <p>2024 &copy; ГТЭК<br>Зарегистрирован в Гос. регистре информационных ресурсов Беларуси 13.08.2013 г. ИР 5141303587.</p>
-                            <p class="mt-3">
-                                <strong>Вышестоящая организация:</strong><br>
-                                Белкоопсоюз, г. Минск, пр. Победителей, 17<br>
-                                Режим работы: с 8.30 до 17.30, обед с 12.30 до 13.30<br>
-                                Тел. 8 (017) 311-38-43
-                            </p>
-                        </div>
-                        <div class="col-md-4 mb-4 text-end">
-                            <h5><i class="fa fa-link"></i> Полезные ссылки</h5>
-                            <ul>
-                                <li><a href="http://president.gov.by/" target="_blank"><i class="fa fa-star"></i> Президент РБ</a></li>
-                                <li><a href="https://edu.gov.by/" target="_blank"><i class="fa fa-graduation-cap"></i> Минобразования</a></li>
-                                <li><a href="https://bks.gov.by/" target="_blank"><i class="fa fa-building"></i> Белкоопсоюз</a></li>
-                                <li><a href="https://arw.gov.by/" target="_blank"><i class="fa fa-map"></i> Администрация района</a></li>
+
+                        <!-- Абитуриентам -->
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <h4 class="footer-heading">Абитуриентам</h4>
+                            <ul class="footer-links">
+                                <li><a href="/abut">О колледже</a></li>
+                                <li><a href="/abut/spec">Специальности</a></li>
+                                <li><a href="/abut/vups">ВУПС</a></li>
+                                <li><a href="/abut/plan">План приема</a></li>
+                                <li><a href="/abut/prof">Профориентация</a></li>
+                                <li><a href="/abut/sroki">Сроки подачи</a></li>
                             </ul>
-                            <div class="mt-3">
-                                <p><strong>Горячая линия Минобразования:</strong><br>
-                                +375 17 222 43 12<br>
-                                <small>(работает только в период приёмной кампании)</small></p>
+                        </div>
+
+                        <!-- Студентам -->
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <h4 class="footer-heading">Студентам</h4>
+                            <ul class="footer-links">
+                                <li><a href="/stud">Студенческий раздел</a></li>
+                                <li><a href="/stud/kontrolnui">Контрольные работы</a></li>
+                                <li><a href="/stud/library">Библиотека</a></li>
+                                <li><a href="/stud/hostel">Общежитие</a></li>
+                                <li><a href="/stud/ymk">УМК</a></li>
+                                <li><a href="/stud/dnevnoe">Дневное отделение</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Контакты -->
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <h4 class="footer-heading">Контакты</h4>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="fa fa-map-marker"></i>
+                                    <span>246017, г. Гомель, ул. Привокзальная, 4</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fa fa-phone"></i>
+                                    <span>+375 232 33-70-02</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fa fa-phone"></i>
+                                    <span>Приемная комиссия: +375 232 20-22-14</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>gtec@mail.gomel.by</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fa fa-clock-o"></i>
+                                    <span>Пн-Сб: 9:00 - 18:00</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <span>Разработка и поддержка: <a href="mailto:gtec@mail.gomel.by">gtec@mail.gomel.by</a></span>
+
+                    <!-- Нижняя часть футера -->
+                    <div class="footer-bottom">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="copyright">
+                                    © 2025 Гомельский торгово-экономический колледж. Все права защищены.
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <div class="footer-bottom-links">
+                                    <a href="/okno">Одно окно</a>
+                                    <a href="/message">FAQ</a>
+                                    <a href="/search">Поиск</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </footer>
 
-            <!-- JS Scripts -->
+            <!-- Оптимизированные JS Scripts -->
+            <script src="/assets/js/optimized.js?v=<?php echo time(); ?>"></script>
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/jquery-migrate.min.js"></script>
-            <script src="/assets/js/fancybox.umd.js"></script>
             <script src="/assets/js/bootstrap.js"></script>
-            <script src="/assets/js/jquery.back-to-top.js"></script>
             <script src="/assets/js/gtec.js"></script>
-            <script src="/assets/js/chief-slider/chief-slider.js"></script>
-            <script src="/assets/js/slick.js"></script>
+            <script src="/assets/js/header.js"></script>
+            <script src="/assets/js/main-page.js"></script>
+            <script src="/assets/js/background-animations.js"></script>
             
             <script type="text/javascript">
                 $(document).ready(function() {

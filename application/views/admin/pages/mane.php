@@ -1,38 +1,25 @@
-<?php echo $header ?>
-<h2>Редактирование страниц</h2>
-<hr>
-<p>Выберите раздел, для редактирования статических страниц страниц</p>
-<table border="1" cellpadding="0" cellspacing="0" style="width: 100%; border: 0; height: auto;" class="tablica-spec table table-striped table-advance table-hover">
-    <tbody class="style-table">
-        <tr style="text-align: center;">
-            <td>Наименование раздела</td>
-            <td>Количество страниц</td>
-        </tr>
-        <tr>
-            <td><div class="news-about"><a href="/admin/pages/abut" style="float: none;">Абитуриенту</a></div></td>
-            <td style="text-align: center;"><?php echo $count1; ?></td>
-        </tr>
-        <tr>
-            <td><div class="news-about"><a href="/admin/pages/stud" style="float: none;">Учащемуся</a></div></td>
-            <td style="text-align: center;"><?php echo $count2; ?></td>
-        </tr>
-        <tr>
-            <td><div class="news-about"><a href="/admin/pages/prepod" style="float: none;">Преподавателю</a></div></td>
-            <td style="text-align: center;"><?php echo $count3; ?></td>
-        </tr>
-        <tr>
-            <td><div class="news-about"><a href="/admin/pages/kol" style="float: none;">О колледже</a></div></td>
-            <td style="text-align: center;"><?php echo $count4; ?></td>
-        </tr>
-        <tr>
-            <td><div class="news-about"><a href="/admin/pages/okno" style="float: none;">Одно окно</a></div></td>
-            <td style="text-align: center;"><?php echo $count5; ?></td>
-        </tr>
-        <tr >
-            <td><div class="news-about"><a href="/admin/pages/dopage" style="float: none;">Дополнительные страницы</a></div></td>
-            <td style="text-align: center;"><?php echo $count6; ?></td>
-        </tr>
-    </tbody>
-</table>
+<?php
+$page_title = "Управление страницами";
+$page_subtitle = "Pages Management";
+$current_page = "pages";
+$page_content = '
+<div class="main-header">
+    <h1><i class="fas fa-file-alt"></i> Управление страницами</h1>
+    <p>Добро пожаловать в раздел Управление страницами</p>
+</div>
 
-<?php echo $footer ?>
+<div class="chart-section">
+    <div class="chart-header">
+        <h3 class="chart-title">
+            <i class="fas fa-info-circle"></i>
+            Информация
+        </h3>
+    </div>
+    <div style="padding: 20px; color: var(--text-secondary);">
+        <p>Этот раздел находится в разработке. Скоро здесь появится функциональность для управления Управление страницами.</p>
+    </div>
+</div>
+';
+
+include 'layouts/main.php';
+?>

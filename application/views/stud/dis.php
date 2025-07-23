@@ -1,8 +1,6 @@
-<?php echo $header ?>
 <style>
     a{ 
         margin: auto;
-        text-decoration: none;
     }
     a:hover{
         text-decoration: underline;
@@ -66,4 +64,3 @@
     <a href="/assets/files/dis/Профилактика экстремизма.docx" class="aelect">Профилактика экстремизма</a>
         </div>
 </span>
-<?php echo $footer ?> 

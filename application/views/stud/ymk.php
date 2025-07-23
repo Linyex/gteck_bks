@@ -1,6 +1,3 @@
-<?php echo $header;
-require_once ("engine/main/passymk.php");
-?> 
 
 <style>
     .panel1,.panel2,.panel3,.panelt101,.panelt111,.panele101,.panely101{
@@ -386,4 +383,3 @@ require_once ("engine/main/passymk.php");
 
 
 
-<?php echo $footer ?>

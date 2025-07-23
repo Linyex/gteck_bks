@@ -1,4 +1,3 @@
-<?php echo $header ?>    
 <h2>Видео</h2>
 <hr>
 <div class="spiski">
@@ -10,4 +9,3 @@
         <li><a href="" target="_blank" download>Видеоролик об образовании</a></li>
     </ul>
 </div><br>
-<?php echo $footer ?>

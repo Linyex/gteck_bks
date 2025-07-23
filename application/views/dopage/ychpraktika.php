@@ -1,4 +1,4 @@
-<?php echo $header ?>
+
 <h2>Учебные практики</h2>
 <hr>
 <div style="width: 100%; display: table;">

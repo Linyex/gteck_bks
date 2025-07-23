@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <h2>Административные процедуры</h2>
 <hr><br>
 <div style="text-align: center;">
@@ -177,4 +176,3 @@
     <p class="c-font-19"><b class="c-font-red-3">Примечание:</b><br>ССО - среднее специальное образование<br>ПТО - профессионально-техническое образование</p>
 </span>
 
-<?php echo $footer ?>

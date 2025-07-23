@@ -1,4 +1,3 @@
-<?php echo $header/* @var $groups array */ /* @var $files array */ /* @var $success_message string */ /* @var $error_message string */ ?>
 
 <h1><?php echo $title; ?></h1>
 
@@ -281,4 +280,3 @@
     }
 }
 </style> 
-<?php echo $footer ?> 
