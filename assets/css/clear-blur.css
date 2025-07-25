@@ -1,0 +1,86 @@
+/* Принудительное удаление всех эффектов размытия на страницах отделений */
+
+/* Убираем все text-shadow эффекты с заголовков */
+.stud-hero .hero-title,
+.zaoch-hero .hero-title,
+.abut-hero .hero-title,
+.news-hero .hero-title,
+.kol-hero .hero-title,
+.search-hero .hero-title,
+.spec-hero .hero-title,
+.error-hero .hero-title,
+.kontrol-hero .hero-title,
+.ymk-hero .hero-title {
+    text-shadow: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* Убираем все backdrop-filter эффекты с псевдоэлементов */
+.stud-hero::before,
+.zaoch-hero::before,
+.abut-hero::before,
+.news-hero::before,
+.kol-hero::before,
+.search-hero::before,
+.spec-hero::before,
+.error-hero::before,
+.kontrol-hero::before,
+.ymk-hero::before {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* Убираем размытие с контейнеров */
+.stud-hero,
+.zaoch-hero,
+.abut-hero,
+.news-hero,
+.kol-hero,
+.search-hero,
+.spec-hero,
+.error-hero,
+.kontrol-hero,
+.ymk-hero {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* Убираем размытие с content */
+.stud-hero .hero-content,
+.zaoch-hero .hero-content,
+.abut-hero .hero-content,
+.news-hero .hero-content,
+.kol-hero .hero-content,
+.search-hero .hero-content,
+.spec-hero .hero-content,
+.error-hero .hero-content,
+.kontrol-hero .hero-content,
+.ymk-hero .hero-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+}
+
+/* Принудительно делаем текст четким */
+.stud-hero *,
+.zaoch-hero *,
+.abut-hero *,
+.news-hero *,
+.kol-hero *,
+.search-hero *,
+.spec-hero *,
+.error-hero *,
+.kontrol-hero *,
+.ymk-hero * {
+    text-shadow: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+} 
