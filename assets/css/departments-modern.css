@@ -18,8 +18,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
 }
 
 .zaoch-hero {
@@ -35,14 +35,14 @@
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: white;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    color: #1F2937;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
     margin-bottom: 2rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: #6B7280;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;

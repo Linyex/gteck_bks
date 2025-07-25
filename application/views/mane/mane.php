@@ -6,7 +6,7 @@
         <div class="hero-slider">
           <div class="slider-item active">
             <div class="slider-div-image">
-              <div class="animated-background">
+              <div class="hero-background">
                 <div class="floating-elements">
                   <div class="element">🎓</div>
                   <div class="element">📚</div>
@@ -23,7 +23,7 @@
           </div>
           <div class="slider-item">
             <div class="slider-div-image">
-              <div class="animated-background">
+              <div class="hero-background">
                 <div class="floating-elements">
                   <div class="element">🏛️</div>
                   <div class="element">📖</div>
@@ -39,7 +39,7 @@
           </div>
           <div class="slider-item">
             <div class="slider-div-image">
-              <div class="animated-background">
+              <div class="hero-background">
                 <div class="floating-elements">
                   <div class="element">⚖️</div>
                   <div class="element">🛒</div>
