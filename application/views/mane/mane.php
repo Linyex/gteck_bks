@@ -42,7 +42,7 @@
               <div class="animated-background">
                 <div class="floating-elements">
                   <div class="element">⚖️</div>
-                  <div class="element">s🛒</div>
+                  <div class="element">🛒</div>
                   <div class="element">📊</div>
                   <div class="element">💻</div>
                 </div>
@@ -75,7 +75,6 @@
             </form>
             <div class="search-results" id="searchResults"></div>
           </div>
-
           <!-- Quick Info -->
           <div class="quick-info" data-aos="fade-left" data-aos-delay="100">
             <h4><i class="fa fa-info-circle"></i> Дополнительная информация</h4>

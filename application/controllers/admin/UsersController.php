@@ -588,7 +588,7 @@ class UsersController extends BaseAdminController {
             $stats['failed_logins_24h'] = $failedLogins['count'] ?? 0;
             
             // Количество активных сессий
-            $activeSessions = Database::fetchOne("SELECT COUNT(*) as count FROM user_sessions WHERE logout_time IS NULL");
+            $activeSessions = Database::fetchOne("SELECT COUNT(*) as count FROM user_sessions WHERE is_active = 1");
             $stats['active_sessions'] = $activeSessions['count'] ?? 0;
             
             return $stats;

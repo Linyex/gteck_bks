@@ -1,11 +1,12 @@
 <?php
-require_once ENGINE_DIR . 'BaseController.php';
+require_once __DIR__ . '/../../../engine/BaseController.php';
 
 class BaseAdminController extends BaseController {
     
     protected $adminUser = null;
     
     public function __construct() {
+        parent::__construct();
         $this->checkAuth();
         $this->loadAdminUser();
         $this->logActivity();
@@ -13,8 +14,13 @@ class BaseAdminController extends BaseController {
     
     protected function checkAuth() {
         if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-            header('Location: /admin/login');
-            exit;
+            if (!headers_sent()) {
+                header('Location: /admin/login');
+                exit;
+            } else {
+                echo '<script>window.location.href = "/admin/login";</script>';
+                exit;
+            }
         }
     }
     

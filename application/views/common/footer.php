@@ -90,7 +90,6 @@
                         <!-- Информация о колледже -->
                         <div class="col-lg-3 col-md-6 mb-4">
                             <div class="footer-logo">
-                                <img src="/assets/media/logo.png" alt="ГТЭК" class="footer-logo-img">
                                 <h4 class="footer-heading">Гомельский торгово-экономический колледж</h4>
                             </div>
                             <p class="footer-text">
@@ -188,14 +187,11 @@
             </footer>
 
             <!-- Оптимизированные JS Scripts -->
-            <script src="/assets/js/optimized.js?v=<?php echo time(); ?>"></script>
             <script src="/assets/js/jquery.min.js"></script>
-            <script src="/assets/js/jquery-migrate.min.js"></script>
-            <script src="/assets/js/bootstrap.js"></script>
             <script src="/assets/js/gtec.js"></script>
-            <script src="/assets/js/header.js"></script>
-            <script src="/assets/js/main-page.js"></script>
+            <script src="/assets/js/optimized.js?v=<?php echo time(); ?>"></script>
             <script src="/assets/js/background-animations.js"></script>
+            <script src="/assets/js/main-page.js"></script>
             
             <script type="text/javascript">
                 $(document).ready(function() {

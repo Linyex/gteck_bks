@@ -298,6 +298,61 @@
                     </div>
                 </div>
 
+                <!-- Мониторинг системы -->
+                <div class="nav-item has-submenu">
+                    <a href="/admin/monitoring" class="nav-link <?php echo isset($currentPage) && $currentPage === 'monitoring' ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-shield-alt"></i>
+                        <span>Мониторинг</span>
+                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/monitoring" class="submenu-item">
+                            <i class="fas fa-tachometer-alt"></i> Главная панель
+                        </a>
+                        <a href="/admin/monitoring/logs" class="submenu-item">
+                            <i class="fas fa-file-alt"></i> Логи системы
+                        </a>
+                        <a href="/admin/monitoring/threats" class="submenu-item">
+                            <i class="fas fa-exclamation-triangle"></i> Угрозы безопасности
+                        </a>
+                        <a href="/admin/monitoring/reports" class="submenu-item">
+                            <i class="fas fa-chart-line"></i> Отчеты безопасности
+                        </a>
+                        <a href="/admin/monitoring/settings" class="submenu-item">
+                            <i class="fas fa-cog"></i> Настройки мониторинга
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Безопасность -->
+                <div class="nav-item has-submenu">
+                    <a href="/admin/security" class="nav-link <?php echo isset($currentPage) && $currentPage === 'security' ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-lock"></i>
+                        <span>Безопасность</span>
+                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/security" class="submenu-item">
+                            <i class="fas fa-shield-alt"></i> Обзор безопасности
+                        </a>
+                        <a href="/admin/security/audit" class="submenu-item">
+                            <i class="fas fa-search"></i> Аудит безопасности
+                        </a>
+                        <a href="/admin/security/blocked-ips" class="submenu-item">
+                            <i class="fas fa-ban"></i> Заблокированные IP
+                        </a>
+                        <a href="/admin/security/suspicious-activity" class="submenu-item">
+                            <i class="fas fa-eye"></i> Подозрительная активность
+                        </a>
+                        <a href="/admin/security/2fa" class="submenu-item">
+                            <i class="fas fa-mobile-alt"></i> 2FA управление
+                        </a>
+                        <a href="/admin/security/settings" class="submenu-item">
+                            <i class="fas fa-cog"></i> Настройки безопасности
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Уведомления -->
                 <div class="nav-item has-submenu">
                     <a href="/admin/notifications" class="nav-link <?php echo isset($currentPage) && $currentPage === 'notifications' ? 'active' : ''; ?>">

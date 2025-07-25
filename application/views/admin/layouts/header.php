@@ -30,6 +30,34 @@ $userAccessLevel = $_SESSION['user_access_level'] ?? 0;
         </div>
         
         <div class="header-right">
+            <!-- Статус безопасности -->
+            <div class="header-item security-status">
+                <button class="header-btn security-btn" onclick="toggleSecurityStatus()">
+                    <i class="fas fa-shield-alt"></i>
+                    <span class="security-badge success">Безопасно</span>
+                </button>
+                <div class="dropdown-menu security-menu">
+                    <div class="dropdown-header">
+                        <h4>Статус безопасности</h4>
+                        <a href="/admin/monitoring">Подробнее</a>
+                    </div>
+                    <div class="security-stats">
+                        <div class="security-stat">
+                            <i class="fas fa-shield-alt text-success"></i>
+                            <span>Система защищена</span>
+                        </div>
+                        <div class="security-stat">
+                            <i class="fas fa-eye text-info"></i>
+                            <span>0 активных угроз</span>
+                        </div>
+                        <div class="security-stat">
+                            <i class="fas fa-ban text-warning"></i>
+                            <span>127 заблокированных IP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Уведомления -->
             <div class="header-item notifications">
                 <button class="header-btn" onclick="toggleNotifications()">

@@ -159,20 +159,54 @@ echo $header;
                                 <?php if (!empty($important_news)): ?>
                                     <?php foreach ($important_news as $index => $news_item): ?>
                                         <div class="news-slide <?php echo $index === 0 ? 'active' : ''; ?>">
-                                            <div class="news-card">
-                                                <div class="news-image">
-                                                    <img src="<?php echo !empty($news_item['news_image']) ? '/uploads/news/' . $news_item['news_image'] : '/assets/media/news/default.jpg'; ?>" 
-                                                         alt="<?php echo htmlspecialchars($news_item['news_title']); ?>" 
-                                                         loading="lazy"
-                                                         onerror="this.src='/assets/media/news/default.jpg'">
+                                                                            <div class="news-card">
+                                    <div class="news-image">
+                                        <?php if (!empty($news_item['news_image'])): ?>
+                                            <img src="/uploads/news/<?php echo $news_item['news_image']; ?>" 
+                                                 alt="<?php echo htmlspecialchars($news_item['news_title']); ?>" 
+                                                 loading="lazy"
+                                                 onerror="this.src='/assets/media/news/default.jpg'">
+                                        <?php else: ?>
+                                            <!-- Анимация газеток для карточек без изображений -->
+                                            <div class="newspaper-animation">
+                                                <div class="newspaper-sheet" style="--delay: 0s; --direction: 1;">
+                                                    <div class="newspaper-content">
+                                                        <div class="newspaper-text">📰</div>
+                                                        <div class="newspaper-text">📄</div>
+                                                        <div class="newspaper-text">📋</div>
+                                                    </div>
                                                 </div>
-                                                <div class="news-content">
-                                                    <div class="news-date"><?php echo date('d.m.Y', strtotime($news_item['news_date_add'])); ?></div>
-                                                    <h3><?php echo htmlspecialchars($news_item['news_title']); ?></h3>
-                                                    <p><?php echo htmlspecialchars(mb_substr($news_item['news_text'], 0, 150)) . (mb_strlen($news_item['news_text']) > 150 ? '...' : ''); ?></p>
-                                                    <a href="/news/view/<?php echo $news_item['news_id']; ?>" class="news-link">Читать далее <i class="fa fa-arrow-right"></i></a>
+                                                <div class="newspaper-sheet" style="--delay: 2s; --direction: -1;">
+                                                    <div class="newspaper-content">
+                                                        <div class="newspaper-text">📰</div>
+                                                        <div class="newspaper-text">📄</div>
+                                                        <div class="newspaper-text">📋</div>
+                                                    </div>
+                                                </div>
+                                                <div class="newspaper-sheet" style="--delay: 4s; --direction: 1;">
+                                                    <div class="newspaper-content">
+                                                        <div class="newspaper-text">📰</div>
+                                                        <div class="newspaper-text">📄</div>
+                                                        <div class="newspaper-text">📋</div>
+                                                    </div>
+                                                </div>
+                                                <div class="newspaper-sheet" style="--delay: 6s; --direction: -1;">
+                                                    <div class="newspaper-content">
+                                                        <div class="newspaper-text">📰</div>
+                                                        <div class="newspaper-text">📄</div>
+                                                        <div class="newspaper-text">📋</div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="news-content">
+                                        <div class="news-date"><?php echo date('d.m.Y', strtotime($news_item['news_date_add'])); ?></div>
+                                        <h3><?php echo htmlspecialchars($news_item['news_title']); ?></h3>
+                                        <p><?php echo htmlspecialchars(mb_substr($news_item['news_text'], 0, 150)) . (mb_strlen($news_item['news_text']) > 150 ? '...' : ''); ?></p>
+                                        <a href="/news/view/<?php echo $news_item['news_id']; ?>" class="news-link">Читать далее <i class="fa fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
                                         </div>
                                     <?php endforeach; ?>
                                 <?php else: ?>
@@ -180,7 +214,37 @@ echo $header;
                                     <div class="news-slide active">
                                         <div class="news-card">
                                             <div class="news-image">
-                                                <img src="/assets/media/news/default.jpg" alt="Нет новостей">
+                                                <!-- Анимация газеток для заглушки -->
+                                                <div class="newspaper-animation">
+                                                    <div class="newspaper-sheet" style="--delay: 0s; --direction: 1;">
+                                                        <div class="newspaper-content">
+                                                            <div class="newspaper-text">📰</div>
+                                                            <div class="newspaper-text">📄</div>
+                                                            <div class="newspaper-text">📋</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="newspaper-sheet" style="--delay: 2s; --direction: -1;">
+                                                        <div class="newspaper-content">
+                                                            <div class="newspaper-text">📰</div>
+                                                            <div class="newspaper-text">📄</div>
+                                                            <div class="newspaper-text">📋</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="newspaper-sheet" style="--delay: 4s; --direction: 1;">
+                                                        <div class="newspaper-content">
+                                                            <div class="newspaper-text">📰</div>
+                                                            <div class="newspaper-text">📄</div>
+                                                            <div class="newspaper-text">📋</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="newspaper-sheet" style="--delay: 6s; --direction: -1;">
+                                                        <div class="newspaper-content">
+                                                            <div class="newspaper-text">📰</div>
+                                                            <div class="newspaper-text">📄</div>
+                                                            <div class="newspaper-text">📋</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="news-content">
                                                 <div class="news-date"><?php echo date('d.m.Y'); ?></div>
@@ -223,10 +287,34 @@ echo $header;
                             <?php foreach ($regular_news as $news_item): ?>
                                 <div class="news-item">
                                     <div class="news-item-image">
-                                        <img src="<?php echo !empty($news_item['news_image']) ? '/uploads/news/' . $news_item['news_image'] : '/assets/media/news/default.jpg'; ?>" 
-                                             alt="<?php echo htmlspecialchars($news_item['news_title']); ?>" 
-                                             loading="lazy"
-                                             onerror="this.src='/assets/media/news/default.jpg'">
+                                        <?php if (!empty($news_item['news_image'])): ?>
+                                            <img src="/uploads/news/<?php echo $news_item['news_image']; ?>" 
+                                                 alt="<?php echo htmlspecialchars($news_item['news_title']); ?>" 
+                                                 loading="lazy"
+                                                 onerror="this.src='/assets/media/news/default.jpg'">
+                                        <?php else: ?>
+                                            <!-- Анимация газеток для карточек без изображений -->
+                                            <div class="newspaper-animation-small">
+                                                <div class="newspaper-sheet-small" style="--delay: 0s; --direction: 1;">
+                                                    <div class="newspaper-content-small">
+                                                        <div class="newspaper-text-small">📰</div>
+                                                        <div class="newspaper-text-small">📄</div>
+                                                    </div>
+                                                </div>
+                                                <div class="newspaper-sheet-small" style="--delay: 3s; --direction: -1;">
+                                                    <div class="newspaper-content-small">
+                                                        <div class="newspaper-text-small">📰</div>
+                                                        <div class="newspaper-text-small">📄</div>
+                                                    </div>
+                                                </div>
+                                                <div class="newspaper-sheet-small" style="--delay: 6s; --direction: 1;">
+                                                    <div class="newspaper-content-small">
+                                                        <div class="newspaper-text-small">📰</div>
+                                                        <div class="newspaper-text-small">📄</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="news-item-content">
                                         <div class="news-item-date"><?php echo date('d.m.Y', strtotime($news_item['news_date_add'])); ?></div>
@@ -240,7 +328,27 @@ echo $header;
                             <!-- Заглушка если нет обычных новостей -->
                             <div class="news-item">
                                 <div class="news-item-image">
-                                    <img src="/assets/media/news/default.jpg" alt="Нет новостей">
+                                    <!-- Анимация газеток для заглушки -->
+                                    <div class="newspaper-animation-small">
+                                        <div class="newspaper-sheet-small" style="--delay: 0s; --direction: 1;">
+                                            <div class="newspaper-content-small">
+                                                <div class="newspaper-text-small">📰</div>
+                                                <div class="newspaper-text-small">📄</div>
+                                            </div>
+                                        </div>
+                                        <div class="newspaper-sheet-small" style="--delay: 3s; --direction: -1;">
+                                            <div class="newspaper-content-small">
+                                                <div class="newspaper-text-small">📰</div>
+                                                <div class="newspaper-text-small">📄</div>
+                                            </div>
+                                        </div>
+                                        <div class="newspaper-sheet-small" style="--delay: 6s; --direction: 1;">
+                                            <div class="newspaper-content-small">
+                                                <div class="newspaper-text-small">📰</div>
+                                                <div class="newspaper-text-small">📄</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="news-item-content">
                                     <div class="news-item-date"><?php echo date('d.m.Y'); ?></div>
