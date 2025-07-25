@@ -9,7 +9,7 @@
     <meta content="gtec-bks.by" name="url" />
     <link rel="stylesheet" href="/assets/css/timesnewroman/timesnewromanpsmt.ttf" type="text/css">
     <link href="/assets/css/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap-replacement.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/lampa.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/gtec.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN THEME STYLES -->

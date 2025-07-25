@@ -13,31 +13,31 @@
     <link rel="preload" href="/assets/font-manrope/Manrope-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
     
     <!-- Критические стили -->
-    <link href="/assets/css/optimized.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/optimized.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
     <!-- Bootstrap replacement - минимальные стили без конфликтов -->
-    <link href="/assets/css/bootstrap-replacement.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap-replacement.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
     <!-- Остальные стили БЕЗ Bootstrap -->
-    <link href="/assets/css/font-awesome/css/font-awesome.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/main-styles.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/footer.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/main-page.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/banners-soft.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/font-awesome/css/font-awesome.css?v=1.2.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/main-styles.css?v=1.2.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/footer.css?v=1.2.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/main-page.css?v=1.2.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/banners-soft.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
     <!-- Header CSS загружается последним для максимального приоритета -->
-    <link href="/assets/css/header.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/header.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
     <!-- Modern Departments CSS -->
-    <link href="/assets/css/departments-modern.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/departments-modern.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.png" />
     
     <!-- Оптимизированные скрипты -->
-    <script src="/assets/js/jquery.min.js?v=<?php echo time(); ?>"></script>
+    <script src="/assets/js/jquery.min.js?v=1.2.0"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="/assets/js/modern-components.js?v=<?php echo time(); ?>"></script>
+    <script src="/assets/js/modern-components.js?v=1.2.0"></script>
 </head>
 <body>
     
@@ -187,4 +187,4 @@
         </div>
 
     <!-- Подключение JavaScript для header -->
-    <script src="/assets/js/header.js?v=<?php echo time(); ?>"></script>
+    <script src="/assets/js/header.js?v=1.2.0"></script>

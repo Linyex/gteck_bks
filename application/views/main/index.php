@@ -514,7 +514,7 @@ echo $header;
 
 
 <!-- Подключение JavaScript -->
-<script src="/assets/js/main-page.js?v=<?php echo time(); ?>"></script>
+<script src="/assets/js/main-page.js?v=1.2.0"></script>
 
 <?php 
 // Проверяем, определена ли переменная $footer

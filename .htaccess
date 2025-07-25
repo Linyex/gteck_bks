@@ -4,16 +4,48 @@ AddDefaultCharset utf-8
 # Запрет листинга директории
 Options -Indexes
 
-# Заголовки для изображений
-<FilesMatch "\.(jpg|jpeg|png|gif|webp|bmp)$">
-    Header set Cache-Control "public, max-age=31536000"
+# ==== GZIP СЖАТИЕ ====
+<IfModule mod_deflate.c>
+    # Включаем сжатие для текстовых файлов
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/font-woff
+    AddOutputFilterByType DEFLATE application/font-woff2
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ==== КЕШИРОВАНИЕ ====
+# Заголовки для изображений - 1 год
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|bmp|ico|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
     Header set Access-Control-Allow-Origin "*"
 </FilesMatch>
 
-# Заголовки для CSS и JS файлов
-<FilesMatch "\.(css|js)$">
-    Header set Cache-Control "public, max-age=86400"
+# Заголовки для шрифтов - 1 год  
+<FilesMatch "\.(ttf|woff|woff2|eot|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
     Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Заголовки для CSS и JS файлов - 7 дней (увеличено)
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Заголовки для HTML файлов - без кеширования
+<FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
 </FilesMatch>
 
 RewriteEngine on 

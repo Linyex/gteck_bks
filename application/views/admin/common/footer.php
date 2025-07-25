@@ -108,9 +108,9 @@
     <!-- BEGIN: JS SCRIPTS -->
     <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
     <script src="/assets/js/fancybox.umd.js" type="text/javascript"></script>
-    <script src="/assets/js/bootstrap.js" type="text/javascript"></script>
     <script src="/assets/js/jquery.back-to-top.js" type="text/javascript"></script>
     <script src="/assets/js/gtec.js" type="text/javascript"></script>
+    <script src="/assets/js/admin-common.js" type="text/javascript"></script>
 </body>
 
 </html>
