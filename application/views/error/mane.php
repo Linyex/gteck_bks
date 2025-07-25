@@ -1,48 +1,27 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title; ?></title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f5f5f5;
-        }
-        .error-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .error-code {
-            font-size: 72px;
-            color: #e74c3c;
-            margin-bottom: 20px;
-        }
-        .error-message {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .back-link {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="error-container">
-        <div class="error-code">404</div>
-        <div class="error-message"><?php echo $message; ?></div>
-        <a href="/" class="back-link">Вернуться на главную</a>
+<div style="display: table; width: 100%;">
+    <h2>Ошибка</h2>
+    <hr>
+    <div style="display: table; width: 100%; text-align: center;">
+        <h1 style="text-transform: uppercase;font-size: 24px;font-weight: 900;color: #e74c3c;"><?php echo isset($errorCode) ? "Ошибка " . $errorCode : "Ошибка 404"; ?></h1>
+        
+        <div style="margin: 40px 0;">
+            <div style="font-size: 72px; color: #e74c3c; margin-bottom: 20px;">
+                <?php echo isset($errorCode) ? $errorCode : "404"; ?>
+            </div>
+            <div style="font-size: 18px; color: #666; max-width: 500px; margin: 0 auto;">
+                <?php echo isset($message) ? $message : "Возможно вы нажали на неверную ссылку или ввели неверный URL-адрес."; ?>
+            </div>
+        </div>
+        
+        <div class="news-about" style="text-align: center; margin-bottom: 20px;">
+            <a href="/" style="float: none; font-size: 20px; color: #8B5CF6; text-decoration: none; padding: 12px 24px; border: 2px solid #8B5CF6; border-radius: 25px; transition: all 0.3s;">Вернуться на главную страницу</a>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<style>
+.news-about a:hover {
+    background: #8B5CF6;
+    color: white;
+}
+</style>

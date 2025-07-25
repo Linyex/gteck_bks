@@ -6,6 +6,46 @@
     .panel{
         display: none;
     }
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 9999;
+        display: none;
+    }
+    .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .inpass {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 10px;
+        width: 200px;
+    }
+    .btnpass {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #007bff;
+        color: white;
+    }
+    .btnpass:hover {
+        background: #0056b3;
+    }
 </style>
 
 <form onsubmit="return PassCheck(document)" method="post" id="pop">
@@ -379,6 +419,82 @@
 <script type="text/javascript">
         var delay_popup = 0;
         setTimeout("document.getElementById('overlay').style.display='block'", delay_popup);
+
+function PassCheck(form) {
+    var password = form.inpass.value;
+    
+    // Проверяем пароли для разных групп
+    if(password == "111") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel1").style.display = "inline";
+        document.getElementById("panelt111").style.display = "inline";
+        return false;
+    }
+    else if(password == "101") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel1").style.display = "inline";
+        document.getElementById("panelt101").style.display = "inline";
+        return false;
+    }
+    else if(password == "э101") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel1").style.display = "inline";
+        document.getElementById("panele101").style.display = "inline";
+        return false;
+    }
+    else if(password == "ю101") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel1").style.display = "inline";
+        document.getElementById("panely101").style.display = "inline";
+        return false;
+    }
+    else if(password == "211") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel2").style.display = "inline";
+        document.getElementById("panelt211").style.display = "inline";
+        return false;
+    }
+    else if(password == "201") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel2").style.display = "inline";
+        document.getElementById("panelt201").style.display = "inline";
+        return false;
+    }
+    else if(password == "э201") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel2").style.display = "inline";
+        document.getElementById("panele201").style.display = "inline";
+        return false;
+    }
+    else if(password == "ю201") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel2").style.display = "inline";
+        document.getElementById("panely201").style.display = "inline";
+        return false;
+    }
+    else if(password == "301") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel3").style.display = "inline";
+        document.getElementById("panelt301").style.display = "inline";
+        return false;
+    }
+    else if(password == "э301") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel3").style.display = "inline";
+        document.getElementById("panele301").style.display = "inline";
+        return false;
+    }
+    else if(password == "б301") {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("panel3").style.display = "inline";
+        document.getElementById("panelb301").style.display = "inline";
+        return false;
+    }
+    else {
+        alert("Неверный пароль!");
+        return false;
+    }
+}
 </script>
 
 
