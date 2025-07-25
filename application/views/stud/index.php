@@ -13,12 +13,12 @@
                             <span class="stat-label">Доступ</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">100+</span>
+                            <span class="stat-number">250+</span>
                             <span class="stat-label">Материалов</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">4</span>
-                            <span class="stat-label">Раздела</span>
+                            <span class="stat-number">9</span>
+                            <span class="stat-label">Разделов</span>
                         </div>
                     </div>
                 </div>
@@ -55,35 +55,35 @@
                         </div>
                         
                         <div class="section-card">
-                            <div class="section-icon">📤</div>
+                            <div class="section-icon">📅</div>
                             <div class="section-content">
-                                <h3>Добавить работу</h3>
-                                <p>Загрузка новой контрольной работы для пополнения базы материалов</p>
+                                <h3>Расписание занятий</h3>
+                                <p>Актуальное расписание занятий по всем группам и преподавателям</p>
                                 <div class="section-features">
-                                    <span class="feature">📎 Загрузка файлов</span>
-                                    <span class="feature">✅ Проверка</span>
-                                    <span class="feature">⚡ Быстро</span>
+                                    <span class="feature">📚 По группам</span>
+                                    <span class="feature">👨‍🏫 По преподавателям</span>
+                                    <span class="feature">📱 Мобильная версия</span>
                                 </div>
-                                <a href="/stud/add_kontrolnui" class="section-btn">
+                                <a href="/stud/schedule" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
-                                    Добавить работу
+                                    Открыть расписание
                                 </a>
                             </div>
                         </div>
                         
                         <div class="section-card">
-                            <div class="section-icon">⚙️</div>
+                            <div class="section-icon">📊</div>
                             <div class="section-content">
-                                <h3>Администрирование</h3>
-                                <p>Управление контрольными работами и настройка системы</p>
+                                <h3>Успеваемость</h3>
+                                <p>Просмотр оценок, рейтинга и академической успеваемости</p>
                                 <div class="section-features">
-                                    <span class="feature">🔧 Управление</span>
+                                    <span class="feature">📈 Рейтинг</span>
+                                    <span class="feature">📝 Оценки</span>
                                     <span class="feature">📊 Статистика</span>
-                                    <span class="feature">🛡️ Безопасность</span>
                                 </div>
-                                <a href="/stud/admin_upload" class="section-btn">
+                                <a href="/stud/grades" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
-                                    Управление
+                                    Просмотр оценок
                                 </a>
                             </div>
                         </div>
@@ -138,6 +138,57 @@
                                 </a>
                             </div>
                         </div>
+                        
+                        <div class="section-card">
+                            <div class="section-icon">📰</div>
+                            <div class="section-content">
+                                <h3>Новости студентам</h3>
+                                <p>Актуальные объявления, события и новости студенческой жизни</p>
+                                <div class="section-features">
+                                    <span class="feature">📢 Объявления</span>
+                                    <span class="feature">🎉 События</span>
+                                    <span class="feature">⚡ Срочные</span>
+                                </div>
+                                <a href="/news" class="section-btn">
+                                    <i class="fa fa-arrow-right"></i>
+                                    Читать новости
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="section-card">
+                            <div class="section-icon">🏆</div>
+                            <div class="section-content">
+                                <h3>Олимпиады и конкурсы</h3>
+                                <p>Участие в олимпиадах, конкурсах и интеллектуальных соревнованиях</p>
+                                <div class="section-features">
+                                    <span class="feature">🥇 Олимпиады</span>
+                                    <span class="feature">🏅 Конкурсы</span>
+                                    <span class="feature">🎯 Результаты</span>
+                                </div>
+                                <a href="/stud/competitions" class="section-btn">
+                                    <i class="fa fa-arrow-right"></i>
+                                    Участвовать
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="section-card">
+                            <div class="section-icon">🎭</div>
+                            <div class="section-content">
+                                <h3>Студенческая жизнь</h3>
+                                <p>Кружки, секции, мероприятия и активности для студентов</p>
+                                <div class="section-features">
+                                    <span class="feature">🎪 Кружки</span>
+                                    <span class="feature">⚽ Секции</span>
+                                    <span class="feature">🎊 Мероприятия</span>
+                                </div>
+                                <a href="/dopage/social" class="section-btn">
+                                    <i class="fa fa-arrow-right"></i>
+                                    Присоединиться
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -149,9 +200,13 @@
                             <i class="fa fa-search"></i>
                             <span>Найти работу</span>
                         </a>
-                        <a href="/stud/add_kontrolnui" class="quick-action">
-                            <i class="fa fa-upload"></i>
-                            <span>Загрузить</span>
+                        <a href="/stud/schedule" class="quick-action">
+                            <i class="fa fa-calendar"></i>
+                            <span>Расписание</span>
+                        </a>
+                        <a href="/news" class="quick-action">
+                            <i class="fa fa-newspaper-o"></i>
+                            <span>Новости</span>
                         </a>
                         <a href="/stud/library" class="quick-action">
                             <i class="fa fa-book"></i>
@@ -160,6 +215,10 @@
                         <a href="/stud/hostel" class="quick-action">
                             <i class="fa fa-home"></i>
                             <span>Общежитие</span>
+                        </a>
+                        <a href="/stud/grades" class="quick-action">
+                            <i class="fa fa-line-chart"></i>
+                            <span>Успеваемость</span>
                         </a>
                     </div>
                 </div>
