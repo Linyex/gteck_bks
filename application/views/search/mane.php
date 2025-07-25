@@ -1,32 +1,81 @@
-<h2>Поиск по сайту</h2>
-<hr>
-<div class="poisk-mane">
-    <form id="searchForm" method="POST">
-        <div class="poisk-group-2">
-            <input type="text" class="forma" name="Search_text" id="Search_text" placeholder="Поиск по сайту..">
-            <button class="fa fa-search" id="but"></button>
+<!-- Hero Section для поиска -->
+<section class="search-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-content text-center" data-aos="fade-up">
+                    <h1 class="hero-title">🔍 Поиск по сайту</h1>
+                    <p class="hero-subtitle">Найдите нужную информацию быстро и удобно</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Доступность</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Страниц</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Возможностей</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
+</section>
 
-<div id="showtitle"></div>
-<div style="display: table; width: 100%; margin-top: 20px;" id="showres">
-    
+<!-- Основной контент -->
+<div class="c-layout-page">
+    <div class="container">
+        <!-- Поиск -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-title">🔎 Поиск информации</h2>
+            <div class="search-section">
+                <form id="searchForm" method="POST" class="modern-search-form">
+                    <div class="search-input-group">
+                        <input type="text" class="search-input" name="Search_text" id="Search_text" placeholder="Введите запрос для поиска...">
+                        <button type="submit" class="search-button">
+                            <i class="fa fa-search"></i>
+                            <span>Найти</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Результаты поиска -->
+        <div class="content-section" data-aos="fade-up" data-aos-delay="200">
+            <div id="showtitle"></div>
+            <div id="showres" class="search-results"></div>
+        </div>
+    </div>
 </div>
 
 <style>
-.poisk-mane {
-    margin: 20px 0;
-}
-.poisk-group-2 {
-    display: flex;
-    border: 2px solid #8B5CF6;
-    border-radius: 25px;
-    overflow: hidden;
-    max-width: 500px;
+/* Современные стили для поиска */
+.search-section {
+    max-width: 600px;
     margin: 0 auto;
 }
-.forma {
+
+.modern-search-form {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.search-input-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-input {
     flex: 1;
     padding: 12px 20px;
     border: none;
