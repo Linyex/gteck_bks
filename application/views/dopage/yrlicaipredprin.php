@@ -1,76 +1,300 @@
-
-<div class="col-md-12" style="margin-bottom: 20px; padding: 0;">
-    <h2>Электронные обращения юридических лиц и ИП</h2>
-    <hr>
-    <div class="message-text">
-        <h3>Электронное обращение в обязательном порядке должно содержать:</h3>
-        <ul>
-            <li>наименование и (или) адрес организации либо должность лица, которым направляется обращение;</li>
-            <li>полное наименование юридического лица и его место нахождения;</li>
-            <li>изложение сути обращения;</li>
-            <li>фамилию, собственное имя, отчество (если таковое имеется) либо инициалы руководителя или лица, уполномоченного в установленном порядке подписывать обращения;</li>
-            <li>адрес электронной почты заявителя.</li>
-        </ul>
-        <p>К электронным обращениям, подаваемым представителями заявителей, должны прилагаться электронные копии документов, подтверждающих их полномочия.</p>
-    </div><br>
-    <form id="sendmessageForm" method="POST" enctype="multipart/form-data">
-        <div class="profile-f">
-            <h2>Ф.И.О руководителя или лица, уполномоченного подписывать обращения: <b style="color: #c61c1c">*</b></h2>
-            <input type="text" id="fio" name="fio" class="input" placeholder="Введите Ф.И.О" value="">
-            <h2>Полное наименование юридического лица или ИП: <b style="color: #c61c1c">*</b></h2>
-            <input type="text" id="company" name="company" class="input" placeholder="Введите наименование" value="">
-            <h2>Место нахождения (адрес): <b style="color: #c61c1c">*</b></h2>
-            <input type="text" id="mesto" name="mesto" class="input" placeholder="Введите место нахождения" value="">
-            <h2>Email: <b style="color: #c61c1c">*</b></h2>
-            <input type="text" id="email" name="email" class="input" placeholder="Введите адрес электронной почты" value="">
-            <h2>Изложение сути обращения: <b style="color: #c61c1c">*</b></h2>
-            <textarea name="text" id="text" cols="45" rows="5"></textarea>
-            <h2>Прикрепить файлы (не более 2 Мб):</h2>
-            <div class="upload-izm" style="width: 100%;" id="prosto">
-                <div class="profile-pass" style="margin-bottom: 0;">
-                    <div class="form-group">
-                        <input name="myfile[]" type="file" multiple id="myfile" style="font-size: 15px; width: 100%; text-align-last: center;" accept=".doc,.docx,.pdf,.rtf,.txt,.odt,.zip,.rar,.png,.tiff,.jpg,.jpeg">
+<!-- Hero Section для электронных обращений -->
+<section class="stud-hero appeals-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-content text-center" data-aos="fade-up">
+                    <h1 class="hero-title"><span class="hero-icon">📧</span>Электронные обращения</h1>
+                    <p class="hero-subtitle">Для юридических лиц и индивидуальных предпринимателей</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Доступность</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Обязательных полей</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">⚡</span>
+                            <span class="stat-label">Быстро</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <h2>Введите проверочный код: <b style="color: #c61c1c">*</b></h2>
-            <div class="save-all2">
-                <input type="text" id="kod" name="kod" class="input" placeholder="Введите код" style="float: left; width: 100%; margin-right: 10px; height: 100%;">
-                <img src="/assets/captcha/captcha.php" data-src="/assets/captcha/captcha.php" width="172" height="42" alt="Капча" style="border: solid 1px #c3c3c3; pointer-events: none;">
-            </div><br>
-            <div style="display: table; width: 100%;">
-                <h2 style="float: left; max-width: 70%;">Я даю согласие на обработку отправляемых мною персональных данных: <b style="color: #c61c1c">*</b></h2>
-                <input type="checkbox" id="sogl" name="sogl" style="float: left; width: auto; margin: 10px; width: 20px; height: 20px">
-            </div>
-            <div style="display: table; width: 100%;" class="fast-menu">
-                <h2 style="float: left; max-width: 70%;">Я ознакомился с <a href="/message"> правилами о порядке подачи и рассмотрения электронных обращений, требований предьявляемых к электронному обращению</a>: <b style="color: #c61c1c">*</b></h2>
-                <input type="checkbox" id="znakom" name="znakom" style="float: left; width: auto; margin: 10px; width: 20px; height: 20px">
+        </div>
+    </div>
+</section>
+
+<!-- Основной контент -->
+<div class="c-layout-page">
+    <div class="container">
+        
+        <!-- Требования к обращению -->
+        <div class="content-section" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="section-title">📋 Требования к электронному обращению</h2>
+            <div class="requirements-section">
+                <div class="requirements-intro" data-aos="slide-up" data-aos-delay="300">
+                    <p class="intro-text">Электронное обращение в обязательном порядке должно содержать следующую информацию:</p>
+                </div>
+                
+                <div class="requirements-list" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="requirement-item" data-aos="slide-right" data-aos-delay="500">
+                        <div class="req-number">1</div>
+                        <div class="req-content">
+                            <h4>Адресат</h4>
+                            <p>Наименование и (или) адрес организации либо должность лица, которым направляется обращение</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item" data-aos="slide-left" data-aos-delay="600">
+                        <div class="req-number">2</div>
+                        <div class="req-content">
+                            <h4>Полное наименование</h4>
+                            <p>Полное наименование юридического лица и его место нахождения</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item" data-aos="slide-right" data-aos-delay="700">
+                        <div class="req-number">3</div>
+                        <div class="req-content">
+                            <h4>Суть обращения</h4>
+                            <p>Изложение сути обращения</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item" data-aos="slide-left" data-aos-delay="800">
+                        <div class="req-number">4</div>
+                        <div class="req-content">
+                            <h4>Ответственное лицо</h4>
+                            <p>ФИО либо инициалы руководителя или лица, уполномоченного подписывать обращения</p>
+                        </div>
+                    </div>
+                    
+                    <div class="requirement-item" data-aos="slide-right" data-aos-delay="900">
+                        <div class="req-number">5</div>
+                        <div class="req-content">
+                            <h4>Контактная информация</h4>
+                            <p>Адрес электронной почты заявителя</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="additional-info" data-aos="slide-up" data-aos-delay="1000">
+                    <div class="info-note">
+                        <h4>❗ Важно:</h4>
+                        <p>К электронным обращениям, подаваемым представителями заявителей, должны прилагаться электронные копии документов, подтверждающих их полномочия.</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="save-all" id="buts">
-            <button type="submit" name="send">Отправить обращение</button>
+
+        <!-- Форма обращения -->
+        <div class="content-section" data-aos="fade-up" data-aos-delay="700">
+            <h2 class="section-title">📝 Форма электронного обращения</h2>
+            <div class="appeal-form-container">
+                <form id="sendmessageForm" method="POST" enctype="multipart/form-data" class="modern-appeal-form" data-aos="zoom-in" data-aos-delay="800">
+                    
+                    <div class="form-section">
+                        <label for="fio" class="form-label required">
+                            <i class="fas fa-user"></i>
+                            Ф.И.О руководителя или лица, уполномоченного подписывать обращения
+                        </label>
+                        <input type="text" 
+                               id="fio" 
+                               name="fio" 
+                               class="modern-input" 
+                               placeholder="Введите полное ФИО" 
+                               required>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="company" class="form-label required">
+                            <i class="fas fa-building"></i>
+                            Полное наименование юридического лица или ИП
+                        </label>
+                        <input type="text" 
+                               id="company" 
+                               name="company" 
+                               class="modern-input" 
+                               placeholder="Введите полное наименование организации" 
+                               required>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="mesto" class="form-label required">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Место нахождения (адрес)
+                        </label>
+                        <input type="text" 
+                               id="mesto" 
+                               name="mesto" 
+                               class="modern-input" 
+                               placeholder="Введите полный адрес" 
+                               required>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="email" class="form-label required">
+                            <i class="fas fa-envelope"></i>
+                            Адрес электронной почты
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="modern-input" 
+                               placeholder="example@company.com" 
+                               required>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="subject" class="form-label required">
+                            <i class="fas fa-tag"></i>
+                            Тема обращения
+                        </label>
+                        <input type="text" 
+                               id="subject" 
+                               name="subject" 
+                               class="modern-input" 
+                               placeholder="Краткая тема обращения" 
+                               required>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="message" class="form-label required">
+                            <i class="fas fa-edit"></i>
+                            Суть обращения
+                        </label>
+                        <textarea id="message" 
+                                  name="message" 
+                                  class="modern-textarea" 
+                                  placeholder="Подробно изложите суть вашего обращения..." 
+                                  rows="6" 
+                                  required></textarea>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="files" class="form-label">
+                            <i class="fas fa-paperclip"></i>
+                            Прикрепить документы (по необходимости)
+                        </label>
+                        <div class="file-upload-section">
+                            <input type="file" 
+                                   id="files" 
+                                   name="files[]" 
+                                   class="file-input" 
+                                   multiple 
+                                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                            <div class="file-upload-display">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="upload-text">
+                                    <p>Нажмите или перетащите файлы</p>
+                                    <span>Поддерживаются: PDF, DOC, DOCX, JPG, PNG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Отправить обращение</span>
+                        </button>
+                        <button type="reset" class="reset-btn">
+                            <i class="fas fa-undo"></i>
+                            <span>Очистить форму</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
         </div>
-    </form>
+
+        <!-- Информация о рассмотрении -->
+        <div class="content-section" data-aos="fade-up" data-aos-delay="900">
+            <h2 class="section-title">⏰ Информация о рассмотрении</h2>
+            <div class="processing-info">
+                <div class="info-grid">
+                    <div class="info-card" data-aos="flip-left" data-aos-delay="1000">
+                        <div class="info-icon">📅</div>
+                        <h4>Срок рассмотрения</h4>
+                        <p>Обращения рассматриваются в установленные законодательством сроки</p>
+                    </div>
+                    <div class="info-card" data-aos="flip-left" data-aos-delay="1100">
+                        <div class="info-icon">📧</div>
+                        <h4>Уведомление</h4>
+                        <p>Ответ будет направлен на указанный адрес электронной почты</p>
+                    </div>
+                    <div class="info-card" data-aos="flip-left" data-aos-delay="1200">
+                        <div class="info-icon">🔒</div>
+                        <h4>Конфиденциальность</h4>
+                        <p>Все обращения обрабатываются конфиденциально</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <script>
-    $('#sendmessageForm').ajaxForm({
-        url: '/message/yrlicaipredprin/ajax',
-        dataType: 'json',
-        success: function(data) {
-            switch (data.status) {
-                case 'error':
-                    $('button[type=submit]').prop('disabled', false);
-                    $("#otvet").html("<div class='answer answer-danger'>" + data.error + "</div>");
-                    break;
-                case 'success':
-                    $("#otvet").html("<div class='answer answer-success'>" + data.success + "</div>");
-                    setTimeout("redirect('/message/grazhdan')", 1500);
-                    break;
-            }
-        },
-        beforeSubmit: function(arr, $form, options) {
-            $('button[type=submit]').prop('disabled', true);
-        }
+// Улучшения для формы
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('sendmessageForm');
+    const fileInput = document.getElementById('files');
+    const uploadDisplay = document.querySelector('.file-upload-display');
+    
+    // Drag & drop для файлов
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadDisplay.addEventListener(eventName, preventDefaults, false);
     });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadDisplay.addEventListener(eventName, highlight, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadDisplay.addEventListener(eventName, unhighlight, false);
+    });
+    
+    function highlight(e) {
+        uploadDisplay.classList.add('drag-over');
+    }
+    
+    function unhighlight(e) {
+        uploadDisplay.classList.remove('drag-over');
+    }
+    
+    uploadDisplay.addEventListener('drop', handleDrop, false);
+    
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        fileInput.files = files;
+        updateFileDisplay();
+    }
+    
+    fileInput.addEventListener('change', updateFileDisplay);
+    
+    function updateFileDisplay() {
+        const files = fileInput.files;
+        const uploadText = uploadDisplay.querySelector('.upload-text p');
+        
+        if (files.length > 0) {
+            uploadText.textContent = `Выбрано файлов: ${files.length}`;
+            uploadDisplay.classList.add('has-files');
+        } else {
+            uploadText.textContent = 'Нажмите или перетащите файлы';
+            uploadDisplay.classList.remove('has-files');
+        }
+    }
+});
 </script>
 <?php echo $footer ?>
