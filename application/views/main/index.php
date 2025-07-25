@@ -56,15 +56,15 @@ echo $header;
                     </p>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">80</span>
+                            <span class="stat-number" data-count="80">80</span>
                             <span class="stat-label">Лет истории</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">4</span>
+                            <span class="stat-number" data-count="4">4</span>
                             <span class="stat-label">Специальности</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">30K+</span>
+                            <span class="stat-number" data-count="30">30K+</span>
                             <span class="stat-label">Выпускников</span>
                         </div>
                     </div>

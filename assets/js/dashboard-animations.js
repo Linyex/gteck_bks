@@ -37,14 +37,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const duration = 2000;
         const step = target / (duration / 16);
         let current = 0;
+        const originalText = element.textContent;
+        
+        // Проверяем есть ли специальные символы в оригинальном тексте
+        const hasSpecialFormat = originalText.includes('K') || originalText.includes('+') || originalText.includes('%');
         
         const timer = setInterval(() => {
             current += step;
             if (current >= target) {
                 current = target;
                 clearInterval(timer);
+                // Возвращаем оригинальный формат если есть спецсимволы
+                if (hasSpecialFormat) {
+                    element.textContent = originalText;
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            } else {
+                if (hasSpecialFormat) {
+                    // Для спецформатов показываем прогресс но сохраняем формат
+                    const progress = current / target;
+                    if (originalText.includes('K+')) {
+                        element.textContent = Math.floor((target / 1000) * progress) + 'K+';
+                    } else {
+                        element.textContent = Math.floor(current) + originalText.slice(-1);
+                    }
+                } else {
+                    element.textContent = Math.floor(current);
+                }
             }
-            element.textContent = Math.floor(current);
         }, 16);
     }
     
