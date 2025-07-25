@@ -46,6 +46,9 @@ $(document).ready(function() {
         once: true
     });
 
+    // Анимация счетчиков статистики
+    initStatsAnimation();
+
     // Плавная прокрутка для якорных ссылок
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
@@ -278,6 +281,71 @@ function initImportantNewsSlider() {
 
     // Показываем первый слайд
     showSlide(0);
+}
+
+// Функция анимации счетчиков для публичных страниц
+function initStatsAnimation() {
+    const counters = document.querySelectorAll('.stat-number[data-count]');
+    
+    if (counters.length === 0) return;
+    
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-count'));
+                animateCounter(counter, target);
+                counterObserver.unobserve(counter);
+            }
+        });
+    }, observerOptions);
+    
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+    
+    function animateCounter(element, target) {
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const originalText = element.textContent;
+        
+        // Проверяем есть ли специальные символы в оригинальном тексте
+        const hasSpecialFormat = originalText.includes('K') || originalText.includes('+') || originalText.includes('%');
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+                // Возвращаем оригинальный формат если есть спецсимволы
+                if (hasSpecialFormat) {
+                    element.textContent = originalText;
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            } else {
+                if (hasSpecialFormat) {
+                    // Для спецформатов показываем прогресс но сохраняем формат
+                    const progress = current / target;
+                    if (originalText.includes('K+')) {
+                        element.textContent = Math.floor(target * progress) + 'K+';
+                    } else if (originalText.includes('+')) {
+                        element.textContent = Math.floor(current) + '+';
+                    } else {
+                        element.textContent = Math.floor(current) + originalText.slice(-1);
+                    }
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }
+        }, 16);
+    }
 }
 
 // Инициализация при загрузке страницы
