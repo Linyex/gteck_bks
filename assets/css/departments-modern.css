@@ -19,11 +19,27 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .zaoch-hero {
     background: linear-gradient(135deg, #6B5B9A 0%, #9CD69C 50%, #FF9AAC 100%);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.zaoch-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 /* Hero sections для других страниц */
@@ -42,6 +58,7 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
@@ -60,11 +77,12 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .kol-hero {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #ff9a9e 100%);
     padding: 60px 0;
     position: relative;
     overflow: hidden;
@@ -78,11 +96,12 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .search-hero {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff8a80 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     padding: 60px 0;
     position: relative;
     overflow: hidden;
@@ -96,6 +115,7 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
@@ -114,10 +134,68 @@
     right: 0;
     bottom: 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
     /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
-/* Специфичные стили только для страниц отделений */
+.error-hero {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff3742 100%);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.error-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
+}
+
+.kontrol-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.kontrol-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
+}
+
+.ymk-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.ymk-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
+}
+
+/* ===== HERO CONTENT ===== */
 .stud-hero .hero-content,
 .zaoch-hero .hero-content,
 .abut-hero .hero-content,
@@ -129,7 +207,7 @@
 .kontrol-hero .hero-content,
 .ymk-hero .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 10;
 }
 
 .stud-hero .hero-title,

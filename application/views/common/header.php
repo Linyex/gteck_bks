@@ -31,6 +31,9 @@
     <!-- Modern Departments CSS -->
     <link href="/assets/css/departments-modern.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
+    <!-- Принудительное удаление размытий (загружается последним!) -->
+    <link href="/assets/css/clear-blur.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.png" />
     
