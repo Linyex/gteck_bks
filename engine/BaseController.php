@@ -7,7 +7,26 @@ class BaseController {
     
     public function __construct() {
         // Инициализируем подключение к БД
-        $this->db = new Database();
+        require_once ENGINE_DIR . 'main/db.php';
+        
+        // Инициализируем объект базы данных
+        $this->db = new class {
+            public function fetchOne($sql, $params = []) {
+                return Database::fetchOne($sql, $params);
+            }
+            
+            public function fetchAll($sql, $params = []) {
+                return Database::fetchAll($sql, $params);
+            }
+            
+            public function execute($sql, $params = []) {
+                return Database::execute($sql, $params);
+            }
+            
+            public function lastInsertId() {
+                return Database::lastInsertId();
+            }
+        };
         
         // Загружаем конфигурацию
         $this->config = require(APPLICATION_DIR . 'config.php');
@@ -15,6 +34,9 @@ class BaseController {
     
     // Метод для загрузки модели
     protected function loadModel($modelName) {
+        // Загружаем базовый класс Model
+        require_once ENGINE_DIR . 'libs/Model.php';
+        
         $modelFile = APPLICATION_DIR . 'models/' . $modelName . '.php';
         $modelClass = $modelName . 'Model';
         

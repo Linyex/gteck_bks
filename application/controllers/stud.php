@@ -28,6 +28,17 @@ class studController extends BaseController {
         ]);
     }
     
+    public function ymk() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        return $this->render('stud/ymk', [
+            'title' => 'Учебно-методические комплексы'
+        ]);
+    }
+    
     public function admin_upload() {
         // Отключаем кеширование для разработки
         header('Cache-Control: no-cache, no-store, must-revalidate');
@@ -107,6 +118,82 @@ class studController extends BaseController {
             'groups' => $groups,
             'message' => $message,
             'title' => 'Добавить контрольную работу'
+        ]);
+    }
+    
+    public function dnevnoe() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        // Получаем данные напрямую из БД
+        $filesa = $this->db->fetchAll("SELECT * FROM `files` ORDER BY files_id DESC");
+        $status1 = $this->db->fetchOne("SELECT statusb_code FROM `statusb` WHERE statusb_id = 1");
+        $lastzamena = $this->db->fetchOne("SELECT * FROM `zamena` ORDER BY zamena_date_add DESC LIMIT 1");
+        
+        // Инициализируем пустые значения если данных нет
+        if (!$filesa) $filesa = [];
+        if (!$status1) $status1 = ['statusb_code' => 0];
+        if (!$lastzamena) $lastzamena = [];
+        
+        // Подсчитываем количество экзаменационных и обычных файлов
+        $empty1 = 0; // экзаменационные файлы
+        $empty2 = 0; // обычные файлы
+        
+        foreach ($filesa as $file) {
+            if ($file['files_ekzamen'] == 2) {
+                $empty1++;
+            } elseif ($file['files_ekzamen'] == 1) {
+                $empty2++;
+            }
+        }
+        
+        return $this->render('stud/dnevnoe', [
+            'filesa' => $filesa,
+            'lastzamena' => $lastzamena,
+            'status1' => $status1,
+            'empty1' => $empty1,
+            'empty2' => $empty2,
+            'title' => 'Дневное отделение'
+        ]);
+    }
+    
+    public function zaoch() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        // Получаем данные напрямую из БД
+        $filesa = $this->db->fetchAll("SELECT * FROM `files` ORDER BY files_id DESC");
+        $status1 = $this->db->fetchOne("SELECT statusb_code FROM `statusb` WHERE statusb_id = 1");
+        $lastzamena = $this->db->fetchOne("SELECT * FROM `zamena` ORDER BY zamena_date_add DESC LIMIT 1");
+        
+        // Инициализируем пустые значения если данных нет
+        if (!$filesa) $filesa = [];
+        if (!$status1) $status1 = ['statusb_code' => 0];
+        if (!$lastzamena) $lastzamena = [];
+        
+        // Подсчитываем количество экзаменационных и обычных файлов
+        $empty1 = 0; // экзаменационные файлы
+        $empty2 = 0; // обычные файлы
+        
+        foreach ($filesa as $file) {
+            if ($file['files_ekzamen'] == 2) {
+                $empty1++;
+            } elseif ($file['files_ekzamen'] == 1) {
+                $empty2++;
+            }
+        }
+        
+        return $this->render('stud/zaoch', [
+            'filesa' => $filesa,
+            'lastzamena' => $lastzamena,
+            'status1' => $status1,
+            'empty1' => $empty1,
+            'empty2' => $empty2,
+            'title' => 'Заочная форма получения образования'
         ]);
     }
 }

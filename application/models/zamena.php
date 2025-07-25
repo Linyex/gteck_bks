@@ -9,7 +9,7 @@ class zamenaModel {
     
     public function getLastZamenas() {
         $sql = "SELECT * FROM `zamena` ORDER BY zamena_date_add DESC LIMIT 1";
-        return $this->db->fetch($sql);
+        return $this->db->fetchOne($sql);
     }
     
     public function createZamena($data) {
@@ -30,7 +30,7 @@ class zamenaModel {
     
     public function getZamenaById($zamenaId) {
         $sql = "SELECT * FROM `zamena` WHERE zamena_id = :zamena_id LIMIT 1";
-        return $this->db->fetch($sql, ['zamena_id' => (int)$zamenaId]);
+        return $this->db->fetchOne($sql, ['zamena_id' => (int)$zamenaId]);
     }
     
     public function getAllZamenas($limit = null) {

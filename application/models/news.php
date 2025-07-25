@@ -92,7 +92,7 @@ class newsModel {
             $sql .= " WHERE " . implode(' AND ', $whereParts);
         }
         
-        $result = $this->db->fetch($sql, $params);
+        $result = $this->db->fetchOne($sql, $params);
         return $result['count'];
     }
     
@@ -116,7 +116,7 @@ class newsModel {
             $params['category_name'] = $data;
         }
         
-        $result = $this->db->fetch($sql, $params);
+        $result = $this->db->fetchOne($sql, $params);
         return $result['count'];
     }
     
@@ -133,7 +133,7 @@ class newsModel {
         
         $sql .= " WHERE news_id = :news_id LIMIT 1";
         
-        return $this->db->fetch($sql, ['news_id' => (int)$newsId]);
+        return $this->db->fetchOne($sql, ['news_id' => (int)$newsId]);
     }
     
     public function getTotalCategory($data = []) {
@@ -149,18 +149,18 @@ class newsModel {
             $sql .= " WHERE " . implode(' AND ', $whereParts);
         }
         
-        $result = $this->db->fetch($sql, $params);
+        $result = $this->db->fetchOne($sql, $params);
         return $result['count'];
     }
     
     public function getCategoryByName($categoryName) {
         $sql = "SELECT * FROM `category` WHERE category_name = :category_name LIMIT 1";
-        return $this->db->fetch($sql, ['category_name' => $categoryName]);
+        return $this->db->fetchOne($sql, ['category_name' => $categoryName]);
     }
     
     public function getLastNews() {
         $sql = "SELECT news_id AS count FROM news ORDER BY news_id DESC LIMIT 1";
-        $result = $this->db->fetch($sql);
+        $result = $this->db->fetchOne($sql);
         return $result['count'];
     }
     
