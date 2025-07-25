@@ -18,8 +18,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .zaoch-hero {
@@ -41,8 +41,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .news-hero {
@@ -59,8 +59,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .kol-hero {
@@ -77,8 +77,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .search-hero {
@@ -95,8 +95,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .spec-hero {
@@ -113,8 +113,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 /* Специфичные стили только для страниц отделений */
@@ -146,7 +146,7 @@
     font-weight: 700;
     margin-bottom: 1rem;
     color: #1F2937;
-    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3);
+    /* Убрали text-shadow который создавал размытие */
 }
 
 .stud-hero .hero-subtitle,
@@ -364,8 +364,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .error-container {
@@ -462,8 +462,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 /* Specialty tabs */
@@ -631,8 +631,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* Убрали backdrop-filter который мог влиять на читаемость текста */
 }
 
 .ymk-sections-grid {
