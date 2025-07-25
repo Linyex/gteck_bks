@@ -321,7 +321,7 @@
 
 .stat-item {
     text-align: center;
-    color: white;
+    color: #1F2937 !important;
 }
 
 .stat-number {

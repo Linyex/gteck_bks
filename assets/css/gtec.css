@@ -169,7 +169,7 @@ input {
 }
 
 .menu-btn.active span::after {
-    width 25px;
+    width: 25px;
 }
 
 .menu-btn span,
@@ -216,7 +216,7 @@ input {
     display: none;
     cursor: pointer;
     padding: 20px;
-}image.png
+}
 
 @media screen and (max-width: 1200px) {
     .side,
@@ -937,7 +937,7 @@ nav a {
 .c-addres {
     display: table;
     width: 100%;
-    color: white;
+    color: #1F2937;
 }
 
 .c-addres p {
@@ -1034,7 +1034,7 @@ input:checked + .slider-sw:before {
     border: 0;
     height: 35px;
     width: 100%;    
-    background: #a35050;
+    background: #8B5CF6;
     color: white;
 }
 
