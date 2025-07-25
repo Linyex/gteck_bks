@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">👨‍🎓 Студентам</h1>
+                    <h1 class="hero-title"><span class="hero-icon">👨‍🎓</span>Студентам</h1>
                     <p class="hero-subtitle">Все необходимые материалы и инструменты для успешной учебы</p>
                     <div class="hero-stats">
                         <div class="stat-item">

@@ -1,12 +1,12 @@
 
 <!-- Hero Section для специальностей -->
-<section class="spec-hero">
+<section class="abut-hero">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">📚 Специальности</h1>
-                    <p class="hero-subtitle">Выберите свою будущую профессию в Гомельском торгово-экономическом колледже</p>
+                    <h1 class="hero-title"><span class="hero-icon">📚</span>Специальности</h1>
+                    <p class="hero-subtitle">Выберите свою будущую профессию из наших актуальных специальностей</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">6</span>
@@ -448,7 +448,7 @@
 
 <style>
 /* Hero Section для специальностей */
-.spec-hero {
+.abut-hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 80px 0;
     margin-bottom: 60px;
@@ -456,7 +456,7 @@
     overflow: hidden;
 }
 
-.spec-hero::before {
+.abut-hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1053,7 +1053,7 @@
 }
 
 @media (max-width: 768px) {
-    .spec-hero {
+    .abut-hero {
         padding: 60px 0;
     }
     

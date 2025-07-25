@@ -210,6 +210,56 @@
     z-index: 10;
 }
 
+/* Hero Icons - отдельные элементы для эмодзи */
+.hero-icon {
+    font-size: 1.8rem !important;
+    margin-right: 10px !important;
+    display: inline-block !important;
+    position: relative !important;
+    z-index: 999 !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+    animation: bounceIn 1s ease-out;
+    vertical-align: middle !important;
+    line-height: 1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: transparent !important;
+    color: inherit !important;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols" !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* На мобильных устройствах делаем эмодзи чуть меньше */
+@media (max-width: 768px) {
+    .hero-icon {
+        font-size: 1.5rem !important;
+        margin-right: 8px !important;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .stud-hero .hero-title,
 .zaoch-hero .hero-title,
 .abut-hero .hero-title,

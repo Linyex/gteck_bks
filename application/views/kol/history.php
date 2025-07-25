@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">🏛️ История колледжа</h1>
+                    <h1 class="hero-title"><span class="hero-icon">🏛️</span>История колледжа</h1>
                     <p class="hero-subtitle">Старейшее учебное заведение потребительской кооперации Республики Беларусь</p>
                     <div class="hero-stats">
                         <div class="stat-item">

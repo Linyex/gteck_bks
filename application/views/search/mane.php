@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">🔍 Поиск по сайту</h1>
+                    <h1 class="hero-title"><span class="hero-icon">🔍</span>Поиск по сайту</h1>
                     <p class="hero-subtitle">Найдите нужную информацию быстро и удобно</p>
                     <div class="hero-stats">
                         <div class="stat-item">

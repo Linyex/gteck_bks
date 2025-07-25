@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">🏛️ Дневное отделение</h1>
+                    <p class="hero-icon">🏛️</p><h1 class="hero-title">Дневное отделение</h1>
                     <p class="hero-subtitle">Очная форма обучения - полное погружение в образовательный процесс</p>
                     <div class="hero-stats">
                         <div class="stat-item">

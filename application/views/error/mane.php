@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">❌ Ошибка</h1>
+                    <h1 class="hero-title"><span class="hero-icon">❌</span>Ошибка</h1>
                     <p class="hero-subtitle">Что-то пошло не так, но мы поможем вам вернуться на правильный путь</p>
                 </div>
             </div>

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title">🌙 Заочная форма получения образования</h1>
+                    <h1 class="hero-title"><span class="hero-icon">🌙</span>Заочная форма получения образования</h1>
                     <p class="hero-subtitle">Гибкое обучение для работающих студентов - качественное образование без отрыва от работы</p>
                     <div class="hero-stats">
                         <div class="stat-item">
