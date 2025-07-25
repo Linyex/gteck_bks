@@ -1,0 +1,41 @@
+{
+    "channels": {
+        "email": {
+            "enabled": true
+        },
+        "sms": {
+            "enabled": false
+        },
+        "telegram": {
+            "enabled": false
+        },
+        "slack": {
+            "enabled": false
+        },
+        "discord": {
+            "enabled": false
+        },
+        "push": {
+            "enabled": false
+        },
+        "in_app": {
+            "enabled": true
+        }
+    },
+    "email": {
+        "from": "noreply@example.com",
+        "reply_to": "support@example.com"
+    },
+    "telegram": {
+        "bot_token": ""
+    },
+    "slack": {
+        "webhook_url": "",
+        "username": "Admin Bot",
+        "icon_emoji": ":robot_face:"
+    },
+    "discord": {
+        "webhook_url": "",
+        "username": "Admin Bot"
+    }
+}
