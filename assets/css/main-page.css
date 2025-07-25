@@ -985,6 +985,21 @@
     overflow: hidden;
 }
 
+/* Hero background для публичных страниц (без затемнения) */
+.hero-background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.8) 0%, 
+        rgba(16, 185, 129, 0.8) 50%, 
+        rgba(245, 158, 11, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
 /* Плавающие элементы */
 .floating-elements {
     position: absolute;
