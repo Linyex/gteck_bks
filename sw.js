@@ -14,7 +14,6 @@ const STATIC_FILES = [
     '/assets/js/optimized.js',
     '/assets/js/main-page.js',
     '/assets/js/header.js',
-    '/assets/js/background-animations.js',
     '/assets/font-manrope/Manrope-VariableFont_wght.ttf',
     '/assets/css/font-awesome/css/font-awesome.css',
     '/assets/css/font-awesome/fonts/fontawesome-webfont.woff2'

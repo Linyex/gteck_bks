@@ -40,62 +40,31 @@
     <script src="/assets/js/modern-components.js?v=<?php echo time(); ?>"></script>
 </head>
 <body>
-    <!-- Анимированные элементы фона - Образовательная тематика -->
-    <div class="tech-element"></div>
-    <div class="tech-element"></div>
-    <div class="tech-element"></div>
-    <div class="tech-element"></div>
-    <div class="tech-element"></div>
     
-    <!-- Образовательные символы -->
-    <div class="education-symbol" style="content: '🎓';">🎓</div>
-    <div class="education-symbol" style="content: '📚';">📚</div>
-    <div class="education-symbol" style="content: '🔬';">🔬</div>
-    <div class="education-symbol" style="content: '⚡';">⚡</div>
-    <div class="education-symbol" style="content: '💡';">💡</div>
-    <div class="education-symbol" style="content: '🎯';">🎯</div>
-    
-    <!-- Научные молекулы -->
-    <div class="science-molecule"></div>
-    <div class="science-molecule"></div>
-    <div class="science-molecule"></div>
-    
-    <!-- Атомные орбиты -->
-    <div class="atomic-orbit"></div>
-    <div class="atomic-orbit"></div>
-    <div class="atomic-orbit"></div>
-    
-    <!-- Книжные страницы -->
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    
-    <!-- Лабораторные пробирки -->
-    <div class="lab-tube"></div>
-    <div class="lab-tube"></div>
-    <div class="lab-tube"></div>
-    
-    <!-- Микроскопы -->
-    <div class="microscope"></div>
-    <div class="microscope"></div>
-
-    <!-- Header -->
-    <header class="c-layout-header">
-        <nav class="gtec-navbar">
-            <div class="header-container">
-                <!-- Левая часть: Логотип и название -->
-                <div class="brand-section">
-                    <a class="brand-link" href="/">
-                        <div class="logo-container">
-                            <img src="/assets/media/logo.svg" alt="ГТЭК" class="logo" onerror="this.style.display='none'">
-                            <div class="logo-fallback">🎓</div>
-                        </div>
-                        <div class="brand-text">
-                            <div class="brand-title">ГТЭК</div>
-                            <div class="brand-subtitle">Гомельский торгово-экономический колледж Белкоопсоюза</div>
-                        </div>
+    <!-- HEADER -->
+    <div class="c-layout-header" id="header">
+        <header class="header-container">
+            <!-- Левая часть - Логотип и название -->
+            <div class="brand-section">
+                <div class="logo-container">
+                    <a href="/" class="logo-link">
+                        <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#logoGradient)"/>
+                            <path d="M8 12h24v4H20v12h-4V16H8v-4z" fill="white"/>
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#8B5CF6"/>
+                                    <stop offset="100%" style="stop-color:#3B82F6"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
                     </a>
                 </div>
+                <div class="brand-text">
+                    <div class="brand-name">ГТЭК</div>
+                    <div class="brand-subtitle">Гомельский торгово-экономический<br>колледж Белкоопсоюза</div>
+                </div>
+            </div>
 
                                    <!-- Центральная навигация -->
                    <div class="navigation-section">
@@ -214,9 +183,8 @@
                         <span class="accessibility-text">для слабовидящих</span>
                     </a>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </header>
+        </div>
 
     <!-- Подключение JavaScript для header -->
     <script src="/assets/js/header.js?v=<?php echo time(); ?>"></script>

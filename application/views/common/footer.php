@@ -190,7 +190,6 @@
             <script src="/assets/js/jquery.min.js"></script>
             <script src="/assets/js/gtec.js"></script>
             <script src="/assets/js/optimized.js?v=<?php echo time(); ?>"></script>
-            <script src="/assets/js/background-animations.js"></script>
             <script src="/assets/js/main-page.js"></script>
             
             <script type="text/javascript">
