@@ -1,109 +1,247 @@
-/* Принудительное удаление всех эффектов размытия на страницах отделений */
+/* Принудительное удаление blur эффектов для всех hero секций */
 
-/* Убираем все text-shadow эффекты с заголовков */
+/* Для всех страниц студентов */
 .stud-hero .hero-title,
-.zaoch-hero .hero-title,
-.abut-hero .hero-title,
-.news-hero .hero-title,
-.kol-hero .hero-title,
-.search-hero .hero-title,
-.spec-hero .hero-title,
-.error-hero .hero-title,
-.kontrol-hero .hero-title,
-.ymk-hero .hero-title {
+.stud-hero .hero-subtitle,
+.stud-hero .hero-content,
+.stud-hero h1,
+.stud-hero h2,
+.stud-hero h3,
+.stud-hero p,
+.stud-hero span {
     text-shadow: none !important;
     filter: none !important;
-    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-/* СПЕЦИАЛЬНЫЕ СТИЛИ ДЛЯ ЭМОДЗИ */
+/* Для всех страниц абитуриентов */
+.abut-hero .hero-title,
+.abut-hero .hero-subtitle,
+.abut-hero .hero-content,
+.abut-hero h1,
+.abut-hero h2,
+.abut-hero h3,
+.abut-hero p,
+.abut-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для всех страниц новостей */
+.news-hero .hero-title,
+.news-hero .hero-subtitle,
+.news-hero .hero-content,
+.news-hero h1,
+.news-hero h2,
+.news-hero h3,
+.news-hero p,
+.news-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для всех страниц колледжа */
+.kol-hero .hero-title,
+.kol-hero .hero-subtitle,
+.kol-hero .hero-content,
+.kol-hero h1,
+.kol-hero h2,
+.kol-hero h3,
+.kol-hero p,
+.kol-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для всех страниц поиска */
+.search-hero .hero-title,
+.search-hero .hero-subtitle,
+.search-hero .hero-content,
+.search-hero h1,
+.search-hero h2,
+.search-hero h3,
+.search-hero p,
+.search-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для страниц специальностей */
+.spec-hero .hero-title,
+.spec-hero .hero-subtitle,
+.spec-hero .hero-content,
+.spec-hero h1,
+.spec-hero h2,
+.spec-hero h3,
+.spec-hero p,
+.spec-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для страниц ошибок */
+.error-hero .hero-title,
+.error-hero .hero-subtitle,
+.error-hero .hero-content,
+.error-hero h1,
+.error-hero h2,
+.error-hero h3,
+.error-hero p,
+.error-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Для новых мелких страниц */
+.dis-hero .hero-title,
+.dis-hero .hero-subtitle,
+.dis-hero .hero-content,
+.dis-hero h1,
+.dis-hero h2,
+.dis-hero h3,
+.dis-hero p,
+.dis-hero span,
+.byx-hero .hero-title,
+.byx-hero .hero-subtitle,
+.byx-hero .hero-content,
+.byx-hero h1,
+.byx-hero h2,
+.byx-hero h3,
+.byx-hero p,
+.byx-hero span,
+.best-hero .hero-title,
+.best-hero .hero-subtitle,
+.best-hero .hero-content,
+.best-hero h1,
+.best-hero h2,
+.best-hero h3,
+.best-hero p,
+.best-hero span,
+.ychm-hero .hero-title,
+.ychm-hero .hero-subtitle,
+.ychm-hero .hero-content,
+.ychm-hero h1,
+.ychm-hero h2,
+.ychm-hero h3,
+.ychm-hero p,
+.ychm-hero span,
+.debug-hero .hero-title,
+.debug-hero .hero-subtitle,
+.debug-hero .hero-content,
+.debug-hero h1,
+.debug-hero h2,
+.debug-hero h3,
+.debug-hero p,
+.debug-hero span,
+.passcontr-hero .hero-title,
+.passcontr-hero .hero-subtitle,
+.passcontr-hero .hero-content,
+.passcontr-hero h1,
+.passcontr-hero h2,
+.passcontr-hero h3,
+.passcontr-hero p,
+.passcontr-hero span {
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: none !important;
+    color: #1F2937 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Особые правила для иконок */
 .hero-icon {
     font-size: 1.8rem !important;
     margin-right: 10px !important;
     display: inline-block !important;
-    position: relative !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
     z-index: 999 !important;
     text-shadow: none !important;
     filter: none !important;
-    -webkit-filter: none !important;
-    opacity: 1 !important;
-    vertical-align: middle !important;
-    line-height: 1 !important;
     backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     background: none !important;
     color: inherit !important;
     text-decoration: none !important;
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols" !important;
-    font-weight: normal !important;
-    font-style: normal !important;
-}
-
-/* Убираем все backdrop-filter эффекты с псевдоэлементов */
-.stud-hero::before,
-.zaoch-hero::before,
-.abut-hero::before,
-.news-hero::before,
-.kol-hero::before,
-.search-hero::before,
-.spec-hero::before,
-.error-hero::before,
-.kontrol-hero::before,
-.ymk-hero::before {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-}
-
-/* Убираем размытие с контейнеров */
-.stud-hero,
-.zaoch-hero,
-.abut-hero,
-.news-hero,
-.kol-hero,
-.search-hero,
-.spec-hero,
-.error-hero,
-.kontrol-hero,
-.ymk-hero {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-}
-
-/* Убираем размытие с content */
-.stud-hero .hero-content,
-.zaoch-hero .hero-content,
-.abut-hero .hero-content,
-.news-hero .hero-content,
-.kol-hero .hero-content,
-.search-hero .hero-content,
-.spec-hero .hero-content,
-.error-hero .hero-content,
-.kontrol-hero .hero-content,
-.ymk-hero .hero-content {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-}
-
-/* Принудительно делаем текст четким */
-.stud-hero *,
-.zaoch-hero *,
-.abut-hero *,
-.news-hero *,
-.kol-hero *,
-.search-hero *,
-.spec-hero *,
-.error-hero *,
-.kontrol-hero *,
-.ymk-hero * {
-    text-shadow: none !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-style: inherit !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 } 

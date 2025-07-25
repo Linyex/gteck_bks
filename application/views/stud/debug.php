@@ -1,138 +1,145 @@
-<?php /* @var $debug_info array */ ?>
-<div class="container">
-    <h1>Отладка загрузки файлов</h1>
+<?php 
+    $page_title = "Отладка загрузки файлов"; 
+    include $_SERVER['DOCUMENT_ROOT'] . '/application/views/common/header.php'; 
+?>
 
-    <h2>Настройки PHP:</h2>
-    <table class="debug-table">
-        <tr><td>upload_max_filesize:</td><td><?php echo $debug_info['php_settings']['upload_max_filesize']; ?></td></tr>
-        <tr><td>post_max_size:</td><td><?php echo $debug_info['php_settings']['post_max_size']; ?></td></tr>
-        <tr><td>max_execution_time:</td><td><?php echo $debug_info['php_settings']['max_execution_time']; ?></td></tr>
-        <tr><td>memory_limit:</td><td><?php echo $debug_info['php_settings']['memory_limit']; ?></td></tr>
-    </table>
+<section class="debug-hero">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="hero-icon">🔧</span>
+            Отладка загрузки файлов
+        </h1>
+        <p class="hero-subtitle">Техническая информация о системе</p>
+    </div>
+</section>
 
-    <h2>Папка загрузки:</h2>
-    <table class="debug-table">
-        <tr><td>Путь:</td><td><?php echo htmlspecialchars($debug_info['upload_dir']['path']); ?></td></tr>
-        <tr><td>Существует:</td><td><?php echo $debug_info['upload_dir']['exists'] ? 'ДА' : 'НЕТ'; ?></td></tr>
-        <tr><td>Доступна для записи:</td><td><?php echo $debug_info['upload_dir']['writable'] ? 'ДА' : 'НЕТ'; ?></td></tr>
-        <tr><td>Права:</td><td><?php echo $debug_info['upload_dir']['permissions']; ?></td></tr>
-    </table>
-
-    <h2>Информация о сервере:</h2>
-    <table class="debug-table">
-        <tr><td>DOCUMENT_ROOT:</td><td><?php echo htmlspecialchars($debug_info['server']['document_root']); ?></td></tr>
-        <tr><td>SCRIPT_NAME:</td><td><?php echo htmlspecialchars($debug_info['server']['script_name']); ?></td></tr>
-    </table>
-
-    <?php if (isset($debug_info['upload_test'])): ?>
-        <h2>Тест загрузки:</h2>
-        <table class="debug-table">
-            <tr><td>Имя файла:</td><td><?php echo htmlspecialchars($debug_info['upload_test']['file_info']['name']); ?></td></tr>
-            <tr><td>Размер:</td><td><?php echo $debug_info['upload_test']['file_info']['size']; ?> байт</td></tr>
-            <tr><td>Тип:</td><td><?php echo htmlspecialchars($debug_info['upload_test']['file_info']['type']); ?></td></tr>
-            <tr><td>Код ошибки:</td><td><?php echo $debug_info['upload_test']['error_code']; ?></td></tr>
-            <?php if (isset($debug_info['upload_test']['target_path'])): ?>
-                <tr><td>Путь сохранения:</td><td><b><?php echo htmlspecialchars($debug_info['upload_test']['target_path']); ?></b></td></tr>
-            <?php endif; ?>
-        </table>
-
-        <?php if (isset($debug_info['upload_test']['error_message'])): ?>
-            <div class="alert alert-danger">
-                <strong>Ошибка загрузки:</strong> <?php echo htmlspecialchars($debug_info['upload_test']['error_message']); ?>
-            </div>
-        <?php elseif (isset($debug_info['upload_test']['status']) && $debug_info['upload_test']['status'] === 'success'): ?>
-            <div class="alert alert-success">
-                <strong>Файл загружен во временную папку успешно!</strong>
-            </div>
-            
-            <h3>Перемещение файла:</h3>
-            <p>Целевой путь: <?php echo htmlspecialchars($debug_info['upload_test']['target_path']); ?></p>
-            
-            <?php if ($debug_info['upload_test']['move_success']): ?>
-                <div class="alert alert-success">
-                    <strong>Файл успешно перемещен в целевую папку!</strong>
+<section class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="info-card">
+                    <h4 class="card-title">Настройки PHP</h4>
+                    <div class="debug-table">
+                        <div class="debug-row">
+                            <span class="debug-label">upload_max_filesize:</span>
+                            <span class="debug-value"><?php echo $debug_info['php_settings']['upload_max_filesize']; ?></span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">post_max_size:</span>
+                            <span class="debug-value"><?php echo $debug_info['php_settings']['post_max_size']; ?></span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">max_execution_time:</span>
+                            <span class="debug-value"><?php echo $debug_info['php_settings']['max_execution_time']; ?></span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">memory_limit:</span>
+                            <span class="debug-value"><?php echo $debug_info['php_settings']['memory_limit']; ?></span>
+                        </div>
+                    </div>
                 </div>
-            <?php else: ?>
-                <div class="alert alert-danger">
-                    <strong>Ошибка при перемещении файла!</strong><br>
-                    PHP ошибка: <?php echo htmlspecialchars($debug_info['upload_test']['php_error']); ?>
-                </div>
-            <?php endif; ?>
-        <?php endif; ?>
-    <?php endif; ?>
+            </div>
 
-    <h2>Тестовая форма загрузки:</h2>
-    <form method="post" enctype="multipart/form-data" class="upload-form">
-        <div class="form-group">
-            <label for="file">Выберите файл:</label>
-            <input type="file" name="file" id="file" required>
+            <div class="col-lg-6 mb-4">
+                <div class="info-card">
+                    <h4 class="card-title">Папка загрузки</h4>
+                    <div class="debug-table">
+                        <div class="debug-row">
+                            <span class="debug-label">Путь:</span>
+                            <span class="debug-value"><?php echo htmlspecialchars($debug_info['upload_dir']['path']); ?></span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">Существует:</span>
+                            <span class="debug-value <?php echo $debug_info['upload_dir']['exists'] ? 'text-success' : 'text-danger'; ?>">
+                                <?php echo $debug_info['upload_dir']['exists'] ? 'ДА' : 'НЕТ'; ?>
+                            </span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">Доступна для записи:</span>
+                            <span class="debug-value <?php echo $debug_info['upload_dir']['writable'] ? 'text-success' : 'text-danger'; ?>">
+                                <?php echo $debug_info['upload_dir']['writable'] ? 'ДА' : 'НЕТ'; ?>
+                            </span>
+                        </div>
+                        <div class="debug-row">
+                            <span class="debug-label">Права:</span>
+                            <span class="debug-value"><?php echo $debug_info['upload_dir']['permissions']; ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Загрузить файл</button>
-    </form>
-</div>
 
-<style>
-    .debug-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    .debug-table td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-    .debug-table td:first-child {
-        font-weight: bold;
-        background-color: #f8f9fa;
-        width: 200px;
-    }
-    .alert {
-        padding: 15px;
-        border-radius: 6px;
-        margin-bottom: 20px;
-    }
-    .alert-success {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-    }
-    .alert-danger {
-        background: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-    .upload-form {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 6px;
-        margin-top: 20px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    .form-group input[type="file"] {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    .btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-    .btn-primary {
-        background: #007bff;
-        color: white;
-    }
-    .btn-primary:hover {
-        background: #0056b3;
-    }
-</style> 
+        <div class="info-card mb-4">
+            <h4 class="card-title">Информация о сервере</h4>
+            <div class="debug-table">
+                <div class="debug-row">
+                    <span class="debug-label">DOCUMENT_ROOT:</span>
+                    <span class="debug-value"><?php echo htmlspecialchars($debug_info['server']['document_root']); ?></span>
+                </div>
+                <div class="debug-row">
+                    <span class="debug-label">SCRIPT_NAME:</span>
+                    <span class="debug-value"><?php echo htmlspecialchars($debug_info['server']['script_name']); ?></span>
+                </div>
+            </div>
+        </div>
+
+        <?php if (isset($debug_info['upload_test'])): ?>
+            <div class="info-card">
+                <h4 class="card-title">Результат теста загрузки</h4>
+                <div class="debug-table">
+                    <div class="debug-row">
+                        <span class="debug-label">Имя файла:</span>
+                        <span class="debug-value"><?php echo htmlspecialchars($debug_info['upload_test']['file_info']['name']); ?></span>
+                    </div>
+                    <div class="debug-row">
+                        <span class="debug-label">Размер:</span>
+                        <span class="debug-value"><?php echo number_format($debug_info['upload_test']['file_info']['size']); ?> байт</span>
+                    </div>
+                    <div class="debug-row">
+                        <span class="debug-label">Тип:</span>
+                        <span class="debug-value"><?php echo htmlspecialchars($debug_info['upload_test']['file_info']['type']); ?></span>
+                    </div>
+                    <div class="debug-row">
+                        <span class="debug-label">Код ошибки:</span>
+                        <span class="debug-value"><?php echo $debug_info['upload_test']['error_code']; ?></span>
+                    </div>
+                    <?php if (isset($debug_info['upload_test']['target_path'])): ?>
+                        <div class="debug-row">
+                            <span class="debug-label">Путь сохранения:</span>
+                            <span class="debug-value"><?php echo htmlspecialchars($debug_info['upload_test']['target_path']); ?></span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <?php if (isset($debug_info['upload_test']['error_message'])): ?>
+                    <div class="alert alert-danger mt-3">
+                        <h5 class="alert-heading">Ошибка загрузки:</h5>
+                        <p class="mb-0"><?php echo htmlspecialchars($debug_info['upload_test']['error_message']); ?></p>
+                    </div>
+                <?php elseif (isset($debug_info['upload_test']['status']) && $debug_info['upload_test']['status'] === 'success'): ?>
+                    <div class="alert alert-success mt-3">
+                        <h5 class="alert-heading">Успех!</h5>
+                        <p class="mb-0">Файл загружен во временную папку успешно!</p>
+                        <?php if (isset($debug_info['upload_test']['target_path'])): ?>
+                            <hr>
+                            <p class="mb-0"><strong>Целевой путь:</strong> <?php echo htmlspecialchars($debug_info['upload_test']['target_path']); ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if (isset($debug_info['upload_test']['move_result'])): ?>
+                    <div class="alert <?php echo $debug_info['upload_test']['move_result']['success'] ? 'alert-success' : 'alert-danger'; ?> mt-3">
+                        <h5 class="alert-heading">Перемещение файла:</h5>
+                        <p class="mb-0"><?php echo htmlspecialchars($debug_info['upload_test']['move_result']['message']); ?></p>
+                        <?php if (isset($debug_info['upload_test']['move_result']['final_path'])): ?>
+                            <hr>
+                            <p class="mb-0"><strong>Финальный путь:</strong> <?php echo htmlspecialchars($debug_info['upload_test']['move_result']['final_path']); ?></p>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/application/views/common/footer.php'; ?> 

@@ -13,6 +13,24 @@ class studController extends BaseController {
         ]);
     }
     
+    public function spiski() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        // Получаем данные списков групп из БД
+        $listgr = $this->db->fetchAll("SELECT * FROM `listgr` ORDER BY listgr_status ASC, listgr_id DESC");
+        
+        // Инициализируем пустые значения если данных нет
+        if (!$listgr) $listgr = [];
+        
+        return $this->render('stud/spiski', [
+            'listgr' => $listgr,
+            'title' => 'Списки учебных групп'
+        ]);
+    }
+    
     public function kontrolnui() {
         // Отключаем кеширование для разработки
         header('Cache-Control: no-cache, no-store, must-revalidate');
@@ -39,6 +57,50 @@ class studController extends BaseController {
         ]);
     }
     
+    public function yslugi() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        return $this->render('stud/yslugi', [
+            'title' => 'Платные услуги'
+        ]);
+    }
+    
+    public function prof() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        return $this->render('stud/prof', [
+            'title' => 'Дополнительное образование'
+        ]);
+    }
+    
+    public function library() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        return $this->render('stud/library', [
+            'title' => 'Библиотека'
+        ]);
+    }
+    
+    public function hostel() {
+        // Отключаем кеширование для разработки
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        return $this->render('stud/hostel', [
+            'title' => 'Общежитие'
+        ]);
+    }
+
     public function admin_upload() {
         // Отключаем кеширование для разработки
         header('Cache-Control: no-cache, no-store, must-revalidate');

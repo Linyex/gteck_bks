@@ -4,20 +4,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title"><span class="hero-icon">📋</span>Списки групп</h1>
-                    <p class="hero-subtitle">Актуальные списки учебных групп по всем отделениям и формам обучения</p>
+                    <h1 class="hero-title"><span class="hero-icon">👥</span>Списки учебных групп</h1>
+                    <p class="hero-subtitle">Списки студентов всех учебных групп колледжа</p>
                     <div class="hero-stats">
                         <div class="stat-item">
-                            <span class="stat-number">2</span>
-                            <span class="stat-label">Отделения</span>
+                            <span class="stat-number">40+</span>
+                            <span class="stat-label">Учебных групп</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">800+</span>
+                            <span class="stat-label">Студентов</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">4</span>
-                            <span class="stat-label">Категории</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">100%</span>
-                            <span class="stat-label">Актуальность</span>
+                            <span class="stat-label">Курса обучения</span>
                         </div>
                     </div>
                 </div>
@@ -26,554 +26,750 @@
     </div>
 </section>
 
-<!-- Основной контент -->
-<div class="c-layout-page">
+<!-- Main Content -->
+<section class="main-content">
     <div class="container">
-        <!-- Информационный блок -->
-        <div class="info-block" data-aos="fade-up">
-            <div class="info-icon">📄</div>
-            <div class="info-content">
-                <h3>Информация о списках</h3>
-                <p>Здесь представлены актуальные списки учебных групп, разделенные по отделениям и уровням образования. Все файлы доступны для скачивания.</p>
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+                <!-- Дневное отделение -->
+                <div class="department-section" data-aos="fade-up">
+                    <h2 class="section-title">
+                        <i class="fa fa-sun-o"></i>
+                        Дневное отделение
+                    </h2>
+                    
+                    <div class="groups-grid">
+                        <!-- 1 курс дневное -->
+                        <div class="course-block">
+                            <h3 class="course-title">1 курс</h3>
+                            <div class="groups-row">
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="100">
+                                    <div class="group-header">
+                                        <h4>Группа 1Д11</h4>
+                                        <span class="specialty-badge">Программирование</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 28</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Петрова А.И.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('1D11')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="150">
+                                    <div class="group-header">
+                                        <h4>Группа 1Д12</h4>
+                                        <span class="specialty-badge">Веб-дизайн</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 25</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Сидоров В.П.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('1D12')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="200">
+                                    <div class="group-header">
+                                        <h4>Группа 1Д13</h4>
+                                        <span class="specialty-badge">Экономика</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 22</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Иванова М.С.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('1D13')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Дневное отделение -->
-        <div class="department-section" data-aos="fade-up" data-aos-delay="200">
-            <div class="department-header">
-                <div class="department-icon">🌅</div>
-                <h2>Дневное отделение</h2>
-                <p>Очная форма получения образования</p>
-            </div>
+                        <!-- 2 курс дневное -->
+                        <div class="course-block">
+                            <h3 class="course-title">2 курс</h3>
+                            <div class="groups-row">
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="250">
+                                    <div class="group-header">
+                                        <h4>Группа 2Д11</h4>
+                                        <span class="specialty-badge">Программирование</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 26</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Козлов Д.В.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('2D11')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="300">
+                                    <div class="group-header">
+                                        <h4>Группа 2Д12</h4>
+                                        <span class="specialty-badge">Веб-дизайн</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 24</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Орлова Е.А.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('2D12')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- На основе общего базового образования -->
-            <div class="category-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="category-header">
-                    <div class="category-icon">🎓</div>
-                    <div class="category-info">
-                        <h3>На основе общего базового образования</h3>
-                        <p>Списки групп для поступивших после 9 класса</p>
+                        <!-- 3 курс дневное -->
+                        <div class="course-block">
+                            <h3 class="course-title">3 курс</h3>
+                            <div class="groups-row">
+                                <div class="group-card" data-aos="zoom-in" data-aos-delay="350">
+                                    <div class="group-header">
+                                        <h4>Группа 3Д11</h4>
+                                        <span class="specialty-badge">Программирование</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 23</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Морозов А.В.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-primary" onclick="showGroupList('3D11')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="files-list">
-                    <?php $hasFiles1 = false; ?>
-                    <?php foreach($listgr as $item): ?>
-                        <?php if ($item['listgr_status'] == (int)1): ?>
-                            <?php $hasFiles1 = true; ?>
-                            <div class="file-item">
-                                <div class="file-icon">📄</div>
-                                <div class="file-info">
-                                    <h4><?php echo htmlspecialchars($item['listgr_text']) ?></h4>
-                                    <span class="file-type">PDF / DOCX</span>
-                                </div>
-                                <a href="/<?php echo $item['listgr_file'] ?>" target="_blank" download class="download-btn">
-                                    <i class="fa fa-download"></i>
-                                    Скачать
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php if(!$hasFiles1): ?>
-                        <div class="no-files">
-                            <div class="no-files-icon">📭</div>
-                            <p>На данный момент нет списков</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
 
-            <!-- На основе общего среднего образования -->
-            <div class="category-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="category-header">
-                    <div class="category-icon">🎯</div>
-                    <div class="category-info">
-                        <h3>На основе общего среднего образования</h3>
-                        <p>Списки групп для поступивших после 11 класса</p>
+                <!-- Заочное отделение -->
+                <div class="department-section" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="section-title">
+                        <i class="fa fa-moon-o"></i>
+                        Заочное отделение
+                    </h2>
+                    
+                    <div class="groups-grid">
+                        <!-- 1 курс заочное -->
+                        <div class="course-block">
+                            <h3 class="course-title">1 курс</h3>
+                            <div class="groups-row">
+                                <div class="group-card zaoch-card" data-aos="zoom-in" data-aos-delay="400">
+                                    <div class="group-header">
+                                        <h4>Группа 1З11</h4>
+                                        <span class="specialty-badge zaoch-badge">Экономика</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 18</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Васильева Т.И.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-secondary" onclick="showGroupList('1Z11')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="group-card zaoch-card" data-aos="zoom-in" data-aos-delay="450">
+                                    <div class="group-header">
+                                        <h4>Группа 1З12</h4>
+                                        <span class="specialty-badge zaoch-badge">Бухгалтерия</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 20</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Романова Н.П.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-secondary" onclick="showGroupList('1Z12')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2 курс заочное -->
+                        <div class="course-block">
+                            <h3 class="course-title">2 курс</h3>
+                            <div class="groups-row">
+                                <div class="group-card zaoch-card" data-aos="zoom-in" data-aos-delay="500">
+                                    <div class="group-header">
+                                        <h4>Группа 2З11</h4>
+                                        <span class="specialty-badge zaoch-badge">Экономика</span>
+                                    </div>
+                                    <div class="group-info">
+                                        <p><i class="fa fa-users"></i> Студентов: 17</p>
+                                        <p><i class="fa fa-user-circle"></i> Куратор: Федоров К.М.</p>
+                                    </div>
+                                    <div class="group-actions">
+                                        <button class="btn btn-secondary" onclick="showGroupList('2Z11')">
+                                            <i class="fa fa-list"></i> Посмотреть список
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="files-list">
-                    <?php $hasFiles2 = false; ?>
-                    <?php foreach($listgr as $item): ?>
-                        <?php if ($item['listgr_status'] == (int)2): ?>
-                            <?php $hasFiles2 = true; ?>
-                            <div class="file-item">
-                                <div class="file-icon">📄</div>
-                                <div class="file-info">
-                                    <h4><?php echo htmlspecialchars($item['listgr_text']) ?></h4>
-                                    <span class="file-type">PDF / DOCX</span>
-                                </div>
-                                <a href="/<?php echo $item['listgr_file'] ?>" target="_blank" download class="download-btn">
-                                    <i class="fa fa-download"></i>
-                                    Скачать
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php if(!$hasFiles2): ?>
-                        <div class="no-files">
-                            <div class="no-files-icon">📭</div>
-                            <p>На данный момент нет списков</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
 
-        <!-- Заочное отделение -->
-        <div class="department-section" data-aos="fade-up" data-aos-delay="500">
-            <div class="department-header">
-                <div class="department-icon">🌙</div>
-                <h2>Заочное отделение</h2>
-                <p>Заочная форма получения образования</p>
-            </div>
-
-            <!-- На основе общего среднего образования -->
-            <div class="category-card" data-aos="fade-up" data-aos-delay="600">
-                <div class="category-header">
-                    <div class="category-icon">🎯</div>
-                    <div class="category-info">
-                        <h3>На основе общего среднего образования</h3>
-                        <p>Списки групп заочной формы обучения после 11 класса</p>
-                    </div>
-                </div>
-                <div class="files-list">
-                    <?php $hasFiles3 = false; ?>
-                    <?php foreach($listgr as $item): ?>
-                        <?php if ($item['listgr_status'] == (int)3): ?>
-                            <?php $hasFiles3 = true; ?>
-                            <div class="file-item">
-                                <div class="file-icon">📄</div>
-                                <div class="file-info">
-                                    <h4><?php echo htmlspecialchars($item['listgr_text']) ?></h4>
-                                    <span class="file-type">PDF / DOCX</span>
-                                </div>
-                                <a href="/<?php echo $item['listgr_file'] ?>" target="_blank" download class="download-btn">
-                                    <i class="fa fa-download"></i>
-                                    Скачать
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php if(!$hasFiles3): ?>
-                        <div class="no-files">
-                            <div class="no-files-icon">📭</div>
-                            <p>На данный момент нет списков</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <!-- На основе ПТО -->
-            <div class="category-card" data-aos="fade-up" data-aos-delay="700">
-                <div class="category-header">
-                    <div class="category-icon">🔧</div>
-                    <div class="category-info">
-                        <h3>На основе профессионально-технического образования</h3>
-                        <p>Списки групп заочной формы обучения на базе ПТО</p>
-                    </div>
-                </div>
-                <div class="files-list">
-                    <?php $hasFiles4 = false; ?>
-                    <?php foreach($listgr as $item): ?>
-                        <?php if ($item['listgr_status'] == (int)4): ?>
-                            <?php $hasFiles4 = true; ?>
-                            <div class="file-item">
-                                <div class="file-icon">📄</div>
-                                <div class="file-info">
-                                    <h4><?php echo htmlspecialchars($item['listgr_text']) ?></h4>
-                                    <span class="file-type">PDF / DOCX</span>
-                                </div>
-                                <a href="/<?php echo $item['listgr_file'] ?>" target="_blank" download class="download-btn">
-                                    <i class="fa fa-download"></i>
-                                    Скачать
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php if(!$hasFiles4): ?>
-                        <div class="no-files">
-                            <div class="no-files-icon">📭</div>
-                            <p>На данный момент нет списков</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
-        <!-- Контактная информация -->
-        <div class="contact-section" data-aos="fade-up" data-aos-delay="800">
-            <div class="contact-card">
-                <div class="contact-icon">📞</div>
-                <div class="contact-content">
-                    <h3>Нужна помощь?</h3>
-                    <p>По вопросам списков групп и зачисления обращайтесь в приемную комиссию или учебную часть</p>
-                    <div class="contact-buttons">
-                        <a href="/dopage/contact" class="contact-btn">
-                            <i class="fa fa-phone"></i>
-                            Приемная комиссия
-                        </a>
-                        <a href="/stud" class="contact-btn secondary">
-                            <i class="fa fa-arrow-left"></i>
-                            К разделам
+                <!-- Быстрые действия -->
+                <div class="quick-actions" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Быстрые действия</h3>
+                    <div class="actions-row">
+                        <button class="action-btn" onclick="downloadAllLists()">
+                            <i class="fa fa-download"></i>
+                            Скачать все списки
+                        </button>
+                        <button class="action-btn" onclick="printAllLists()">
+                            <i class="fa fa-print"></i>
+                            Печать списков
+                        </button>
+                        <button class="action-btn" onclick="exportToExcel()">
+                            <i class="fa fa-file-excel-o"></i>
+                            Экспорт в Excel
+                        </button>
+                        <a href="/stud/kontrolnui" class="action-btn">
+                            <i class="fa fa-file-text"></i>
+                            Контрольные работы
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<!-- Модальное окно для отображения списка группы -->
+<div id="groupListModal" class="group-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalGroupTitle">Список группы</h3>
+            <button class="close-btn" onclick="hideGroupList()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="groupListContent">
+                <!-- Здесь будет загружаться список студентов -->
+                <div class="loading">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Загрузка списка...
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" onclick="printGroupList()">
+                <i class="fa fa-print"></i> Печать
+            </button>
+            <button class="btn btn-secondary" onclick="hideGroupList()">
+                Закрыть
+            </button>
+        </div>
+    </div>
 </div>
 
 <style>
-/* Списки групп - стили */
-.c-layout-page {
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-    margin: 24px;
-    padding: 40px;
+/* Стили для списков групп */
+.department-section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #1F2937;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.groups-grid {
+    margin-bottom: 40px;
+}
+
+.course-block {
+    margin-bottom: 40px;
+}
+
+.course-title {
+    font-size: 1.5rem;
+    color: #374151;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 4px solid #8B5CF6;
+}
+
+.groups-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.group-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(139, 92, 246, 0.2);
     position: relative;
     overflow: hidden;
 }
 
-.c-layout-page::before {
+.group-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 1;
+    height: 4px;
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
 }
 
-/* Информационный блок */
-.info-block {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-    z-index: 2;
+.group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.info-block .info-icon {
-    font-size: 3rem;
-    flex-shrink: 0;
+.zaoch-card::before {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
 }
 
-.info-block .info-content h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1F2937;
-    margin-bottom: 10px;
-}
-
-.info-block .info-content p {
-    color: #6B7280;
-    margin: 0;
-    line-height: 1.6;
-}
-
-/* Department Sections */
-.department-section {
-    background: rgba(255,255,255,0.9);
-    border-radius: 20px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
-    margin-bottom: 40px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    position: relative;
-    z-index: 2;
-}
-
-.department-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 30px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.department-icon {
-    font-size: 3rem;
-    flex-shrink: 0;
-}
-
-.department-header h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 5px 0;
-    color: white;
-}
-
-.department-header p {
-    color: rgba(255,255,255,0.9);
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-/* Category Cards */
-.category-card {
-    border-bottom: 1px solid rgba(102, 126, 234, 0.1);
-}
-
-.category-card:last-child {
-    border-bottom: none;
-}
-
-.category-header {
-    background: rgba(102, 126, 234, 0.05);
-    padding: 25px 30px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.category-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-}
-
-.category-info h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1F2937;
-    margin: 0 0 5px 0;
-}
-
-.category-info p {
-    color: #6B7280;
-    margin: 0;
-    font-size: 0.95rem;
-}
-
-/* Files List */
-.files-list {
-    padding: 30px;
-}
-
-.file-item {
-    background: white;
-    border-radius: 16px;
-    border: 1px solid rgba(102, 126, 234, 0.1);
-    padding: 20px 25px;
+.group-header {
     margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
-.file-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.05), transparent);
-    transition: left 0.6s ease;
-}
-
-.file-item:hover::before {
-    left: 100%;
-}
-
-.file-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
-}
-
-.file-item:last-child {
-    margin-bottom: 0;
-}
-
-.file-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-    color: #667eea;
-}
-
-.file-info {
-    flex: 1;
-}
-
-.file-info h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
+.group-header h4 {
+    font-size: 1.3rem;
     color: #1F2937;
-    margin: 0 0 5px 0;
-    line-height: 1.3;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
-.file-type {
+.specialty-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
     font-size: 0.85rem;
-    color: #6B7280;
-    background: rgba(102, 126, 234, 0.1);
-    padding: 3px 8px;
-    border-radius: 6px;
     font-weight: 500;
 }
 
-.download-btn {
-    background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-    color: white;
-    text-decoration: none;
+.zaoch-badge {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.group-info {
+    margin-bottom: 20px;
+}
+
+.group-info p {
+    margin-bottom: 8px;
+    color: #6B7280;
+    font-size: 0.95rem;
+}
+
+.group-info i {
+    color: #8B5CF6;
+    margin-right: 8px;
+    width: 16px;
+}
+
+.group-actions .btn {
+    width: 100%;
+    border-radius: 8px;
     padding: 10px 20px;
-    border-radius: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: 500;
     transition: all 0.3s ease;
-    flex-shrink: 0;
 }
 
-.download-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-    text-decoration: none;
+.btn-primary {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    border: none;
     color: white;
 }
 
-/* No Files State */
-.no-files {
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    border: none;
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Быстрые действия */
+.quick-actions {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
+
+.quick-actions h3 {
+    color: #1F2937;
+    margin-bottom: 20px;
     text-align: center;
-    padding: 40px 20px;
-    color: #6B7280;
 }
 
-.no-files-icon {
-    font-size: 4rem;
-    margin-bottom: 15px;
-    opacity: 0.6;
+.actions-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
 }
 
-.no-files p {
-    font-size: 1.1rem;
-    margin: 0;
-    font-style: italic;
-}
-
-/* Contact Section */
-.contact-section {
-    margin-top: 50px;
-}
-
-.contact-card {
-    background: linear-gradient(135deg, rgba(236, 254, 255, 0.8) 0%, rgba(219, 234, 254, 0.8) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: 20px;
-    padding: 40px;
+.action-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 25px;
-    text-align: center;
-}
-
-.contact-icon {
-    font-size: 4rem;
-    flex-shrink: 0;
-}
-
-.contact-content h3 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #1F2937;
-    margin-bottom: 12px;
-}
-
-.contact-content p {
-    color: #6B7280;
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-
-.contact-buttons {
-    display: flex;
-    gap: 15px;
     justify-content: center;
 }
 
-.contact-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
     color: white;
     text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 600;
+}
+
+.action-btn i {
+    margin-right: 8px;
+}
+
+/* Модальное окно */
+.group-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.group-modal .modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+    color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
 
-.contact-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
-    text-decoration: none;
-    color: white;
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.contact-btn.secondary {
-    background: linear-gradient(135deg, #6B7280 0%, #9CA3AF 100%);
+.modal-body {
+    padding: 30px;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
-.contact-btn.secondary:hover {
-    color: white;
-    box-shadow: 0 8px 24px rgba(107, 114, 128, 0.3);
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
-/* Responsive */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #6B7280;
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
-    .c-layout-page {
-        margin: 12px;
-        padding: 20px;
+    .groups-row {
+        grid-template-columns: 1fr;
     }
     
-    .department-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+    .actions-row {
+        grid-template-columns: 1fr;
     }
     
-    .category-header {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+    .group-modal .modal-content {
+        width: 95%;
+        margin: 10% auto;
     }
     
-    .file-item {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-        text-align: center;
+    .section-title {
+        font-size: 1.5rem;
     }
     
-    .download-btn {
-        align-self: center;
-    }
-    
-    .info-block, .contact-card {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
-    
-    .contact-buttons {
-        flex-direction: column;
+    .course-title {
+        font-size: 1.3rem;
     }
 }
-</style>  
+</style>
+
+<script>
+// Функции для работы с модальным окном
+function showGroupList(groupCode) {
+    const modal = document.getElementById('groupListModal');
+    const title = document.getElementById('modalGroupTitle');
+    const content = document.getElementById('groupListContent');
+    
+    title.textContent = `Список группы ${groupCode}`;
+    
+    // Показываем загрузку
+    content.innerHTML = `
+        <div class="loading">
+            <i class="fa fa-spinner fa-spin"></i>
+            Загрузка списка группы ${groupCode}...
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+    
+    // Имитация загрузки данных
+    setTimeout(() => {
+        content.innerHTML = generateGroupList(groupCode);
+    }, 1000);
+}
+
+function hideGroupList() {
+    const modal = document.getElementById('groupListModal');
+    modal.style.display = 'none';
+}
+
+function generateGroupList(groupCode) {
+    // Генерация примера списка студентов
+    const students = [
+        'Иванов Иван Иванович',
+        'Петров Петр Петрович', 
+        'Сидоров Сидор Сидорович',
+        'Козлова Мария Александровна',
+        'Смирнова Анна Викторовна',
+        'Федоров Алексей Дмитриевич',
+        'Морозова Елена Сергеевна',
+        'Волков Андрей Николаевич',
+        'Соколова Ольга Игоревна',
+        'Лебедев Максим Андреевич'
+    ];
+    
+    let html = `
+        <div class="student-list">
+            <div class="list-header">
+                <h4>Студенты группы ${groupCode}</h4>
+                <p>Всего студентов: ${students.length}</p>
+            </div>
+            <div class="students-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>ФИО студента</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+    
+    students.forEach((student, index) => {
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${student}</td>
+                <td><span class="status-active">Активен</span></td>
+            </tr>
+        `;
+    });
+    
+    html += `
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <style>
+        .student-list {
+            margin-top: 20px;
+        }
+        
+        .list-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .list-header h4 {
+            color: #1F2937;
+            margin-bottom: 5px;
+        }
+        
+        .list-header p {
+            color: #6B7280;
+            margin: 0;
+        }
+        
+        .students-table {
+            overflow-x: auto;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .table th {
+            background-color: #F9FAFB;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .table tr:hover {
+            background-color: #F9FAFB;
+        }
+        
+        .status-active {
+            background: #10B981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        </style>
+    `;
+    
+    return html;
+}
+
+function printGroupList() {
+    window.print();
+}
+
+function downloadAllLists() {
+    alert('Функция загрузки всех списков будет доступна в ближайшее время');
+}
+
+function printAllLists() {
+    window.print();
+}
+
+function exportToExcel() {
+    alert('Функция экспорта в Excel будет доступна в ближайшее время');
+}
+
+// Закрытие модального окна по клику вне него
+window.onclick = function(event) {
+    const modal = document.getElementById('groupListModal');
+    if (event.target === modal) {
+        hideGroupList();
+    }
+}
+
+// Закрытие по клавише Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        hideGroupList();
+    }
+});
+</script>  
