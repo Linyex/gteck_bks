@@ -1,27 +1,43 @@
-<div style="display: table; width: 100%;">
-    <h2>Ошибка</h2>
-    <hr>
-    <div style="display: table; width: 100%; text-align: center;">
-        <h1 style="text-transform: uppercase;font-size: 24px;font-weight: 900;color: #e74c3c;"><?php echo isset($errorCode) ? "Ошибка " . $errorCode : "Ошибка 404"; ?></h1>
-        
-        <div style="margin: 40px 0;">
-            <div style="font-size: 72px; color: #e74c3c; margin-bottom: 20px;">
-                <?php echo isset($errorCode) ? $errorCode : "404"; ?>
-            </div>
-            <div style="font-size: 18px; color: #666; max-width: 500px; margin: 0 auto;">
-                <?php echo isset($message) ? $message : "Возможно вы нажали на неверную ссылку или ввели неверный URL-адрес."; ?>
+<!-- Hero Section для ошибки -->
+<section class="error-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-content text-center" data-aos="fade-up">
+                    <h1 class="hero-title">❌ Ошибка</h1>
+                    <p class="hero-subtitle">Что-то пошло не так, но мы поможем вам вернуться на правильный путь</p>
+                </div>
             </div>
         </div>
-        
-        <div class="news-about" style="text-align: center; margin-bottom: 20px;">
-            <a href="/" style="float: none; font-size: 20px; color: #8B5CF6; text-decoration: none; padding: 12px 24px; border: 2px solid #8B5CF6; border-radius: 25px; transition: all 0.3s;">Вернуться на главную страницу</a>
+    </div>
+</section>
+
+<!-- Основной контент -->
+<div class="c-layout-page">
+    <div class="container">
+        <div class="content-section" data-aos="fade-up">
+            <div class="error-container">
+                <div class="error-code">
+                    <?php echo isset($errorCode) ? $errorCode : "404"; ?>
+                </div>
+                <div class="error-title">
+                    <?php echo isset($errorCode) ? "Ошибка " . $errorCode : "Страница не найдена"; ?>
+                </div>
+                <div class="error-message">
+                    <?php echo isset($message) ? $message : "Возможно вы нажали на неверную ссылку или ввели неверный URL-адрес."; ?>
+                </div>
+                <div class="error-actions">
+                    <a href="/" class="error-btn primary">
+                        <i class="fa fa-home"></i>
+                        Вернуться на главную
+                    </a>
+                    <a href="javascript:history.back()" class="error-btn secondary">
+                        <i class="fa fa-arrow-left"></i>
+                        Назад
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<style>
-.news-about a:hover {
-    background: #8B5CF6;
-    color: white;
-}
-</style>

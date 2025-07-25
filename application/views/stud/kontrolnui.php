@@ -23,6 +23,68 @@ foreach ($groups as $group) {
 }
 ?>
 
+<!-- Hero Section для контрольных работ -->
+<section class="kontrol-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-content text-center" data-aos="fade-up">
+                    <h1 class="hero-title">📝 Контрольные работы</h1>
+                    <p class="hero-subtitle">Скачайте домашние контрольные работы по всем предметам и специальностям</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number"><?php echo count($groups); ?></span>
+                            <span class="stat-label">Групп</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number"><?php echo array_sum(array_map('count', $group_files)); ?></span>
+                            <span class="stat-label">Файлов</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Доступность</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Основной контент -->
+<div class="c-layout-page">
+    <div class="container">
+        <!-- Навигация по группам -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="section-title">🎯 Выберите специальность</h2>
+            <div class="specialty-tabs">
+                <button class="tab-btn active" onclick="showTab('all')">
+                    <i class="fa fa-graduation-cap"></i>
+                    Все специальности
+                </button>
+                <button class="tab-btn" onclick="showTab('bux')">
+                    <i class="fa fa-calculator"></i>
+                    Бухгалтеры
+                </button>
+                <button class="tab-btn" onclick="showTab('econ')">
+                    <i class="fa fa-chart-line"></i>
+                    Экономисты
+                </button>
+                <button class="tab-btn" onclick="showTab('torg')">
+                    <i class="fa fa-shopping-cart"></i>
+                    Товароведы
+                </button>
+                <button class="tab-btn" onclick="showTab('prog')">
+                    <i class="fa fa-code"></i>
+                    Программисты
+                </button>
+            </div>
+        </div>
+
+        <!-- Файлы по группам -->
+        <div class="content-section" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="section-title">📁 Файлы контрольных работ</h2>
+
 <style>
     .panel1,.panel2,.panel3,.t101,.t111,.t201,.t211,.t301,.e101,.e201,.e301,.y101,.y201,.y301,.panelt101,.panelt111,.panele101,.panely101{
         display: none;
@@ -403,10 +465,110 @@ foreach ($groups as $group) {
             </div>
         </div>
     </div>
-    <!-- END: KYRS LEKCII -->
+            <!-- Современный вывод файлов по группам -->
+            <div class="files-grid">
+                <?php foreach ($groups as $group): ?>
+                    <?php 
+                        $groupName = $group['groupname'];
+                        $files = isset($group_files[$groupName]) ? $group_files[$groupName] : [];
+                        
+                        // Определяем иконку специальности
+                        $specialty_icon = '🎓';
+                        if (strpos($groupName, 'Б') !== false || strpos($groupName, 'Э') !== false) {
+                            $specialty_icon = '📊';
+                        } elseif (strpos($groupName, 'Т') !== false) {
+                            $specialty_icon = '🛒';
+                        } elseif (strpos($groupName, 'П') !== false) {
+                            $specialty_icon = '💻';
+                        }
+                    ?>
+                    <div class="group-card" data-aos="fade-up" data-aos-delay="<?php echo array_search($group, $groups) * 100; ?>">
+                        <div class="group-header">
+                            <div class="group-icon"><?php echo $specialty_icon; ?></div>
+                            <div>
+                                <h3 class="group-title">Группа <?php echo htmlspecialchars($groupName); ?></h3>
+                                <p class="group-subtitle"><?php echo count($files); ?> файлов</p>
+                            </div>
+                        </div>
+                        
+                        <?php if (!empty($files)): ?>
+                            <ul class="files-list">
+                                <?php foreach ($files as $file): ?>
+                                    <li class="file-item">
+                                        <i class="fa fa-file-pdf file-icon"></i>
+                                        <a href="<?php echo htmlspecialchars($file['path']); ?>" 
+                                           target="_blank" 
+                                           class="file-link">
+                                            <?php echo htmlspecialchars($file['filename']); ?>
+                                        </a>
+                                        <span class="file-size">
+                                            <?php 
+                                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . $file['path'])) {
+                                                    $size = filesize($_SERVER['DOCUMENT_ROOT'] . $file['path']);
+                                                    echo $size > 1024 * 1024 ? round($size / (1024 * 1024), 1) . ' MB' : round($size / 1024, 1) . ' KB';
+                                                }
+                                            ?>
+                                        </span>
+                                        <button onclick="window.open('<?php echo htmlspecialchars($file['path']); ?>', '_blank')" 
+                                                class="download-btn-small">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <div class="no-files">
+                                <i class="fa fa-folder-open" style="font-size: 2rem; color: #D1D5DB; margin-bottom: 10px;"></i>
+                                <p style="color: #6B7280; font-style: italic;">Файлы для этой группы пока не загружены</p>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
+// Современная функция для работы с вкладками
+function showTab(specialty) {
+    const buttons = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.group-card');
+    
+    // Убираем активное состояние со всех кнопок
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Добавляем активное состояние нажатой кнопке
+    event.target.classList.add('active');
+    
+    // Показываем/скрываем карточки в зависимости от специальности
+    cards.forEach(card => {
+        const groupTitle = card.querySelector('.group-title').textContent;
+        let show = specialty === 'all';
+        
+        if (!show) {
+            switch(specialty) {
+                case 'bux':
+                    show = groupTitle.includes('Б') || groupTitle.includes('Э');
+                    break;
+                case 'econ':
+                    show = groupTitle.includes('Э');
+                    break;
+                case 'torg':
+                    show = groupTitle.includes('Т');
+                    break;
+                case 'prog':
+                    show = groupTitle.includes('П');
+                    break;
+            }
+        }
+        
+        card.style.display = show ? 'block' : 'none';
+    });
+}
+
+// Удаляем старые функции
+/*
         var delay_popup = 0;
         setTimeout("document.getElementById('overlay').style.display='block'", delay_popup);
         
@@ -417,25 +579,19 @@ function bubs(){
         panel2.style.display = "inline";
     var panel3 = document.getElementById("panel3");
         panel3.style.display = "inline";
+*/
+
+// Удаляем старый код - все файлы теперь доступны без паролей
+/*
+function bubs(){
+    // Старая функция - удалена
 }
 
 function PassCheck(form) {
-    var password = form.inpass.value;
-    
-    // Проверяем пароли для разных групп
-    if(password == "111") {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("panel1").style.display = "inline";
-        document.getElementById("panelt111").style.display = "inline";
-        return false;
-    }
-    else if(password == "101") {
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("panel1").style.display = "inline";
-        document.getElementById("panelt101").style.display = "inline";
-        return false;
-    }
-    else if(password == "э101") {
+    // Старая функция проверки паролей - удалена
+    // Теперь все файлы доступны без паролей
+}
+*/
         document.getElementById("overlay").style.display = "none";
         document.getElementById("panel1").style.display = "inline";
         document.getElementById("panele101").style.display = "inline";
