@@ -189,6 +189,7 @@
             <!-- Оптимизированные JS Scripts -->
             <script src="/assets/js/gtec.js"></script>
             <script src="/assets/js/optimized.js?v=1.2.0"></script>
+            <script src="/assets/js/lazy-loading.js?v=1.2.0"></script>
             <script src="/assets/js/main-page.js"></script>
             
             <script type="text/javascript">
