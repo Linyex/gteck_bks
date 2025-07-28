@@ -18,14 +18,10 @@ class GroupPasswordChecker {
             );
             
             if (!$group) {
-                return [
-                    'success' => false,
-                    'message' => 'Группа не найдена или доступ заблокирован',
-                    'group_info' => null
-                ];
+                return false; // Группа не найдена
             }
             
-            // Проверяем пароль
+            // Проверяем пароль с правильным полем password (как в БД)
             if (password_verify($password, $group['password'])) {
                 // Сохраняем в сессию информацию о доступе
                 $_SESSION['group_access'] = [
@@ -34,28 +30,13 @@ class GroupPasswordChecker {
                     'expires' => time() + (24 * 60 * 60) // 24 часа
                 ];
                 
-                return [
-                    'success' => true,
-                    'message' => 'Доступ предоставлен',
-                    'group_info' => [
-                        'name' => $group['group_name'],
-                        'description' => $group['description']
-                    ]
-                ];
-            } else {
-                return [
-                    'success' => false,
-                    'message' => 'Неверный пароль',
-                    'group_info' => null
-                ];
+                return true; // Пароль верный
             }
             
+            return false; // Пароль неверный
         } catch (Exception $e) {
-            return [
-                'success' => false,
-                'message' => 'Ошибка при проверке доступа',
-                'group_info' => null
-            ];
+            error_log("GroupPasswordChecker error: " . $e->getMessage());
+            return false; // Ошибка БД
         }
     }
     
