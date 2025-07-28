@@ -32,6 +32,11 @@ class studController extends BaseController {
     }
     
     public function kontrolnui() {
+        // Запускаем сессию для работы с авторизацией
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         // Отключаем кеширование для разработки
         header('Cache-Control: no-cache, no-store, must-revalidate');
         header('Pragma: no-cache');

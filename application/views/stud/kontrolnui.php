@@ -15,8 +15,7 @@ try {
     $groups = [];
 }
 
-// Проверяем есть ли активная сессия доступа
-session_start();
+// Проверяем есть ли активная сессия доступа (сессия уже запущена в index.php)
 if (isset($_SESSION['group_access']) && $_SESSION['group_access']['expires'] > time()) {
     $selectedGroup = $_SESSION['group_access']['group_name'];
     $passwordRequired = false;
