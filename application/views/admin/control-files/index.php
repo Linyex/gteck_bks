@@ -58,8 +58,8 @@
                                     </td>
                                     <td>
                                         <div class="groups-list">
-                                            <?php if (!empty($file['groups'])): ?>
-                                                <?php foreach (explode(',', $file['groups']) as $group): ?>
+                                            <?php if (!empty($file['group_names'])): ?>
+                                                <?php foreach (explode(',', $file['group_names']) as $group): ?>
                                                     <span class="group-badge"><?php echo htmlspecialchars(trim($group)); ?></span>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
@@ -69,7 +69,7 @@
                                     </td>
                                     <td>
                                         <div class="description-cell">
-                                            <?php echo htmlspecialchars($file['description'] ?: 'Нет описания'); ?>
+                                            <?php echo htmlspecialchars(isset($file['description']) ? $file['description'] : 'Нет описания'); ?>
                                         </div>
                                     </td>
                                     <td>

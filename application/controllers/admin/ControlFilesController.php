@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/BaseAdminController.php';
+require_once ENGINE_DIR . 'main/db.php';
 
 class ControlFilesController extends BaseAdminController {
     
@@ -10,7 +11,7 @@ class ControlFilesController extends BaseAdminController {
         try {
             // Получаем все файлы с группами
             $files = Database::fetchAll("
-                SELECT f.*, GROUP_CONCAT(g.groupname) as groups 
+                SELECT f.*, GROUP_CONCAT(g.groupname) as group_names 
                 FROM dkrfiles f 
                 LEFT JOIN dkrjointable j ON f.id = j.fileid 
                 LEFT JOIN dkrgroups g ON j.groupid = g.id_group 
