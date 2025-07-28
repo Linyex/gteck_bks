@@ -75,7 +75,7 @@
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="/admin/group-passwords/edit?id=<?php echo $password['id']; ?>" 
+                                            <a href="/admin/group-passwords/edit/<?php echo $password['id']; ?>" 
                                                class="btn btn-sm btn-outline-primary" 
                                                title="Редактировать">
                                                 <i class="fa fa-edit"></i>

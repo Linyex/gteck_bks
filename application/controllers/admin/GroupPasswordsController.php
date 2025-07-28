@@ -1,16 +1,19 @@
 <?php
 
+require_once __DIR__ . '/BaseAdminController.php';
+
 class GroupPasswordsController extends BaseAdminController {
     
     public function index() {
-        $this->requirePermission('admin');
+        $this->requireAccessLevel(10); // Только администраторы
         
         try {
             $passwords = Database::fetchAll("SELECT * FROM group_passwords ORDER BY group_name");
             
-            $this->renderView('admin/group-passwords/index', [
+            echo $this->render('admin/group-passwords/index', [
                 'passwords' => $passwords,
-                'title' => 'Управление паролями групп'
+                'title' => 'Управление паролями групп',
+                'currentPage' => 'group-passwords'
             ]);
         } catch (Exception $e) {
             $this->handleError($e);
@@ -18,7 +21,7 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function create() {
-        $this->requirePermission('admin');
+        $this->requireAccessLevel(10); // Только администраторы
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -38,24 +41,26 @@ class GroupPasswordsController extends BaseAdminController {
                 );
                 
                 $_SESSION['success'] = 'Пароль группы добавлен успешно';
-                $this->redirect('/admin/group-passwords');
+                header('Location: /admin/group-passwords');
+                exit;
                 
             } catch (Exception $e) {
                 $_SESSION['error'] = $e->getMessage();
             }
         }
         
-        $this->renderView('admin/group-passwords/create', [
-            'title' => 'Добавить пароль группы'
+        echo $this->render('admin/group-passwords/create', [
+            'title' => 'Добавить пароль группы',
+            'currentPage' => 'group-passwords'
         ]);
     }
     
-    public function edit() {
-        $this->requirePermission('admin');
+    public function edit($id = null) {
+        $this->requireAccessLevel(10); // Только администраторы
         
-        $id = $_GET['id'] ?? null;
         if (!$id) {
-            $this->redirect('/admin/group-passwords');
+            header('Location: /admin/group-passwords');
+            exit;
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -83,7 +88,8 @@ class GroupPasswordsController extends BaseAdminController {
                 Database::execute($sql, $params);
                 
                 $_SESSION['success'] = 'Пароль группы обновлен успешно';
-                $this->redirect('/admin/group-passwords');
+                header('Location: /admin/group-passwords');
+                exit;
                 
             } catch (Exception $e) {
                 $_SESSION['error'] = $e->getMessage();
@@ -96,22 +102,25 @@ class GroupPasswordsController extends BaseAdminController {
                 throw new Exception('Пароль группы не найден');
             }
             
-            $this->renderView('admin/group-passwords/edit', [
+            echo $this->render('admin/group-passwords/edit', [
                 'password' => $password,
-                'title' => 'Редактировать пароль группы'
+                'title' => 'Редактировать пароль группы',
+                'currentPage' => 'group-passwords'
             ]);
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-            $this->redirect('/admin/group-passwords');
+            header('Location: /admin/group-passwords');
+            exit;
         }
     }
     
     public function delete() {
-        $this->requirePermission('admin');
+        $this->requireAccessLevel(10); // Только администраторы
         
         $id = $_POST['id'] ?? null;
         if (!$id) {
             $this->jsonResponse(['success' => false, 'message' => 'ID не указан']);
+            return;
         }
         
         try {
@@ -123,11 +132,12 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function toggle() {
-        $this->requirePermission('admin');
+        $this->requireAccessLevel(10); // Только администраторы
         
         $id = $_POST['id'] ?? null;
         if (!$id) {
             $this->jsonResponse(['success' => false, 'message' => 'ID не указан']);
+            return;
         }
         
         try {
@@ -144,6 +154,21 @@ class GroupPasswordsController extends BaseAdminController {
         } catch (Exception $e) {
             $this->jsonResponse(['success' => false, 'message' => $e->getMessage()]);
         }
+    }
+    
+    protected function jsonResponse($data) {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    }
+    
+    protected function handleError($e) {
+        $_SESSION['error'] = 'Произошла ошибка: ' . $e->getMessage();
+        echo $this->render('admin/error/500', [
+            'title' => 'Ошибка сервера',
+            'message' => $e->getMessage(),
+            'currentPage' => 'group-passwords'
+        ]);
     }
 }
 ?> 

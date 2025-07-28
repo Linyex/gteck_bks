@@ -66,7 +66,7 @@ class AdminRouter {
             // Пароли групп
             '/admin/group-passwords' => ['GroupPasswordsController', 'index'],
             '/admin/group-passwords/create' => ['GroupPasswordsController', 'create'],
-            '/admin/group-passwords/edit' => ['GroupPasswordsController', 'edit'],
+            '/admin/group-passwords/edit/{id}' => ['GroupPasswordsController', 'edit'],
             // API маршруты
             '/api/auth/me' => ['AuthApiController', 'me'],
             '/api/users' => ['UsersApiController', 'index'],
@@ -121,7 +121,7 @@ class AdminRouter {
             '/admin/notifications/resolve-incident' => ['NotificationController', 'resolveIncident'],
             // Пароли групп POST маршруты
             '/admin/group-passwords/create' => ['GroupPasswordsController', 'create'],
-            '/admin/group-passwords/edit' => ['GroupPasswordsController', 'edit'],
+            '/admin/group-passwords/edit/{id}' => ['GroupPasswordsController', 'edit'],
             '/admin/group-passwords/delete' => ['GroupPasswordsController', 'delete'],
             '/admin/group-passwords/toggle' => ['GroupPasswordsController', 'toggle'],
             // Безопасность POST маршруты
