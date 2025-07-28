@@ -57,7 +57,7 @@
             <div class="brand-section">
                 <div class="logo-container">
                     <a href="/" class="logo-link">
-                        <svg class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <img class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" src="/assets/img/logos/logos.png">
                             <rect width="40" height="40" rx="8" fill="url(#logoGradient)"/>
                             <path d="M8 12h24v4H20v12h-4V16H8v-4z" fill="white"/>
                             <defs>

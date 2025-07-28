@@ -158,11 +158,18 @@ html, body {
 }
 
 .brand-subtitle {
-    font-size: 0.85rem !important;
-    font-weight: 500 !important;
-    color: var(--text-muted) !important;
+    font-size: 1rem !important; /* Увеличил с 0.85rem */
+    font-weight: 600 !important; /* Увеличил с 500 */
     line-height: 1.3 !important;
     margin: 0 !important;
+    color: #374151 !important; /* Обычный цвет */
+    text-shadow: none !important;
+    transition: all 0.3s ease;
+}
+
+.brand-subtitle:hover {
+    color: #8b5cf6 !important; /* Фиолетовый при hover */
+    transform: scale(1.02);
 }
 
 /* Центральная навигация (синяя длинная зона) */
@@ -577,8 +584,19 @@ html, body {
     }
     
     .brand-subtitle {
-        font-size: 0.8rem;
+        font-size: 0.9rem !important; /* Увеличил с 0.8rem */
         max-width: 250px;
+        color: #374151 !important;
+    }
+    
+    .brand-subtitle::before {
+        content: "Гомельский торгово-экономический колледж Белкоопсоюза";
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981, #f59e0b);
+        background-size: 400% 400%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 8s ease-in-out infinite;
     }
 }
 
@@ -626,7 +644,13 @@ html, body {
     }
     
     .brand-subtitle {
-        display: none;
+        font-size: 13px !important; /* Увеличил с 12px */
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981, #f59e0b);
+        background-size: 400% 400%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 8s ease-in-out infinite;
     }
     
     .logo-container {
@@ -759,8 +783,14 @@ html, body {
     }
     
     .brand-subtitle {
-        font-size: 10px !important;
-        display: none; /* Скрываем подзаголовок на мобильных */
+        font-size: 11px !important; /* Увеличил с 10px */
+        display: block !important; /* Показываем подзаголовок */
+        background: linear-gradient(135deg, #8b5cf6, #06b6d4, #10b981, #f59e0b);
+        background-size: 400% 400%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 8s ease-in-out infinite;
     }
     
     .navigation-section {
@@ -884,5 +914,3 @@ html, body {
     white-space: nowrap !important;
     word-spacing: normal !important;
 }
-
-/* Дополнительные анимационные эффекты для dropdown */
