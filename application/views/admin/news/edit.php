@@ -69,10 +69,42 @@ $news = $news ?? [];
                         </label>
                         <select id="category_id" name="category_id" class="form-select" required>
                             <option value="">Выберите категорию</option>
-                            <option value="1" <?= ($news['category_id'] ?? 1) == 1 ? 'selected' : '' ?>>Общие новости</option>
-                            <option value="2" <?= ($news['category_id'] ?? 1) == 2 ? 'selected' : '' ?>>Академические</option>
-                            <option value="3" <?= ($news['category_id'] ?? 1) == 3 ? 'selected' : '' ?>>События</option>
+                            
+                            <!-- Обычные новости -->
+                            <optgroup label="Обычные новости">
+                                <?php foreach ($categories as $category): ?>
+                                    <?php if ($category['type'] === 'regular'): ?>
+                                        <option value="<?= $category['id'] ?>" 
+                                                <?= ($news['category_id'] ?? 1) == $category['id'] ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($category['name']) ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
+                            
+                            <!-- Важные новости -->
+                            <optgroup label="Важные новости">
+                                <?php foreach ($categories as $category): ?>
+                                    <?php if ($category['type'] === 'important'): ?>
+                                        <option value="<?= $category['id'] ?>" 
+                                                <?= ($news['category_id'] ?? 1) == $category['id'] ? 'selected' : '' ?>
+                                                class="important-option">
+                                            <?= htmlspecialchars($category['name']) ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
                         </select>
+                        <div class="form-help">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="categoryHelp">
+                                <?php if (($news['category_type'] ?? 'regular') === 'important'): ?>
+                                    ⚠️ Важные новости отображаются в слайдере на главной странице
+                                <?php else: ?>
+                                    📰 Обычные новости отображаются в сетке на главной странице
+                                <?php endif; ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -581,6 +613,23 @@ $news = $news ?? [];
 .radio-label {
     color: #fff;
     font-weight: 500;
+}
+
+.form-help {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #b8c5d6;
+    font-size: 13px;
+}
+
+.form-help i {
+    color: #00d4ff;
 }
 
 .form-actions-bottom {

@@ -67,10 +67,33 @@ $error = $error ?? '';
                         </label>
                         <select id="category_id" name="category_id" class="form-select" required>
                             <option value="">Выберите категорию</option>
-                            <option value="1">Общие новости</option>
-                            <option value="2">Академические</option>
-                            <option value="3">События</option>
+                            
+                            <!-- Обычные новости -->
+                            <optgroup label="Обычные новости">
+                                <?php foreach ($categories as $category): ?>
+                                    <?php if ($category['type'] === 'regular'): ?>
+                                        <option value="<?= $category['id'] ?>">
+                                            <?= htmlspecialchars($category['name']) ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
+                            
+                            <!-- Важные новости -->
+                            <optgroup label="Важные новости">
+                                <?php foreach ($categories as $category): ?>
+                                    <?php if ($category['type'] === 'important'): ?>
+                                        <option value="<?= $category['id'] ?>" class="important-option">
+                                            <?= htmlspecialchars($category['name']) ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
                         </select>
+                        <div class="form-help">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="categoryHelp">Выберите подходящую категорию для новости</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -581,6 +604,34 @@ $error = $error ?? '';
     border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
+.form-help {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-help i {
+    color: #3b82f6;
+}
+
+.important-option {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+optgroup[label="Важные новости"] {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+optgroup[label="Обычные новости"] {
+    color: #10b981;
+    font-weight: 600;
+}
+
 @media (max-width: 768px) {
     .form-header {
         flex-direction: column;
@@ -635,6 +686,53 @@ document.addEventListener('DOMContentLoaded', function() {
     // Загрузка файлов
     setupFileUpload('main_photo', 'mainPhotoArea', 'mainPhotoPreview', 'mainPhotoImg');
     setupFileUpload('additional_photos', 'additionalPhotosArea', 'additionalPhotosPreview');
+
+    // Обработчик выбора категории
+    const categorySelect = document.getElementById('category_id');
+    const categoryHelp = document.getElementById('categoryHelp');
+
+    categorySelect.addEventListener('change', function() {
+        if (this.value === '') {
+            categoryHelp.textContent = 'Выберите подходящую категорию для новости';
+            categoryHelp.style.color = '#b8c5d6';
+        } else {
+            categoryHelp.textContent = '';
+            categoryHelp.style.color = 'transparent'; // Скрыть подсказку
+        }
+    });
+});
+
+// Категории новостей
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category_id');
+    const categoryHelp = document.getElementById('categoryHelp');
+    
+    if (categorySelect && categoryHelp) {
+        categorySelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const categoryType = selectedOption.closest('optgroup')?.label;
+            
+            if (this.value) {
+                if (categoryType === 'Важные новости') {
+                    categoryHelp.textContent = '⚠️ Важные новости отображаются в слайдере на главной странице';
+                    categoryHelp.style.color = '#ef4444';
+                    categoryHelp.style.fontWeight = '600';
+                } else if (categoryType === 'Обычные новости') {
+                    categoryHelp.textContent = '📰 Обычные новости отображаются в сетке на главной странице';
+                    categoryHelp.style.color = '#10b981';
+                    categoryHelp.style.fontWeight = '600';
+                } else {
+                    categoryHelp.textContent = 'Выберите подходящую категорию для новости';
+                    categoryHelp.style.color = '#6b7280';
+                    categoryHelp.style.fontWeight = 'normal';
+                }
+            } else {
+                categoryHelp.textContent = 'Выберите подходящую категорию для новости';
+                categoryHelp.style.color = '#6b7280';
+                categoryHelp.style.fontWeight = 'normal';
+            }
+        });
+    }
 });
 
 function setupFileUpload(inputId, areaId, previewId, imgId = null) {
