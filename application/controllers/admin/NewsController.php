@@ -186,17 +186,84 @@ class NewsController extends BaseAdminController {
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
+            // Проверяем существование новости
+            $news = Database::fetchOne("SELECT * FROM news WHERE news_id = ?", [$id]);
+            if (!$news) {
+                if ($this->isAjaxRequest()) {
+                    return $this->jsonResponse(['success' => false, 'message' => 'Новость не найдена']);
+                }
+                header('Location: /admin/news?error=not_found');
+                exit;
+            }
+            
+            // Удаляем файл изображения, если он есть
+            if (!empty($news['news_image']) && file_exists($news['news_image'])) {
+                unlink($news['news_image']);
+            }
+            
+            // Удаляем новость из базы данных
             Database::execute("DELETE FROM news WHERE news_id = ?", [$id]);
+            
+            if ($this->isAjaxRequest()) {
+                return $this->jsonResponse(['success' => true, 'message' => 'Новость успешно удалена']);
+            }
             
             header('Location: /admin/news?deleted=1');
             exit;
         } catch (Exception $e) {
+            if ($this->isAjaxRequest()) {
+                return $this->jsonResponse(['success' => false, 'message' => 'Ошибка при удалении: ' . $e->getMessage()]);
+            }
             header('Location: /admin/news?error=1');
             exit;
         }
     }
     
+    // Проверка AJAX запроса
+    protected function isAjaxRequest() {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
+    
+    // Отправка JSON ответа
+    protected function jsonResponse($data) {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit;
+    }
+    
     public function destroy($id) {
         return $this->delete($id);
+    }
+    
+    // Страница подтверждения удаления новости
+    public function confirmDelete($id) {
+        try {
+            require_once ENGINE_DIR . 'main/db.php';
+            
+            // Получаем информацию о новости
+            $news = Database::fetchOne("SELECT * FROM news WHERE news_id = ?", [$id]);
+            
+            if (!$news) {
+                header('Location: /admin/news?error=not_found');
+                exit;
+            }
+            
+            return $this->render('admin/news/confirm-delete', [
+                'title' => 'Подтверждение удаления',
+                'currentPage' => 'news',
+                'news' => $news,
+                'additional_css' => [
+                    '/assets/css/admin-cyberpunk.css'
+                ],
+                'additional_js' => [
+                    '/assets/js/background-animations.js',
+                    '/assets/js/admin-common.js'
+                ]
+            ]);
+        } catch (Exception $e) {
+            header('Location: /admin/news?error=1');
+            exit;
+        }
     }
 } 

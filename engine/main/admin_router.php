@@ -20,6 +20,7 @@ class AdminRouter {
             '/admin/news' => ['NewsController', 'index'],
             '/admin/news/create' => ['NewsController', 'create'],
             '/admin/news/edit/{id}' => ['NewsController', 'edit'],
+            '/admin/news/confirm-delete/{id}' => ['NewsController', 'confirmDelete'],
             '/admin/files' => ['FilesController', 'index'],
             '/admin/files/upload' => ['FilesController', 'upload'],
             '/admin/photos' => ['PhotosController', 'index'],

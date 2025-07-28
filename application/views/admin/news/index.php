@@ -102,26 +102,32 @@ $deleted = $deleted ?? '';
                             <h3><?= htmlspecialchars($item['news_title'] ?? 'Без названия') ?></h3>
                         </div>
                         <div class="news-card-actions">
-                            <div class="dropdown">
-                                <button class="btn btn-icon dropdown-toggle" data-toggle="dropdown">
+                            <div class="dropdown" style="position: relative; display: inline-block;">
+                                <button class="btn btn-icon dropdown-toggle" onclick="toggleDropdown(this)" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6; border: 1px solid rgba(139, 92, 246, 0.2); padding: 8px 12px; border-radius: 6px; cursor: pointer;">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a href="/admin/news/edit/<?= $item['news_id'] ?>" class="dropdown-item">
+                                <div class="dropdown-menu" style="position: absolute; top: 100%; right: 0; min-width: 200px; padding: 8px 0; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); background: white; border: 1px solid rgba(139, 92, 246, 0.2); z-index: 10000; display: none; margin-top: 5px;">
+                                    <a href="/admin/news/edit/<?= $item['news_id'] ?>" class="dropdown-item" style="padding: 10px 20px; color: #374151; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
                                         <i class="fas fa-edit"></i>
                                         Редактировать
                                     </a>
-                                    <a href="/news/view/<?= $item['news_id'] ?>" class="dropdown-item" target="_blank">
+                                    <a href="/news/view/<?= $item['news_id'] ?>" class="dropdown-item" target="_blank" style="padding: 10px 20px; color: #374151; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
                                         <i class="fas fa-eye"></i>
                                         Просмотреть
                                     </a>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item text-danger" onclick="deleteNews(<?= $item['news_id'] ?>)">
+                                    <div style="height: 1px; background: rgba(139, 92, 246, 0.2); margin: 5px 0;"></div>
+                                    <a href="/admin/news/confirm-delete/<?= $item['news_id'] ?>" class="dropdown-item text-danger" style="padding: 10px 20px; color: #ef4444; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
                                         <i class="fas fa-trash"></i>
                                         Удалить
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
+                            
+                            <!-- Альтернативная кнопка удаления -->
+                            <a href="/admin/news/confirm-delete/<?= $item['news_id'] ?>" class="btn btn-danger btn-sm" style="margin-left: 10px; padding: 6px 12px; font-size: 12px;">
+                                <i class="fas fa-trash"></i>
+                                Удалить
+                            </a>
                         </div>
                     </div>
                     
@@ -194,22 +200,32 @@ $deleted = $deleted ?? '';
 </div>
 
 <!-- Модальное окно подтверждения удаления -->
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Подтверждение удаления</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                    Подтверждение удаления
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Вы уверены, что хотите удалить эту новость?</p>
-                <p class="text-muted">Это действие нельзя отменить.</p>
+                <p class="text-muted small">
+                    <i class="fas fa-info-circle"></i>
+                    Это действие нельзя отменить. Новость будет удалена навсегда.
+                </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-danger" id="confirmDelete">Удалить</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                    Отмена
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="confirmDelete()">
+                    <i class="fas fa-trash"></i>
+                    Удалить
+                </button>
             </div>
         </div>
     </div>
@@ -666,82 +682,299 @@ $deleted = $deleted ?? '';
         align-items: flex-start;
     }
 }
+
+    /* ПРИНУДИТЕЛЬНЫЕ СТИЛИ ДЛЯ DROPDOWN */
+    .news-card-actions .dropdown {
+        position: relative !important;
+        display: inline-block !important;
+    }
+    
+    .news-card-actions .dropdown-toggle {
+        background: rgba(139, 92, 246, 0.1) !important;
+        color: var(--primary-color) !important;
+        border: 1px solid rgba(139, 92, 246, 0.2) !important;
+        padding: 8px 12px !important;
+        border-radius: 6px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .news-card-actions .dropdown-toggle:hover {
+        background: rgba(139, 92, 246, 0.2) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2) !important;
+    }
+    
+    .news-card-actions .dropdown-menu {
+        position: absolute !important;
+        top: 100% !important;
+        right: 0 !important;
+        min-width: 200px !important;
+        padding: 8px 0 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+        background: white !important;
+        border: 1px solid rgba(139, 92, 246, 0.2) !important;
+        z-index: 10000 !important;
+        display: none !important;
+        opacity: 0 !important;
+        transform: translateY(-10px) !important;
+        transition: all 0.3s ease !important;
+        margin-top: 5px !important;
+    }
+    
+    .news-card-actions .dropdown-menu.show {
+        display: block !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    
+    .news-card-actions .dropdown-item {
+        padding: 10px 20px !important;
+        color: var(--text-dark) !important;
+        transition: all 0.2s ease !important;
+        border: none !important;
+        background: none !important;
+        width: 100% !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        display: block !important;
+        text-decoration: none !important;
+        font-size: 14px !important;
+    }
+    
+    .news-card-actions .dropdown-item:hover {
+        background: rgba(139, 92, 246, 0.1) !important;
+        color: var(--primary-color) !important;
+    }
+    
+    .news-card-actions .dropdown-item.text-danger {
+        color: #ef4444 !important;
+    }
+    
+    .news-card-actions .dropdown-item.text-danger:hover {
+        background: rgba(239, 68, 68, 0.1) !important;
+        color: #dc2626 !important;
+    }
+    
+    .news-card-actions .dropdown-divider {
+        height: 1px !important;
+        background: rgba(139, 92, 246, 0.2) !important;
+        margin: 5px 0 !important;
+        border: none !important;
+    }
+    
+    /* Позиционирование dropdown */
+    .news-card-actions {
+        position: relative;
+    }
+    
+    /* Уведомления */
+    .notification-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        min-width: 300px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.3s ease;
+    }
+    
+    .notification-toast.alert-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        border: none;
+    }
+    
+    .notification-toast.alert-error {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        border: none;
+    }
+    
+    /* Модальное окно */
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-header {
+        border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        padding: 20px 25px;
+    }
+    
+    .modal-body {
+        padding: 25px;
+    }
+    
+    .modal-footer {
+        border-top: 1px solid rgba(139, 92, 246, 0.2);
+        padding: 20px 25px;
+    }
+    
+    .modal-title {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+    
+    .btn-secondary {
+        background: linear-gradient(135deg, #6b7280, #4b5563);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #4b5563, #374151);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
 </style>
 
 <script>
+console.log('🔍 Загрузка скрипта новостей...');
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ DOM загружен');
+    
+    // Проверяем наличие элементов
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+    
+    console.log('🔍 Найдено элементов:');
+    console.log('- dropdown-toggle:', dropdownToggles.length);
+    console.log('- dropdown-menu:', dropdownMenus.length);
+    
+    // Показываем информацию о каждом элементе
+    dropdownToggles.forEach((toggle, index) => {
+        console.log(`Dropdown ${index + 1}:`, toggle);
+        console.log(`- nextElementSibling:`, toggle.nextElementSibling);
+        console.log(`- classList:`, toggle.classList.toString());
+    });
+    
     // Поиск по новостям
     const searchInput = document.getElementById('newsSearch');
     const newsCards = document.querySelectorAll('.news-card');
     
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        
-        newsCards.forEach(card => {
-            const title = card.querySelector('.news-card-title h3').textContent.toLowerCase();
-            const excerpt = card.querySelector('.news-excerpt').textContent.toLowerCase();
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
             
-            if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            newsCards.forEach(card => {
+                const title = card.querySelector('.news-card-title h3').textContent.toLowerCase();
+                const excerpt = card.querySelector('.news-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
-    });
+    }
     
     // Фильтр по категориям
     const categoryFilter = document.getElementById('categoryFilter');
-    categoryFilter.addEventListener('change', function() {
-        const selectedCategory = this.value;
-        
-        newsCards.forEach(card => {
-            const cardCategory = card.dataset.category;
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', function() {
+            const selectedCategory = this.value;
             
-            if (!selectedCategory || cardCategory === selectedCategory) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            newsCards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                
+                if (!selectedCategory || cardCategory === selectedCategory) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         });
-    });
+    }
     
     // Сортировка
     const sortFilter = document.getElementById('sortFilter');
-    sortFilter.addEventListener('change', function() {
-        const sortType = this.value;
-        const newsGrid = document.getElementById('newsGrid');
-        const cards = Array.from(newsCards);
-        
-        cards.sort((a, b) => {
-            const titleA = a.querySelector('.news-card-title h3').textContent;
-            const titleB = b.querySelector('.news-card-title h3').textContent;
-            const dateA = new Date(a.querySelector('.news-date').textContent.replace(/[^\d.]/g, ''));
-            const dateB = new Date(b.querySelector('.news-date').textContent.replace(/[^\d.]/g, ''));
+    if (sortFilter) {
+        sortFilter.addEventListener('change', function() {
+            const sortType = this.value;
+            const newsGrid = document.getElementById('newsGrid');
+            const cards = Array.from(newsCards);
             
-            switch(sortType) {
-                case 'date_desc':
-                    return dateB - dateA;
-                case 'date_asc':
-                    return dateA - dateB;
-                case 'title_asc':
-                    return titleA.localeCompare(titleB);
-                case 'title_desc':
-                    return titleB.localeCompare(titleA);
-                default:
-                    return 0;
+            cards.sort((a, b) => {
+                const titleA = a.querySelector('.news-card-title h3').textContent;
+                const titleB = b.querySelector('.news-card-title h3').textContent;
+                const dateA = new Date(a.querySelector('.news-date').textContent.replace(/[^\d.]/g, ''));
+                const dateB = new Date(b.querySelector('.news-date').textContent.replace(/[^\d.]/g, ''));
+                
+                switch(sortType) {
+                    case 'date_desc':
+                        return dateB - dateA;
+                    case 'date_asc':
+                        return dateA - dateB;
+                    case 'title_asc':
+                        return titleA.localeCompare(titleB);
+                    case 'title_desc':
+                        return titleB.localeCompare(titleA);
+                    default:
+                        return 0;
+                }
+            });
+            
+            cards.forEach(card => newsGrid.appendChild(card));
+        });
+    }
+    
+    // Dropdown меню - упрощенная версия
+    function toggleDropdown(button) {
+        console.log('🖱️ Клик по dropdown кнопке:', button);
+        
+        // Закрываем все другие dropdown
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu !== button.nextElementSibling) {
+                menu.classList.remove('show');
+                console.log('Закрыт dropdown:', menu);
             }
         });
         
-        cards.forEach(card => newsGrid.appendChild(card));
-    });
+        // Переключаем текущий dropdown
+        const dropdown = button.nextElementSibling;
+        console.log('Dropdown элемент:', dropdown);
+        
+        if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+            dropdown.classList.toggle('show');
+            console.log('Dropdown состояние:', dropdown.classList.contains('show') ? 'открыт' : 'закрыт');
+        } else {
+            console.error('❌ Не найден dropdown элемент!');
+        }
+    }
     
-    // Dropdown меню
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    dropdownToggles.forEach(toggle => {
+    // Добавляем обработчики для всех dropdown кнопок
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
-            const dropdown = this.nextElementSibling;
-            dropdown.classList.toggle('show');
+            e.stopPropagation();
+            toggleDropdown(this);
         });
     });
     
@@ -753,12 +986,121 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+    
+    // Закрытие dropdown при нажатии Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+    
+    // Инициализация Bootstrap модального окна
+    if (typeof bootstrap !== 'undefined') {
+        const deleteModal = document.getElementById('deleteModal');
+        if (deleteModal) {
+            const modal = new bootstrap.Modal(deleteModal);
+        }
+    }
 });
 
 // Функция удаления новости
 function deleteNews(newsId) {
-    if (confirm('Вы уверены, что хотите удалить эту новость?')) {
-        window.location.href = `/admin/news/delete/${newsId}`;
-    }
+    // Показываем модальное окно подтверждения
+    const modal = document.getElementById('deleteModal');
+    const modalInstance = new bootstrap.Modal(modal);
+    
+    // Устанавливаем ID новости для удаления
+    modal.dataset.newsId = newsId;
+    
+    // Показываем модальное окно
+    modalInstance.show();
+}
+
+// Функция подтверждения удаления
+function confirmDelete() {
+    const modal = document.getElementById('deleteModal');
+    const newsId = modal.dataset.newsId;
+    
+    // Показываем индикатор загрузки
+    const confirmBtn = document.getElementById('confirmDeleteBtn');
+    const originalText = confirmBtn.innerHTML;
+    confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Удаление...';
+    confirmBtn.disabled = true;
+    
+    // Выполняем AJAX запрос
+    fetch(`/admin/news/delete/${newsId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Скрываем модальное окно
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+            
+            // Удаляем карточку новости из DOM
+            const newsCard = document.querySelector(`[data-id="${newsId}"]`);
+            if (newsCard) {
+                newsCard.style.opacity = '0';
+                newsCard.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    newsCard.remove();
+                    
+                    // Обновляем счетчик
+                    const totalElement = document.querySelector('.news-stats .stat-item strong');
+                    if (totalElement) {
+                        const currentTotal = parseInt(totalElement.textContent);
+                        totalElement.textContent = currentTotal - 1;
+                    }
+                    
+                    // Показываем уведомление об успехе
+                    showNotification('Новость успешно удалена!', 'success');
+                }, 300);
+            }
+        } else {
+            throw new Error(data.message || 'Ошибка при удалении');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка удаления:', error);
+        showNotification('Ошибка при удалении новости: ' + error.message, 'error');
+        
+        // Восстанавливаем кнопку
+        confirmBtn.innerHTML = originalText;
+        confirmBtn.disabled = false;
+    });
+}
+
+// Функция показа уведомлений
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} notification-toast`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Анимация появления
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // Автоматическое скрытие через 3 секунды
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(-100%)';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
 }
 </script> 

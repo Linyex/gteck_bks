@@ -82,7 +82,7 @@
                                <a class="nav-link" href="/">Главная</a>
                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/kol" style="cursor: pointer;">О колледже</a>
+                                <a class="nav-link dropdown-toggle" style="cursor: pointer;">О колледже</a>
                                <ul class="dropdown-menu">
                                    <li><a href="/kol/grafik">Режим работы колледжа</a></li>
                                    <li><a href="/kol/history">История</a></li>
