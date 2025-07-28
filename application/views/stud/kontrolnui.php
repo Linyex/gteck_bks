@@ -7,7 +7,6 @@ $selectedGroup = null;
 $group_files = [];
 $passwordRequired = true;
 $groups = [];
-$passwordError = null;
 
 // Получаем все группы из dkrgroups
 try {
@@ -16,32 +15,32 @@ try {
     $groups = [];
 }
 
-// Если форма отправлена с паролем
-if ($_POST && isset($_POST['group_name']) && isset($_POST['password'])) {
-    $group_name = trim($_POST['group_name']);
-    $password = trim($_POST['password']);
+// Проверяем есть ли активная сессия доступа
+session_start();
+if (isset($_SESSION['group_access']) && $_SESSION['group_access']['expires'] > time()) {
+    $selectedGroup = $_SESSION['group_access']['group_name'];
+    $passwordRequired = false;
     
-    // Проверяем пароль
-    if (GroupPasswordChecker::checkPassword($group_name, $password)) {
-        $selectedGroup = $group_name;
-        $passwordRequired = false;
-        
-        // Получаем файлы для выбранной группы
-        try {
-            $group_files[$group_name] = Database::fetchAll("
-                SELECT f.* 
-                FROM dkrfiles f 
-                JOIN dkrjointable j ON f.id = j.fileid 
-                JOIN dkrgroups g ON j.groupid = g.id_group 
-                WHERE g.groupname = ? 
-                ORDER BY f.upload_date DESC
-            ", [$group_name]);
-        } catch (Exception $e) {
-            $group_files[$group_name] = [];
-        }
-    } else {
-        $passwordError = "Неверный пароль для группы $group_name";
+    // Получаем файлы для выбранной группы
+    try {
+        $group_files[$selectedGroup] = Database::fetchAll("
+            SELECT f.* 
+            FROM dkrfiles f 
+            JOIN dkrjointable j ON f.id = j.fileid 
+            JOIN dkrgroups g ON j.groupid = g.id_group 
+            WHERE g.groupname = ? 
+            ORDER BY f.upload_date DESC
+        ", [$selectedGroup]);
+    } catch (Exception $e) {
+        $group_files[$selectedGroup] = [];
     }
+}
+
+// Обрабатываем выход из системы
+if (isset($_GET['logout'])) {
+    unset($_SESSION['group_access']);
+    header('Location: /stud/kontrolnui');
+    exit;
 }
 ?>
 
@@ -67,11 +66,11 @@ if ($_POST && isset($_POST['group_name']) && isset($_POST['password'])) {
                         <h2 class="text-center mb-4">🔐 Доступ к контрольным работам</h2>
                         <p class="text-center text-muted mb-4">Введите пароль вашей группы для доступа к материалам</p>
                         
-                        <?php if ($passwordError): ?>
+                        <?php if (isset($passwordError)): ?>
                             <div class="alert alert-danger"><?php echo htmlspecialchars($passwordError); ?></div>
                         <?php endif; ?>
                         
-                        <form method="POST" action="">
+                        <form method="POST" action="/stud/kontrolnui">
                             <div class="form-group mb-3">
                                 <label for="group_name">Выберите группу:</label>
                                 <select name="group_name" id="group_name" class="form-control" required>

@@ -37,12 +37,31 @@ class studController extends BaseController {
         header('Pragma: no-cache');
         header('Expires: 0');
         
+        // Обработка POST запроса для проверки пароля
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['group_name']) && isset($_POST['password'])) {
+            require_once ENGINE_DIR . 'libs/GroupPasswordChecker.php';
+            
+            $group_name = trim($_POST['group_name']);
+            $password = trim($_POST['password']);
+            
+            // Проверяем пароль
+            if (GroupPasswordChecker::checkPassword($group_name, $password)) {
+                // Пароль верный - перенаправляем на ту же страницу без POST данных
+                header('Location: /stud/kontrolnui');
+                exit;
+            } else {
+                // Пароль неверный - показываем ошибку
+                $passwordError = "Неверный пароль для группы $group_name";
+            }
+        }
+        
         $model = $this->loadModel('dkrfiles');
         $files = $model->getAllFilesWithGroups();
         
         return $this->render('stud/kontrolnui', [
             'files' => $files,
-            'title' => 'Домашние контрольные работы'
+            'title' => 'Домашние контрольные работы',
+            'passwordError' => $passwordError ?? null
         ]);
     }
     
