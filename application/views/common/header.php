@@ -28,6 +28,9 @@
     <!-- Header CSS загружается последним для максимального приоритета -->
     <link href="/assets/css/header.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
+    <!-- Мобильная адаптация -->
+    <link href="/assets/css/mobile-adaptive.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    
     <!-- Modern Departments CSS -->
     <link href="/assets/css/departments-modern.css?v=1.2.0" rel="stylesheet" type="text/css" />
     

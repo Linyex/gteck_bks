@@ -399,6 +399,23 @@
                     </div>
                 </div>
 
+                <!-- Пароли групп -->
+                <div class="nav-item has-submenu">
+                    <a href="/admin/group-passwords" class="nav-link <?php echo isset($currentPage) && $currentPage === 'group-passwords' ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-key"></i>
+                        <span>Пароли групп</span>
+                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/group-passwords" class="submenu-item">
+                            <i class="fas fa-list"></i> Список паролей
+                        </a>
+                        <a href="/admin/group-passwords/create" class="submenu-item">
+                            <i class="fas fa-plus"></i> Добавить пароль
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Профиль -->
                 <div class="nav-item has-submenu">
                     <a href="/admin/profile" class="nav-link <?php echo isset($currentPage) && $currentPage === 'profile' ? 'active' : ''; ?>">
