@@ -1,0 +1,315 @@
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ HEADER ===== */
+
+/* Гамбургер-меню для мобильных устройств */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    position: relative;
+}
+
+.mobile-menu-toggle span {
+    width: 100%;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Анимация гамбургера при открытии */
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Мобильная навигация */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+.mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.mobile-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-nav-brand .brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.mobile-nav-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary-color);
+}
+
+.mobile-nav-content {
+    padding: 20px;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-nav-item {
+    margin-bottom: 10px;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 15px 20px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.mobile-nav-link:hover {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+/* Мобильные dropdown */
+.mobile-dropdown {
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 2px solid rgba(139, 92, 246, 0.2);
+    display: none;
+}
+
+.mobile-dropdown.active {
+    display: block;
+}
+
+.mobile-dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-dropdown-toggle::after {
+    content: '▼';
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.mobile-dropdown-toggle.active::after {
+    transform: rotate(180deg);
+}
+
+.mobile-dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-dropdown-item {
+    margin-bottom: 5px;
+}
+
+.mobile-dropdown-link {
+    display: block;
+    padding: 10px 15px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.mobile-dropdown-link:hover {
+    background: rgba(139, 92, 246, 0.05);
+    color: var(--primary-color);
+}
+
+/* Оверлей для закрытия меню */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Адаптация для планшетов */
+@media (max-width: 1024px) {
+    .navigation-section {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .header-container {
+        justify-content: space-between !important;
+        padding: 0 20px !important;
+    }
+    
+    .brand-section {
+        min-width: auto !important;
+        max-width: none !important;
+        flex: 1;
+    }
+    
+    .actions-section {
+        margin-left: 20px;
+    }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .brand-section {
+        min-width: 200px !important;
+    }
+    
+    .brand-subtitle {
+        display: none;
+    }
+    
+    .brand-name {
+        font-size: 18px !important;
+    }
+    
+    .actions-section {
+        margin-left: 10px;
+    }
+    
+    .accessibility-text {
+        display: none;
+    }
+    
+    .accessibility-btn {
+        padding: 8px 12px !important;
+        font-size: 16px !important;
+    }
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 15px !important;
+    }
+    
+    .brand-section {
+        min-width: 150px !important;
+    }
+    
+    .brand-name {
+        font-size: 16px !important;
+    }
+    
+    .mobile-menu-toggle {
+        width: 25px;
+        height: 20px;
+    }
+    
+    .mobile-menu-toggle span {
+        height: 2px;
+    }
+}
+
+/* Анимации для плавности */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.mobile-nav.active {
+    animation: slideIn 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    animation: fadeIn 0.3s ease;
+} 

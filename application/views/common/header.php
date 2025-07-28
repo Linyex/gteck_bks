@@ -31,6 +31,9 @@
     <!-- Мобильная адаптация -->
     <link href="/assets/css/mobile-adaptive.css?v=1.0.0" rel="stylesheet" type="text/css" />
     
+    <!-- Мобильная шапка -->
+    <link href="/assets/css/mobile-header.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    
     <!-- Modern Departments CSS -->
     <link href="/assets/css/departments-modern.css?v=1.2.0" rel="stylesheet" type="text/css" />
     
@@ -188,9 +191,190 @@
                         <i class="fa fa-eye"></i>
                         <span class="accessibility-text">для слабовидящих</span>
                     </a>
+                    
+                    <!-- Мобильная кнопка меню -->
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Открыть меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </header>
         </div>
 
+        <!-- Мобильная навигация -->
+        <div class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-header">
+                <div class="mobile-nav-brand">
+                    <div class="brand-name">ГТЭК</div>
+                </div>
+                <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Закрыть меню">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mobile-nav-content">
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item">
+                        <a href="/" class="mobile-nav-link">Главная</a>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <button class="mobile-nav-link mobile-dropdown-toggle">
+                            О колледже
+                        </button>
+                        <ul class="mobile-dropdown">
+                            <li class="mobile-dropdown-item">
+                                <a href="/kol/grafik" class="mobile-dropdown-link">Режим работы колледжа</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/kol/history" class="mobile-dropdown-link">История</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/kol/contact" class="mobile-dropdown-link">Контакты</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/kol/achiv" class="mobile-dropdown-link">Наши достижения</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/kol/foto" class="mobile-dropdown-link">Фотографии</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/dopage/faq" class="mobile-dropdown-link">Часто задаваемые вопросы</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/О видеонаблюдении.pdf" class="mobile-dropdown-link">О видеонаблюдении</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <a href="/news" class="mobile-nav-link">Новости</a>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <button class="mobile-nav-link mobile-dropdown-toggle">
+                            Абитуриенту
+                        </button>
+                        <ul class="mobile-dropdown">
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/sroki" class="mobile-dropdown-link">Сроки приема документов</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/spec" class="mobile-dropdown-link">Специальности</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/prof" class="mobile-dropdown-link">Кабинет профориентации</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/Правила.pdf" class="mobile-dropdown-link" target="_blank">Правила приема</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/plan" class="mobile-dropdown-link">Цифры приема</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/Перечень документов.pdf" class="mobile-dropdown-link" target="_blank">Документы для поступления</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/Телефоны.pdf" class="mobile-dropdown-link" target="_blank">Телефоны горячей линии</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/grafik" class="mobile-dropdown-link">Режим работы</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/abut/vups" class="mobile-dropdown-link">Наши выпускники</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <button class="mobile-nav-link mobile-dropdown-toggle">
+                            Учащемуся
+                        </button>
+                        <ul class="mobile-dropdown">
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/dnevnoe" class="mobile-dropdown-link">Дневное отделение</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/zaoch" class="mobile-dropdown-link">Заочная форма получения образования</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/prof" class="mobile-dropdown-link">Дополнительное образование</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/ychm" class="mobile-dropdown-link">Учебные материалы</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/byx" class="mobile-dropdown-link">Бухгалтерия</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/yslugi" class="mobile-dropdown-link">Платные услуги</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/hostel" class="mobile-dropdown-link">Общежитие</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/stud/library" class="mobile-dropdown-link">Библиотека</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="https://profbiblioteka.by" class="mobile-dropdown-link">Электронная библиотечная система РИПО</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <button class="mobile-nav-link mobile-dropdown-toggle">
+                            Преподавателю
+                        </button>
+                        <ul class="mobile-dropdown">
+                            <li class="mobile-dropdown-item">
+                                <a href="/prepod/metod" class="mobile-dropdown-link">Методическая работа</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/prepod/kyrator" class="mobile-dropdown-link">Куратору</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <button class="mobile-nav-link mobile-dropdown-toggle">
+                            Одно окно
+                        </button>
+                        <ul class="mobile-dropdown">
+                            <li class="mobile-dropdown-item">
+                                <a href="/okno/info" class="mobile-dropdown-link">Общая информация в службе "Одно окно"</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/okno/proc" class="mobile-dropdown-link">Административные процедуры</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/okno/poryad" class="mobile-dropdown-link">Порядок подачи заявлений</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/okno/forma" class="mobile-dropdown-link">Формы документов</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/okno/osnovi" class="mobile-dropdown-link">Основные нормативные правовые акты</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/Политика.pdf" class="mobile-dropdown-link" target="_blank">Защита персональных данных</a>
+                            </li>
+                            <li class="mobile-dropdown-item">
+                                <a href="/assets/files/Политика2.pdf" class="mobile-dropdown-link" target="_blank">Система менеджмента здоровья</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="mobile-nav-item">
+                        <a href="/dopage/faq" class="mobile-nav-link">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Оверлей для закрытия мобильного меню -->
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+
     <!-- Подключение JavaScript для header -->
     <script src="/assets/js/header.js?v=1.2.0"></script>
+    <script src="/assets/js/mobile-header.js?v=1.0.0"></script>
