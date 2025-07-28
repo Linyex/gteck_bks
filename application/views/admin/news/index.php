@@ -66,9 +66,18 @@ $deleted = $deleted ?? '';
         <div class="filter-controls">
             <select id="categoryFilter" class="filter-select">
                 <option value="">Все категории</option>
-                <option value="1">Общие новости</option>
-                <option value="2">Академические</option>
-                <option value="3">События</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category['id'] ?>">
+                        <?= htmlspecialchars($category['name']) ?>
+                        <?= $category['type'] === 'important' ? ' (Важная)' : '' ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            
+            <select id="typeFilter" class="filter-select">
+                <option value="">Все типы</option>
+                <option value="regular">Обычные новости</option>
+                <option value="important">Важные новости</option>
             </select>
             
             <select id="sortFilter" class="filter-select">
@@ -76,6 +85,7 @@ $deleted = $deleted ?? '';
                 <option value="date_asc">Сначала старые</option>
                 <option value="title_asc">По названию А-Я</option>
                 <option value="title_desc">По названию Я-А</option>
+                <option value="category_asc">По категории</option>
             </select>
         </div>
     </div>
@@ -96,7 +106,7 @@ $deleted = $deleted ?? '';
             </div>
         <?php else: ?>
             <?php foreach ($news as $item): ?>
-                <div class="news-card" data-id="<?= $item['news_id'] ?>" data-category="<?= $item['category_id'] ?? 1 ?>">
+                <div class="news-card" data-id="<?= $item['news_id'] ?>" data-category="<?= $item['category_id'] ?? 1 ?>" data-category-type="<?= $item['category_type'] ?? 'regular' ?>">
                     <div class="news-card-header">
                         <div class="news-card-title">
                             <h3><?= htmlspecialchars($item['news_title'] ?? 'Без названия') ?></h3>
@@ -149,15 +159,10 @@ $deleted = $deleted ?? '';
                             </span>
                             <span class="news-category">
                                 <i class="fas fa-tag"></i>
-                                <?php
-                                $categoryId = $item['category_id'] ?? 1;
-                                $categories = [
-                                    1 => 'Общие новости',
-                                    2 => 'Академические',
-                                    3 => 'События'
-                                ];
-                                echo $categories[$categoryId] ?? 'Общие новости';
-                                ?>
+                                <?= htmlspecialchars($item['category_name'] ?? 'Без категории') ?>
+                                <?php if (($item['category_type'] ?? 'regular') === 'important'): ?>
+                                    <span class="badge badge-important">Важная</span>
+                                <?php endif; ?>
                             </span>
                         </div>
                         
@@ -850,6 +855,34 @@ $deleted = $deleted ?? '';
         background: linear-gradient(135deg, #4b5563, #374151);
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
+
+    .news-card.important-news {
+        border: 2px solid #ef4444;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+    }
+    
+    .news-card.important-news .news-card-title h3 {
+        color: #ef4444;
+    }
+    
+    .badge-important {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+    
+    .news-card[data-category-type="important"] {
+        border: 2px solid #ef4444;
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+    }
+    
+    .news-card[data-category-type="important"] .news-card-title h3 {
+        color: #ef4444;
     }
 </style>
 

@@ -3,57 +3,49 @@
 class mainController extends BaseController {
     private $limit = 10; // Изменено с 4 на 10
     
-    public function index($page = 1) {
-        // Включаем кэширование для улучшения производительности
-        header('Cache-Control: public, max-age=3600');
-        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
-        
-        // Загружаем модели
-        $newsModel = $this->loadModel('news');
-        $zamenaModel = $this->loadModel('zamena');
-        
-        // Получаем важные новости для слайдера
-        $importantNews = $newsModel->getImportantNews(6);
-        
-        // Получаем обычные новости для сетки
-        $regularNews = $newsModel->getRegularNews(4);
-        
-        // Получаем все новости для пагинации
-        $sort = ['news_date_add' => 'DESC'];
-        $options = [
-            'start' => ((int)$page - 1) * $this->limit,
-            'limit' => $this->limit
-        ];
-        
-        $total = $newsModel->getTotalnews();
-        $news = $newsModel->getnews([], ['category'], $sort, $options);
-        
-        // Создаем пагинацию
-        $pagination = $this->createPagination($total, $page, $this->limit, '/news/page/{page}');
-        
-        // Получаем последние замены
-        $lastzamena = $zamenaModel->getLastZamenas();
-        
-        // Определяем статусы для приемной кампании
-        $status1 = ['statusb_code' => 0]; // По умолчанию выключено
-        $status3 = ['statusb_code' => 0]; // По умолчанию выключено
-        
-        // Подготавливаем данные для view
-        $data = [
-            'important_news' => $importantNews,
-            'regular_news' => $regularNews,
-            'news' => $news,
-            'pagination' => $pagination,
-            'lastzamena' => $lastzamena,
-            'status1' => $status1,
-            'status3' => $status3,
-            'total_news' => $total,
-            'current_page' => $page
-        ];
-        
-        // Рендерим новый файл main/index.php вместо старого mane/mane.php
-        return $this->render('main/index', $data);
+    public function index() {
+        try {
+            require_once ENGINE_DIR . 'main/db.php';
+            
+            // Получаем важные новости для слайдера
+            $importantNews = Database::fetchAll("
+                SELECT n.*, nc.name as category_name 
+                FROM news n 
+                LEFT JOIN news_categories nc ON n.category_id = nc.id 
+                WHERE nc.type = 'important' AND nc.is_active = 1 
+                ORDER BY n.news_date_add DESC 
+                LIMIT 5
+            ");
+            
+            // Получаем обычные новости для сетки
+            $regularNews = Database::fetchAll("
+                SELECT n.*, nc.name as category_name 
+                FROM news n 
+                LEFT JOIN news_categories nc ON n.category_id = nc.id 
+                WHERE nc.type = 'regular' AND nc.is_active = 1 
+                ORDER BY n.news_date_add DESC 
+                LIMIT 12
+            ");
+            
+            // Получаем статистику
+            $stats = [
+                'years' => 80,
+                'specialties' => 4,
+                'graduates' => 30
+            ];
+            
+            return $this->render('main/index', [
+                'title' => 'Главная',
+                'importantNews' => $importantNews,
+                'regularNews' => $regularNews,
+                'stats' => $stats
+            ]);
+        } catch (Exception $e) {
+            return $this->render('error/error', [
+                'title' => 'Ошибка',
+                'message' => 'Не удалось загрузить данные: ' . $e->getMessage()
+            ]);
+        }
     }
     
     public function ajax() {

@@ -9,13 +9,28 @@ class NewsController extends BaseAdminController {
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
-            $news = Database::fetchAll("SELECT * FROM news ORDER BY news_date_add DESC");
+            // Получаем новости с категориями
+            $news = Database::fetchAll("
+                SELECT n.*, nc.name as category_name, nc.type as category_type 
+                FROM news n 
+                LEFT JOIN news_categories nc ON n.category_id = nc.id 
+                ORDER BY n.news_date_add DESC
+            ");
+            
+            // Получаем категории для фильтра
+            $categories = Database::fetchAll("
+                SELECT * FROM news_categories 
+                WHERE is_active = 1 
+                ORDER BY sort_order ASC
+            ");
+            
             $total = count($news);
             
             return $this->render('admin/news/index', [
                 'title' => 'Управление новостями',
                 'currentPage' => 'news',
                 'news' => $news,
+                'categories' => $categories,
                 'total' => $total,
                 'additional_css' => [
                     '/assets/css/admin-cyberpunk.css'
@@ -34,17 +49,34 @@ class NewsController extends BaseAdminController {
     }
     
     public function create() {
-        return $this->render('admin/news/create', [
-            'title' => 'Создать новость',
-            'currentPage' => 'news',
-            'additional_css' => [
-                '/assets/css/admin-cyberpunk.css'
-            ],
-            'additional_js' => [
-                '/assets/js/background-animations.js',
-                '/assets/js/admin-common.js'
-            ]
-        ]);
+        try {
+            require_once ENGINE_DIR . 'main/db.php';
+            
+            // Получаем категории для формы
+            $categories = Database::fetchAll("
+                SELECT * FROM news_categories 
+                WHERE is_active = 1 
+                ORDER BY sort_order ASC
+            ");
+            
+            return $this->render('admin/news/create', [
+                'title' => 'Создать новость',
+                'currentPage' => 'news',
+                'categories' => $categories,
+                'additional_css' => [
+                    '/assets/css/admin-cyberpunk.css'
+                ],
+                'additional_js' => [
+                    '/assets/js/background-animations.js',
+                    '/assets/js/admin-common.js'
+                ]
+            ]);
+        } catch (Exception $e) {
+            return $this->render('admin/error/error', [
+                'title' => 'Ошибка',
+                'message' => 'Не удалось загрузить категории: ' . $e->getMessage()
+            ]);
+        }
     }
     
     public function store() {
@@ -103,17 +135,31 @@ class NewsController extends BaseAdminController {
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
-            $news = Database::fetchOne("SELECT * FROM news WHERE news_id = ?", [$id]);
+            // Получаем новость с категорией
+            $news = Database::fetchOne("
+                SELECT n.*, nc.name as category_name, nc.type as category_type 
+                FROM news n 
+                LEFT JOIN news_categories nc ON n.category_id = nc.id 
+                WHERE n.news_id = ?
+            ", [$id]);
             
             if (!$news) {
                 header('Location: /admin/news');
                 exit;
             }
             
+            // Получаем категории для формы
+            $categories = Database::fetchAll("
+                SELECT * FROM news_categories 
+                WHERE is_active = 1 
+                ORDER BY sort_order ASC
+            ");
+            
             return $this->render('admin/news/edit', [
                 'title' => 'Редактировать новость',
                 'currentPage' => 'news',
                 'news' => $news,
+                'categories' => $categories,
                 'additional_css' => [
                     '/assets/css/admin-cyberpunk.css'
                 ],
