@@ -416,6 +416,23 @@
                     </div>
                 </div>
 
+                <!-- Файлы контрольных работ -->
+                <div class="nav-item has-submenu">
+                    <a href="/admin/control-files" class="nav-link <?php echo isset($currentPage) && $currentPage === 'control-files' ? 'active' : ''; ?>">
+                        <i class="nav-icon fas fa-file-pdf-o"></i>
+                        <span>Контрольные работы</span>
+                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                    </a>
+                    <div class="submenu">
+                        <a href="/admin/control-files" class="submenu-item">
+                            <i class="fas fa-list"></i> Список файлов
+                        </a>
+                        <a href="/admin/control-files/upload" class="submenu-item">
+                            <i class="fas fa-upload"></i> Загрузить файл
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Профиль -->
                 <div class="nav-item has-submenu">
                     <a href="/admin/profile" class="nav-link <?php echo isset($currentPage) && $currentPage === 'profile' ? 'active' : ''; ?>">

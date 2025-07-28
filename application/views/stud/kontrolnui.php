@@ -4,9 +4,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/engine/main/db.php';
 
 // Получаем все группы
 try {
-    $stmt = $pdo->query("SELECT DISTINCT groupname FROM groups ORDER BY groupname");
-    $groups = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
+    $groups = Database::fetchAll("SELECT DISTINCT groupname FROM groups ORDER BY groupname");
+} catch (Exception $e) {
     $groups = [];
 }
 
@@ -14,10 +13,11 @@ try {
 $group_files = [];
 foreach ($groups as $group) {
     try {
-        $stmt = $pdo->prepare("SELECT * FROM dkrfiles WHERE groupname = ? ORDER BY upload_date DESC");
-        $stmt->execute([$group['groupname']]);
-        $group_files[$group['groupname']] = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
+        $group_files[$group['groupname']] = Database::fetchAll(
+            "SELECT * FROM dkrfiles WHERE groupname = ? ORDER BY upload_date DESC",
+            [$group['groupname']]
+        );
+    } catch (Exception $e) {
         $group_files[$group['groupname']] = [];
     }
 }

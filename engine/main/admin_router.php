@@ -67,6 +67,10 @@ class AdminRouter {
             '/admin/group-passwords' => ['GroupPasswordsController', 'index'],
             '/admin/group-passwords/create' => ['GroupPasswordsController', 'create'],
             '/admin/group-passwords/edit/{id}' => ['GroupPasswordsController', 'edit'],
+            // Файлы контрольных работ
+            '/admin/control-files' => ['ControlFilesController', 'index'],
+            '/admin/control-files/upload' => ['ControlFilesController', 'upload'],
+            '/admin/control-files/edit/{id}' => ['ControlFilesController', 'edit'],
             // API маршруты
             '/api/auth/me' => ['AuthApiController', 'me'],
             '/api/users' => ['UsersApiController', 'index'],
@@ -124,6 +128,10 @@ class AdminRouter {
             '/admin/group-passwords/edit/{id}' => ['GroupPasswordsController', 'edit'],
             '/admin/group-passwords/delete' => ['GroupPasswordsController', 'delete'],
             '/admin/group-passwords/toggle' => ['GroupPasswordsController', 'toggle'],
+            // Файлы контрольных работ POST маршруты
+            '/admin/control-files/upload' => ['ControlFilesController', 'upload'],
+            '/admin/control-files/edit/{id}' => ['ControlFilesController', 'edit'],
+            '/admin/control-files/delete' => ['ControlFilesController', 'delete'],
             // Безопасность POST маршруты
             '/admin/security/ip-blacklist/add' => ['SecurityController', 'addToBlacklist'],
             '/admin/security/ip-blacklist/remove' => ['SecurityController', 'removeFromBlacklist'],
