@@ -8,9 +8,9 @@ $group_files = [];
 $passwordRequired = true;
 $groups = [];
 
-// Получаем все группы из dkrgroups
+// Получаем все активные группы из group_passwords
 try {
-    $groups = Database::fetchAll("SELECT * FROM dkrgroups ORDER BY groupname");
+    $groups = Database::fetchAll("SELECT group_name, description FROM group_passwords WHERE is_active = 1 ORDER BY group_name");
 } catch (Exception $e) {
     $groups = [];
 }
@@ -26,8 +26,7 @@ if (isset($_SESSION['group_access']) && $_SESSION['group_access']['expires'] > t
             SELECT f.* 
             FROM dkrfiles f 
             JOIN dkrjointable j ON f.id = j.fileid 
-            JOIN dkrgroups g ON j.groupid = g.id_group 
-            WHERE g.groupname = ? 
+            WHERE j.group_name = ? 
             ORDER BY f.upload_date DESC
         ", [$selectedGroup]);
     } catch (Exception $e) {
@@ -75,9 +74,9 @@ if (isset($_GET['logout'])) {
                                 <select name="group_name" id="group_name" class="form-control" required>
                                     <option value="">-- Выберите группу --</option>
                                     <?php foreach ($groups as $group): ?>
-                                        <option value="<?php echo htmlspecialchars($group['groupname']); ?>"
-                                                <?php echo (isset($_POST['group_name']) && $_POST['group_name'] === $group['groupname']) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($group['groupname']); ?>
+                                        <option value="<?php echo htmlspecialchars($group['group_name']); ?>"
+                                                <?php echo (isset($_POST['group_name']) && $_POST['group_name'] === $group['group_name']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($group['group_name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

@@ -9,6 +9,7 @@ class AdminRouter {
             '/admin' => ['DashboardController', 'index'],
             '/admin/dashboard' => ['DashboardController', 'index'],
             '/admin/index' => ['DashboardController', 'index'],
+            '/admin/test' => ['TestController', 'index'],
             // 2FA маршруты
             '/admin/2fa' => ['TwoFactorController', 'index'],
             '/admin/2fa/verify' => ['TwoFactorController', 'showVerify'],
@@ -33,8 +34,11 @@ class AdminRouter {
             '/admin/analytics/user-activity' => ['AnalyticsController', 'userActivity'],
             '/admin/analytics/sessions' => ['AnalyticsController', 'sessions'],
             '/admin/analytics/api' => ['AnalyticsController', 'api'],
+            '/admin/analytics/api/chart-data' => ['AnalyticsController', 'getChartData'],
+            '/admin/analytics/api/realtime' => ['AnalyticsController', 'getRealtimeData'],
             // Расширенная аналитика
             '/admin/enhanced-analytics' => ['EnhancedAnalyticsController', 'index'],
+            '/admin/enhanced-analytics/activity-details' => ['EnhancedAnalyticsController', 'activityDetails'],
             '/admin/enhanced-analytics/geolocation' => ['EnhancedAnalyticsController', 'geolocation'],
             '/admin/enhanced-analytics/behavior' => ['EnhancedAnalyticsController', 'behavior'],
             '/admin/enhanced-analytics/ml-anomalies' => ['EnhancedAnalyticsController', 'mlAnomalies'],
@@ -72,6 +76,10 @@ class AdminRouter {
             '/admin/control-files' => ['ControlFilesController', 'index'],
             '/admin/control-files/upload' => ['ControlFilesController', 'upload'],
             '/admin/control-files/edit/{id}' => ['ControlFilesController', 'edit'],
+            // Файлы УМК
+            '/admin/umk-files' => ['UmkFilesController', 'index'],
+            '/admin/umk-files/upload' => ['UmkFilesController', 'upload'],
+            '/admin/umk-files/edit/{id}' => ['UmkFilesController', 'edit'],
             // API маршруты
             '/api/auth/me' => ['AuthApiController', 'me'],
             '/api/users' => ['UsersApiController', 'index'],
@@ -133,6 +141,10 @@ class AdminRouter {
             '/admin/control-files/upload' => ['ControlFilesController', 'upload'],
             '/admin/control-files/edit/{id}' => ['ControlFilesController', 'edit'],
             '/admin/control-files/delete' => ['ControlFilesController', 'delete'],
+            // Файлы УМК POST маршруты
+            '/admin/umk-files/upload' => ['UmkFilesController', 'upload'],
+            '/admin/umk-files/edit/{id}' => ['UmkFilesController', 'edit'],
+            '/admin/umk-files/delete' => ['UmkFilesController', 'delete'],
             // Безопасность POST маршруты
             '/admin/security/ip-blacklist/add' => ['SecurityController', 'addToBlacklist'],
             '/admin/security/ip-blacklist/remove' => ['SecurityController', 'removeFromBlacklist'],
@@ -234,16 +246,11 @@ class AdminRouter {
             }
             
             // Вызываем метод с параметрами
-            $result = call_user_func_array([$controller, $methodName], $params);
-            
-            // Если результат - строка, выводим её
-            if (is_string($result)) {
-                echo $result;
-            }
+            call_user_func_array([$controller, $methodName], $params);
             
         } catch (Exception $e) {
             error_log("AdminRouter: Ошибка при выполнении маршрута: " . $e->getMessage());
-            return $this->render('admin/error/error', [
+            echo $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при выполнении запроса: ' . $e->getMessage()
             ]);

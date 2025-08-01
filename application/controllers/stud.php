@@ -1,5 +1,7 @@
 <?php
 
+require_once ENGINE_DIR . 'libs/GroupPasswordChecker.php';
+
 class studController extends BaseController {
     
     public function index() {
@@ -32,32 +34,35 @@ class studController extends BaseController {
     }
     
     public function kontrolnui() {
-        // Запускаем сессию для работы с авторизацией
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        
         // Отключаем кеширование для разработки
         header('Cache-Control: no-cache, no-store, must-revalidate');
         header('Pragma: no-cache');
         header('Expires: 0');
         
-        // Обработка POST запроса для проверки пароля
+        // Проверяем, была ли отправлена форма с паролем
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['group_name']) && isset($_POST['password'])) {
-            require_once ENGINE_DIR . 'libs/GroupPasswordChecker.php';
-            
             $group_name = trim($_POST['group_name']);
             $password = trim($_POST['password']);
             
             // Проверяем пароль
             if (GroupPasswordChecker::checkPassword($group_name, $password)) {
-                // Пароль верный - перенаправляем на ту же страницу без POST данных
-                header('Location: /stud/kontrolnui');
-                exit;
+                // Пароль верный - устанавливаем сессию и остаемся на странице
+                $_SESSION['group_access'] = [
+                    'group_name' => $group_name,
+                    'access_time' => time(),
+                    'expires' => time() + (24 * 60 * 60) // 24 часа
+                ];
             } else {
                 // Пароль неверный - показываем ошибку
                 $passwordError = "Неверный пароль для группы $group_name";
             }
+        }
+        
+        // Обрабатываем выход из системы
+        if (isset($_GET['logout'])) {
+            unset($_SESSION['group_access']);
+            header('Location: /stud/kontrolnui');
+            exit;
         }
         
         $model = $this->loadModel('dkrfiles');
@@ -76,8 +81,35 @@ class studController extends BaseController {
         header('Pragma: no-cache');
         header('Expires: 0');
         
+        // Проверяем, была ли отправлена форма с паролем
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['group_name']) && isset($_POST['password'])) {
+            $group_name = trim($_POST['group_name']);
+            $password = trim($_POST['password']);
+            
+            // Проверяем пароль
+            if (GroupPasswordChecker::checkPassword($group_name, $password)) {
+                // Пароль верный - устанавливаем сессию и остаемся на странице
+                $_SESSION['group_access'] = [
+                    'group_name' => $group_name,
+                    'access_time' => time(),
+                    'expires' => time() + (24 * 60 * 60) // 24 часа
+                ];
+            } else {
+                // Пароль неверный - показываем ошибку
+                $passwordError = "Неверный пароль для группы $group_name";
+            }
+        }
+        
+        // Обрабатываем выход из системы
+        if (isset($_GET['logout'])) {
+            unset($_SESSION['group_access']);
+            header('Location: /stud/ymk');
+            exit;
+        }
+        
         return $this->render('stud/ymk', [
-            'title' => 'Учебно-методические комплексы'
+            'title' => 'Учебно-методические комплексы',
+            'passwordError' => $passwordError ?? null
         ]);
     }
     
@@ -141,11 +173,11 @@ class studController extends BaseController {
         // Обработка загрузки файла
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             if ($_POST['action'] === 'upload') {
-                $group_id = (int)$_POST['group_id'];
+                $group_name = trim($_POST['group_name']);
                 $uploaded_file = $_FILES['file'];
                 
                 if ($uploaded_file['error'] === UPLOAD_ERR_OK) {
-                    $result = $model->uploadFile($uploaded_file, $group_id);
+                    $result = $model->uploadFile($uploaded_file, $group_name);
                     if ($result['success']) {
                         $success_message = 'Файл успешно загружен!';
                     } else {
@@ -185,11 +217,11 @@ class studController extends BaseController {
         $message = '';
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $group_id = (int)$_POST['group_id'];
+            $group_name = trim($_POST['group_name']);
             $uploaded_file = $_FILES['file'];
             
             if ($uploaded_file['error'] === UPLOAD_ERR_OK) {
-                $result = $model->uploadFile($uploaded_file, $group_id);
+                $result = $model->uploadFile($uploaded_file, $group_name);
                 if ($result['success']) {
                     $message = 'Контрольная работа успешно добавлена!';
                 } else {

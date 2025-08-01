@@ -7,48 +7,38 @@ $selectedGroup = null;
 $group_files = [];
 $passwordRequired = true;
 $groups = [];
-$passwordError = null;
 
-// Получаем все группы из dkrgroups
+// Получаем все активные группы из group_passwords
 try {
-    $groups = Database::fetchAll("SELECT * FROM dkrgroups ORDER BY groupname");
+    $groups = Database::fetchAll("SELECT group_name, description FROM group_passwords WHERE is_active = 1 ORDER BY group_name");
 } catch (Exception $e) {
     $groups = [];
 }
 
-// Если форма отправлена с паролем
-if ($_POST && isset($_POST['group_name']) && isset($_POST['password'])) {
-    $group_name = trim($_POST['group_name']);
-    $password = trim($_POST['password']);
+// Проверяем есть ли активная сессия доступа
+if (isset($_SESSION['group_access']) && $_SESSION['group_access']['expires'] > time()) {
+    $selectedGroup = $_SESSION['group_access']['group_name'];
+    $passwordRequired = false;
     
-    // Проверяем пароль (тот же что и для контрольных работ)
-    if (GroupPasswordChecker::checkPassword($group_name, $password)) {
-        $selectedGroup = $group_name;
-        $passwordRequired = false;
-        
-        // Получаем УМК файлы для выбранной группы
-        // TODO: Создать таблицу umk_files аналогично dkrfiles
-        // Пока используем заглушку
-        try {
-            // Временно - пустой массив, пока не создана таблица УМК
-            $group_files[$group_name] = [];
-            
-            /* Будущий запрос когда создадим таблицу umk_files:
-            $group_files[$group_name] = Database::fetchAll("
-                SELECT f.* 
-                FROM umk_files f 
-                JOIN umk_jointable j ON f.id = j.fileid 
-                JOIN dkrgroups g ON j.groupid = g.id_group 
-                WHERE g.groupname = ? 
-                ORDER BY f.upload_date DESC
-            ", [$group_name]);
-            */
-        } catch (Exception $e) {
-            $group_files[$group_name] = [];
-        }
-    } else {
-        $passwordError = "Неверный пароль для группы $group_name";
+    // Получаем УМК файлы для выбранной группы
+    try {
+        $group_files[$selectedGroup] = Database::fetchAll("
+            SELECT f.* 
+            FROM umk_files f 
+            JOIN umk_jointable j ON f.id = j.fileid 
+            WHERE j.group_name = ? 
+            ORDER BY f.upload_date DESC
+        ", [$selectedGroup]);
+    } catch (Exception $e) {
+        $group_files[$selectedGroup] = [];
     }
+}
+
+// Обрабатываем выход из системы
+if (isset($_GET['logout'])) {
+    unset($_SESSION['group_access']);
+    header('Location: /stud/ymk');
+    exit;
 }
 ?>
 
@@ -74,7 +64,7 @@ if ($_POST && isset($_POST['group_name']) && isset($_POST['password'])) {
                         <h2 class="text-center mb-4">📖 Доступ к УМК</h2>
                         <p class="text-center text-muted mb-4">Введите пароль вашей группы для доступа к учебно-методическому комплексу</p>
                         
-                        <?php if ($passwordError): ?>
+                        <?php if (isset($passwordError) && $passwordError): ?>
                             <div class="alert alert-danger"><?php echo htmlspecialchars($passwordError); ?></div>
                         <?php endif; ?>
                         
@@ -84,9 +74,9 @@ if ($_POST && isset($_POST['group_name']) && isset($_POST['password'])) {
                                 <select name="group_name" id="group_name" class="form-control" required>
                                     <option value="">-- Выберите группу --</option>
                                     <?php foreach ($groups as $group): ?>
-                                        <option value="<?php echo htmlspecialchars($group['groupname']); ?>"
-                                                <?php echo (isset($_POST['group_name']) && $_POST['group_name'] === $group['groupname']) ? 'selected' : ''; ?>>
-                                            <?php echo htmlspecialchars($group['groupname']); ?>
+                                        <option value="<?php echo htmlspecialchars($group['group_name']); ?>"
+                                                <?php echo (isset($_POST['group_name']) && $_POST['group_name'] === $group['group_name']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($group['group_name']); ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

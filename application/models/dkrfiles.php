@@ -11,10 +11,10 @@ class dkrfilesModel {
 	 * Получить все файлы с информацией о группах
 	 */
 	public function getAllFilesWithGroups() {
-		$sql = "SELECT f.*, g.groupname 
+		$sql = "SELECT f.*, GROUP_CONCAT(j.group_name) as group_names 
 				FROM dkrfiles f 
 				LEFT JOIN dkrjointable j ON f.id = j.fileid 
-				LEFT JOIN dkrgroups g ON j.groupid = g.id_group 
+				GROUP BY f.id 
 				ORDER BY f.upload_date DESC";
 		
         return $this->db->fetchAll($sql);
@@ -23,24 +23,23 @@ class dkrfilesModel {
 	/**
 	 * Получить файлы по группе
 	 */
-	public function getFilesByGroup($group_id) {
+	public function getFilesByGroup($group_name) {
 		$sql = "SELECT f.* 
 				FROM dkrfiles f 
 				JOIN dkrjointable j ON f.id = j.fileid 
-                WHERE j.groupid = :group_id 
+                WHERE j.group_name = :group_name 
 				ORDER BY f.filename";
 		
-        return $this->db->fetchAll($sql, ['group_id' => (int)$group_id]);
+        return $this->db->fetchAll($sql, ['group_name' => $group_name]);
 	}
 	
 	/**
 	 * Получить файл по ID
 	 */
 	public function getFileById($file_id) {
-		$sql = "SELECT f.*, g.groupname 
+		$sql = "SELECT f.*, j.group_name 
 				FROM dkrfiles f 
 				LEFT JOIN dkrjointable j ON f.id = j.fileid 
-				LEFT JOIN dkrgroups g ON j.groupid = g.id_group 
                 WHERE f.id = :file_id";
         
         return $this->db->fetch($sql, ['file_id' => (int)$file_id]);
@@ -50,17 +49,17 @@ class dkrfilesModel {
      * Получить все группы
      */
     public function getAllGroups() {
-        $sql = "SELECT * FROM dkrgroups ORDER BY groupname";
+        $sql = "SELECT group_name FROM group_passwords WHERE is_active = 1 ORDER BY group_name";
         return $this->db->fetchAll($sql);
 	}
 
 	/**
 	 * Загрузить файл
 	 */
-	public function uploadFile($file, $group_id) {
+	public function uploadFile($file, $group_name) {
 		try {
 			// Абсолютный путь для загрузки
-			$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/konrolnui/';
+			$upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/kontrolnui/';
 			
 			if (!is_dir($upload_dir)) {
 				mkdir($upload_dir, 0777, true);
@@ -70,14 +69,14 @@ class dkrfilesModel {
 			$filename = basename($file['name']);
             $filename = preg_replace('/[^A-Za-z0-9_\-\.\sА-Яа-яЁё]/u', '', $filename);
 			$target_path = $upload_dir . $filename;
-			$web_path = '/assets/files/konrolnui/' . $filename;
+			$web_path = '/assets/files/kontrolnui/' . $filename;
 			
 			$i = 1;
 			while (file_exists($target_path)) {
 				$filename_parts = pathinfo($filename);
 				$filename = $filename_parts['filename'] . "_" . $i . "." . $filename_parts['extension'];
 				$target_path = $upload_dir . $filename;
-				$web_path = '/assets/files/konrolnui/' . $filename;
+				$web_path = '/assets/files/kontrolnui/' . $filename;
 				$i++;
             }
 
@@ -96,7 +95,7 @@ class dkrfilesModel {
 			// Связываем файл с группой
             $this->db->insert('dkrjointable', [
                 'fileid' => $file_id,
-                'groupid' => (int)$group_id
+                'group_name' => $group_name
             ]);
             
             return ['success' => true, 'file_id' => $file_id];

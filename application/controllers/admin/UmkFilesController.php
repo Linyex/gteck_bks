@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/BaseAdminController.php';
+require_once ENGINE_DIR . 'main/db.php';
 
 class UmkFilesController extends BaseAdminController {
     
@@ -8,29 +9,14 @@ class UmkFilesController extends BaseAdminController {
         $this->requireAccessLevel(1); // Редакторы и выше
         
         try {
-            // Получаем все файлы УМК из директории
-            $umk_dir = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/ymk/';
-            $files = [];
-            
-            if (is_dir($umk_dir)) {
-                $file_list = scandir($umk_dir);
-                foreach ($file_list as $filename) {
-                    if ($filename !== '.' && $filename !== '..' && is_file($umk_dir . $filename)) {
-                        $file_path = $umk_dir . $filename;
-                        $files[] = [
-                            'filename' => $filename,
-                            'path' => '/assets/files/ymk/' . $filename,
-                            'size' => filesize($file_path),
-                            'upload_date' => date('Y-m-d H:i:s', filemtime($file_path))
-                        ];
-                    }
-                }
-            }
-            
-            // Сортируем по дате (новые первыми)
-            usort($files, function($a, $b) {
-                return strtotime($b['upload_date']) - strtotime($a['upload_date']);
-            });
+            // Получаем все файлы с группами
+            $files = Database::fetchAll("
+                SELECT f.*, GROUP_CONCAT(j.group_name) as group_names 
+                FROM umk_files f 
+                LEFT JOIN umk_jointable j ON f.id = j.fileid 
+                GROUP BY f.id 
+                ORDER BY f.upload_date DESC
+            ");
             
             echo $this->render('admin/umk-files/index', [
                 'files' => $files,
@@ -48,16 +34,21 @@ class UmkFilesController extends BaseAdminController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $filename = trim($_POST['filename'] ?? '');
+                $group_names = $_POST['group_names'] ?? [];
                 $description = trim($_POST['description'] ?? '');
                 
                 if (empty($_FILES['file']['name'])) {
                     throw new Exception('Выберите файл для загрузки');
                 }
                 
+                if (empty($group_names)) {
+                    throw new Exception('Выберите хотя бы одну группу');
+                }
+                
                 $file = $_FILES['file'];
                 
                 // Проверяем тип файла
-                $allowed_types = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar'];
+                $allowed_types = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar', 'ppt', 'pptx'];
                 $file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 
                 if (!in_array($file_ext, $allowed_types)) {
@@ -70,18 +61,20 @@ class UmkFilesController extends BaseAdminController {
                     mkdir($upload_dir, 0755, true);
                 }
                 
-                // Генерируем имя файла
+                // Генерируем уникальное имя файла
                 $original_name = !empty($filename) ? $filename : pathinfo($file['name'], PATHINFO_FILENAME);
                 $safe_filename = preg_replace('/[^A-Za-z0-9_\-\sА-Яа-яЁё]/u', '', $original_name);
                 $final_filename = $safe_filename . '.' . $file_ext;
                 
                 $target_path = $upload_dir . $final_filename;
+                $web_path = '/assets/files/ymk/' . $final_filename;
                 
                 // Избегаем дублирования имен файлов
                 $counter = 1;
                 while (file_exists($target_path)) {
                     $final_filename = $safe_filename . '_' . $counter . '.' . $file_ext;
                     $target_path = $upload_dir . $final_filename;
+                    $web_path = '/assets/files/ymk/' . $final_filename;
                     $counter++;
                 }
                 
@@ -90,7 +83,25 @@ class UmkFilesController extends BaseAdminController {
                     throw new Exception('Ошибка при загрузке файла');
                 }
                 
-                $_SESSION['success'] = 'Файл УМК успешно загружен';
+                // Сохраняем в базу данных
+                Database::execute("
+                    INSERT INTO umk_files (filename, path, description, upload_date) 
+                    VALUES (?, ?, ?, NOW())
+                ", [$final_filename, $web_path, $description]);
+                
+                // Получаем ID добавленной записи
+                $connection = Database::getConnection();
+                $file_id = $connection->lastInsertId();
+                
+                // Связываем с группами
+                foreach ($group_names as $group_name) {
+                    Database::execute("
+                        INSERT INTO umk_jointable (fileid, group_name) 
+                        VALUES (?, ?)
+                    ", [$file_id, $group_name]);
+                }
+                
+                $_SESSION['success'] = 'Файл УМК успешно загружен и привязан к группам';
                 header('Location: /admin/umk-files');
                 exit;
                 
@@ -99,74 +110,138 @@ class UmkFilesController extends BaseAdminController {
             }
         }
         
-        echo $this->render('admin/umk-files/upload', [
-            'title' => 'Загрузить файл УМК',
-            'currentPage' => 'umk-files'
-        ]);
+        try {
+            // Получаем список групп (только активные группы с паролями)
+            $groups = Database::fetchAll("
+                SELECT group_name 
+                FROM group_passwords 
+                WHERE is_active = 1 
+                ORDER BY group_name
+            ");
+            
+            echo $this->render('admin/umk-files/upload', [
+                'groups' => $groups,
+                'title' => 'Загрузить файл УМК',
+                'currentPage' => 'umk-files'
+            ]);
+        } catch (Exception $e) {
+            $this->handleError($e);
+        }
+    }
+    
+    public function edit($id = null) {
+        $this->requireAccessLevel(1); // Редакторы и выше
+        
+        if (!$id) {
+            header('Location: /admin/umk-files');
+            exit;
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $filename = trim($_POST['filename']);
+                $group_names = $_POST['group_names'] ?? [];
+                $description = trim($_POST['description'] ?? '');
+                
+                if (empty($filename)) {
+                    throw new Exception('Название файла обязательно');
+                }
+                
+                if (empty($group_names)) {
+                    throw new Exception('Выберите хотя бы одну группу');
+                }
+                
+                // Обновляем информацию о файле
+                Database::execute("
+                    UPDATE umk_files 
+                    SET filename = ?, description = ? 
+                    WHERE id = ?
+                ", [$filename, $description, $id]);
+                
+                // Удаляем старые связи с группами
+                Database::execute("DELETE FROM umk_jointable WHERE fileid = ?", [$id]);
+                
+                // Создаем новые связи
+                foreach ($group_names as $group_name) {
+                    Database::execute("
+                        INSERT INTO umk_jointable (fileid, group_name) 
+                        VALUES (?, ?)
+                    ", [$id, $group_name]);
+                }
+                
+                $_SESSION['success'] = 'Файл УМК успешно обновлен';
+                header('Location: /admin/umk-files');
+                exit;
+                
+            } catch (Exception $e) {
+                $_SESSION['error'] = $e->getMessage();
+            }
+        }
+        
+        try {
+            // Получаем информацию о файле
+            $file = Database::fetchOne("SELECT * FROM umk_files WHERE id = ?", [$id]);
+            if (!$file) {
+                throw new Exception('Файл не найден');
+            }
+            
+            // Получаем группы файла
+            $file_groups = Database::fetchAll("
+                SELECT group_name FROM umk_jointable WHERE fileid = ?
+            ", [$id]);
+            $file_group_names = array_column($file_groups, 'group_name');
+            
+            // Получаем все группы (только активные группы с паролями)
+            $groups = Database::fetchAll("
+                SELECT group_name 
+                FROM group_passwords 
+                WHERE is_active = 1 
+                ORDER BY group_name
+            ");
+            
+            echo $this->render('admin/umk-files/edit', [
+                'file' => $file,
+                'groups' => $groups,
+                'file_group_names' => $file_group_names,
+                'title' => 'Редактировать файл УМК',
+                'currentPage' => 'umk-files'
+            ]);
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            header('Location: /admin/umk-files');
+            exit;
+        }
     }
     
     public function delete() {
         $this->requireAccessLevel(5); // Модераторы и выше
         
-        $filename = $_POST['filename'] ?? null;
-        if (!$filename) {
-            $this->jsonResponse(['success' => false, 'message' => 'Имя файла не указано']);
+        $id = $_POST['id'] ?? null;
+        if (!$id) {
+            $this->jsonResponse(['success' => false, 'message' => 'ID не указан']);
             return;
         }
         
         try {
-            // Проверяем безопасность пути
-            $safe_filename = basename($filename);
-            $file_path = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/ymk/' . $safe_filename;
-            
-            if (!file_exists($file_path)) {
+            // Получаем информацию о файле
+            $file = Database::fetchOne("SELECT * FROM umk_files WHERE id = ?", [$id]);
+            if (!$file) {
                 throw new Exception('Файл не найден');
             }
             
-            // Удаляем файл
-            if (!unlink($file_path)) {
-                throw new Exception('Не удалось удалить файл');
+            // Удаляем физический файл
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . $file['path'];
+            if (file_exists($file_path)) {
+                unlink($file_path);
             }
             
-            $this->jsonResponse(['success' => true, 'message' => 'Файл удален']);
-        } catch (Exception $e) {
-            $this->jsonResponse(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
-    
-    public function rename() {
-        $this->requireAccessLevel(1); // Редакторы и выше
-        
-        $old_filename = $_POST['old_filename'] ?? null;
-        $new_filename = $_POST['new_filename'] ?? null;
-        
-        if (!$old_filename || !$new_filename) {
-            $this->jsonResponse(['success' => false, 'message' => 'Не указаны имена файлов']);
-            return;
-        }
-        
-        try {
-            // Проверяем безопасность путей
-            $safe_old_filename = basename($old_filename);
-            $safe_new_filename = preg_replace('/[^A-Za-z0-9_\-\sА-Яа-яЁё\.]/u', '', $new_filename);
+            // Удаляем связи с группами
+            Database::execute("DELETE FROM umk_jointable WHERE fileid = ?", [$id]);
             
-            $old_path = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/ymk/' . $safe_old_filename;
-            $new_path = $_SERVER['DOCUMENT_ROOT'] . '/assets/files/ymk/' . $safe_new_filename;
+            // Удаляем запись из базы
+            Database::execute("DELETE FROM umk_files WHERE id = ?", [$id]);
             
-            if (!file_exists($old_path)) {
-                throw new Exception('Исходный файл не найден');
-            }
-            
-            if (file_exists($new_path)) {
-                throw new Exception('Файл с новым именем уже существует');
-            }
-            
-            // Переименовываем файл
-            if (!rename($old_path, $new_path)) {
-                throw new Exception('Не удалось переименовать файл');
-            }
-            
-            $this->jsonResponse(['success' => true, 'message' => 'Файл переименован', 'new_filename' => $safe_new_filename]);
+            $this->jsonResponse(['success' => true, 'message' => 'Файл УМК удален']);
         } catch (Exception $e) {
             $this->jsonResponse(['success' => false, 'message' => $e->getMessage()]);
         }
