@@ -11,10 +11,9 @@ class ControlFilesController extends BaseAdminController {
         try {
             // Получаем все файлы с группами
             $files = Database::fetchAll("
-                SELECT f.*, GROUP_CONCAT(g.groupname) as group_names 
+                SELECT f.*, GROUP_CONCAT(j.group_name) as group_names 
                 FROM dkrfiles f 
                 LEFT JOIN dkrjointable j ON f.id = j.fileid 
-                LEFT JOIN dkrgroups g ON j.groupid = g.id_group 
                 GROUP BY f.id 
                 ORDER BY f.upload_date DESC
             ");
@@ -35,14 +34,14 @@ class ControlFilesController extends BaseAdminController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $filename = trim($_POST['filename'] ?? '');
-                $group_ids = $_POST['group_ids'] ?? [];
+                $group_names = $_POST['group_names'] ?? [];
                 $description = trim($_POST['description'] ?? '');
                 
                 if (empty($_FILES['file']['name'])) {
                     throw new Exception('Выберите файл для загрузки');
                 }
                 
-                if (empty($group_ids)) {
+                if (empty($group_names)) {
                     throw new Exception('Выберите хотя бы одну группу');
                 }
                 
@@ -86,20 +85,20 @@ class ControlFilesController extends BaseAdminController {
                 
                 // Сохраняем в базу данных
                 Database::execute("
-                    INSERT INTO dkrfiles (filename, path, description, upload_date) 
-                    VALUES (?, ?, ?, NOW())
-                ", [$final_filename, $web_path, $description]);
+                    INSERT INTO dkrfiles (filename, path, upload_date) 
+                    VALUES (?, ?, NOW())
+                ", [$final_filename, $web_path]);
                 
                 // Получаем ID добавленной записи
                 $connection = Database::getConnection();
                 $file_id = $connection->lastInsertId();
                 
                 // Связываем с группами
-                foreach ($group_ids as $group_id) {
+                foreach ($group_names as $group_name) {
                     Database::execute("
-                        INSERT INTO dkrjointable (fileid, groupid) 
+                        INSERT INTO dkrjointable (fileid, group_name) 
                         VALUES (?, ?)
-                    ", [$file_id, $group_id]);
+                    ", [$file_id, $group_name]);
                 }
                 
                 $_SESSION['success'] = 'Файл успешно загружен и привязан к группам';
@@ -112,8 +111,13 @@ class ControlFilesController extends BaseAdminController {
         }
         
         try {
-            // Получаем список групп
-            $groups = Database::fetchAll("SELECT * FROM dkrgroups ORDER BY groupname");
+            // Получаем список групп (только активные группы с паролями)
+            $groups = Database::fetchAll("
+                SELECT group_name 
+                FROM group_passwords 
+                WHERE is_active = 1 
+                ORDER BY group_name
+            ");
             
             echo $this->render('admin/control-files/upload', [
                 'groups' => $groups,
@@ -136,33 +140,33 @@ class ControlFilesController extends BaseAdminController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $filename = trim($_POST['filename']);
-                $group_ids = $_POST['group_ids'] ?? [];
+                $group_names = $_POST['group_names'] ?? [];
                 $description = trim($_POST['description'] ?? '');
                 
                 if (empty($filename)) {
                     throw new Exception('Название файла обязательно');
                 }
                 
-                if (empty($group_ids)) {
+                if (empty($group_names)) {
                     throw new Exception('Выберите хотя бы одну группу');
                 }
                 
                 // Обновляем информацию о файле
                 Database::execute("
                     UPDATE dkrfiles 
-                    SET filename = ?, description = ? 
+                    SET filename = ? 
                     WHERE id = ?
-                ", [$filename, $description, $id]);
+                ", [$filename, $id]);
                 
                 // Удаляем старые связи с группами
                 Database::execute("DELETE FROM dkrjointable WHERE fileid = ?", [$id]);
                 
                 // Создаем новые связи
-                foreach ($group_ids as $group_id) {
+                foreach ($group_names as $group_name) {
                     Database::execute("
-                        INSERT INTO dkrjointable (fileid, groupid) 
+                        INSERT INTO dkrjointable (fileid, group_name) 
                         VALUES (?, ?)
-                    ", [$id, $group_id]);
+                    ", [$id, $group_name]);
                 }
                 
                 $_SESSION['success'] = 'Файл успешно обновлен';
@@ -183,17 +187,22 @@ class ControlFilesController extends BaseAdminController {
             
             // Получаем группы файла
             $file_groups = Database::fetchAll("
-                SELECT groupid FROM dkrjointable WHERE fileid = ?
+                SELECT group_name FROM dkrjointable WHERE fileid = ?
             ", [$id]);
-            $file_group_ids = array_column($file_groups, 'groupid');
+            $file_group_names = array_column($file_groups, 'group_name');
             
-            // Получаем все группы
-            $groups = Database::fetchAll("SELECT * FROM dkrgroups ORDER BY groupname");
+            // Получаем все группы (только активные группы с паролями)
+            $groups = Database::fetchAll("
+                SELECT group_name 
+                FROM group_passwords 
+                WHERE is_active = 1 
+                ORDER BY group_name
+            ");
             
             echo $this->render('admin/control-files/edit', [
                 'file' => $file,
                 'groups' => $groups,
-                'file_group_ids' => $file_group_ids,
+                'file_group_names' => $file_group_names,
                 'title' => 'Редактировать файл',
                 'currentPage' => 'control-files'
             ]);

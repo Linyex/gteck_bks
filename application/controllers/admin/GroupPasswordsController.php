@@ -33,14 +33,21 @@ class GroupPasswordsController extends BaseAdminController {
                     throw new Exception('Название группы и пароль обязательны для заполнения');
                 }
                 
+                // Проверяем, не существует ли уже группа
+                $existing_password = Database::fetchOne("SELECT id FROM group_passwords WHERE group_name = ?", [$group_name]);
+                if ($existing_password) {
+                    throw new Exception('Группа с таким названием уже существует');
+                }
+                
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 
+                // Создаем группу в таблице group_passwords
                 Database::execute(
                     "INSERT INTO group_passwords (group_name, password, description) VALUES (?, ?, ?)",
                     [$group_name, $hashed_password, $description]
                 );
                 
-                $_SESSION['success'] = 'Пароль группы добавлен успешно';
+                $_SESSION['success'] = 'Группа и пароль добавлены успешно';
                 header('Location: /admin/group-passwords');
                 exit;
                 
@@ -74,6 +81,21 @@ class GroupPasswordsController extends BaseAdminController {
                     throw new Exception('Название группы обязательно для заполнения');
                 }
                 
+                // Получаем текущую запись
+                $current = Database::fetchOne("SELECT * FROM group_passwords WHERE id = ?", [$id]);
+                if (!$current) {
+                    throw new Exception('Пароль группы не найден');
+                }
+                
+                // Проверяем, не занято ли новое название группы
+                if ($group_name !== $current['group_name']) {
+                    $existing = Database::fetchOne("SELECT id FROM group_passwords WHERE group_name = ? AND id != ?", [$group_name, $id]);
+                    if ($existing) {
+                        throw new Exception('Группа с таким названием уже существует');
+                    }
+                }
+                
+                // Обновляем пароль в group_passwords
                 $params = [$group_name, $description, $is_active, $id];
                 $sql = "UPDATE group_passwords SET group_name = ?, description = ?, is_active = ? ";
                 
@@ -124,8 +146,19 @@ class GroupPasswordsController extends BaseAdminController {
         }
         
         try {
+            // Получаем информацию о группе
+            $password = Database::fetchOne("SELECT group_name FROM group_passwords WHERE id = ?", [$id]);
+            if (!$password) {
+                throw new Exception('Пароль группы не найден');
+            }
+            
+            // Удаляем связи с файлами
+            Database::execute("DELETE FROM dkrjointable WHERE group_name = ?", [$password['group_name']]);
+            
+            // Удаляем пароль из group_passwords
             Database::execute("DELETE FROM group_passwords WHERE id = ?", [$id]);
-            $this->jsonResponse(['success' => true, 'message' => 'Пароль группы удален']);
+            
+            $this->jsonResponse(['success' => true, 'message' => 'Группа и пароль удалены']);
         } catch (Exception $e) {
             $this->jsonResponse(['success' => false, 'message' => $e->getMessage()]);
         }
