@@ -1,13 +1,75 @@
-<div class="admin-error" style="max-width:600px;margin:40px auto;padding:32px 24px;background:#fff;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.08);text-align:center;">
-    <h1 style="color:#d32f2f;font-size:2.5em;margin-bottom:0.5em;">
-        <?= isset(
-            $title) ? htmlspecialchars($title) : 'Ошибка' ?>
-    </h1>
-    <p style="font-size:1.2em; color:#444; margin-bottom:1.5em;">
-        <?= isset($message) ? htmlspecialchars($message) : 'Произошла неизвестная ошибка.' ?>
-    </p>
-    <?php if (!empty($errorDetails)): ?>
-        <pre style="background:#f8f8f8;padding:12px;border-radius:4px;text-align:left;overflow-x:auto;max-height:300px;"> <?= htmlspecialchars($errorDetails) ?> </pre>
-    <?php endif; ?>
-    <a href="/admin/dashboard" style="display:inline-block;margin-top:2em;padding:10px 24px;background:#1976d2;color:#fff;border-radius:4px;text-decoration:none;font-weight:bold;">Вернуться в админ-панель</a>
-</div> 
+<?php
+if (!isset($title)) {
+    $title = 'Ошибка';
+}
+if (!isset($message)) {
+    $message = 'Произошла ошибка при загрузке страницы';
+}
+?>
+
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h1><?= htmlspecialchars($title) ?></h1>
+        <p><?= htmlspecialchars($message) ?></p>
+        <div class="error-actions">
+            <a href="/admin" class="btn btn-blue">
+                <i class="fas fa-home"></i> На главную
+            </a>
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Назад
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 20px;
+}
+
+.error-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.error-content h1 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.error-content p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.error-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.error-actions .btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+}
+</style> 

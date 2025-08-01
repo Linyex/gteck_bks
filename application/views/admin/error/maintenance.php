@@ -1,25 +1,25 @@
 <?php
 if (!isset($title)) {
-    $title = 'Ошибка 404';
+    $title = 'Техническое обслуживание';
 }
 if (!isset($message)) {
-    $message = 'Страница не найдена';
+    $message = 'Система находится на техническом обслуживании. Пожалуйста, попробуйте позже.';
 }
 ?>
 
 <div class="error-container">
     <div class="error-content">
         <div class="error-icon">
-            <i class="fas fa-exclamation-triangle"></i>
+            <i class="fas fa-tools"></i>
         </div>
         <h1><?= htmlspecialchars($title) ?></h1>
         <p><?= htmlspecialchars($message) ?></p>
         <div class="error-actions">
-            <a href="/admin" class="btn btn-blue">
-                <i class="fas fa-home"></i> На главную
+            <a href="javascript:location.reload()" class="btn btn-blue">
+                <i class="fas fa-sync-alt"></i> Обновить
             </a>
-            <a href="javascript:history.back()" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Назад
+            <a href="/admin" class="btn btn-secondary">
+                <i class="fas fa-home"></i> На главную
             </a>
         </div>
     </div>
@@ -46,8 +46,14 @@ if (!isset($message)) {
 
 .error-icon {
     font-size: 4rem;
-    color: var(--primary-neon);
+    color: #17a2b8;
     margin-bottom: 20px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .error-content h1 {

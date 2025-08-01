@@ -1,4 +1,3 @@
-<?php require_once 'application/views/admin/common/header.php'; ?>
 
 <div class="cyberpunk-container">
     <div class="cyberpunk-header">
@@ -351,5 +350,3 @@ window.onclick = function(event) {
     });
 }
 </script>
-
-<?php require_once 'application/views/admin/common/footer.php'; ?> 

@@ -175,16 +175,28 @@
                                     </td>
                                     <td><?= htmlspecialchars($user['user_fio']) ?></td>
                                     <td>
-                                        <?php if ($user['user_status']): ?>
-                                            <span class="badge badge-success">Активен</span>
-                                        <?php else: ?>
-                                            <span class="badge badge-danger">
-                                                Заблокирован
-                                                <?php if (!empty($user['user_block_reason'])): ?>
-                                                    <i class="fas fa-info-circle" title="<?= htmlspecialchars($user['user_block_reason']) ?>"></i>
+                                        <div class="user-status">
+                                            <?php if ($user['user_status']): ?>
+                                                <span class="badge badge-success">Активен</span>
+                                                <br>
+                                                <?php if ($user['is_online']): ?>
+                                                    <span class="badge badge-online">
+                                                        <i class="fas fa-circle"></i> Онлайн
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="badge badge-offline">
+                                                        <i class="fas fa-circle"></i> Оффлайн
+                                                    </span>
                                                 <?php endif; ?>
-                                            </span>
-                                        <?php endif; ?>
+                                            <?php else: ?>
+                                                <span class="badge badge-danger">
+                                                    Заблокирован
+                                                    <?php if (!empty($user['user_block_reason'])): ?>
+                                                        <i class="fas fa-info-circle" title="<?= htmlspecialchars($user['user_block_reason']) ?>"></i>
+                                                    <?php endif; ?>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
                                     <td>
                                         <?php
@@ -708,6 +720,43 @@
     color: #000;
     font-size: 10px;
     margin-left: 5px;
+}
+
+.badge-online {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: #000;
+    font-size: 11px;
+    margin-top: 3px;
+    display: inline-block;
+}
+
+.badge-offline {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: #fff;
+    font-size: 11px;
+    margin-top: 3px;
+    display: inline-block;
+}
+
+.badge-online i {
+    color: #28a745;
+    animation: pulse 2s infinite;
+}
+
+.badge-offline i {
+    color: #6c757d;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.user-status {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
 .action-buttons {

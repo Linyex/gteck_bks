@@ -1,100 +1,75 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($title) ? $title : 'Доступ запрещен' ?></title>
-    <link rel="stylesheet" href="/assets/css/admin-cyberpunk.css">
-    <style>
-        .error-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .error-icon {
-            font-size: 8rem;
-            color: #ff6b35;
-            margin-bottom: 2rem;
-            animation: pulse 2s infinite;
-        }
-        
-        .error-title {
-            font-size: 3rem;
-            color: #ff6b35;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
-        }
-        
-        .error-message {
-            font-size: 1.2rem;
-            color: #e0e0e0;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-        
-        .error-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .btn-back {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: none;
-            color: #000;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-        }
-        
-        .btn-back:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
-        }
-        
-        .btn-logout {
-            background: linear-gradient(135deg, #ff4757, #ff3742);
-            border: none;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-        }
-        
-        .btn-logout:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 71, 87, 0.5);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-    </style>
-</head>
-<body>
-    <div class="error-container">
-        <div class="error-icon">⚠️</div>
-        <h1 class="error-title"><?= isset($title) ? $title : 'Доступ запрещен' ?></h1>
-        <p class="error-message">
-            <?= isset($message) ? $message : 'У вас недостаточно прав для выполнения этого действия. Обратитесь к администратору для получения необходимых разрешений.' ?>
-        </p>
+<?php
+if (!isset($title)) {
+    $title = 'Доступ запрещен';
+}
+if (!isset($message)) {
+    $message = 'У вас нет прав для доступа к этой странице';
+}
+?>
+
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h1><?= htmlspecialchars($title) ?></h1>
+        <p><?= htmlspecialchars($message) ?></p>
         <div class="error-actions">
-            <a href="/admin/dashboard" class="btn-back">Вернуться на главную</a>
-            <a href="/admin/logout" class="btn-logout">Выйти из системы</a>
+            <a href="/admin" class="btn btn-blue">
+                <i class="fas fa-home"></i> На главную
+            </a>
+            <a href="/admin/auth/login" class="btn btn-secondary">
+                <i class="fas fa-sign-in-alt"></i> Войти
+            </a>
         </div>
     </div>
-</body>
-</html> 
+</div>
+
+<style>
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 20px;
+}
+
+.error-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 500px;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: #ffc107;
+    margin-bottom: 20px;
+}
+
+.error-content h1 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.error-content p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.error-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.error-actions .btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+}
+</style> 
