@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Расширенная аналитика - Админ панель</title>
     <link rel="stylesheet" href="/assets/css/admin-cyberpunk.css">
+    <link rel="stylesheet" href="/assets/css/enhanced-analytics.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
     <!-- Animated Background -->
@@ -18,262 +22,429 @@
     <!-- Admin Container -->
     <div class="admin-container">
         <!-- Header -->
-        <header class="admin-header">
-            <div class="header-container">
-                <div class="header-left">
-                    <button class="sidebar-toggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="logo-text">CyberAdmin</div>
-                        <div class="logo-subtitle">Enhanced Analytics</div>
-                    </div>
-                </div>
-                
-                <div class="header-center">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" class="header-search" placeholder="Поиск по аналитике...">
-                    </div>
-                </div>
-                
-                <div class="header-right">
-                    <div class="header-item">
-                        <button class="header-btn">
-                            <i class="fas fa-bell"></i>
-                            <span class="notification-badge">3</span>
-                        </button>
-                    </div>
-                    <div class="header-item">
-                        <button class="header-btn">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                    </div>
-                    <div class="header-item">
-                        <button class="header-btn">
-                            <div class="user-avatar">A</div>
-                            <span class="user-name">Admin</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </header>
 
         <!-- Sidebar -->
-        <aside class="admin-sidebar">
-            <div class="sidebar-header">
-                <h1>CyberAdmin</h1>
-                <p>Enhanced Analytics</p>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <div class="nav-item">
-                    <a href="#" class="nav-link active" data-view="overview">
-                        <i class="nav-icon fas fa-chart-line"></i>
-                        Обзор
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-view="users">
-                        <i class="nav-icon fas fa-users"></i>
-                        Пользователи
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-view="security">
-                        <i class="nav-icon fas fa-shield-alt"></i>
-                        Безопасность
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-view="behavior">
-                        <i class="nav-icon fas fa-brain"></i>
-                        Поведение
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-view="reports">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        Отчеты
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#" class="nav-link" data-view="settings">
-                        <i class="nav-icon fas fa-cog"></i>
-                        Настройки
-                    </a>
-                </div>
-            </nav>
-        </aside>
+        <?php include 'application/views/admin/common/sidebar.php'; ?>
 
-        <!-- Main Content -->
+        <!-- Основной контент -->
         <main class="admin-main">
-            <div class="enhanced-analytics-container">
-                <!-- Header -->
-                <div class="analytics-header">
-                    <div class="header-content">
-                        <h1>
-                            <i class="fas fa-chart-line"></i>
-                            Расширенная аналитика
-                        </h1>
-                        <div class="header-actions">
-                            <button class="btn btn-blue" onclick="analytics.exportData('csv')">
-                                <i class="fas fa-download"></i>
-                                Экспорт
-                            </button>
-                            <button class="btn btn-purple btn-settings">
-                                <i class="fas fa-cog"></i>
-                                Настройки
-                            </button>
+            <div class="main-container">
+                <!-- Заголовок страницы -->
+                <div class="page-header">
+                    <h1>Расширенная аналитика</h1>
+                    <p>Комплексный анализ активности пользователей и безопасности системы</p>
+                </div>
+
+                <!-- Основные метрики -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-number"><?= $analytics['total_users'] ?? 0 ?></div>
+                            <div class="metric-label">Всего пользователей</div>
+                            <div class="metric-trend">
+                                <span class="trend-up">+<?= $analytics['new_users_today'] ?? 0 ?> сегодня</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-number"><?= $analytics['active_users'] ?? 0 ?></div>
+                            <div class="metric-label">Активных пользователей</div>
+                            <div class="metric-trend">
+                                <span class="trend-up">+<?= $analytics['active_sessions'] ?? 0 ?> сессий</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-number"><?= $analytics['failed_logins_24h'] ?? 0 ?></div>
+                            <div class="metric-label">Неудачных входов (24ч)</div>
+                            <div class="metric-trend">
+                                <span class="trend-down">Безопасность</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <div class="metric-number"><?= $analytics['suspicious_activities'] ?? 0 ?></div>
+                            <div class="metric-label">Подозрительных действий</div>
+                            <div class="metric-trend">
+                                <span class="trend-warning">Требуют внимания</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Графики и диаграммы -->
+                <div class="charts-section">
+                    <div class="chart-row">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Активность пользователей</h3>
+                                <div class="chart-controls">
+                                    <select id="activityPeriod" class="form-select">
+                                        <option value="7">7 дней</option>
+                                        <option value="30" selected>30 дней</option>
+                                        <option value="90">90 дней</option>
+                                    </select>
+                                    <a href="/admin/enhanced-analytics/activity-details" class="btn btn-sm">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        Детали
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="activityChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Географическое распределение</h3>
+                                <div class="chart-controls">
+                                    <button class="btn btn-sm" onclick="refreshMap()">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <div id="geolocationMap" style="height: 300px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-row">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Рост пользователей</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="growthChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Аномалии безопасности</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="anomaliesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Реал-тайм активность -->
+                <div class="realtime-section">
+                    <div class="section-header">
+                        <h3>Реал-тайм активность</h3>
+                        <div class="section-controls">
+                            <span class="status-indicator">
+                                <i class="fas fa-circle"></i>
+                                Активно
+                            </span>
                         </div>
                     </div>
                     
-                    <nav class="analytics-nav">
-                        <a href="#" class="nav-item active" data-view="overview">
-                            <i class="fas fa-chart-line"></i>
-                            Обзор
-                        </a>
-                        <a href="#" class="nav-item" data-view="users">
-                            <i class="fas fa-users"></i>
-                            Пользователи
-                        </a>
-                        <a href="#" class="nav-item" data-view="security">
-                            <i class="fas fa-shield-alt"></i>
-                            Безопасность
-                        </a>
-                        <a href="#" class="nav-item" data-view="behavior">
-                            <i class="fas fa-brain"></i>
-                            Поведение
-                        </a>
-                        <a href="#" class="nav-item" data-view="reports">
-                            <i class="fas fa-file-alt"></i>
-                            Отчеты
-                        </a>
-                    </nav>
-                </div>
-
-                <!-- Metrics Grid -->
-                <div class="metrics-grid">
-                    <div class="metric-card users" data-metric="users">
-                        <i class="metric-icon fas fa-users"></i>
-                        <div class="metric-content">
-                            <div class="metric-number">1,247</div>
-                            <div class="metric-label">Активные пользователи</div>
-                            <div class="metric-details">
-                                <span class="active"><i class="fas fa-circle"></i> 892 онлайн</span>
-                                <span class="new"><i class="fas fa-plus"></i> 45 новых</span>
+                    <div class="realtime-grid">
+                        <div class="realtime-card">
+                            <h4>Текущие сессии</h4>
+                            <div class="session-list">
+                                <?php if (!empty($realtimeData['current_sessions'])): ?>
+                                    <?php foreach (array_slice($realtimeData['current_sessions'], 0, 5) as $session): ?>
+                                        <div class="session-item">
+                                            <div class="session-user">
+                                                <i class="fas fa-user"></i>
+                                                <span><?= htmlspecialchars($session['user_fio'] ?? $session['user_login'] ?? 'Неизвестный') ?></span>
+                                            </div>
+                                            <div class="session-time">
+                                                <?= date('H:i', strtotime($session['last_activity'] ?? 'now')) ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="no-data">Нет активных сессий</div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        <div class="metric-trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +12.5%
-                        </div>
-                    </div>
 
-                    <div class="metric-card security" data-metric="security">
-                        <i class="metric-icon threat-medium fas fa-shield-alt"></i>
-                        <div class="metric-content">
-                            <div class="metric-number">23</div>
-                            <div class="metric-label">Угрозы безопасности</div>
-                            <div class="metric-details">
-                                <span class="active"><i class="fas fa-check"></i> 18 заблокировано</span>
-                                <span class="blocked"><i class="fas fa-ban"></i> 5 активных</span>
+                        <div class="realtime-card">
+                            <h4>Последние действия</h4>
+                            <div class="activity-list">
+                                <?php if (!empty($realtimeData['recent_activities'])): ?>
+                                    <?php foreach (array_slice($realtimeData['recent_activities'], 0, 5) as $activity): ?>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-mouse-pointer"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <div class="activity-user">
+                                                    <?= htmlspecialchars($activity['user_fio'] ?? $activity['user_login'] ?? 'Неизвестный') ?>
+                                                </div>
+                                                <div class="activity-action">
+                                                    <?= htmlspecialchars($activity['action_type'] ?? 'Действие') ?>
+                                                </div>
+                                            </div>
+                                            <div class="activity-time">
+                                                <?= date('H:i', strtotime($activity['activity_time'] ?? 'now')) ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="no-data">Нет данных о действиях</div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        <div class="metric-trend down">
-                            <i class="fas fa-arrow-down"></i>
-                            -8.2%
-                        </div>
-                    </div>
 
-                    <div class="metric-card behavior" data-metric="behavior">
-                        <i class="metric-icon fas fa-brain"></i>
-                        <div class="metric-content">
-                            <div class="metric-number">89.4%</div>
-                            <div class="metric-label">Нормальное поведение</div>
-                            <div class="metric-details">
-                                <span class="active"><i class="fas fa-check"></i> 1,112 сессий</span>
-                                <span class="blocked"><i class="fas fa-exclamation"></i> 12 аномалий</span>
+                        <div class="realtime-card">
+                            <h4>Уведомления безопасности</h4>
+                            <div class="alerts-list">
+                                <?php if (!empty($realtimeData['security_alerts'])): ?>
+                                    <?php foreach (array_slice($realtimeData['security_alerts'], 0, 3) as $alert): ?>
+                                        <div class="alert-item alert-<?= $alert['severity'] ?? 'info' ?>">
+                                            <div class="alert-icon">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                            </div>
+                                            <div class="alert-content">
+                                                <div class="alert-title">
+                                                    <?= htmlspecialchars($alert['title'] ?? 'Уведомление') ?>
+                                                </div>
+                                                <div class="alert-description">
+                                                    <?= htmlspecialchars($alert['description'] ?? '') ?>
+                                                </div>
+                                            </div>
+                                            <div class="alert-time">
+                                                <?= date('H:i', strtotime($alert['created_at'] ?? 'now')) ?>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="no-data">Нет уведомлений</div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        <div class="metric-trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +2.1%
-                        </div>
-                    </div>
-
-                    <div class="metric-card" data-metric="performance">
-                        <i class="metric-icon fas fa-tachometer-alt"></i>
-                        <div class="metric-content">
-                            <div class="metric-number">99.8%</div>
-                            <div class="metric-label">Время отклика</div>
-                            <div class="metric-details">
-                                <span class="active"><i class="fas fa-check"></i> 245ms среднее</span>
-                                <span class="new"><i class="fas fa-clock"></i> 99.9% uptime</span>
-                            </div>
-                        </div>
-                        <div class="metric-trend up">
-                            <i class="fas fa-arrow-up"></i>
-                            +0.3%
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charts -->
-                <div class="chart-section">
-                    <div class="chart-header">
-                        <h3 class="chart-title">
-                            <i class="fas fa-chart-line"></i>
-                            Активность пользователей
-                        </h3>
-                        <div class="chart-controls">
-                            <button class="btn btn-blue">24ч</button>
-                            <button class="btn">7д</button>
-                            <button class="btn">30д</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="user-activity-chart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-section">
-                    <div class="chart-header">
-                        <h3 class="chart-title">
-                            <i class="fas fa-shield-alt"></i>
-                            Угрозы безопасности
-                        </h3>
-                        <div class="chart-controls">
-                            <button class="btn btn-green">Все</button>
-                            <button class="btn">Блокированные</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="security-threats-chart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-section">
-                    <div class="chart-header">
-                        <h3 class="chart-title">
-                            <i class="fas fa-brain"></i>
-                            Анализ поведения
-                        </h3>
-                        <div class="chart-controls">
-                            <button class="btn btn-purple">Сессии</button>
-                            <button class="btn">Аномалии</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="behavior-analysis-chart"></canvas>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Scripts -->
-    <script src="/assets/js/background-animations.js"></script>
-    <script src="/assets/js/enhanced-analytics.js"></script>
+    <script>
+        // Данные для графиков
+        const chartData = <?= json_encode($chartData ?? []) ?>;
+        const analytics = <?= json_encode($analytics ?? []) ?>;
+        const geolocationData = <?= json_encode($geolocationData ?? []) ?>;
+        const behaviorData = <?= json_encode($behaviorData ?? []) ?>;
+        const mlAnomalies = <?= json_encode($mlAnomalies ?? []) ?>;
+        const realtimeData = <?= json_encode($realtimeData ?? []) ?>;
+
+        // Инициализация графиков
+        document.addEventListener('DOMContentLoaded', function() {
+            initActivityChart();
+            initGrowthChart();
+            initAnomaliesChart();
+            initGeolocationMap();
+        });
+
+        // График активности
+        function initActivityChart() {
+            const ctx = document.getElementById('activityChart').getContext('2d');
+            const activityData = chartData.activity_timeline || [];
+            
+            const labels = activityData.map(item => item.date || '');
+            const data = activityData.map(item => item.count || 0);
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Активность',
+                        data: data,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // График роста пользователей
+        function initGrowthChart() {
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            const growthData = chartData.user_growth || [];
+            
+            const labels = growthData.map(item => item.date || '');
+            const data = growthData.map(item => item.new_users || 0);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Новые пользователи',
+                        data: data,
+                        backgroundColor: '#28a745',
+                        borderColor: '#20c997',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // График аномалий
+        function initAnomaliesChart() {
+            const ctx = document.getElementById('anomaliesChart').getContext('2d');
+            const anomaliesData = mlAnomalies.risk_distribution || [];
+            
+            const labels = anomaliesData.map(item => item.risk_level || '');
+            const data = anomaliesData.map(item => item.count || 0);
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#28a745',
+                            '#ffc107',
+                            '#fd7e14',
+                            '#dc3545'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Карта геолокации
+        function initGeolocationMap() {
+            const mapContainer = document.getElementById('geolocationMap');
+            if (!mapContainer) return;
+            
+            const map = L.map('geolocationMap').setView([53.9023, 27.5619], 6); // Центр Беларуси
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Добавляем маркеры активности
+            const mapData = geolocationData.map_data || [];
+            mapData.forEach(point => {
+                if (point.latitude && point.longitude) {
+                    L.marker([point.latitude, point.longitude])
+                        .bindPopup(`Активность: ${point.count || 0} пользователей`)
+                        .addTo(map);
+                }
+            });
+        }
+        
+        // Обновление карты
+        function refreshMap() {
+            const mapContainer = document.getElementById('geolocationMap');
+            if (mapContainer) {
+                mapContainer.innerHTML = '';
+                initGeolocationMap();
+            }
+        }
+        
+        // Обновление периода активности
+        document.getElementById('activityPeriod')?.addEventListener('change', function() {
+            // Здесь можно добавить AJAX запрос для обновления данных
+            console.log('Период изменен:', this.value);
+        });
+        
+        // Автообновление данных каждые 30 секунд
+        setInterval(function() {
+            // Здесь можно добавить AJAX запрос для обновления данных
+            console.log('Обновление данных...');
+        }, 30000);
+    </script>
 </body>
 </html>

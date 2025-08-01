@@ -1,204 +1,271 @@
+<?php
+// Проверяем существование переменных
+if (!isset($analytics)) {
+    $analytics = [
+        'users' => ['total' => 0, 'active' => 0, 'blocked' => 0],
+        'logins_24h' => ['total' => 0, 'successful' => 0, 'failed' => 0],
+        'sessions' => ['active' => 0, 'created_24h' => 0, 'avg_duration' => 0],
+        'security' => ['threat_level' => 'low', 'suspicious_activities_24h' => 0, 'blocked_ips' => 0]
+    ];
+}
+
+if (!isset($monitoring_data)) {
+    $monitoring_data = [
+        'status' => 'ok',
+        'checks' => [
+            'performance' => ['status' => 'ok', 'issues' => []],
+            'security' => ['status' => 'ok', 'issues' => []],
+            'storage' => ['status' => 'ok', 'issues' => []],
+            'database' => ['status' => 'ok', 'issues' => []]
+        ]
+    ];
+}
+
+if (!isset($securityNotifications)) {
+    $securityNotifications = [];
+}
+
+// Получаем реальные данные для графиков
+try {
+    require_once ENGINE_DIR . 'main/db.php';
+    
+    // Данные активности пользователей за последние 7 дней
+    $userActivityData = Database::fetchAll("
+        SELECT DATE(activity_time) as date, COUNT(*) as count
+        FROM user_activity 
+        WHERE activity_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY DATE(activity_time)
+        ORDER BY date
+    ");
+    
+    // Данные входов за последние 7 дней
+    $loginData = Database::fetchAll("
+        SELECT DATE(activity_time) as date, 
+               SUM(CASE WHEN action_type = 'login_success' THEN 1 ELSE 0 END) as successful,
+               SUM(CASE WHEN action_type = 'login_failed' THEN 1 ELSE 0 END) as failed
+        FROM user_activity 
+        WHERE activity_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        AND action_type IN ('login_success', 'login_failed')
+        GROUP BY DATE(activity_time)
+        ORDER BY date
+    ");
+    
+    // Данные сессий
+    $sessionData = Database::fetchAll("
+        SELECT DATE(created_at) as date, COUNT(*) as count
+        FROM user_sessions 
+        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+        GROUP BY DATE(created_at)
+        ORDER BY date
+    ");
+    
+} catch (Exception $e) {
+    $userActivityData = [];
+    $loginData = [];
+    $sessionData = [];
+}
+?>
+
+<div class="analytics-container">
+    <!-- Заголовок страницы -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1><i class="fas fa-chart-line"></i> Аналитика и мониторинг</h1>
+            <p>Комплексная аналитика системы и мониторинг производительности</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-blue" onclick="refreshAnalytics()">
+                <i class="fas fa-sync-alt"></i> Обновить
+            </button>
+            <button class="btn btn-purple" onclick="exportData()">
+                <i class="fas fa-download"></i> Экспорт
+            </button>
+            <button class="btn btn-green" onclick="showRealTimeData()">
+                <i class="fas fa-broadcast-tower"></i> Реал-тайм
+            </button>
+        </div>
+    </div>
+
     <!-- Основные метрики -->
     <div class="metrics-grid">
-        <div class="metric-card users">
+        <div class="metric-card">
             <div class="metric-icon">
                 <i class="fas fa-users"></i>
             </div>
             <div class="metric-content">
-                <div class="metric-number"><?= $analytics['users']['total'] ?></div>
+                <div class="metric-value"><?= $analytics['users']['total'] ?></div>
                 <div class="metric-label">Всего пользователей</div>
-                <div class="metric-details">
-                    <span class="active"><?= $analytics['users']['active'] ?> активных</span>
-                    <span class="blocked"><?= $analytics['users']['blocked'] ?> заблокированных</span>
-                </div>
+                <div class="metric-change positive">+<?= $analytics['users']['active'] ?> активных</div>
             </div>
         </div>
 
-        <div class="metric-card logins">
+        <div class="metric-card">
             <div class="metric-icon">
                 <i class="fas fa-sign-in-alt"></i>
             </div>
             <div class="metric-content">
-                <div class="metric-number"><?= $analytics['logins_24h']['total'] ?></div>
+                <div class="metric-value"><?= $analytics['logins_24h']['total'] ?></div>
                 <div class="metric-label">Входов за 24ч</div>
-                <div class="metric-details">
-                    <span class="success"><?= $analytics['logins_24h']['successful'] ?> успешных</span>
-                    <span class="failed"><?= $analytics['logins_24h']['failed'] ?> неудачных</span>
+                <div class="metric-change <?= $analytics['logins_24h']['successful'] > $analytics['logins_24h']['failed'] ? 'positive' : 'negative' ?>">
+                    <?= $analytics['logins_24h']['successful'] ?> успешных
                 </div>
             </div>
         </div>
 
-        <div class="metric-card sessions">
+        <div class="metric-card">
             <div class="metric-icon">
                 <i class="fas fa-clock"></i>
             </div>
             <div class="metric-content">
-                <div class="metric-number"><?= $analytics['sessions']['active'] ?></div>
+                <div class="metric-value"><?= $analytics['sessions']['active'] ?></div>
                 <div class="metric-label">Активных сессий</div>
-                <div class="metric-details">
-                    <span class="created"><?= $analytics['sessions']['created_24h'] ?> создано за 24ч</span>
-                    <span class="avg"><?= $analytics['sessions']['avg_duration'] ?> мин средняя</span>
-                </div>
+                <div class="metric-change positive">+<?= $analytics['sessions']['created_24h'] ?> новых</div>
             </div>
         </div>
 
-        <div class="metric-card security">
-            <div class="metric-icon threat-<?= $analytics['security']['threat_level'] ?>">
+        <div class="metric-card">
+            <div class="metric-icon">
                 <i class="fas fa-shield-alt"></i>
             </div>
             <div class="metric-content">
-                <div class="metric-number"><?= $analytics['security']['suspicious_activities_24h'] ?></div>
+                <div class="metric-value"><?= $analytics['security']['suspicious_activities_24h'] ?></div>
                 <div class="metric-label">Подозрительных действий</div>
-                <div class="metric-details">
-                    <span class="threat-level">Уровень угрозы: <?= strtoupper($analytics['security']['threat_level']) ?></span>
-                    <span class="blocked-ips"><?= $analytics['security']['blocked_ips'] ?> IP заблокировано</span>
+                <div class="metric-change <?= $analytics['security']['threat_level'] === 'low' ? 'positive' : 'negative' ?>">
+                    Уровень: <?= strtoupper($analytics['security']['threat_level']) ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Графики и диаграммы -->
-    <div class="charts-section">
-        <div class="chart-container">
-            <div class="chart-header">
-                <h3>📈 Активность за 7 дней</h3>
-                <div class="chart-controls">
-                    <button class="btn btn-sm btn-blue" onclick="updateChart('activity')">Обновить</button>
+    <!-- Статус системы -->
+    <div class="system-status">
+        <h3><i class="fas fa-server"></i> Статус системы</h3>
+        <div class="status-grid">
+            <?php foreach ($monitoring_data['checks'] as $check => $data): ?>
+            <div class="status-card status-<?= $data['status'] ?>">
+                <div class="status-icon">
+                    <i class="fas fa-<?= $check === 'performance' ? 'tachometer-alt' : ($check === 'security' ? 'shield-alt' : ($check === 'storage' ? 'hdd' : 'database')) ?>"></i>
                 </div>
-            </div>
-            <div class="chart-content">
-                <canvas id="activityChart" width="400" height="200"></canvas>
-            </div>
-        </div>
-
-        <div class="chart-container">
-            <div class="chart-header">
-                <h3>🔐 Входы за 24 часа</h3>
-                <div class="chart-controls">
-                    <button class="btn btn-sm btn-blue" onclick="updateChart('logins')">Обновить</button>
-                </div>
-            </div>
-            <div class="chart-content">
-                <canvas id="loginsChart" width="400" height="200"></canvas>
-            </div>
-        </div>
-
-        <div class="chart-container">
-            <div class="chart-header">
-                <h3>⚠️ Подозрительная активность</h3>
-                <div class="chart-controls">
-                    <button class="btn btn-sm btn-blue" onclick="updateChart('suspicious')">Обновить</button>
-                </div>
-            </div>
-            <div class="chart-content">
-                <canvas id="suspiciousChart" width="400" height="200"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <!-- Уведомления безопасности -->
-    <?php if (!empty($securityNotifications)): ?>
-    <div class="notifications-section">
-        <div class="section-header">
-            <h3><i class="fas fa-bell"></i> Уведомления безопасности</h3>
-            <button class="btn btn-sm btn-blue" onclick="markAllAsRead()">Отметить все как прочитанные</button>
-        </div>
-        <div class="notifications-grid">
-            <?php foreach ($securityNotifications as $notification): ?>
-            <div class="notification-item severity-<?= $notification['severity'] ?>">
-                <div class="notification-icon">
-                    <i class="fas fa-<?= $this->getNotificationIcon($notification['notification_type']) ?>"></i>
-                </div>
-                <div class="notification-content">
-                    <div class="notification-title"><?= htmlspecialchars($notification['title']) ?></div>
-                    <div class="notification-message"><?= htmlspecialchars($notification['message']) ?></div>
-                    <div class="notification-time"><?= date('d.m.Y H:i', strtotime($notification['created_at'])) ?></div>
-                </div>
-                <div class="notification-actions">
-                    <button class="btn btn-sm btn-secondary" onclick="markAsRead(<?= $notification['id'] ?>)">
-                        <i class="fas fa-check"></i>
-                    </button>
+                <div class="status-content">
+                    <h4><?= ucfirst($check) ?></h4>
+                    <div class="status-badge status-<?= $data['status'] ?>">
+                        <?= strtoupper($data['status']) ?>
+                    </div>
+                    <?php if (!empty($data['issues'])): ?>
+                    <div class="status-issues">
+                        <small><?= count($data['issues']) ?> проблем</small>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
     </div>
-    <?php endif; ?>
 
-    <!-- Подозрительные IP адреса -->
-    <?php if (!empty($suspiciousIPs)): ?>
-    <div class="suspicious-ips-section">
-        <div class="section-header">
-            <h3><i class="fas fa-exclamation-triangle"></i> Подозрительные IP адреса</h3>
-            <button class="btn btn-sm btn-red" onclick="blockAllSuspiciousIPs()">Заблокировать все</button>
+    <!-- Интерактивные графики -->
+    <div class="charts-section">
+        <h3><i class="fas fa-chart-area"></i> Графики активности</h3>
+        <div class="charts-controls">
+            <select id="chartPeriod" onchange="updateCharts()">
+                <option value="7d">Последние 7 дней</option>
+                <option value="30d">Последние 30 дней</option>
+                <option value="90d">Последние 90 дней</option>
+            </select>
+            <button class="btn btn-sm btn-blue" onclick="updateCharts()">
+                <i class="fas fa-sync-alt"></i> Обновить
+            </button>
         </div>
-        <div class="table-container">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>IP Адрес</th>
-                        <th>Попыток</th>
-                        <th>Успешных</th>
-                        <th>Неудачных</th>
-                        <th>Действия</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($suspiciousIPs as $ip): ?>
-                    <tr>
-                        <td>
-                            <code><?= htmlspecialchars($ip['ip_address']) ?></code>
-                        </td>
-                        <td><?= $ip['attempts'] ?></td>
-                        <td>
-                            <span class="badge badge-success"><?= $ip['successful'] ?></span>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger"><?= $ip['failed'] ?></span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-warning" onclick="blockIP('<?= htmlspecialchars($ip['ip_address']) ?>')">
-                                <i class="fas fa-ban"></i> Заблокировать
-                            </button>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <!-- Активность пользователей -->
-    <?php if (!empty($userActivity)): ?>
-    <div class="user-activity-section">
-        <div class="section-header">
-            <h3><i class="fas fa-user-clock"></i> Активность пользователей</h3>
-            <a href="/admin/analytics/user-activity" class="btn btn-sm btn-blue">Подробнее</a>
-        </div>
-        <div class="activity-grid">
-            <?php foreach ($userActivity as $user): ?>
-            <div class="activity-card">
-                <div class="activity-user">
-                    <div class="user-info">
-                        <strong><?= htmlspecialchars($user['user_fio']) ?></strong>
-                        <span class="user-login"><?= htmlspecialchars($user['user_login']) ?></span>
-                    </div>
-                    <div class="activity-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Активность:</span>
-                            <span class="stat-value"><?= $user['activity_count'] ?> действий</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Последняя активность:</span>
-                            <span class="stat-value"><?= $user['last_activity'] ? date('d.m.Y H:i', strtotime($user['last_activity'])) : 'Нет данных' ?></span>
-                        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4>Активность пользователей</h4>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-color" style="background: #4CAF50;"></span> Активность</span>
                     </div>
                 </div>
-                <div class="activity-actions">
-                    <a href="/admin/analytics/user-activity?user_id=<?= $user['user_id'] ?>" class="btn btn-sm btn-info">
-                        <i class="fas fa-eye"></i> Детали
-                    </a>
+                <div class="chart-content">
+                    <canvas id="userActivityChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4>Входы в систему</h4>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-color" style="background: #2196F3;"></span> Успешные</span>
+                        <span class="legend-item"><span class="legend-color" style="background: #f44336;"></span> Неудачные</span>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <canvas id="loginChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4>Создание сессий</h4>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-color" style="background: #FF9800;"></span> Новые сессии</span>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <canvas id="sessionChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h4>Безопасность</h4>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-color" style="background: #9C27B0;"></span> Подозрительные действия</span>
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <canvas id="securityChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Реал-тайм активность -->
+    <div class="realtime-section" id="realtimeSection" style="display: none;">
+        <h3><i class="fas fa-broadcast-tower"></i> Реал-тайм активность</h3>
+        <div class="realtime-grid">
+            <div class="realtime-card">
+                <div class="realtime-header">
+                    <h4>Активные пользователи</h4>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="realtime-value" id="realtimeUsers">0</div>
+            </div>
+            
+            <div class="realtime-card">
+                <div class="realtime-header">
+                    <h4>Последние действия</h4>
+                    <div class="realtime-indicator"></div>
+                </div>
+                <div class="realtime-list" id="realtimeActions">
+                    <div class="realtime-item">Загрузка...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <?php if (!empty($securityNotifications)): ?>
+    <div class="notifications-section">
+        <h3><i class="fas fa-bell"></i> Уведомления безопасности</h3>
+        <div class="notifications-list">
+            <?php foreach ($securityNotifications as $notification): ?>
+            <div class="notification-item notification-<?= $notification['type'] ?? 'info' ?>">
+                <div class="notification-icon">
+                    <i class="fas fa-<?= $notification['type'] === 'warning' ? 'exclamation-triangle' : ($notification['type'] === 'error' ? 'times-circle' : 'info-circle') ?>"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title"><?= $notification['title'] ?? 'Уведомление' ?></div>
+                    <div class="notification-message"><?= $notification['message'] ?? '' ?></div>
+                    <div class="notification-time"><?= $notification['time'] ?? '' ?></div>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -207,360 +274,39 @@
     <?php endif; ?>
 </div>
 
-<!-- Стили для аналитики -->
-<style>
-.analytics-container {
-    padding: 20px;
-}
-
-.metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.metric-card {
-    background: linear-gradient(135deg, var(--medium-gray) 0%, var(--light-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    box-shadow: var(--glow-blue);
-    transition: all 0.3s ease;
-}
-
-.metric-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-}
-
-.metric-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    font-size: 24px;
-    color: var(--text-white);
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-}
-
-.metric-card.users .metric-icon {
-    background: linear-gradient(135deg, #28a745, #20c997);
-}
-
-.metric-card.logins .metric-icon {
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-}
-
-.metric-card.sessions .metric-icon {
-    background: linear-gradient(135deg, var(--primary-yellow), var(--accent-yellow));
-    color: #000;
-}
-
-.metric-card.security .metric-icon {
-    background: linear-gradient(135deg, #ff4757, #ff3742);
-}
-
-.metric-card.security .metric-icon.threat-critical {
-    background: linear-gradient(135deg, #ff4757, #ff3742);
-    animation: pulse 2s infinite;
-}
-
-.metric-card.security .metric-icon.threat-high {
-    background: linear-gradient(135deg, #ff6b35, #ff8c42);
-}
-
-.metric-card.security .metric-icon.threat-medium {
-    background: linear-gradient(135deg, var(--primary-yellow), var(--accent-yellow));
-    color: #000;
-}
-
-.metric-card.security .metric-icon.threat-low {
-    background: linear-gradient(135deg, #28a745, #20c997);
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
-}
-
-.metric-content {
-    flex: 1;
-}
-
-.metric-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--text-white);
-    margin-bottom: 5px;
-}
-
-.metric-label {
-    font-size: 14px;
-    color: var(--text-blue);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-}
-
-.metric-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.metric-details span {
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    display: inline-block;
-}
-
-.metric-details .active,
-.metric-details .success,
-.metric-details .created {
-    background: rgba(40, 167, 69, 0.2);
-    color: #28a745;
-}
-
-.metric-details .blocked,
-.metric-details .failed {
-    background: rgba(255, 71, 87, 0.2);
-    color: #ff4757;
-}
-
-.metric-details .avg,
-.metric-details .threat-level {
-    background: rgba(0, 212, 255, 0.2);
-    color: var(--primary-blue);
-}
-
-.metric-details .blocked-ips {
-    background: rgba(255, 193, 7, 0.2);
-    color: var(--primary-yellow);
-}
-
-.charts-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.chart-container {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: var(--glow-blue);
-}
-
-.chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.chart-header h3 {
-    color: var(--text-yellow);
-    margin: 0;
-}
-
-.chart-content {
-    height: 200px;
-    position: relative;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.section-header h3 {
-    color: var(--text-yellow);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.notifications-grid,
-.activity-grid {
-    display: grid;
-    gap: 15px;
-}
-
-.notification-item {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    box-shadow: var(--glow-blue);
-    transition: all 0.3s ease;
-}
-
-.notification-item:hover {
-    transform: translateX(5px);
-}
-
-.notification-item.severity-critical {
-    border-color: #ff4757;
-    box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-}
-
-.notification-item.severity-high {
-    border-color: #ff6b35;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-}
-
-.notification-item.severity-medium {
-    border-color: var(--primary-yellow);
-    box-shadow: var(--glow-yellow);
-}
-
-.notification-item.severity-low {
-    border-color: #28a745;
-    box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
-}
-
-.notification-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-    color: #000;
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-title {
-    font-weight: bold;
-    color: var(--text-white);
-    margin-bottom: 5px;
-}
-
-.notification-message {
-    color: var(--text-blue);
-    margin-bottom: 5px;
-}
-
-.notification-time {
-    font-size: 12px;
-    color: var(--text-blue);
-    opacity: 0.8;
-}
-
-.activity-card {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: var(--glow-blue);
-    transition: all 0.3s ease;
-}
-
-.activity-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-}
-
-.activity-user {
-    flex: 1;
-}
-
-.user-info {
-    margin-bottom: 10px;
-}
-
-.user-login {
-    font-size: 12px;
-    color: var(--text-blue);
-    opacity: 0.8;
-}
-
-.activity-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.stat-item {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-}
-
-.stat-label {
-    color: var(--text-blue);
-}
-
-.stat-value {
-    color: var(--text-white);
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    .metrics-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .charts-section {
-        grid-template-columns: 1fr;
-    }
-    
-    .chart-content {
-        height: 150px;
-    }
-}
-</style>
-
-<!-- JavaScript для графиков и интерактивности -->
+<!-- Подключение Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 // Данные для графиков
-const chartData = <?= json_encode($chartData) ?>;
+const chartData = {
+    userActivity: <?= json_encode($userActivityData) ?>,
+    loginData: <?= json_encode($loginData) ?>,
+    sessionData: <?= json_encode($sessionData) ?>
+};
 
 // Инициализация графиков
-let activityChart, loginsChart, suspiciousChart;
+let userActivityChart, loginChart, sessionChart, securityChart;
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeCharts();
-    startAutoRefresh();
+    loadRealTimeData();
 });
 
 function initializeCharts() {
-    // График активности
-    const activityCtx = document.getElementById('activityChart').getContext('2d');
-    activityChart = new Chart(activityCtx, {
+    // График активности пользователей
+    const userActivityCtx = document.getElementById('userActivityChart').getContext('2d');
+    userActivityChart = new Chart(userActivityCtx, {
         type: 'line',
         data: {
-            labels: chartData.activity_7_days.map(item => item.date),
+            labels: chartData.userActivity.map(item => item.date),
             datasets: [{
                 label: 'Активность',
-                data: chartData.activity_7_days.map(item => item.count),
-                borderColor: '#00d4ff',
-                backgroundColor: 'rgba(0, 212, 255, 0.1)',
-                tension: 0.4
+                data: chartData.userActivity.map(item => item.count),
+                borderColor: '#4CAF50',
+                backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
@@ -568,26 +314,25 @@ function initializeCharts() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#ffffff'
-                    }
+                    display: false
                 }
             },
             scales: {
                 y: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
+                    beginAtZero: true,
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 },
                 x: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 }
             }
@@ -595,19 +340,19 @@ function initializeCharts() {
     });
 
     // График входов
-    const loginsCtx = document.getElementById('loginsChart').getContext('2d');
-    loginsChart = new Chart(loginsCtx, {
+    const loginCtx = document.getElementById('loginChart').getContext('2d');
+    loginChart = new Chart(loginCtx, {
         type: 'bar',
         data: {
-            labels: chartData.logins_24h.map(item => item.hour + ':00'),
+            labels: chartData.loginData.map(item => item.date),
             datasets: [{
                 label: 'Успешные',
-                data: chartData.logins_24h.map(item => item.successful),
-                backgroundColor: '#28a745'
+                data: chartData.loginData.map(item => item.successful),
+                backgroundColor: '#2196F3'
             }, {
                 label: 'Неудачные',
-                data: chartData.logins_24h.map(item => item.failed),
-                backgroundColor: '#ff4757'
+                data: chartData.loginData.map(item => item.failed),
+                backgroundColor: '#f44336'
             }]
         },
         options: {
@@ -615,44 +360,44 @@ function initializeCharts() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#ffffff'
-                    }
+                    display: false
                 }
             },
             scales: {
                 y: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
+                    beginAtZero: true,
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 },
                 x: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 }
             }
         }
     });
 
-    // График подозрительной активности
-    const suspiciousCtx = document.getElementById('suspiciousChart').getContext('2d');
-    suspiciousChart = new Chart(suspiciousCtx, {
+    // График сессий
+    const sessionCtx = document.getElementById('sessionChart').getContext('2d');
+    sessionChart = new Chart(sessionCtx, {
         type: 'line',
         data: {
-            labels: chartData.suspicious_7_days.map(item => item.date),
+            labels: chartData.sessionData.map(item => item.date),
             datasets: [{
-                label: 'Подозрительная активность',
-                data: chartData.suspicious_7_days.map(item => item.count),
-                borderColor: '#ff4757',
-                backgroundColor: 'rgba(255, 71, 87, 0.1)',
-                tension: 0.4
+                label: 'Новые сессии',
+                data: chartData.sessionData.map(item => item.count),
+                borderColor: '#FF9800',
+                backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
@@ -660,133 +405,283 @@ function initializeCharts() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#ffffff'
-                    }
+                    display: false
                 }
             },
             scales: {
                 y: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
+                    beginAtZero: true,
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 },
                 x: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
+                }
+            }
+        }
+    });
+
+    // График безопасности (заглушка)
+    const securityCtx = document.getElementById('securityChart').getContext('2d');
+    securityChart = new Chart(securityCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Нормальная активность', 'Подозрительная активность'],
+            datasets: [{
+                data: [85, 15],
+                backgroundColor: ['#4CAF50', '#f44336']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
     });
 }
 
-function updateChart(type) {
-    // Здесь можно добавить AJAX запрос для обновления данных
-    console.log('Updating chart:', type);
-}
-
-function startAutoRefresh() {
-    // Автообновление каждые 30 секунд
-    setInterval(function() {
-        updateAnalyticsData();
-    }, 30000);
-}
-
-function updateAnalyticsData() {
-    fetch('/admin/analytics/api?type=security_stats')
+// Обновление графиков
+function updateCharts() {
+    const period = document.getElementById('chartPeriod').value;
+    
+    // Показываем индикатор загрузки
+    showLoading();
+    
+    // Загружаем новые данные
+    fetch(`/admin/analytics/api/chart-data?period=${period}`)
         .then(response => response.json())
         .then(data => {
-            // Обновляем метрики
-            updateMetrics(data);
+            if (data.success) {
+                updateChartData(data.data);
+            }
+            hideLoading();
         })
         .catch(error => {
-            console.error('Error updating analytics:', error);
+            console.error('Ошибка загрузки данных:', error);
+            hideLoading();
         });
 }
 
-function updateMetrics(data) {
-    // Обновляем числа в метриках
-    const metricNumbers = document.querySelectorAll('.metric-number');
-    // Здесь можно добавить анимацию обновления чисел
-}
-
-function markAsRead(notificationId) {
-    fetch('/admin/analytics/mark-notification-read', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ notification_id: notificationId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Удаляем уведомление из DOM
-            const notification = document.querySelector(`[data-notification-id="${notificationId}"]`);
-            if (notification) {
-                notification.remove();
-            }
-        }
-    });
-}
-
-function markAllAsRead() {
-    fetch('/admin/analytics/mark-all-notifications-read', {
-        method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Удаляем все уведомления
-            document.querySelectorAll('.notification-item').forEach(item => {
-                item.remove();
-            });
-        }
-    });
-}
-
-function blockIP(ipAddress) {
-    if (confirm(`Заблокировать IP адрес ${ipAddress}?`)) {
-        fetch('/admin/analytics/block-ip', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ip_address: ipAddress })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('IP адрес заблокирован');
-                location.reload();
-            } else {
-                alert('Ошибка при блокировке IP');
-            }
-        });
+// Обновление данных графиков
+function updateChartData(data) {
+    if (data.userActivity) {
+        userActivityChart.data.labels = data.userActivity.map(item => item.date);
+        userActivityChart.data.datasets[0].data = data.userActivity.map(item => item.count);
+        userActivityChart.update();
+    }
+    
+    if (data.loginData) {
+        loginChart.data.labels = data.loginData.map(item => item.date);
+        loginChart.data.datasets[0].data = data.loginData.map(item => item.successful);
+        loginChart.data.datasets[1].data = data.loginData.map(item => item.failed);
+        loginChart.update();
+    }
+    
+    if (data.sessionData) {
+        sessionChart.data.labels = data.sessionData.map(item => item.date);
+        sessionChart.data.datasets[0].data = data.sessionData.map(item => item.count);
+        sessionChart.update();
     }
 }
 
-function blockAllSuspiciousIPs() {
-    if (confirm('Заблокировать все подозрительные IP адреса?')) {
-        fetch('/admin/analytics/block-all-suspicious-ips', {
-            method: 'POST'
-        })
+// Реал-тайм данные
+function loadRealTimeData() {
+    fetch('/admin/analytics/api/realtime')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Все подозрительные IP адреса заблокированы');
-                location.reload();
-            } else {
-                alert('Ошибка при блокировке IP адресов');
+                updateRealTimeData(data.data);
             }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки реал-тайм данных:', error);
         });
+}
+
+function updateRealTimeData(data) {
+    document.getElementById('realtimeUsers').textContent = data.activeUsers || 0;
+    
+    const actionsList = document.getElementById('realtimeActions');
+    if (data.recentActions) {
+        actionsList.innerHTML = data.recentActions.map(action => 
+            `<div class="realtime-item">${action}</div>`
+        ).join('');
     }
 }
-</script> 
+
+// Показать/скрыть реал-тайм данные
+function showRealTimeData() {
+    const section = document.getElementById('realtimeSection');
+    if (section.style.display === 'none') {
+        section.style.display = 'block';
+        loadRealTimeData();
+        // Обновляем каждые 30 секунд
+        setInterval(loadRealTimeData, 30000);
+    } else {
+        section.style.display = 'none';
+    }
+}
+
+// Обновление аналитики
+function refreshAnalytics() {
+    location.reload();
+}
+
+// Экспорт данных
+function exportData() {
+    const data = {
+        analytics: <?= json_encode($analytics) ?>,
+        monitoring: <?= json_encode($monitoring_data) ?>,
+        charts: chartData,
+        timestamp: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'analytics_' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// Утилиты
+function showLoading() {
+    // Показываем индикатор загрузки
+    const loading = document.createElement('div');
+    loading.id = 'loading';
+    loading.innerHTML = '<div class="loading-spinner"></div>';
+    loading.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;';
+    document.body.appendChild(loading);
+}
+
+function hideLoading() {
+    const loading = document.getElementById('loading');
+    if (loading) {
+        loading.remove();
+    }
+}
+</script>
+
+<style>
+/* Дополнительные стили для аналитики */
+.charts-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.charts-controls select {
+    padding: 8px 12px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: white;
+    border-radius: 5px;
+}
+
+.realtime-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.realtime-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.realtime-card {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.realtime-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.realtime-indicator {
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.realtime-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.realtime-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.realtime-item {
+    padding: 5px 0;
+    border-bottom: 1px solid #333;
+    font-size: 0.9em;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #333;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.chart-legend {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8em;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+</style> 

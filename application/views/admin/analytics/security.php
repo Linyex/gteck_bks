@@ -1,158 +1,128 @@
-    <!-- Статистика угроз -->
-         <div class="threat-stats-grid">
-        <div class="threat-stat-card">
-            <div class="stat-header">
-                <h3>Типы угроз за 24 часа</h3>
+<?php
+// Проверяем существование переменных
+if (!isset($security_events)) $security_events = [];
+if (!isset($failed_logins)) $failed_logins = [];
+if (!isset($suspicious_activity)) $suspicious_activity = [];
+if (!isset($security_stats)) $security_stats = [
+    'failed_logins_24h' => 0,
+    'suspicious_activities_24h' => 0,
+    'security_events_24h' => 0,
+    'unique_failed_ips' => 0
+];
+if (!isset($suspicious_ips)) $suspicious_ips = [];
+if (!isset($security_timeline)) $security_timeline = [];
+if (!isset($period)) $period = '7d';
+?>
+
+<div class="security-container">
+    <!-- Заголовок страницы -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1><i class="fas fa-shield-alt"></i> Безопасность системы</h1>
+            <p>Мониторинг безопасности и обнаружение угроз</p>
+        </div>
+        <div class="header-actions">
+            <select id="securityPeriod" onchange="updateSecurityData()">
+                <option value="7d" <?= $period === '7d' ? 'selected' : '' ?>>Последние 7 дней</option>
+                <option value="30d" <?= $period === '30d' ? 'selected' : '' ?>>Последние 30 дней</option>
+                <option value="90d" <?= $period === '90d' ? 'selected' : '' ?>>Последние 90 дней</option>
+            </select>
+            <button class="btn btn-red" onclick="blockSuspiciousIPs()">
+                <i class="fas fa-ban"></i> Заблокировать подозрительные IP
+            </button>
+            <button class="btn btn-blue" onclick="refreshSecurityData()">
+                <i class="fas fa-sync-alt"></i> Обновить
+            </button>
+        </div>
+    </div>
+
+    <!-- Статистика безопасности -->
+    <div class="security-stats">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
             </div>
             <div class="stat-content">
-                <?php foreach ($securityStats['threat_types'] as $threat): ?>
-                <div class="threat-item">
-                    <span class="threat-type"><?= $this->getThreatTypeName($threat['action_type']) ?></span>
-                    <span class="threat-count"><?= $threat['count'] ?></span>
+                <div class="stat-value"><?= $security_stats['failed_logins_24h'] ?></div>
+                <div class="stat-label">Неудачных входов за 24ч</div>
+                <div class="stat-change <?= $security_stats['failed_logins_24h'] > 10 ? 'negative' : 'positive' ?>">
+                    <?= $security_stats['failed_logins_24h'] > 10 ? 'Высокий уровень угрозы' : 'Нормальный уровень' ?>
                 </div>
-                <?php endforeach; ?>
             </div>
         </div>
 
-        <div class="threat-stat-card">
-            <div class="stat-header">
-                <h3>Почасовая статистика</h3>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-user-secret"></i>
             </div>
             <div class="stat-content">
-                <canvas id="hourlyChart" width="400" height="200"></canvas>
+                <div class="stat-value"><?= $security_stats['suspicious_activities_24h'] ?></div>
+                <div class="stat-label">Подозрительных действий</div>
+                <div class="stat-change <?= $security_stats['suspicious_activities_24h'] > 5 ? 'negative' : 'positive' ?>">
+                    <?= $security_stats['suspicious_activities_24h'] > 5 ? 'Требует внимания' : 'Безопасно' ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value"><?= $security_stats['unique_failed_ips'] ?></div>
+                <div class="stat-label">Подозрительных IP адресов</div>
+                <div class="stat-change <?= $security_stats['unique_failed_ips'] > 3 ? 'negative' : 'positive' ?>">
+                    <?= $security_stats['unique_failed_ips'] > 3 ? 'Множественные источники' : 'Нормально' ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-shield-virus"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-value"><?= $security_stats['security_events_24h'] ?></div>
+                <div class="stat-label">Событий безопасности</div>
+                <div class="stat-change <?= $security_stats['security_events_24h'] > 20 ? 'negative' : 'positive' ?>">
+                    <?= $security_stats['security_events_24h'] > 20 ? 'Повышенная активность' : 'Стандартно' ?>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Анализ угроз -->
-    <div class="threat-analysis-section">
-        <div class="section-header">
-            <h3>🔍 Анализ угроз</h3>
+    <!-- График безопасности -->
+    <div class="security-chart">
+        <h3><i class="fas fa-chart-line"></i> График событий безопасности</h3>
+        <div class="chart-container">
+            <canvas id="securityChart" width="800" height="300"></canvas>
         </div>
-        
-        <!-- Пользователи высокого риска -->
-        <?php if (!empty($threatAnalysis['high_risk_users'])): ?>
-        <div class="threat-group">
-            <h4>⚠️ Пользователи высокого риска</h4>
-            <div class="table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Пользователь</th>
-                            <th>Неудачных попыток</th>
-                            <th>Уникальных IP</th>
-                            <th>Риск</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($threatAnalysis['high_risk_users'] as $user): ?>
-                        <tr>
-                            <td>
-                                <div class="user-info">
-                                    <strong><?= htmlspecialchars($user['user_fio']) ?></strong>
-                                    <span class="user-login"><?= htmlspecialchars($user['user_login']) ?></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="badge badge-danger"><?= $user['failed_attempts'] ?></span>
-                            </td>
-                            <td>
-                                <span class="badge badge-warning"><?= $user['unique_ips'] ?></span>
-                            </td>
-                            <td>
-                                <span class="risk-level high">Высокий</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-warning" onclick="blockUser(<?= $user['user_id'] ?>)">
-                                    <i class="fas fa-ban"></i> Заблокировать
-                                </button>
-                                <button class="btn btn-sm btn-info" onclick="resetPassword(<?= $user['user_id'] ?>)">
-                                    <i class="fas fa-key"></i> Сбросить пароль
-                                </button>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <!-- Подозрительные паттерны -->
-        <?php if (!empty($threatAnalysis['suspicious_patterns'])): ?>
-        <div class="threat-group">
-            <h4>🔍 Подозрительные паттерны</h4>
-            <div class="patterns-grid">
-                <?php foreach ($threatAnalysis['suspicious_patterns'] as $pattern): ?>
-                <div class="pattern-card">
-                    <div class="pattern-header">
-                        <code><?= htmlspecialchars($pattern['ip_address']) ?></code>
-                        <span class="pattern-risk">Высокий риск</span>
-                    </div>
-                    <div class="pattern-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Попыток:</span>
-                            <span class="stat-value"><?= $pattern['attempts'] ?></span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Уникальных пользователей:</span>
-                            <span class="stat-value"><?= $pattern['unique_users'] ?></span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Средний интервал:</span>
-                            <span class="stat-value"><?= round($pattern['avg_interval'] ?? 0, 1) ?> мин</span>
-                        </div>
-                    </div>
-                    <div class="pattern-actions">
-                        <button class="btn btn-sm btn-danger" onclick="blockIP('<?= htmlspecialchars($pattern['ip_address']) ?>')">
-                            <i class="fas fa-ban"></i> Заблокировать IP
-                        </button>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <?php endif; ?>
     </div>
 
-    <!-- Статистика по IP адресам -->
-    <div class="ip-stats-section">
-        <div class="section-header">
-            <h3>🌐 Статистика по IP адресам</h3>
-        </div>
+    <!-- Подозрительные IP адреса -->
+    <?php if (!empty($suspicious_ips)): ?>
+    <div class="suspicious-ips">
+        <h3><i class="fas fa-exclamation-triangle"></i> Подозрительные IP адреса</h3>
         <div class="table-container">
-            <table class="admin-table">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>IP Адрес</th>
-                        <th>Всего попыток</th>
-                        <th>Успешных</th>
-                        <th>Неудачных</th>
+                        <th>Неудачных попыток</th>
                         <th>Уникальных пользователей</th>
-                        <th>Первый запрос</th>
-                        <th>Последний запрос</th>
+                        <th>Последняя попытка</th>
                         <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($ipStats as $ip): ?>
+                    <?php foreach ($suspicious_ips as $ip): ?>
                     <tr>
-                        <td>
-                            <code><?= htmlspecialchars($ip['ip_address']) ?></code>
-                        </td>
-                        <td><?= $ip['total_attempts'] ?></td>
-                        <td>
-                            <span class="badge badge-success"><?= $ip['successful_attempts'] ?></span>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger"><?= $ip['failed_attempts'] ?></span>
-                        </td>
+                        <td><?= htmlspecialchars($ip['ip_address']) ?></td>
+                        <td><?= $ip['failed_attempts'] ?></td>
                         <td><?= $ip['unique_users'] ?></td>
-                        <td><?= date('d.m.Y H:i', strtotime($ip['first_attempt'])) ?></td>
                         <td><?= date('d.m.Y H:i', strtotime($ip['last_attempt'])) ?></td>
                         <td>
-                            <button class="btn btn-sm btn-warning" onclick="blockIP('<?= htmlspecialchars($ip['ip_address']) ?>')">
+                            <button class="btn btn-sm btn-red" onclick="blockIP('<?= $ip['ip_address'] ?>')">
                                 <i class="fas fa-ban"></i> Заблокировать
                             </button>
                         </td>
@@ -162,321 +132,76 @@
             </table>
         </div>
     </div>
+    <?php endif; ?>
 
-    <!-- История инцидентов -->
-    <div class="incident-history-section">
-        <div class="section-header">
-            <h3>📋 История инцидентов</h3>
-        </div>
-        <div class="incidents-grid">
-            <?php foreach ($incidentHistory as $incident): ?>
-            <div class="incident-card severity-<?= $incident['severity'] ?>">
-                <div class="incident-header">
-                    <div class="incident-type">
-                        <i class="fas fa-<?= $this->getIncidentIcon($incident['notification_type']) ?>"></i>
-                        <span><?= $incident['type_name'] ?></span>
+    <!-- События безопасности -->
+    <div class="security-events">
+        <h3><i class="fas fa-list"></i> События безопасности</h3>
+        <div class="events-list">
+            <?php if (!empty($security_events)): ?>
+                <?php foreach ($security_events as $event): ?>
+                <div class="event-item event-<?= $event['action_type'] ?>">
+                    <div class="event-icon">
+                        <i class="fas fa-<?= $event['action_type'] === 'login_failed' ? 'times-circle' : ($event['action_type'] === 'suspicious_activity' ? 'exclamation-triangle' : 'info-circle') ?>"></i>
                     </div>
-                    <div class="incident-time">
-                        <?= date('d.m.Y H:i', strtotime($incident['created_at'])) ?>
+                    <div class="event-content">
+                        <div class="event-title">
+                            <?= htmlspecialchars($event['user_login'] ?? 'Неизвестный пользователь') ?> 
+                            (<?= htmlspecialchars($event['user_fio'] ?? 'Без имени') ?>)
+                        </div>
+                        <div class="event-description"><?= htmlspecialchars($event['activity_description'] ?? 'Событие безопасности') ?></div>
+                        <div class="event-meta">
+                            <span class="event-time"><?= date('d.m.Y H:i:s', strtotime($event['activity_time'])) ?></span>
+                            <span class="event-ip">IP: <?= htmlspecialchars($event['ip_address'] ?? 'Неизвестно') ?></span>
+                        </div>
                     </div>
                 </div>
-                <div class="incident-content">
-                    <div class="incident-title"><?= htmlspecialchars($incident['title']) ?></div>
-                    <div class="incident-message"><?= htmlspecialchars($incident['message']) ?></div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="no-events">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Событий безопасности не обнаружено</p>
                 </div>
-                <div class="incident-severity">
-                    <span class="severity-badge severity-<?= $incident['severity'] ?>">
-                        <?= ucfirst($incident['severity']) ?>
-                    </span>
-                </div>
-            </div>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
 
-<style>
-.security-analytics-container {
-    padding: 20px;
-}
-
-.threat-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.threat-stat-card {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: var(--glow-blue);
-}
-
-.stat-header h3 {
-    color: var(--text-yellow);
-    margin-bottom: 15px;
-}
-
-.threat-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.threat-item:last-child {
-    border-bottom: none;
-}
-
-.threat-type {
-    color: var(--text-white);
-    font-weight: 500;
-}
-
-.threat-count {
-    background: var(--primary-blue);
-    color: #000;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.threat-analysis-section {
-    margin-bottom: 30px;
-}
-
-.threat-group {
-    margin-bottom: 30px;
-}
-
-.threat-group h4 {
-    color: var(--text-yellow);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.patterns-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-}
-
-.pattern-card {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-red);
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-}
-
-.pattern-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.pattern-header code {
-    background: rgba(255, 71, 87, 0.2);
-    color: #ff4757;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-family: monospace;
-}
-
-.pattern-risk {
-    background: #ff4757;
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.pattern-stats {
-    margin-bottom: 15px;
-}
-
-.stat-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-.stat-label {
-    color: var(--text-blue);
-}
-
-.stat-value {
-    color: var(--text-white);
-    font-weight: 500;
-}
-
-.risk-level {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.risk-level.high {
-    background: #ff4757;
-    color: #fff;
-}
-
-.risk-level.medium {
-    background: var(--primary-yellow);
-    color: #000;
-}
-
-.risk-level.low {
-    background: #28a745;
-    color: #fff;
-}
-
-.incidents-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 15px;
-}
-
-.incident-card {
-    background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
-    border: 1px solid var(--primary-blue);
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: var(--glow-blue);
-    transition: all 0.3s ease;
-}
-
-.incident-card:hover {
-    transform: translateY(-2px);
-}
-
-.incident-card.severity-critical {
-    border-color: #ff4757;
-    box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-}
-
-.incident-card.severity-high {
-    border-color: #ff6b35;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
-}
-
-.incident-card.severity-medium {
-    border-color: var(--primary-yellow);
-    box-shadow: var(--glow-yellow);
-}
-
-.incident-card.severity-low {
-    border-color: #28a745;
-    box-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
-}
-
-.incident-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.incident-type {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-white);
-    font-weight: 500;
-}
-
-.incident-time {
-    font-size: 12px;
-    color: var(--text-blue);
-}
-
-.incident-content {
-    margin-bottom: 10px;
-}
-
-.incident-title {
-    font-weight: bold;
-    color: var(--text-white);
-    margin-bottom: 5px;
-}
-
-.incident-message {
-    color: var(--text-blue);
-    font-size: 14px;
-}
-
-.incident-severity {
-    text-align: right;
-}
-
-.severity-badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.severity-badge.severity-critical {
-    background: #ff4757;
-    color: #fff;
-}
-
-.severity-badge.severity-high {
-    background: #ff6b35;
-    color: #fff;
-}
-
-.severity-badge.severity-medium {
-    background: var(--primary-yellow);
-    color: #000;
-}
-
-.severity-badge.severity-low {
-    background: #28a745;
-    color: #fff;
-}
-
-@media (max-width: 768px) {
-    .threat-stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .patterns-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .incidents-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+<!-- Подключение Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-// График почасовой статистики
+// Данные для графика безопасности
+const securityData = <?= json_encode($security_timeline) ?>;
+
+// Инициализация графика безопасности
+let securityChart;
+
 document.addEventListener('DOMContentLoaded', function() {
-    const hourlyData = <?= json_encode($securityStats['hourly_stats']) ?>;
+    initializeSecurityChart();
+});
+
+function initializeSecurityChart() {
+    const ctx = document.getElementById('securityChart').getContext('2d');
     
-    const ctx = document.getElementById('hourlyChart').getContext('2d');
-    new Chart(ctx, {
+    securityChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: hourlyData.map(item => item.hour + ':00'),
+            labels: securityData.map(item => item.date),
             datasets: [{
-                label: 'Угрозы',
-                data: hourlyData.map(item => item.count),
-                borderColor: '#ff4757',
-                backgroundColor: 'rgba(255, 71, 87, 0.1)',
-                tension: 0.4
+                label: 'Неудачные входы',
+                data: securityData.map(item => item.failed_logins),
+                borderColor: '#f44336',
+                backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Подозрительная активность',
+                data: securityData.map(item => item.suspicious_activities),
+                borderColor: '#ff9800',
+                backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
@@ -484,96 +209,324 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#ffffff'
-                    }
+                    display: true,
+                    position: 'top'
                 }
             },
             scales: {
                 y: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
+                    beginAtZero: true,
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 },
                 x: {
-                    ticks: {
-                        color: '#ffffff'
-                    },
                     grid: {
                         color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#fff'
                     }
                 }
             }
         }
     });
-});
+}
 
-function blockUser(userId) {
-    if (confirm('Заблокировать пользователя?')) {
-        fetch('/admin/users/block/' + userId, {
+// Обновление данных безопасности
+function updateSecurityData() {
+    const period = document.getElementById('securityPeriod').value;
+    
+    showLoading();
+    
+    fetch(`/admin/analytics/security?period=${period}`)
+        .then(response => response.text())
+        .then(html => {
+            // Обновляем страницу
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Ошибка обновления данных:', error);
+            hideLoading();
+        });
+}
+
+// Обновление данных безопасности
+function refreshSecurityData() {
+    location.reload();
+}
+
+// Блокировка подозрительных IP
+function blockSuspiciousIPs() {
+    if (confirm('Заблокировать все подозрительные IP адреса?')) {
+        showLoading();
+        
+        fetch('/admin/security/ip-blacklist/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                reason: 'Высокий риск безопасности',
-                duration: 'temporary',
-                block_until: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().slice(0, 16)
+                action: 'block_suspicious_ips'
             })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Пользователь заблокирован');
+                alert('Подозрительные IP адреса заблокированы');
                 location.reload();
             } else {
-                alert('Ошибка при блокировке пользователя');
+                alert('Ошибка при блокировке IP адресов');
             }
-        });
-    }
-}
-
-function resetPassword(userId) {
-    if (confirm('Сбросить пароль пользователя?')) {
-        fetch('/admin/users/reset-password/' + userId, {
-            method: 'POST'
+            hideLoading();
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Пароль сброшен. Новый пароль: ' + data.new_password);
-            } else {
-                alert('Ошибка при сбросе пароля');
-            }
+        .catch(error => {
+            console.error('Ошибка:', error);
+            hideLoading();
         });
     }
 }
 
+// Блокировка конкретного IP
 function blockIP(ipAddress) {
     if (confirm(`Заблокировать IP адрес ${ipAddress}?`)) {
-        fetch('/admin/analytics/block-ip', {
+        showLoading();
+        
+        fetch('/admin/security/ip-blacklist/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 ip_address: ipAddress,
-                reason: 'Подозрительная активность',
-                duration: 24 // часы
+                reason: 'Множественные неудачные попытки входа'
             })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('IP адрес заблокирован');
+                alert(`IP адрес ${ipAddress} заблокирован`);
                 location.reload();
             } else {
-                alert('Ошибка при блокировке IP');
+                alert('Ошибка при блокировке IP адреса');
             }
+            hideLoading();
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            hideLoading();
         });
     }
 }
-</script> 
+
+// Утилиты
+function showLoading() {
+    const loading = document.createElement('div');
+    loading.id = 'loading';
+    loading.innerHTML = '<div class="loading-spinner"></div>';
+    loading.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;';
+    document.body.appendChild(loading);
+}
+
+function hideLoading() {
+    const loading = document.getElementById('loading');
+    if (loading) {
+        loading.remove();
+    }
+}
+</script>
+
+<style>
+/* Стили для страницы безопасности */
+.security-container {
+    padding: 20px;
+}
+
+.security-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    font-size: 2em;
+    color: #ff9800;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-label {
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.stat-change {
+    font-size: 0.9em;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.stat-change.positive {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+}
+
+.stat-change.negative {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+.security-chart {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+.suspicious-ips {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.data-table th {
+    background: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.security-events {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.events-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    transition: background 0.3s;
+}
+
+.event-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.event-icon {
+    font-size: 1.5em;
+    color: #ff9800;
+    margin-top: 5px;
+}
+
+.event-content {
+    flex: 1;
+}
+
+.event-title {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.event-description {
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.event-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.event-login_failed .event-icon {
+    color: #f44336;
+}
+
+.event-suspicious_activity .event-icon {
+    color: #ff9800;
+}
+
+.event-session_deactivated .event-icon {
+    color: #2196F3;
+}
+
+.no-events {
+    text-align: center;
+    padding: 40px;
+    color: #4CAF50;
+}
+
+.no-events i {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #333;
+    border-top: 4px solid #ff9800;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style> 
