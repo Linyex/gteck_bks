@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="group_ids" class="form-label required">
+                            <label for="group_names" class="form-label required">
                                 <i class="fa fa-users"></i>
                                 Группы
                             </label>
@@ -84,11 +84,11 @@
                                 <?php foreach ($groups as $group): ?>
                                     <label class="group-checkbox">
                                         <input type="checkbox" 
-                                               name="group_ids[]" 
-                                               value="<?php echo $group['id_group']; ?>"
+                                               name="group_names[]" 
+                                               value="<?php echo htmlspecialchars($group['group_name']); ?>"
                                                class="checkbox-input">
                                         <span class="checkbox-custom"></span>
-                                        <span class="checkbox-text"><?php echo htmlspecialchars($group['groupname']); ?></span>
+                                        <span class="checkbox-text"><?php echo htmlspecialchars($group['group_name']); ?></span>
                                     </label>
                                 <?php endforeach; ?>
                             </div>
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.admin-form');
     form.addEventListener('submit', function(e) {
         const file = fileInput.files[0];
-        const selectedGroups = document.querySelectorAll('input[name="group_ids[]"]:checked');
+        const selectedGroups = document.querySelectorAll('input[name="group_names[]"]:checked');
         
         if (!file) {
             e.preventDefault();

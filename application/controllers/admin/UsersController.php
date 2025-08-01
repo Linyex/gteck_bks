@@ -24,13 +24,19 @@ class UsersController extends BaseAdminController {
             $totalUsers = Database::fetchOne("SELECT COUNT(*) as count FROM users")['count'];
             $totalPages = ceil($totalUsers / $limit);
             
+            // Добавляем информацию о статусе онлайн/оффлайн для каждого пользователя
+            foreach ($users as &$user) {
+                $user['is_online'] = $this->isUserOnline($user['user_id']);
+                $user['last_activity'] = $this->getUserLastActivity($user['user_id']);
+            }
+            
             // Получаем статистику безопасности
             $securityStats = $this->getSecurityStats();
             
             // Получаем последние подозрительные активности
             $suspiciousActivities = $this->getSuspiciousActivities();
             
-            return $this->render('admin/users/index', [
+            $this->render('admin/users/index', [
                 'title' => 'Управление пользователями',
                 'users' => $users,
                 'currentPage' => $page,
@@ -40,7 +46,7 @@ class UsersController extends BaseAdminController {
                 'suspiciousActivities' => $suspiciousActivities
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке пользователей: ' . $e->getMessage()
             ]);
@@ -56,7 +62,7 @@ class UsersController extends BaseAdminController {
             $user = Database::fetchOne("SELECT * FROM users WHERE user_id = ?", [$id]);
             
             if (!$user) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Пользователь не найден',
                     'message' => 'Пользователь с ID ' . $id . ' не найден'
                 ]);
@@ -74,7 +80,7 @@ class UsersController extends BaseAdminController {
             // Анализ безопасности аккаунта
             $securityAnalysis = $this->analyzeUserSecurity($id);
             
-            return $this->render('admin/users/view', [
+            $this->render('admin/users/view', [
                 'title' => 'Детали пользователя',
                 'user' => $user,
                 'userActivity' => $userActivity,
@@ -83,7 +89,7 @@ class UsersController extends BaseAdminController {
                 'securityAnalysis' => $securityAnalysis
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке пользователя: ' . $e->getMessage()
             ]);
@@ -99,18 +105,18 @@ class UsersController extends BaseAdminController {
             $user = Database::fetchOne("SELECT * FROM users WHERE user_id = ?", [$id]);
             
             if (!$user) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Пользователь не найден',
                     'message' => 'Пользователь с ID ' . $id . ' не найден'
                 ]);
             }
             
-            return $this->render('admin/users/edit', [
+            $this->render('admin/users/edit', [
                 'title' => 'Редактирование пользователя',
                 'user' => $user
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке пользователя: ' . $e->getMessage()
             ]);
@@ -152,7 +158,7 @@ class UsersController extends BaseAdminController {
             // Проверяем, существует ли пользователь
             $user = Database::fetchOne("SELECT * FROM users WHERE user_id = ?", [$id]);
             if (!$user) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Пользователь не найден',
                     'message' => 'Пользователь с ID ' . $id . ' не найден'
                 ]);
@@ -199,7 +205,7 @@ class UsersController extends BaseAdminController {
             $errors[] = 'Ошибка при обновлении пользователя: ' . $e->getMessage();
         }
         
-        return $this->render('admin/users/edit', [
+        $this->render('admin/users/edit', [
             'title' => 'Редактирование пользователя',
             'user' => $user,
             'errors' => $errors
@@ -246,7 +252,7 @@ class UsersController extends BaseAdminController {
             
             return $this->redirect('/admin/users');
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при блокировке пользователя: ' . $e->getMessage()
             ]);
@@ -275,7 +281,7 @@ class UsersController extends BaseAdminController {
             
             return $this->redirect('/admin/users');
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при разблокировке пользователя: ' . $e->getMessage()
             ]);
@@ -294,7 +300,7 @@ class UsersController extends BaseAdminController {
             
             // Проверяем, не пытается ли пользователь удалить сам себя
             if ($id == $_SESSION['admin_user_id']) {
-                return $this->render('admin/error/error', [
+                $this->render('admin/error/error', [
                     'title' => 'Ошибка',
                     'message' => 'Вы не можете удалить свой собственный аккаунт'
                 ]);
@@ -310,7 +316,7 @@ class UsersController extends BaseAdminController {
             
             return $this->redirect('/admin/users');
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при удалении пользователя: ' . $e->getMessage()
             ]);
@@ -459,7 +465,7 @@ class UsersController extends BaseAdminController {
             
             $user = Database::fetchOne("SELECT * FROM users WHERE user_id = ?", [$id]);
             if (!$user) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Пользователь не найден',
                     'message' => 'Пользователь с ID ' . $id . ' не найден'
                 ]);
@@ -546,6 +552,130 @@ class UsersController extends BaseAdminController {
         }
         
         return $this->redirect('/admin/users');
+    }
+    
+    public function create() {
+        $this->requireAccessLevel(10); // Только администраторы
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $login = trim($this->getPost('login'));
+            $password = $this->getPost('password');
+            $confirmPassword = $this->getPost('confirm_password');
+            $fio = trim($this->getPost('fio'));
+            $email = trim($this->getPost('email'));
+            $accessLevel = (int)$this->getPost('access_level', 1);
+            $status = (int)$this->getPost('status', 1);
+            
+            // Валидация
+            $errors = [];
+            
+            if (empty($login)) {
+                $errors[] = 'Логин обязателен';
+            } elseif (strlen($login) < 3) {
+                $errors[] = 'Логин должен содержать минимум 3 символа';
+            } elseif (!preg_match('/^[a-zA-Z0-9_-]+$/', $login)) {
+                $errors[] = 'Логин может содержать только буквы, цифры, знак подчеркивания и дефис';
+            }
+            
+            if (empty($password)) {
+                $errors[] = 'Пароль обязателен';
+            } elseif (strlen($password) < 8) {
+                $errors[] = 'Пароль должен содержать минимум 8 символов';
+            }
+            
+            if ($password !== $confirmPassword) {
+                $errors[] = 'Пароли не совпадают';
+            }
+            
+            if (empty($fio)) {
+                $errors[] = 'ФИО обязательно';
+            }
+            
+            if (empty($email)) {
+                $errors[] = 'Email обязателен';
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'Некорректный email';
+            }
+            
+            // Проверяем силу пароля
+            if (!empty($password)) {
+                $passwordStrength = Encryption::checkPasswordStrength($password);
+                if ($passwordStrength['strength'] === 'weak') {
+                    $errors[] = 'Пароль слишком слабый: ' . implode(', ', $passwordStrength['feedback']);
+                }
+            }
+            
+            try {
+                require_once 'engine/main/db.php';
+                
+                // Проверяем, не существует ли уже пользователь с таким логином
+                $existingUser = Database::fetchOne("SELECT user_id FROM users WHERE user_login = ?", [$login]);
+                if ($existingUser) {
+                    $errors[] = 'Пользователь с таким логином уже существует';
+                }
+                
+                // Проверяем email, если указан
+                if (!empty($email)) {
+                    $existingEmail = Database::fetchOne("SELECT user_id FROM users WHERE user_email = ?", [$email]);
+                    if ($existingEmail) {
+                        $errors[] = 'Пользователь с таким email уже существует';
+                    }
+                }
+                
+                if (empty($errors)) {
+                    // Хешируем пароль
+                    $passwordHash = Encryption::hashPassword($password);
+                    
+                    // Создаем пользователя с правильной структурой
+                    $userId = Database::insert('users', [
+                        'user_login' => $login,
+                        'user_password' => $passwordHash,
+                        'user_email' => $email,
+                        'user_fio' => $fio,
+                        'user_status' => $status,
+                        'user_access_level' => $accessLevel,
+                        'user_date_reg' => date('Y-m-d H:i:s'),
+                        'is_active' => 1,
+                        'security_level' => 1,
+                        'suspicious_activity_count' => 0,
+                        'user_2fa_enabled' => 0,
+                        'user_force_password_change' => 0
+                    ]);
+                    
+                    // Логируем создание пользователя
+                    $this->logAdminAction('create_user', $userId, [
+                        'admin_id' => $_SESSION['admin_user_id'],
+                        'user_data' => [
+                            'login' => $login,
+                            'fio' => $fio,
+                            'email' => $email,
+                            'access_level' => $accessLevel,
+                            'status' => $status
+                        ]
+                    ]);
+                    
+                    $_SESSION['success_message'] = 'Пользователь успешно создан';
+                    return $this->redirect('/admin/users');
+                }
+            } catch (Exception $e) {
+                $errors[] = 'Ошибка при создании пользователя: ' . $e->getMessage();
+            }
+        }
+        
+        // Получаем список уровней доступа
+        $accessLevels = [
+            1 => 'Преподаватель',
+            3 => 'Методист',
+            5 => 'Дирекция колледжа',
+            10 => 'Администратор'
+        ];
+        
+        $this->render('admin/users/create', [
+            'title' => 'Создание пользователя',
+            'accessLevels' => $accessLevels,
+            'errors' => $errors ?? [],
+            'formData' => $_POST ?? []
+        ]);
     }
     
     private function generateSecurePassword($length = 12) {
@@ -835,6 +965,43 @@ class UsersController extends BaseAdminController {
                 return 'Модератор';
             default:
                 return 'Пользователь';
+        }
+    }
+
+    private function isUserOnline($userId) {
+        try {
+            require_once 'engine/main/db.php';
+            
+            // Проверяем активные сессии пользователя за последние 15 минут
+            $activeSession = Database::fetchOne("
+                SELECT COUNT(*) as count 
+                FROM user_sessions 
+                WHERE user_id = ? AND is_active = 1 
+                AND last_activity >= DATE_SUB(NOW(), INTERVAL 15 MINUTE)
+            ", [$userId]);
+            
+            return ($activeSession['count'] ?? 0) > 0;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    private function getUserLastActivity($userId) {
+        try {
+            require_once 'engine/main/db.php';
+            
+            // Получаем последнюю активность пользователя
+            $lastActivity = Database::fetchOne("
+                SELECT last_activity 
+                FROM user_sessions 
+                WHERE user_id = ? AND is_active = 1 
+                ORDER BY last_activity DESC 
+                LIMIT 1
+            ", [$userId]);
+            
+            return $lastActivity['last_activity'] ?? null;
+        } catch (Exception $e) {
+            return null;
         }
     }
 } 

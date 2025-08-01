@@ -26,7 +26,7 @@ class NewsController extends BaseAdminController {
             
             $total = count($news);
             
-            return $this->render('admin/news/index', [
+            $this->render('admin/news/index', [
                 'title' => 'Управление новостями',
                 'currentPage' => 'news',
                 'news' => $news,
@@ -41,7 +41,7 @@ class NewsController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Не удалось загрузить новости: ' . $e->getMessage()
             ]);
@@ -59,7 +59,7 @@ class NewsController extends BaseAdminController {
                 ORDER BY sort_order ASC
             ");
             
-            return $this->render('admin/news/create', [
+            $this->render('admin/news/create', [
                 'title' => 'Создать новость',
                 'currentPage' => 'news',
                 'categories' => $categories,
@@ -72,7 +72,7 @@ class NewsController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Не удалось загрузить категории: ' . $e->getMessage()
             ]);
@@ -155,7 +155,7 @@ class NewsController extends BaseAdminController {
                 ORDER BY sort_order ASC
             ");
             
-            return $this->render('admin/news/edit', [
+            $this->render('admin/news/edit', [
                 'title' => 'Редактировать новость',
                 'currentPage' => 'news',
                 'news' => $news,
@@ -295,7 +295,7 @@ class NewsController extends BaseAdminController {
                 exit;
             }
             
-            return $this->render('admin/news/confirm-delete', [
+            $this->render('admin/news/confirm-delete', [
                 'title' => 'Подтверждение удаления',
                 'currentPage' => 'news',
                 'news' => $news,

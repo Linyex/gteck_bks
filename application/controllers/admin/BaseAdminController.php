@@ -22,6 +22,57 @@ class BaseAdminController extends BaseController {
                 exit;
             }
         }
+        
+        // Дополнительная проверка актуальности сессии в БД
+        if (isset($_SESSION['admin_user_id'])) {
+            try {
+                require_once ENGINE_DIR . 'main/db.php';
+                
+                // Проверяем, что сессия активна и является единственной для пользователя
+                $session = Database::fetchOne("
+                    SELECT * FROM user_sessions 
+                    WHERE user_id = ? AND session_token = ? AND is_active = 1
+                    AND last_activity >= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+                ", [$_SESSION['admin_user_id'], session_id()]);
+                
+                if (!$session) {
+                    // Сессия неактуальна, разлогиниваем пользователя
+                    $this->logout();
+                    if (!headers_sent()) {
+                        header('Location: /admin/login');
+                        exit;
+                    } else {
+                        echo '<script>window.location.href = "/admin/login";</script>';
+                        exit;
+                    }
+                }
+                
+                // Проверяем, что это единственная активная сессия пользователя
+                $activeSessionsCount = Database::fetchOne("
+                    SELECT COUNT(*) as count 
+                    FROM user_sessions 
+                    WHERE user_id = ? AND is_active = 1
+                    AND last_activity >= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+                ", [$_SESSION['admin_user_id']])['count'];
+                
+                if ($activeSessionsCount > 1) {
+                    // Обнаружены множественные сессии, деактивируем все кроме текущей
+                    Database::execute("
+                        UPDATE user_sessions 
+                        SET is_active = 0, last_activity = NOW() 
+                        WHERE user_id = ? AND session_token != ? AND is_active = 1
+                    ", [$_SESSION['admin_user_id'], session_id()]);
+                    
+                    // Логируем обнаружение множественных сессий
+                    $this->logActivity();
+                }
+                
+            } catch (Exception $e) {
+                // В случае ошибки БД, разрешаем доступ (не блокируем пользователя)
+                // Логируем ошибку для отладки
+                error_log("Session check error: " . $e->getMessage());
+            }
+        }
     }
     
     protected function loadAdminUser() {
@@ -103,15 +154,16 @@ class BaseAdminController extends BaseController {
             if (file_exists($layoutFile)) {
                 include($layoutFile);
             } else {
-                // Если layout не найден, возвращаем только content
-                return $content;
+                // Если layout не найден, выводим только content
+                echo $content;
+                return;
             }
             
-            return ob_get_clean();
+            echo ob_get_clean();
+        } else {
+            // Для страницы логина выводим только content
+            echo $content;
         }
-        
-        // Для страницы логина возвращаем только content
-        return $content;
     }
     
     protected function requireAccessLevel($minLevel = 1) {
@@ -157,5 +209,50 @@ class BaseAdminController extends BaseController {
             default:
                 return 'Пользователь';
         }
+    }
+    
+    /**
+     * Проверяет, является ли запрос POST
+     */
+    protected function isPost() {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
+    
+    /**
+     * Устанавливает flash сообщение
+     */
+    protected function setFlashMessage($type, $message) {
+        if (!isset($_SESSION['flash_messages'])) {
+            $_SESSION['flash_messages'] = [];
+        }
+        
+        $_SESSION['flash_messages'][] = [
+            'type' => $type,
+            'message' => $message,
+            'timestamp' => time()
+        ];
+    }
+    
+    /**
+     * Получает flash сообщения
+     */
+    protected function getFlashMessages() {
+        $messages = [];
+        if (isset($_SESSION['success_message'])) {
+            $messages['success'] = $_SESSION['success_message'];
+            unset($_SESSION['success_message']);
+        }
+        if (isset($_SESSION['error_message'])) {
+            $messages['error'] = $_SESSION['error_message'];
+            unset($_SESSION['error_message']);
+        }
+        return $messages;
+    }
+    
+    protected function getPost($key = null, $default = null) {
+        if ($key === null) {
+            return $_POST;
+        }
+        return $_POST[$key] ?? $default;
     }
 } 

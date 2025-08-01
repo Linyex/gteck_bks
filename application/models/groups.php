@@ -10,7 +10,7 @@ class groupsModel extends Model {
 		$result = $this->db->query($sql);
 		return $result->rows;
 	}
-	
+
 	/**
 	 * Получить группу по ID
 	 */

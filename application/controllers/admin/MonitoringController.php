@@ -58,7 +58,7 @@ class MonitoringController extends BaseAdminController {
             $recentThreats = [];
         }
         
-        return $this->render('admin/monitoring/index', [
+        $this->render('admin/monitoring/index', [
             'title' => 'Мониторинг безопасности',
             'currentPage' => 'monitoring',
             'securityStats' => $securityStats,
@@ -101,7 +101,7 @@ class MonitoringController extends BaseAdminController {
             $totalPages = 0;
         }
         
-        return $this->render('admin/monitoring/logs', [
+        $this->render('admin/monitoring/logs', [
             'title' => 'Логи системы',
             'currentPage' => 'monitoring',
             'logs' => $logs,
@@ -134,7 +134,7 @@ class MonitoringController extends BaseAdminController {
             $threats = [];
         }
         
-        return $this->render('admin/monitoring/threats', [
+        $this->render('admin/monitoring/threats', [
             'title' => 'Угрозы безопасности',
             'currentPage' => 'monitoring',
             'threats' => $threats,
@@ -163,7 +163,7 @@ class MonitoringController extends BaseAdminController {
             $reports = [];
         }
         
-        return $this->render('admin/monitoring/reports', [
+        $this->render('admin/monitoring/reports', [
             'title' => 'Отчеты безопасности',
             'currentPage' => 'monitoring',
             'reports' => $reports,
@@ -189,7 +189,7 @@ class MonitoringController extends BaseAdminController {
             $settings = [];
         }
         
-        return $this->render('admin/monitoring/settings', [
+        $this->render('admin/monitoring/settings', [
             'title' => 'Настройки мониторинга',
             'currentPage' => 'monitoring',
             'settings' => $settings,
@@ -446,9 +446,6 @@ class MonitoringController extends BaseAdminController {
     }
     
     /**
-     * Установка flash сообщения
-     */
-    /**
      * Получение системной статистики
      */
     private function getSystemStats() {
@@ -533,12 +530,5 @@ class MonitoringController extends BaseAdminController {
         } catch (Exception $e) {
             return [];
         }
-    }
-    
-    private function setFlashMessage($type, $message) {
-        $_SESSION['flash_message'] = [
-            'type' => $type,
-            'message' => $message
-        ];
     }
 } 

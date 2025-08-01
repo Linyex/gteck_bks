@@ -7,7 +7,7 @@ require_once 'application/controllers/admin/BaseAdminController.php';
 class ProfileController extends BaseAdminController {
     
     public function index() {
-        return $this->render('admin/profile/index', [
+        $this->render('admin/profile/index', [
             'title' => 'Профиль пользователя',
             'currentPage' => 'profile',
             'user' => $this->adminUser
@@ -51,7 +51,7 @@ class ProfileController extends BaseAdminController {
             return $this->redirect('/admin/profile?updated=1');
             
         } catch (Exception $e) {
-            return $this->render('admin/profile/index', [
+            $this->render('admin/profile/index', [
                 'title' => 'Профиль пользователя',
                 'currentPage' => 'profile',
                 'user' => $this->adminUser,
@@ -62,7 +62,7 @@ class ProfileController extends BaseAdminController {
     
     public function changePassword() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->render('admin/profile/change-password', [
+            $this->render('admin/profile/change-password', [
                 'title' => 'Смена пароля',
                 'currentPage' => 'profile',
                 'user' => $this->adminUser
@@ -109,7 +109,7 @@ class ProfileController extends BaseAdminController {
             return $this->redirect('/admin/profile?password_changed=1');
             
         } catch (Exception $e) {
-            return $this->render('admin/profile/change-password', [
+            $this->render('admin/profile/change-password', [
                 'title' => 'Смена пароля',
                 'currentPage' => 'profile',
                 'user' => $this->adminUser,
@@ -120,7 +120,7 @@ class ProfileController extends BaseAdminController {
     
     public function setup2FA() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            return $this->render('admin/profile/setup-2fa', [
+            $this->render('admin/profile/setup-2fa', [
                 'title' => 'Настройка двухфакторной аутентификации',
                 'currentPage' => 'profile',
                 'user' => $this->adminUser
@@ -141,7 +141,7 @@ class ProfileController extends BaseAdminController {
                     [$secret, $this->adminUser['user_id']]
                 );
                 
-                return $this->render('admin/profile/setup-2fa', [
+                $this->render('admin/profile/setup-2fa', [
                     'title' => 'Настройка двухфакторной аутентификации',
                     'currentPage' => 'profile',
                     'user' => $this->adminUser,
@@ -162,7 +162,7 @@ class ProfileController extends BaseAdminController {
             }
             
         } catch (Exception $e) {
-            return $this->render('admin/profile/setup-2fa', [
+            $this->render('admin/profile/setup-2fa', [
                 'title' => 'Настройка двухфакторной аутентификации',
                 'currentPage' => 'profile',
                 'user' => $this->adminUser,

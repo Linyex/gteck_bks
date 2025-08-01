@@ -249,4 +249,35 @@ class newsModel {
             'limit' => (int)$limit
         ]);
     }
+    
+    // Получение дополнительных изображений новости
+    public function getNewsAdditionalImages($newsId) {
+        try {
+            $sql = "SELECT * FROM news_img WHERE news_id = :news_id ORDER BY img_order ASC";
+            return $this->db->fetchAll($sql, ['news_id' => (int)$newsId]);
+        } catch (Exception $e) {
+            error_log('Error in getNewsAdditionalImages: ' . $e->getMessage());
+            return [];
+        }
+    }
+    
+    // Получение новости с дополнительными изображениями
+    public function getNewsWithImages($newsId, $joins = []) {
+        try {
+            $news = $this->getNewsById($newsId, $joins);
+            if ($news) {
+                try {
+                    $news['additional_images'] = $this->getNewsAdditionalImages($newsId);
+                } catch (Exception $e) {
+                    // Если таблица дополнительных изображений не существует, используем пустой массив
+                    error_log('Error getting additional images: ' . $e->getMessage());
+                    $news['additional_images'] = [];
+                }
+            }
+            return $news;
+        } catch (Exception $e) {
+            error_log('Error in getNewsWithImages: ' . $e->getMessage());
+            return null;
+        }
+    }
 }

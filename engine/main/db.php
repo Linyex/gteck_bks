@@ -113,5 +113,31 @@ class Database {
             return $connection->insert_id;
         }
     }
+    
+    public static function insert($table, $data) {
+        $connection = self::getConnection();
+        $type = self::getConnectionType();
+        
+        $columns = array_keys($data);
+        $values = array_values($data);
+        $placeholders = str_repeat('?,', count($values) - 1) . '?';
+        
+        $sql = "INSERT INTO `$table` (`" . implode('`, `', $columns) . "`) VALUES ($placeholders)";
+        
+        if ($type === 'pdo') {
+            $stmt = $connection->prepare($sql);
+            $stmt->execute($values);
+            return $connection->lastInsertId();
+        } else {
+            // Для MySQLi нужно экранировать значения
+            $escapedValues = [];
+            foreach ($values as $value) {
+                $escapedValues[] = $connection->real_escape_string($value);
+            }
+            $sql = "INSERT INTO `$table` (`" . implode('`, `', $columns) . "`) VALUES ('" . implode("', '", $escapedValues) . "')";
+            $connection->query($sql);
+            return $connection->insert_id;
+        }
+    }
 }
 ?> 

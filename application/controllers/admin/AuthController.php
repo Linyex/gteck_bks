@@ -62,7 +62,10 @@ class AuthController extends BaseController {
                             // Обновляем информацию о последнем входе
                             $this->updateLastLogin($user['user_id'], $_SERVER['REMOTE_ADDR']);
                             
-                            // Создаем сессию
+                            // Деактивируем все предыдущие сессии пользователя
+                            $this->deactivateAllUserSessions($user['user_id']);
+                            
+                            // Создаем новую сессию
                             $this->createUserSession($user['user_id'], $_SERVER['REMOTE_ADDR']);
                             
                             // Логируем активность
@@ -88,7 +91,7 @@ class AuthController extends BaseController {
             }
         }
         
-        return $this->render('admin/auth/login', [
+        $this->render('admin/auth/login', [
             'error' => $error,
             'title' => 'Вход в панель управления'
         ]);
@@ -165,12 +168,30 @@ class AuthController extends BaseController {
         }
     }
     
+    private function deactivateAllUserSessions($userId) {
+        try {
+            require_once ENGINE_DIR . 'main/db.php';
+            
+            // Деактивируем все активные сессии пользователя
+            Database::execute(
+                "UPDATE user_sessions SET is_active = 0, last_activity = NOW() WHERE user_id = ? AND is_active = 1",
+                [$userId]
+            );
+            
+            // Логируем деактивацию сессий
+            $this->logUserActivity($userId, 'session_deactivated', 'Все предыдущие сессии деактивированы при новом входе', $_SERVER['REMOTE_ADDR']);
+            
+        } catch (Exception $e) {
+            // Игнорируем ошибки деактивации сессий
+        }
+    }
+    
     private function logUserActivity($userId, $actionType, $description, $ip) {
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
             Database::execute(
-                "INSERT INTO user_activity_log (user_id, action_type, description, ip_address, activity_time) VALUES (?, ?, ?, ?, NOW())",
+                "INSERT INTO user_activity (user_id, action_type, activity_description, ip_address, activity_time) VALUES (?, ?, ?, ?, NOW())",
                 [$userId, $actionType, $description, $ip]
             );
         } catch (Exception $e) {

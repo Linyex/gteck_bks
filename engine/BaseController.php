@@ -84,8 +84,8 @@ class BaseController {
             }
         }
         
-        // Возвращаем содержимое буфера
-        return ob_get_clean();
+        // Выводим содержимое буфера
+        echo ob_get_clean();
     }
     
     // Метод для рендеринга без header/footer (для AJAX)

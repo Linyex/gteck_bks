@@ -43,11 +43,21 @@ class AnalyticsService {
      */
     private function getUserStats() {
         try {
-            $totalUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users")['count'] ?? 0;
-            $activeUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users WHERE last_login >= DATE_SUB(NOW(), INTERVAL 30 DAY)")['count'] ?? 0;
-            $newUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
+            $totalUsers = 0;
+            $activeUsers = 0;
+            $newUsers = 0;
+            $userRoles = [];
             
-            $userRoles = $this->db->fetchAll("SELECT user_role, COUNT(*) as count FROM users GROUP BY user_role");
+            // Проверяем существование таблицы users
+            try {
+                $totalUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users")['count'] ?? 0;
+                $activeUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users WHERE last_login >= DATE_SUB(NOW(), INTERVAL 30 DAY)")['count'] ?? 0;
+                $newUsers = $this->db->fetchOne("SELECT COUNT(*) as count FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
+                
+                $userRoles = $this->db->fetchAll("SELECT user_role, COUNT(*) as count FROM users GROUP BY user_role");
+            } catch (Exception $e) {
+                // Таблица users не существует
+            }
             
             return [
                 'total_users' => $totalUsers,
@@ -57,7 +67,13 @@ class AnalyticsService {
                 'activity_rate' => $totalUsers > 0 ? round(($activeUsers / $totalUsers) * 100, 2) : 0
             ];
         } catch (Exception $e) {
-            return [];
+            return [
+                'total_users' => 0,
+                'active_users' => 0,
+                'new_users_7d' => 0,
+                'user_roles' => [],
+                'activity_rate' => 0
+            ];
         }
     }
     
@@ -66,12 +82,34 @@ class AnalyticsService {
      */
     private function getContentStats() {
         try {
-            $totalNews = $this->db->fetchOne("SELECT COUNT(*) as count FROM news")['count'] ?? 0;
-            $totalFiles = $this->db->fetchOne("SELECT COUNT(*) as count FROM files")['count'] ?? 0;
-            $totalPhotos = $this->db->fetchOne("SELECT COUNT(*) as count FROM photos")['count'] ?? 0;
+            $totalNews = 0;
+            $totalFiles = 0;
+            $totalPhotos = 0;
+            $recentNews = 0;
+            $recentFiles = 0;
             
-            $recentNews = $this->db->fetchOne("SELECT COUNT(*) as count FROM news WHERE news_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
-            $recentFiles = $this->db->fetchOne("SELECT COUNT(*) as count FROM files WHERE upload_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
+            // Проверяем существование таблицы news
+            try {
+                $totalNews = $this->db->fetchOne("SELECT COUNT(*) as count FROM news")['count'] ?? 0;
+                $recentNews = $this->db->fetchOne("SELECT COUNT(*) as count FROM news WHERE news_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
+            } catch (Exception $e) {
+                // Таблица news не существует
+            }
+            
+            // Проверяем существование таблицы files
+            try {
+                $totalFiles = $this->db->fetchOne("SELECT COUNT(*) as count FROM files")['count'] ?? 0;
+                $recentFiles = $this->db->fetchOne("SELECT COUNT(*) as count FROM files WHERE upload_date >= DATE_SUB(NOW(), INTERVAL 7 DAY)")['count'] ?? 0;
+            } catch (Exception $e) {
+                // Таблица files не существует
+            }
+            
+            // Проверяем существование таблицы photos
+            try {
+                $totalPhotos = $this->db->fetchOne("SELECT COUNT(*) as count FROM photos")['count'] ?? 0;
+            } catch (Exception $e) {
+                // Таблица photos не существует
+            }
             
             return [
                 'total_news' => $totalNews,
@@ -82,7 +120,14 @@ class AnalyticsService {
                 'total_content' => $totalNews + $totalFiles + $totalPhotos
             ];
         } catch (Exception $e) {
-            return [];
+            return [
+                'total_news' => 0,
+                'total_files' => 0,
+                'total_photos' => 0,
+                'recent_news_7d' => 0,
+                'recent_files_7d' => 0,
+                'total_content' => 0
+            ];
         }
     }
     
@@ -91,33 +136,63 @@ class AnalyticsService {
      */
     private function getActivityStats() {
         try {
-            $todayLogins = $this->db->fetchOne("SELECT COUNT(*) as count FROM system_logs WHERE level = 'info' AND message LIKE '%Login Attempt: SUCCESS%' AND created_at >= CURDATE()")['count'] ?? 0;
-            $todayActions = $this->db->fetchOne("SELECT COUNT(*) as count FROM system_logs WHERE level = 'info' AND message LIKE '%User Action:%' AND created_at >= CURDATE()")['count'] ?? 0;
+            $todayLogins = 0;
+            $todayActions = 0;
+            $activeSessions = 0;
+            $weeklyActivity = [];
+            $hourlyActivity = [];
             
-            $weeklyActivity = $this->db->fetchAll("
-                SELECT DATE(created_at) as date, COUNT(*) as count 
-                FROM system_logs 
-                WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-                GROUP BY DATE(created_at)
-                ORDER BY date
-            ");
+            // Проверяем существование таблицы system_logs
+            try {
+                $todayLogins = $this->db->fetchOne("SELECT COUNT(*) as count FROM system_logs WHERE level = 'info' AND message LIKE '%Login Attempt: SUCCESS%' AND created_at >= CURDATE()")['count'] ?? 0;
+                $todayActions = $this->db->fetchOne("SELECT COUNT(*) as count FROM system_logs WHERE level = 'info' AND message LIKE '%User Action:%' AND created_at >= CURDATE()")['count'] ?? 0;
+                
+                $weeklyActivity = $this->db->fetchAll("
+                    SELECT DATE(created_at) as date, COUNT(*) as count 
+                    FROM system_logs 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+                    GROUP BY DATE(created_at)
+                    ORDER BY date
+                ");
+                
+                $hourlyActivity = $this->db->fetchAll("
+                    SELECT HOUR(created_at) as hour, COUNT(*) as count 
+                    FROM system_logs 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                    GROUP BY HOUR(created_at)
+                    ORDER BY hour
+                ");
+            } catch (Exception $e) {
+                // Таблица system_logs не существует
+            }
             
-            $hourlyActivity = $this->db->fetchAll("
-                SELECT HOUR(created_at) as hour, COUNT(*) as count 
-                FROM system_logs 
-                WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-                GROUP BY HOUR(created_at)
-                ORDER BY hour
-            ");
+            // Проверяем активные сессии
+            try {
+                $activeSessions = $this->db->fetchOne("
+                    SELECT COUNT(DISTINCT user_id) as count 
+                    FROM user_sessions 
+                    WHERE is_active = 1 
+                    AND last_activity >= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+                ")['count'] ?? 0;
+            } catch (Exception $e) {
+                // Таблица user_sessions не существует
+            }
             
             return [
                 'today_logins' => $todayLogins,
                 'today_actions' => $todayActions,
+                'active_sessions' => $activeSessions,
                 'weekly_activity' => $weeklyActivity,
                 'hourly_activity' => $hourlyActivity
             ];
         } catch (Exception $e) {
-            return [];
+            return [
+                'today_logins' => 0,
+                'today_actions' => 0,
+                'active_sessions' => 0,
+                'weekly_activity' => [],
+                'hourly_activity' => []
+            ];
         }
     }
     
@@ -126,29 +201,40 @@ class AnalyticsService {
      */
     private function getPerformanceStats() {
         try {
-            $avgResponseTime = $this->db->fetchOne("
-                SELECT AVG(CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3))) as avg_time 
-                FROM system_logs 
-                WHERE level = 'debug' AND message LIKE '%SQL Query:%' 
-                AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            ")['avg_time'] ?? 0;
+            $avgResponseTime = 0;
+            $slowQueries = [];
             
-            $slowQueries = $this->db->fetchAll("
-                SELECT message, JSON_EXTRACT(context, '$.execution_time') as execution_time
-                FROM system_logs 
-                WHERE level = 'debug' AND message LIKE '%SQL Query:%' 
-                AND CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3)) > 1.0
-                AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-                ORDER BY CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3)) DESC
-                LIMIT 10
-            ");
+            // Проверяем существование таблицы system_logs
+            try {
+                $avgResponseTime = $this->db->fetchOne("
+                    SELECT AVG(CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3))) as avg_time 
+                    FROM system_logs 
+                    WHERE level = 'debug' AND message LIKE '%SQL Query:%' 
+                    AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                ")['avg_time'] ?? 0;
+                
+                $slowQueries = $this->db->fetchAll("
+                    SELECT message, JSON_EXTRACT(context, '$.execution_time') as execution_time
+                    FROM system_logs 
+                    WHERE level = 'debug' AND message LIKE '%SQL Query:%' 
+                    AND CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3)) > 1.0
+                    AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                    ORDER BY CAST(JSON_EXTRACT(context, '$.execution_time') AS DECIMAL(10,3)) DESC
+                    LIMIT 10
+                ");
+            } catch (Exception $e) {
+                // Таблица system_logs не существует
+            }
             
             return [
                 'avg_response_time' => round($avgResponseTime, 3),
                 'slow_queries' => $slowQueries
             ];
         } catch (Exception $e) {
-            return [];
+            return [
+                'avg_response_time' => 0,
+                'slow_queries' => []
+            ];
         }
     }
     
@@ -157,25 +243,34 @@ class AnalyticsService {
      */
     private function getSecurityStats() {
         try {
-            $failedLogins = $this->db->fetchOne("
-                SELECT COUNT(*) as count 
-                FROM system_logs 
-                WHERE level = 'info' AND message LIKE '%Login Attempt: FAILED%' 
-                AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            ")['count'] ?? 0;
+            $failedLogins = 0;
+            $suspiciousActivity = 0;
+            $uniqueIPs = 0;
             
-            $suspiciousActivity = $this->db->fetchOne("
-                SELECT COUNT(*) as count 
-                FROM system_logs 
-                WHERE level IN ('warning', 'error', 'critical') 
-                AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            ")['count'] ?? 0;
-            
-            $uniqueIPs = $this->db->fetchOne("
-                SELECT COUNT(DISTINCT ip_address) as count 
-                FROM system_logs 
-                WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-            ")['count'] ?? 0;
+            // Проверяем существование таблицы system_logs
+            try {
+                $failedLogins = $this->db->fetchOne("
+                    SELECT COUNT(*) as count 
+                    FROM system_logs 
+                    WHERE level = 'info' AND message LIKE '%Login Attempt: FAILED%' 
+                    AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                ")['count'] ?? 0;
+                
+                $suspiciousActivity = $this->db->fetchOne("
+                    SELECT COUNT(*) as count 
+                    FROM system_logs 
+                    WHERE level IN ('warning', 'error', 'critical') 
+                    AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                ")['count'] ?? 0;
+                
+                $uniqueIPs = $this->db->fetchOne("
+                    SELECT COUNT(DISTINCT ip_address) as count 
+                    FROM system_logs 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+                ")['count'] ?? 0;
+            } catch (Exception $e) {
+                // Таблица system_logs не существует
+            }
             
             return [
                 'failed_logins_24h' => $failedLogins,
@@ -183,7 +278,11 @@ class AnalyticsService {
                 'unique_ips_24h' => $uniqueIPs
             ];
         } catch (Exception $e) {
-            return [];
+            return [
+                'failed_logins_24h' => 0,
+                'suspicious_activity_24h' => 0,
+                'unique_ips_24h' => 0
+            ];
         }
     }
     

@@ -12,7 +12,7 @@ class PhotosController extends BaseAdminController {
             
             $photos = Database::fetchAll("SELECT * FROM photos ORDER BY photos_date_add DESC");
             
-            return $this->render('admin/photos/index', [
+            $this->render('admin/photos/index', [
                 'title' => 'Управление фотографиями',
                 'currentPage' => 'photos',
                 'photos' => $photos,
@@ -25,7 +25,7 @@ class PhotosController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке фотографий: ' . $e->getMessage()
             ]);
@@ -33,7 +33,7 @@ class PhotosController extends BaseAdminController {
     }
     
     public function upload() {
-        return $this->render('admin/photos/upload', [
+        $this->render('admin/photos/upload', [
             'title' => 'Загрузка фотографии',
             'currentPage' => 'photos',
             'additional_css' => [
@@ -88,7 +88,7 @@ class PhotosController extends BaseAdminController {
             }
             
         } catch (Exception $e) {
-            return $this->render('admin/photos/upload', [
+            $this->render('admin/photos/upload', [
                 'title' => 'Загрузка фотографии',
                 'currentPage' => 'photos',
                 'error' => $e->getMessage(),
@@ -110,7 +110,7 @@ class PhotosController extends BaseAdminController {
             $photo = Database::fetchOne("SELECT * FROM photos WHERE photos_id = ?", [$id]);
             
             if (!$photo) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Фотография не найдена',
                     'message' => 'Фотография с ID ' . $id . ' не найдена'
                 ]);
@@ -128,7 +128,7 @@ class PhotosController extends BaseAdminController {
             return $this->redirect('/admin/photos?deleted=1');
             
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при удалении фотографии: ' . $e->getMessage()
             ]);
@@ -142,13 +142,13 @@ class PhotosController extends BaseAdminController {
             $photo = Database::fetchOne("SELECT * FROM photos WHERE photos_id = ?", [$id]);
             
             if (!$photo) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Фотография не найдена',
                     'message' => 'Фотография с ID ' . $id . ' не найдена'
                 ]);
             }
             
-            return $this->render('admin/photos/edit', [
+            $this->render('admin/photos/edit', [
                 'title' => 'Редактирование фотографии',
                 'currentPage' => 'photos',
                 'photo' => $photo,
@@ -161,7 +161,7 @@ class PhotosController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке фотографии: ' . $e->getMessage()
             ]);
@@ -187,7 +187,7 @@ class PhotosController extends BaseAdminController {
             // Проверяем, существует ли фотография
             $photo = Database::fetchOne("SELECT * FROM photos WHERE photos_id = ?", [$id]);
             if (!$photo) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Фотография не найдена',
                     'message' => 'Фотография с ID ' . $id . ' не найдена'
                 ]);
@@ -232,7 +232,7 @@ class PhotosController extends BaseAdminController {
             return $this->redirect('/admin/photos?updated=1');
             
         } catch (Exception $e) {
-            return $this->render('admin/photos/edit', [
+            $this->render('admin/photos/edit', [
                 'title' => 'Редактирование фотографии',
                 'currentPage' => 'photos',
                 'photo' => $photo ?? null,

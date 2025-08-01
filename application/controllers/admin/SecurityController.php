@@ -20,7 +20,7 @@ class SecurityController extends BaseAdminController {
         $stats = $this->securityAudit->getSecurityStats(30);
         $recentEvents = $this->securityAudit->getRecentSecurityEvents(20);
         
-        return $this->render('admin/security/index', [
+        $this->render('admin/security/index', [
             'title' => 'Безопасность системы',
             'currentPage' => 'security',
             'stats' => $stats,
@@ -64,7 +64,7 @@ class SecurityController extends BaseAdminController {
             $totalPages = 0;
         }
         
-        return $this->render('admin/security/audit', [
+        $this->render('admin/security/audit', [
             'title' => 'Аудит безопасности',
             'currentPage' => 'security',
             'logs' => $logs,
@@ -95,7 +95,7 @@ class SecurityController extends BaseAdminController {
             $blacklist = [];
         }
         
-        return $this->render('admin/security/ip-blacklist', [
+        $this->render('admin/security/ip-blacklist', [
             'title' => 'Блокировка IP адресов',
             'currentPage' => 'security',
             'blacklist' => $blacklist,
@@ -208,7 +208,7 @@ class SecurityController extends BaseAdminController {
             $sessions = [];
         }
         
-        return $this->render('admin/security/sessions', [
+        $this->render('admin/security/sessions', [
             'title' => 'Активные сессии',
             'currentPage' => 'security',
             'sessions' => $sessions,
@@ -344,15 +344,5 @@ class SecurityController extends BaseAdminController {
         
         header('Content-Type: application/json');
         echo json_encode($events);
-    }
-    
-    /**
-     * Установка flash сообщения
-     */
-    private function setFlashMessage($type, $message) {
-        $_SESSION['flash_message'] = [
-            'type' => $type,
-            'message' => $message
-        ];
     }
 } 

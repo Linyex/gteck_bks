@@ -13,7 +13,7 @@ class SettingsController extends BaseAdminController {
             // Получаем текущие настройки
             $settings = $this->getSettings();
             
-            return $this->render('admin/settings/index', [
+            $this->render('admin/settings/index', [
                 'title' => 'Настройки системы',
                 'currentPage' => 'settings',
                 'settings' => $settings,
@@ -26,7 +26,7 @@ class SettingsController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Не удалось загрузить настройки: ' . $e->getMessage()
             ]);

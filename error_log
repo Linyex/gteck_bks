@@ -1,0 +1,919 @@
+[31-Jul-2025 23:02:51 Europe/Minsk] PHP Notice:  Undefined variable: footer in /home/gtecbks/public_html/application/views/dopage/brsm.php on line 147
+[31-Jul-2025 23:11:29 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[31-Jul-2025 23:16:39 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(92): kolController->index('view', 'mane', '10')
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto/view/m...')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[31-Jul-2025 23:31:05 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[31-Jul-2025 23:54:32 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 00:03:02 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 00:08:40 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 00:19:49 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 00:20:11 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 00:44:00 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 01:02:18 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 01:21:40 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 01:29:16 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 01:38:23 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View okno/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/okno.php(7): BaseController->render('okno/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): oknoController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno/rejim')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 02:00:58 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 02:45:46 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 03:48:55 Europe/Minsk] PHP Notice:  Undefined variable: footer in /home/gtecbks/public_html/application/views/dopage/brsm.php on line 147
+[01-Aug-2025 03:48:56 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 03:48:59 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View okno/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/okno.php(7): BaseController->render('okno/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): oknoController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno/rejim')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 04:12:41 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 05:21:40 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View prepod/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/prepod.php(7): BaseController->render('prepod/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): prepodController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('prepod')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 05:30:41 Europe/Minsk] PHP Notice:  Undefined variable: empty1 in /home/gtecbks/public_html/application/views/dopage/ychxod.php on line 33
+[01-Aug-2025 05:39:23 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View okno/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/okno.php(7): BaseController->render('okno/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): oknoController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 05:57:45 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 06:04:32 Europe/Minsk] PHP Notice:  Undefined variable: header in /home/gtecbks/public_html/application/views/okno/osnovi.php on line 1
+[01-Aug-2025 06:04:32 Europe/Minsk] PHP Notice:  Undefined variable: footer in /home/gtecbks/public_html/application/views/okno/osnovi.php on line 124
+[01-Aug-2025 07:49:52 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View okno/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/okno.php(7): BaseController->render('okno/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): oknoController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno/rejim')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 08:23:21 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:05:44 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:08:36 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View dopage/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/dopage.php(7): BaseController->render('dopage/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): dopageController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('dopage/contact')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 09:13:33 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:13:53 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:24:08 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: URI = /admin, Method = GET
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: URI = /admin/login, Method = GET
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:27:25 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: URI = /admin/dashboard, Method = GET
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/dashboard
+[01-Aug-2025 09:27:30 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:27:36 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 09:27:36 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 09:27:36 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 09:28:28 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/activity-details, Method = GET
+[01-Aug-2025 09:28:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/activity-details
+[01-Aug-2025 09:28:28 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::activityDetails
+[01-Aug-2025 09:28:28 Europe/Minsk] PHP Notice:  Array to string conversion in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/activity-details.php on line 257
+[01-Aug-2025 09:28:28 Europe/Minsk] PHP Notice:  Array to string conversion in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/activity-details.php on line 266
+[01-Aug-2025 09:29:17 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 09:29:17 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 09:29:17 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 09:29:19 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/geolocation, Method = GET
+[01-Aug-2025 09:29:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/geolocation
+[01-Aug-2025 09:29:19 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::geolocation
+[01-Aug-2025 09:29:19 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 09:29:19 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 09:29:19 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 09:29:24 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/behavior, Method = GET
+[01-Aug-2025 09:29:24 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/behavior
+[01-Aug-2025 09:29:24 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::behavior
+[01-Aug-2025 09:30:03 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/behavior, Method = GET
+[01-Aug-2025 09:30:03 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/behavior
+[01-Aug-2025 09:30:03 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::behavior
+[01-Aug-2025 09:30:06 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/behavior, Method = GET
+[01-Aug-2025 09:30:06 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/behavior
+[01-Aug-2025 09:30:06 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::behavior
+[01-Aug-2025 09:30:33 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/ml-anomalies, Method = GET
+[01-Aug-2025 09:30:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/ml-anomalies
+[01-Aug-2025 09:30:33 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::mlAnomalies
+[01-Aug-2025 09:30:35 Europe/Minsk] AdminRouter: URI = /admin, Method = GET
+[01-Aug-2025 09:30:35 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin
+[01-Aug-2025 09:30:35 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:31:20 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:31:20 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:31:20 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:31:37 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 09:31:37 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 09:31:37 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: URI = /admin/logout, Method = GET
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/logout
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: Выполняем AuthController::logout
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: URI = /admin/login, Method = GET
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:19 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:27 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:27 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:27 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:31 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:31 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:34 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:34 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:34 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:38 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:38 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:42 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:42 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: URI = /admin/dashboard, Method = GET
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/dashboard
+[01-Aug-2025 09:32:46 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: URI = /admin/analytics, Method = GET
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/analytics
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: Выполняем AnalyticsController::index
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: URI = /admin/analytics/api/realtime, Method = GET
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/analytics/api/realtime
+[01-Aug-2025 09:32:51 Europe/Minsk] AdminRouter: Выполняем AnalyticsController::getRealtimeData
+[01-Aug-2025 09:32:58 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 09:32:58 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 09:32:58 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 09:33:29 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:33:29 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:33:29 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:34:10 Europe/Minsk] AdminRouter: URI = /admin/users/mass-action, Method = POST
+[01-Aug-2025 09:34:10 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users/mass-action
+[01-Aug-2025 09:34:10 Europe/Minsk] AdminRouter: Выполняем UsersController::massAction
+[01-Aug-2025 09:34:11 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:34:11 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:34:11 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:34:12 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:34:12 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:34:12 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:35:45 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:35:45 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:35:45 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:35:47 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 09:35:48 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 09:36:13 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:36:13 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:36:13 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:36:17 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:36:17 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:36:17 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:36:20 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:36:20 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:36:20 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:36:21 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/2, Method = GET
+[01-Aug-2025 09:36:21 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/2
+[01-Aug-2025 09:36:21 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 09:36:32 Europe/Minsk] AdminRouter: URI = /admin/test, Method = GET
+[01-Aug-2025 09:36:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/test
+[01-Aug-2025 09:36:32 Europe/Minsk] AdminRouter: Выполняем TestController::index
+[01-Aug-2025 09:36:32 Europe/Minsk] PHP Warning:  require_once(/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php): failed to open stream: No such file or directory in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[01-Aug-2025 09:36:32 Europe/Minsk] PHP Fatal error:  require_once(): Failed opening required '/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[01-Aug-2025 09:36:33 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/2, Method = POST
+[01-Aug-2025 09:36:33 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/2
+[01-Aug-2025 09:36:33 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 09:36:34 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:36:34 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:36:34 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:41:11 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:41:11 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:41:11 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:49:14 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class 'GroupPasswordChecker' not found in /home/gtecbks/public_html/application/controllers/stud.php:46
+Stack trace:
+#0 /home/gtecbks/public_html/engine/Router.php(90): studController->kontrolnui()
+#1 /home/gtecbks/public_html/index.php(130): Router->dispatch('stud/kontrolnui')
+#2 {main}
+  thrown in /home/gtecbks/public_html/application/controllers/stud.php on line 46
+[01-Aug-2025 09:49:17 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class 'GroupPasswordChecker' not found in /home/gtecbks/public_html/application/controllers/stud.php:46
+Stack trace:
+#0 /home/gtecbks/public_html/engine/Router.php(90): studController->kontrolnui()
+#1 /home/gtecbks/public_html/index.php(130): Router->dispatch('stud/kontrolnui')
+#2 {main}
+  thrown in /home/gtecbks/public_html/application/controllers/stud.php on line 46
+[01-Aug-2025 09:51:34 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:51:57 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:54:19 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:54:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:54:19 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:54:24 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:54:24 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:54:24 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:55:52 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:56:17 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:56:17 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:56:17 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: URI = /admin, Method = GET
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: URI = /admin/login, Method = GET
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:56:23 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: URI = /admin/login, Method = POST
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/login
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: Выполняем AuthController::login
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: URI = /admin/dashboard, Method = GET
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/dashboard
+[01-Aug-2025 09:56:26 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:56:31 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:56:33 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:56:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:56:33 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:56:35 Europe/Minsk] AdminRouter: URI = /admin/files, Method = GET
+[01-Aug-2025 09:56:35 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/files
+[01-Aug-2025 09:56:35 Europe/Minsk] AdminRouter: Выполняем FilesController::index
+[01-Aug-2025 09:56:41 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:56:41 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:56:41 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:56:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:56:47 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:56:47 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:56:47 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:56:48 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:56:48 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:56:48 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: URI = /admin/control-files/delete, Method = POST
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/delete
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::delete
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:56:55 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:56:59 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:56:59 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:56:59 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:57:02 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:57:02 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:57:02 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:57:04 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:04 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:04 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:06 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:06 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:06 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:16 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:18 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:18 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:24 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:57:24 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:24 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:25 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:25 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:25 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:26 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:26 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:26 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:32 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:33 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:33 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:39 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:46 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:57:46 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:57:46 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:57:51 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:51 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:51 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:57:54 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:57:54 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:57:54 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:57:57 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 09:57:58 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:57:58 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:57:58 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:58:05 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:58:06 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:58:06 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:06 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:58:15 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:58:16 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:58:16 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:16 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:58:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:58:21 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:58:22 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:58:22 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:58:22 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:58:26 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = GET
+[01-Aug-2025 09:58:26 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:26 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:31 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/create, Method = POST
+[01-Aug-2025 09:58:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/create
+[01-Aug-2025 09:58:31 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::create
+[01-Aug-2025 09:58:32 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 09:58:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 09:58:32 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 09:58:35 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:58:35 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:58:35 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:58:40 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:58:40 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:58:40 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:58:56 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:59:01 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:59:01 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:59:01 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:59:02 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:59:02 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:59:02 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:59:04 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:59:04 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:59:04 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:59:26 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:59:26 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:59:26 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:59:38 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:59:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:59:38 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:59:52 Europe/Minsk] AdminRouter: URI = /admin/files, Method = GET
+[01-Aug-2025 09:59:52 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/files
+[01-Aug-2025 09:59:52 Europe/Minsk] AdminRouter: Выполняем FilesController::index
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 09:59:57 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 09:59:59 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 09:59:59 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 09:59:59 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:00:01 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:00:01 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:00:01 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:00:06 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:00:06 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:00:06 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:00:08 Europe/Minsk] AdminRouter: URI = /admin/monitoring, Method = GET
+[01-Aug-2025 10:00:08 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/monitoring
+[01-Aug-2025 10:00:08 Europe/Minsk] AdminRouter: Выполняем MonitoringController::index
+[01-Aug-2025 10:00:13 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 10:00:13 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 10:00:13 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:00:14 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:00:17 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:00:17 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:00:17 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:00:19 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/geolocation, Method = GET
+[01-Aug-2025 10:00:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/geolocation
+[01-Aug-2025 10:00:19 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::geolocation
+[01-Aug-2025 10:00:20 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 10:00:20 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 10:00:20 Europe/Minsk] PHP Notice:  Undefined index: count in /home/gtecbks/public_html/application/views/admin/enhanced-analytics/geolocation.php on line 130
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:00:30 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:00:31 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:00:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:00:31 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:00:32 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/behavior, Method = GET
+[01-Aug-2025 10:00:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/behavior
+[01-Aug-2025 10:00:32 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::behavior
+[01-Aug-2025 10:00:34 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:00:34 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:00:34 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:00:38 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/ml-anomalies, Method = GET
+[01-Aug-2025 10:00:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/ml-anomalies
+[01-Aug-2025 10:00:38 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::mlAnomalies
+[01-Aug-2025 10:00:39 Europe/Minsk] AdminRouter: URI = /admin, Method = GET
+[01-Aug-2025 10:00:39 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin
+[01-Aug-2025 10:00:39 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 10:00:41 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics, Method = GET
+[01-Aug-2025 10:00:41 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics
+[01-Aug-2025 10:00:41 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::index
+[01-Aug-2025 10:00:42 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/ml-anomalies, Method = GET
+[01-Aug-2025 10:00:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/ml-anomalies
+[01-Aug-2025 10:00:42 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::mlAnomalies
+[01-Aug-2025 10:00:43 Europe/Minsk] AdminRouter: URI = /admin/enhanced-analytics/notifications, Method = GET
+[01-Aug-2025 10:00:43 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/enhanced-analytics/notifications
+[01-Aug-2025 10:00:43 Europe/Minsk] AdminRouter: Выполняем EnhancedAnalyticsController::notifications
+[01-Aug-2025 10:00:45 Europe/Minsk] AdminRouter: URI = /admin/photos, Method = GET
+[01-Aug-2025 10:00:45 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/photos
+[01-Aug-2025 10:00:45 Europe/Minsk] AdminRouter: Выполняем PhotosController::index
+[01-Aug-2025 10:00:46 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 10:00:46 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 10:00:46 Europe/Minsk] AdminRouter: Выполняем UsersController::index
+[01-Aug-2025 10:00:47 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:00:47 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:00:47 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:01:07 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:01:07 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:01:07 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:01:09 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:01:09 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:01:09 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:01:41 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:01:43 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:01:43 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:01:43 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:02:20 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:02:21 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:02:21 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:02:21 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:02:54 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:02:54 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:02:54 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:02:55 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:02:55 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:02:55 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:02:56 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:02:56 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:02:56 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:03:08 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:03:11 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:03:11 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:03:11 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:03:36 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:03:37 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:03:37 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:03:37 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:03:42 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:04:09 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:04:13 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:04:13 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:04:13 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:04:28 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:05:03 Europe/Minsk] AdminRouter: URI = /admin/security, Method = GET
+[01-Aug-2025 10:05:03 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/security
+[01-Aug-2025 10:05:03 Europe/Minsk] AdminRouter: Выполняем SecurityController::index
+[01-Aug-2025 10:05:05 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:05:05 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:05:05 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:05:10 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/3, Method = GET
+[01-Aug-2025 10:05:10 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/3
+[01-Aug-2025 10:05:10 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/3, Method = POST
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/3
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:05:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:05:44 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/2, Method = GET
+[01-Aug-2025 10:05:44 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/2
+[01-Aug-2025 10:05:44 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/2, Method = POST
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/2
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:05:50 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:05:54 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/5, Method = GET
+[01-Aug-2025 10:05:54 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/5
+[01-Aug-2025 10:05:54 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/5, Method = POST
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/5
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:05:57 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:05:58 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/4, Method = GET
+[01-Aug-2025 10:05:58 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/4
+[01-Aug-2025 10:05:58 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/4, Method = POST
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/4
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:05 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:09 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/10, Method = GET
+[01-Aug-2025 10:06:09 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/10
+[01-Aug-2025 10:06:09 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/10, Method = POST
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/10
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:15 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:17 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/13, Method = GET
+[01-Aug-2025 10:06:17 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/13
+[01-Aug-2025 10:06:17 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/13, Method = POST
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/13
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:22 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:23 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/6, Method = GET
+[01-Aug-2025 10:06:23 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/6
+[01-Aug-2025 10:06:23 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/6, Method = POST
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/6
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:28 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:29 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/6, Method = GET
+[01-Aug-2025 10:06:29 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/6
+[01-Aug-2025 10:06:29 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:30 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:30 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:32 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/7, Method = GET
+[01-Aug-2025 10:06:32 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/7
+[01-Aug-2025 10:06:32 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/7, Method = POST
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/7
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:36 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:38 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/12, Method = GET
+[01-Aug-2025 10:06:38 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/12
+[01-Aug-2025 10:06:38 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/12, Method = POST
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/12
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:42 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:43 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/8, Method = GET
+[01-Aug-2025 10:06:43 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/8
+[01-Aug-2025 10:06:43 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/8, Method = POST
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/8
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:48 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:52 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/9, Method = GET
+[01-Aug-2025 10:06:52 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/9
+[01-Aug-2025 10:06:52 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/9, Method = POST
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/9
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:06:55 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:06:56 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/11, Method = GET
+[01-Aug-2025 10:06:56 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/11
+[01-Aug-2025 10:06:56 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/11, Method = POST
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/11
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:07:00 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:08:15 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[01-Aug-2025 10:10:43 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:10:43 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:10:43 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:21:34 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/edit/10, Method = GET
+[01-Aug-2025 10:21:34 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/group-passwords/edit/10
+[01-Aug-2025 10:21:34 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::edit
+[01-Aug-2025 10:21:36 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:21:36 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:21:36 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:21:38 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:21:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:21:38 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:21:39 Europe/Minsk] AdminRouter: URI = /admin/control-files/edit/16, Method = GET
+[01-Aug-2025 10:21:39 Europe/Minsk] AdminRouter: Совпадение с параметрами найдено для /admin/control-files/edit/16
+[01-Aug-2025 10:21:39 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::edit
+[01-Aug-2025 10:21:39 Europe/Minsk] PHP Notice:  Undefined index: description in /home/gtecbks/public_html/application/views/admin/control-files/edit.php on line 112
+[01-Aug-2025 10:21:43 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:21:43 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:21:43 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:23:46 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:23:46 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:23:46 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:23:49 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/delete, Method = POST
+[01-Aug-2025 10:23:49 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/delete
+[01-Aug-2025 10:23:49 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::delete
+[01-Aug-2025 10:23:51 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/delete, Method = POST
+[01-Aug-2025 10:23:51 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/delete
+[01-Aug-2025 10:23:51 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::delete
+[01-Aug-2025 10:24:25 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:24:25 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:24:25 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:24:31 Europe/Minsk] AdminRouter: URI = /admin/profile, Method = GET
+[01-Aug-2025 10:24:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/profile
+[01-Aug-2025 10:24:31 Europe/Minsk] AdminRouter: Выполняем ProfileController::index
+[01-Aug-2025 10:24:33 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:24:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:24:33 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:24:35 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:24:35 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:24:35 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:24:40 Europe/Minsk] AdminRouter: URI = /admin/group-passwords/delete, Method = POST
+[01-Aug-2025 10:24:40 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords/delete
+[01-Aug-2025 10:24:40 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::delete
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:29:38 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:29:53 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:29:53 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:29:53 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:31:57 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View dopage/index not found in /home/gtecbks/public_html/engine/BaseController.php:77
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/dopage.php(7): BaseController->render('dopage/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): dopageController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('dopage/contact')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 77
+[01-Aug-2025 10:34:27 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:27 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:27 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:28 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:29 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:29 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:29 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:30 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:32 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:32 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:32 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:33 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:34:34 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:34:34 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:34:34 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:35:31 Europe/Minsk] AdminRouter: URI = /admin/umk-files, Method = GET
+[01-Aug-2025 10:35:31 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files
+[01-Aug-2025 10:35:31 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::index
+[01-Aug-2025 10:35:33 Europe/Minsk] AdminRouter: URI = /admin/umk-files/upload, Method = GET
+[01-Aug-2025 10:35:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/umk-files/upload
+[01-Aug-2025 10:35:33 Europe/Minsk] AdminRouter: Выполняем UmkFilesController::upload
+[01-Aug-2025 10:36:03 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:36:03 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:36:03 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:38:05 Europe/Minsk] AdminRouter: URI = /admin/dashboard, Method = GET
+[01-Aug-2025 10:38:05 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/dashboard
+[01-Aug-2025 10:38:05 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 10:40:13 Europe/Minsk] AdminRouter: URI = /admin/test, Method = GET
+[01-Aug-2025 10:40:13 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/test
+[01-Aug-2025 10:40:13 Europe/Minsk] AdminRouter: Выполняем TestController::index
+[01-Aug-2025 10:40:13 Europe/Minsk] PHP Warning:  require_once(/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php): failed to open stream: No such file or directory in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[01-Aug-2025 10:40:13 Europe/Minsk] PHP Fatal error:  require_once(): Failed opening required '/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[01-Aug-2025 10:44:11 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:44:11 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:44:11 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:44:14 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:44:14 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:44:14 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:44:56 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:44:56 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:44:56 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:45:16 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:45:16 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:45:16 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:45:17 Europe/Minsk] AdminRouter: URI = /admin/security, Method = GET
+[01-Aug-2025 10:45:17 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/security
+[01-Aug-2025 10:45:17 Europe/Minsk] AdminRouter: Выполняем SecurityController::index
+[01-Aug-2025 10:45:19 Europe/Minsk] AdminRouter: URI = /admin/group-passwords, Method = GET
+[01-Aug-2025 10:45:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/group-passwords
+[01-Aug-2025 10:45:19 Europe/Minsk] AdminRouter: Выполняем GroupPasswordsController::index
+[01-Aug-2025 10:45:21 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:45:21 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:45:21 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:45:44 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:45:44 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:45:44 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:45:45 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:45:45 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:45:45 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:47:45 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:47:45 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:47:45 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:48:08 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:48:10 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:48:10 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:10 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:48:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:48:19 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:48:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:19 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:48:27 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:48:29 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:48:29 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:29 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:48:49 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:48:50 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:48:50 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:48:50 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:49:18 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:49:19 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = GET
+[01-Aug-2025 10:49:19 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:49:19 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: URI = /admin/control-files/upload, Method = POST
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files/upload
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::upload
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: URI = /admin/control-files, Method = GET
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/control-files
+[01-Aug-2025 10:49:29 Europe/Minsk] AdminRouter: Выполняем ControlFilesController::index
+[01-Aug-2025 10:51:06 Europe/Minsk] AdminRouter: URI = /admin/dashboard, Method = GET
+[01-Aug-2025 10:51:06 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/dashboard
+[01-Aug-2025 10:51:06 Europe/Minsk] AdminRouter: Выполняем DashboardController::index
+[01-Aug-2025 10:51:33 Europe/Minsk] AdminRouter: URI = /admin/users, Method = GET
+[01-Aug-2025 10:51:33 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/users
+[01-Aug-2025 10:51:33 Europe/Minsk] AdminRouter: Выполняем UsersController::index

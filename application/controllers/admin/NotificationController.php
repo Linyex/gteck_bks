@@ -23,7 +23,7 @@ class NotificationController extends BaseAdminController {
             $telegramNotifications = $this->getTelegramNotifications();
             $emailNotifications = $this->getEmailNotifications();
             
-            return $this->render('admin/notifications/index', [
+            $this->render('admin/notifications/index', [
                 'title' => 'Уведомления и алерты',
                 'securityAlerts' => $securityAlerts,
                 'notificationSettings' => $notificationSettings,
@@ -31,7 +31,7 @@ class NotificationController extends BaseAdminController {
                 'emailNotifications' => $emailNotifications
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке уведомлений: ' . $e->getMessage()
             ]);
@@ -48,13 +48,13 @@ class NotificationController extends BaseAdminController {
             $settings = $this->getNotificationSettings();
             $testResults = $this->getTestResults();
             
-            return $this->render('admin/notifications/settings', [
+            $this->render('admin/notifications/settings', [
                 'title' => 'Настройки уведомлений',
                 'settings' => $settings,
                 'testResults' => $testResults
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при загрузке настроек: ' . $e->getMessage()
             ]);

@@ -54,7 +54,7 @@ class TwoFactorController extends BaseAdminController {
                 ['issuer' => 'NoContrGTEC Admin']
             );
             
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'currentPage' => '2fa',
                 'secret' => $user2fa['secret_key'],
@@ -70,7 +70,7 @@ class TwoFactorController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Не удалось загрузить настройки 2FA: ' . $e->getMessage()
             ]);
@@ -89,7 +89,7 @@ class TwoFactorController extends BaseAdminController {
         $userId = $_SESSION['admin_user_id'];
         
         if (empty($code)) {
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'error' => 'Введите код подтверждения'
             ]);
@@ -105,7 +105,7 @@ class TwoFactorController extends BaseAdminController {
             );
             
             if (!$user2fa) {
-                return $this->render('admin/2fa/index', [
+                $this->render('admin/2fa/index', [
                     'title' => 'Двухфакторная аутентификация',
                     'error' => '2FA не настроена'
                 ]);
@@ -128,18 +128,18 @@ class TwoFactorController extends BaseAdminController {
                 // Логируем активность
                 $this->logUserActivity($userId, '2fa_enabled', 'Активирована двухфакторная аутентификация', $_SERVER['REMOTE_ADDR']);
                 
-                return $this->render('admin/2fa/success', [
+                $this->render('admin/2fa/success', [
                     'title' => '2FA активирована',
                     'message' => 'Двухфакторная аутентификация успешно активирована'
                 ]);
             } else {
-                return $this->render('admin/2fa/index', [
+                $this->render('admin/2fa/index', [
                     'title' => 'Двухфакторная аутентификация',
                     'error' => 'Неверный код подтверждения'
                 ]);
             }
         } catch (Exception $e) {
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'error' => 'Ошибка при активации 2FA: ' . $e->getMessage()
             ]);
@@ -158,7 +158,7 @@ class TwoFactorController extends BaseAdminController {
         $userId = $_SESSION['admin_user_id'];
         
         if (empty($code)) {
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'error' => 'Введите код подтверждения'
             ]);
@@ -174,7 +174,7 @@ class TwoFactorController extends BaseAdminController {
             );
             
             if (!$user2fa) {
-                return $this->render('admin/2fa/index', [
+                $this->render('admin/2fa/index', [
                     'title' => 'Двухфакторная аутентификация',
                     'error' => '2FA не активирована'
                 ]);
@@ -197,18 +197,18 @@ class TwoFactorController extends BaseAdminController {
                 // Логируем активность
                 $this->logUserActivity($userId, '2fa_disabled', 'Деактивирована двухфакторная аутентификация', $_SERVER['REMOTE_ADDR']);
                 
-                return $this->render('admin/2fa/success', [
+                $this->render('admin/2fa/success', [
                     'title' => '2FA деактивирована',
                     'message' => 'Двухфакторная аутентификация успешно деактивирована'
                 ]);
             } else {
-                return $this->render('admin/2fa/index', [
+                $this->render('admin/2fa/index', [
                     'title' => 'Двухфакторная аутентификация',
                     'error' => 'Неверный код подтверждения'
                 ]);
             }
         } catch (Exception $e) {
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'error' => 'Ошибка при деактивации 2FA: ' . $e->getMessage()
             ]);
@@ -246,13 +246,13 @@ class TwoFactorController extends BaseAdminController {
             // Логируем активность
             $this->logUserActivity($userId, '2fa_backup_regenerated', 'Сгенерированы новые резервные коды', $_SERVER['REMOTE_ADDR']);
             
-            return $this->render('admin/2fa/backup_codes', [
+            $this->render('admin/2fa/backup_codes', [
                 'title' => 'Новые резервные коды',
                 'backupCodes' => $backupCodes,
                 'message' => 'Новые резервные коды сгенерированы'
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/2fa/index', [
+            $this->render('admin/2fa/index', [
                 'title' => 'Двухфакторная аутентификация',
                 'error' => 'Ошибка при генерации резервных кодов: ' . $e->getMessage()
             ]);
@@ -326,14 +326,14 @@ class TwoFactorController extends BaseAdminController {
                 // Логируем неудачную попытку
                 $this->logUserActivity($userId, '2fa_failed', 'Неудачная 2FA проверка', $_SERVER['REMOTE_ADDR']);
                 
-                return $this->render('admin/2fa/verify', [
+                $this->render('admin/2fa/verify', [
                     'title' => 'Подтверждение 2FA',
                     'error' => 'Неверный код подтверждения',
                     'userId' => $userId
                 ]);
             }
         } catch (Exception $e) {
-            return $this->render('admin/2fa/verify', [
+            $this->render('admin/2fa/verify', [
                 'title' => 'Подтверждение 2FA',
                 'error' => 'Ошибка при проверке кода: ' . $e->getMessage(),
                 'userId' => $userId
@@ -351,7 +351,7 @@ class TwoFactorController extends BaseAdminController {
             return $this->redirect('/admin/login');
         }
         
-        return $this->render('admin/2fa/verify', [
+        $this->render('admin/2fa/verify', [
             'title' => 'Подтверждение 2FA',
             'userId' => $userId
         ]);

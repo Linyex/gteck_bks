@@ -41,6 +41,42 @@ echo $header;
 <div class="science-diagram"></div>
 <div class="science-diagram"></div>
 
+<!-- Новые красивые анимации заднего фона -->
+<div class="knowledge-particles">
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+    <div class="knowledge-particle"></div>
+</div>
+
+<div class="knowledge-waves">
+    <div class="knowledge-wave"></div>
+    <div class="knowledge-wave"></div>
+    <div class="knowledge-wave"></div>
+    <div class="knowledge-wave"></div>
+</div>
+
+<div class="connection-lines">
+    <div class="connection-line"></div>
+    <div class="connection-line"></div>
+    <div class="connection-line"></div>
+    <div class="connection-line"></div>
+</div>
+
+<div class="education-icons">
+    <div class="education-icon">🎓</div>
+    <div class="education-icon">📚</div>
+    <div class="education-icon">🔬</div>
+    <div class="education-icon">💻</div>
+    <div class="education-icon">🎨</div>
+</div>
+
 <!-- Modern Hero Section -->
 <section class="main-hero">
     <div class="container">
@@ -143,10 +179,70 @@ echo $header;
 </section>
 
 <!-- Main Content Section -->
-<div class="c-layout-page">
+<div class="c-layout-page main-container">
     <div class="container">
         <div class="row">
-            <!-- Основной контент -->
+            <!-- Боковая панель (первая в HTML для мобильных) -->
+            <div class="col-lg-4 col-md-12 d-lg-block d-md-block sidebar-mobile-first">
+                <div class="widgets-sidebar">
+                    <!-- Поиск -->
+                    <div class="search-widget" data-aos="fade-left">
+                        <h4><i class="fa fa-search"></i> Поиск по сайту</h4>
+                        <form id="searchForm" method="POST">
+                            <div class="search-input">
+                                <input type="text" name="Search_text" id="Search_text" placeholder="Поиск по сайту..">
+                                <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+
+                    <!-- Информация -->
+                    <div class="info-widget" data-aos="fade-left" data-aos-delay="100">
+                        <h4><i class="fa fa-info-circle"></i> Дополнительная информация</h4>
+                        <?php if (!empty($lastzamena['zamena_file'])): ?>
+                            <div class="info-item">
+                                <a href="/<?php echo ($lastzamena['zamena_file']) ?>" target="_blank" class="info-link">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>Изменения в расписании<br><?php echo $lastzamena['zamena_text'] ?></span>
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <div class="info-item">
+                                <span class="info-text"><i class="fa fa-check"></i> Изменений в расписании нет</span>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="info-item">
+                            <a href="http://178.124.196.1:8881/stat2/hs/hsgetstat/allstat/?unp=400058708" target="_blank" class="info-link">
+                                <i class="fa fa-chart-line"></i>
+                                <span>Ход приёма документов</span>
+                            </a>
+                        </div>
+                        
+                        <div class="info-item">
+                            <a href="/assets/files/№ 88 от 27.03.2025 Об утверждении Порядка приема на 2025 год.pdf" target="_blank" class="info-link">
+                                <i class="fa fa-file-pdf-o"></i>
+                                <span>Порядок приёма абитуриентов 2025 год</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Контакты -->
+                    <div class="contacts-widget" data-aos="fade-left" data-aos-delay="200">
+                        <h4><i class="fa fa-phone"></i> Контакты</h4>
+                        <div class="contact-info">
+                            <p><i class="fa fa-map-marker"></i> 246017, г. Гомель, ул. Привокзальная, 4</p>
+                            <p><i class="fa fa-envelope"></i> gtec@mail.gomel.by</p>
+                            <p><i class="fa fa-envelope"></i> gtecsp1@gmail.com - <br>отдел информационных технологий</p>
+                            <p><i class="fa fa-phone"></i> 8(0232) 33-70-02</p>
+                            <p><i class="fa fa-phone"></i> Приемная комиссия: +375 232 20-22-14</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Основной контент (вторая в HTML для мобильных) -->
             <div class="col-lg-8 col-md-12">
                 <!-- Важные новости -->
                 <div class="content-section" data-aos="fade-up">
@@ -403,65 +499,6 @@ echo $header;
                                 <li><a href="/kol/foto">Фотогалерея</a></li>
                                 <li><a href="/kol/video">Видео</a></li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Боковая панель -->
-            <div class="col-lg-4 col-md-12">
-                <div class="widgets-sidebar">
-                    <!-- Поиск -->
-                    <div class="search-widget" data-aos="fade-left">
-                        <h4><i class="fa fa-search"></i> Поиск по сайту</h4>
-                        <form id="searchForm" method="POST">
-                            <div class="search-input">
-                                <input type="text" name="Search_text" id="Search_text" placeholder="Поиск по сайту..">
-                                <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
-                        <div class="search-results" id="searchResults"></div>
-                    </div>
-
-                    <!-- Информация -->
-                    <div class="info-widget" data-aos="fade-left" data-aos-delay="100">
-                        <h4><i class="fa fa-info-circle"></i> Дополнительная информация</h4>
-                        <?php if (!empty($lastzamena['zamena_file'])): ?>
-                            <div class="info-item">
-                                <a href="/<?php echo ($lastzamena['zamena_file']) ?>" target="_blank" class="info-link">
-                                    <i class="fa fa-calendar"></i>
-                                    <span>Изменения в расписании<br><?php echo $lastzamena['zamena_text'] ?></span>
-                                </a>
-                            </div>
-                        <?php else: ?>
-                            <div class="info-item">
-                                <span class="info-text"><i class="fa fa-check"></i> Изменений в расписании нет</span>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <div class="info-item">
-                            <a href="https://docs.google.com/spreadsheets/d/1YGUg5U5KBQWBqi88gi8SCAEQTnf_CtDZs_U1usbUj7o/edit?usp=sharing" target="_blank" class="info-link">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Ход приёма документов</span>
-                            </a>
-                        </div>
-                        
-                        <div class="info-item">
-                            <a href="/assets/files/№ 88 от 27.03.2025 Об утверждении Порядка приема на 2025 год.pdf" target="_blank" class="info-link">
-                                <i class="fa fa-file-pdf-o"></i>
-                                <span>Порядок приёма абитуриентов 2025 год</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Контакты -->
-                    <div class="contacts-widget" data-aos="fade-left" data-aos-delay="200">
-                        <h4><i class="fa fa-phone"></i> Контакты</h4>
-                        <div class="contact-info">
-                            <p><i class="fa fa-map-marker"></i> 246017, г. Гомель, ул. Привокзальная, 4</p>
-                            <p><i class="fa fa-envelope"></i> gtec@mail.gomel.by</p>
-                            <p><i class="fa fa-phone"></i> 8(0232) 33-70-02</p>
-                            <p><i class="fa fa-phone"></i> Приемная комиссия: +375 232 20-22-14</p>
                         </div>
                     </div>
                 </div>

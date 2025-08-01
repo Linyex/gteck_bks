@@ -28,7 +28,13 @@ class kolController extends BaseController {
     
     public function grafik() {
         return $this->render('kol/grafik', [
-            'title' => 'График работы'
+            'title' => 'График работы',
+            'additional_css' => [
+                '/assets/css/grafik-modern.css'
+            ],
+            'additional_js' => [
+                '/assets/js/grafik-functions.js'
+            ]
         ]);
     }
     

@@ -1,7 +1,4 @@
-<?php 
-    $page_title = "Сроки приема документов"; 
-    include $_SERVER['DOCUMENT_ROOT'] . '/application/views/common/header.php'; 
-?>
+
 
 <section class="sroki-hero">
     <div class="hero-content">
@@ -99,6 +96,3 @@
         </div>
     </div>
 </section>
-
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/application/views/common/footer.php'; ?>
-

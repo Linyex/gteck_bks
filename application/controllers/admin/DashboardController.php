@@ -12,7 +12,7 @@ class DashboardController extends BaseAdminController {
         $serverInfo = $this->getServerInfo();
         $siteStatus = $this->getSiteStatus();
         
-        return $this->render('admin/dashboard/index', [
+        $this->render('admin/dashboard/index', [
             'title' => 'Дашборд',
             'currentPage' => 'dashboard',
             'totalUsers' => $stats['users'],

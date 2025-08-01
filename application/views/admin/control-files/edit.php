@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="form-group full-width">
-                            <label for="group_ids" class="form-label required">
+                            <label for="group_names" class="form-label required">
                                 <i class="fa fa-users"></i>
                                 Группы
                             </label>
@@ -86,12 +86,12 @@
                                 <?php foreach ($groups as $group): ?>
                                     <label class="group-checkbox">
                                         <input type="checkbox" 
-                                               name="group_ids[]" 
-                                               value="<?php echo $group['id_group']; ?>"
+                                               name="group_names[]" 
+                                               value="<?php echo htmlspecialchars($group['group_name']); ?>"
                                                class="checkbox-input"
-                                               <?php echo in_array($group['id_group'], $file_group_ids) ? 'checked' : ''; ?>>
+                                               <?php echo in_array($group['group_name'], $file_group_names) ? 'checked' : ''; ?>>
                                         <span class="checkbox-custom"></span>
-                                        <span class="checkbox-text"><?php echo htmlspecialchars($group['groupname']); ?></span>
+                                        <span class="checkbox-text"><?php echo htmlspecialchars($group['group_name']); ?></span>
                                     </label>
                                 <?php endforeach; ?>
                             </div>
@@ -170,10 +170,10 @@
                         <div class="info-label">Текущие группы:</div>
                         <div class="info-value">
                             <div class="current-groups">
-                                <?php if (!empty($file_group_ids)): ?>
+                                <?php if (!empty($file_group_names)): ?>
                                     <?php foreach ($groups as $group): ?>
-                                        <?php if (in_array($group['id_group'], $file_group_ids)): ?>
-                                            <span class="group-badge"><?php echo htmlspecialchars($group['groupname']); ?></span>
+                                        <?php if (in_array($group['group_name'], $file_group_names)): ?>
+                                            <span class="group-badge"><?php echo htmlspecialchars($group['group_name']); ?></span>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 <?php else: ?>
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     form.addEventListener('submit', function(e) {
         const filename = document.getElementById('filename').value.trim();
-        const selectedGroups = document.querySelectorAll('input[name="group_ids[]"]:checked');
+        const selectedGroups = document.querySelectorAll('input[name="group_names[]"]:checked');
         
         if (!filename) {
             e.preventDefault();

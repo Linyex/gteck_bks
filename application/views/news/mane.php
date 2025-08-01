@@ -9,7 +9,7 @@
                     <p class="hero-subtitle">Будьте в курсе всех событий и важных объявлений</p>
                     <div class="news-stats">
                         <div class="stat-item">
-                            <span class="stat-number"><?php echo count($news); ?></span>
+                            <span class="stat-number"><?php echo isset($totalNews) ? $totalNews : (isset($news) ? count($news) : 0); ?></span>
                             <span class="stat-label">Новостей</span>
                         </div>
                         <div class="stat-item">
@@ -28,131 +28,75 @@
 </section>
 
 <!-- Основной контент -->
-<div class="c-layout-page">
+<div class="c-layout-page news-container">
     <div class="container">
         <div class="row">
-            <!-- Основной контент -->
-            <div class="col-lg-8 col-md-12">
-                <?php if (!empty($news)): ?>
-                    <div class="news-grid">
-                        <?php foreach ($news as $index => $item): ?>
-                            <div class="news-card" data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>">
-                                <div class="news-card-header">
-                                    <div class="news-meta">
-                                        <span class="news-date">
-                                            <i class="fa fa-calendar"></i>
-                                            <?php echo date('d.m.Y', strtotime($item['date'])); ?>
-                                        </span>
-                                        <span class="news-category">
-                                            <i class="fa fa-tag"></i>
-                                            Новость
-                                        </span>
-                                    </div>
-                                    <h3 class="news-title"><?php echo htmlspecialchars($item['title']); ?></h3>
-                                </div>
-                                <div class="news-card-body">
-                                    <p class="news-excerpt">
-                                        <?php echo htmlspecialchars(substr($item['content'], 0, 200)) . '...'; ?>
-                                    </p>
-                                    <div class="news-actions">
-                                        <a href="/news/view/<?php echo $item['id']; ?>" class="btn btn-primary">
-                                            <i class="fa fa-eye"></i>
-                                            Читать далее
-                                        </a>
-                                        <button class="btn btn-outline share-btn" onclick="shareNews(<?php echo $item['id']; ?>)">
-                                            <i class="fa fa-share"></i>
-                                            Поделиться
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                    <!-- Пагинация -->
-                    <div class="pagination-wrapper" data-aos="fade-up">
-                        <nav aria-label="Навигация по страницам">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Предыдущая">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Следующая">
-                                        <i class="fa fa-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                <?php else: ?>
-                    <div class="empty-state" data-aos="fade-up">
-                        <div class="empty-icon">
-                            <i class="fa fa-newspaper-o"></i>
-                        </div>
-                        <h3>Новостей пока нет</h3>
-                        <p>Следите за обновлениями, скоро появятся новые материалы</p>
-                        <a href="/" class="btn btn-primary">
-                            <i class="fa fa-home"></i>
-                            На главную
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </div>
-            
-            <!-- Боковая панель -->
-            <div class="col-lg-4 col-md-12">
+            <!-- Боковая панель (первая в HTML для мобильных) -->
+            <div class="col-lg-4 col-md-12 d-lg-block d-md-block sidebar-mobile-first">
                 <div class="news-sidebar">
                     <!-- Поиск новостей -->
                     <div class="sidebar-widget search-widget">
                         <h4>🔍 Поиск новостей</h4>
-                        <div class="search-form">
-                            <input type="text" placeholder="Введите ключевые слова..." class="search-input">
-                            <button type="submit" class="search-btn">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
+                        <form class="search-form" onsubmit="searchNews(); return false;">
+                            <div class="search-input-group">
+                                <input type="text" placeholder="Введите ключевые слова..." class="search-input">
+                                <button type="submit" class="search-btn">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     
                     <!-- Категории -->
                     <div class="sidebar-widget categories-widget">
                         <h4>📂 Категории</h4>
                         <ul class="categories-list">
-                            <li><a href="#" class="category-link active">Все новости</a></li>
-                            <li><a href="#" class="category-link">Абитуриентам</a></li>
-                            <li><a href="#" class="category-link">Студентам</a></li>
-                            <li><a href="#" class="category-link">Преподавателям</a></li>
-                            <li><a href="#" class="category-link">События</a></li>
-                            <li><a href="#" class="category-link">Объявления</a></li>
+                            <li><a href="/news" class="category-link <?php echo (!isset($_GET['category'])) ? 'active' : ''; ?>">Все новости</a></li>
+                            <li><a href="/news/category/abiturient" class="category-link">Абитуриентам</a></li>
+                            <li><a href="/news/category/student" class="category-link">Студентам</a></li>
+                            <li><a href="/news/category/teacher" class="category-link">Преподавателям</a></li>
+                            <li><a href="/news/category/event" class="category-link">События</a></li>
+                            <li><a href="/news/category/announcement" class="category-link">Объявления</a></li>
                         </ul>
                     </div>
                     
                     <!-- Последние новости -->
-                    <div class="sidebar-widget recent-widget">
-                        <h4>🕒 Последние новости</h4>
-                        <div class="recent-news">
-                            <?php 
-                            $recentNews = array_slice($news, 0, 5);
-                            foreach ($recentNews as $item): 
-                            ?>
-                            <div class="recent-item">
-                                <div class="recent-date"><?php echo date('d.m', strtotime($item['date'])); ?></div>
-                                <div class="recent-content">
-                                    <h5><a href="/news/view/<?php echo $item['id']; ?>"><?php echo htmlspecialchars(substr($item['title'], 0, 50)) . '...'; ?></a></h5>
+                    <div class="sidebar-widget">
+                        <h4><i class="fa fa-clock-o"></i> Последние новости</h4>
+                        <?php 
+                        $recentNews = $newsModel->getRegularNews(5);
+                        if (!empty($recentNews)):
+                        ?>
+                        <div class="recent-news-list">
+                            <?php foreach ($recentNews as $recentItem): ?>
+                            <div class="recent-news-item">
+                                <?php if (!empty($recentItem['news_image'])): ?>
+                                <div class="recent-news-image">
+                                    <img src="/<?php echo htmlspecialchars($recentItem['news_image']); ?>" 
+                                         alt="<?php echo htmlspecialchars($recentItem['news_title']); ?>">
+                                </div>
+                                <?php else: ?>
+                                <div class="recent-news-image">
+                                    <img src="/assets/media/news/default.jpg" 
+                                         alt="Изображение по умолчанию">
+                                </div>
+                                <?php endif; ?>
+                                <div class="recent-news-content">
+                                    <h5 class="recent-news-title">
+                                        <a href="/news/view/<?php echo $recentItem['news_id']; ?>">
+                                            <?php echo htmlspecialchars(substr($recentItem['news_title'], 0, 40)) . '...'; ?>
+                                        </a>
+                                    </h5>
+                                    <div class="recent-news-date">
+                                        <?php echo date('d.m.Y', strtotime($recentItem['news_date_add'])); ?>
+                                    </div>
                                 </div>
                             </div>
                             <?php endforeach; ?>
                         </div>
+                        <?php else: ?>
+                        <p class="empty-state">Новостей пока нет</p>
+                        <?php endif; ?>
                     </div>
                     
                     <!-- Архив -->
@@ -166,6 +110,75 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Основной контент (вторая в HTML для мобильных) -->
+            <div class="col-lg-8 col-md-12">
+                <?php if (!empty($news)): ?>
+                    <div class="news-grid">
+                        <?php foreach ($news as $item): ?>
+                <div class="news-card" data-aos="fade-up">
+                    <?php if (!empty($item['news_image'])): ?>
+                    <div class="news-image">
+                        <img src="/<?php echo htmlspecialchars($item['news_image']); ?>" 
+                             alt="<?php echo htmlspecialchars($item['news_title']); ?>"
+                             class="news-img">
+                        <div class="news-image-overlay">
+                            <div class="news-category-badge">
+                                <?php echo htmlspecialchars($item['category_name'] ?? 'Новость'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <div class="news-card-content">
+                        <div class="news-meta">
+                            <span><i class="fa fa-calendar"></i> <?php echo date('d.m.Y', strtotime($item['news_date_add'])); ?></span>
+                            <span><i class="fa fa-user"></i> <?php echo htmlspecialchars($item['news_author'] ?? 'Администрация'); ?></span>
+                            <span class="news-time"><i class="fa fa-clock-o"></i> <?php echo date('H:i', strtotime($item['news_date_add'])); ?></span>
+                        </div>
+                        <h3 class="news-title">
+                            <a href="/news/view/<?php echo $item['news_id']; ?>"><?php echo htmlspecialchars($item['news_title']); ?></a>
+                        </h3>
+                        <p class="news-excerpt"><?php echo htmlspecialchars(substr($item['news_text'], 0, 200)) . '...'; ?></p>
+                        <div class="news-actions">
+                            <a href="/news/view/<?php echo $item['news_id']; ?>" class="btn btn-primary">
+                                <i class="fa fa-eye"></i> Читать далее
+                            </a>
+                            <button class="bookmark-btn" onclick="bookmarkNews(<?php echo $item['news_id']; ?>)" data-news-id="<?php echo $item['news_id']; ?>">
+                                <i class="fa fa-bookmark"></i> Закладка
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+                    </div>
+                    
+                    <!-- Пагинация -->
+                    <?php if (!empty($pagination)): ?>
+                        <div class="pagination-wrapper" data-aos="fade-up">
+                            <?php echo $pagination; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div class="empty-state" data-aos="fade-up">
+                        <div class="empty-icon">
+                            <i class="fa fa-newspaper-o"></i>
+                        </div>
+                        <h3>Новостей пока нет</h3>
+                        <p>Следите за обновлениями, скоро появятся новые материалы</p>
+                        <a href="/" class="btn btn-primary">
+                            <i class="fa fa-home"></i>
+                            На главную
+                        </a>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if (isset($error)): ?>
+                    <div class="alert alert-danger" data-aos="fade-up">
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <?php echo htmlspecialchars($error); ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -282,6 +295,8 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    display: flex; /* Added for image and content layout */
+    flex-direction: column; /* Added for image and content layout */
 }
 
 .news-card::before {
@@ -304,18 +319,69 @@
     box-shadow: 0 16px 48px rgba(0,0,0,0.15);
 }
 
+.news-image {
+    position: relative;
+    width: 100%;
+    height: 250px; /* Fixed height for image */
+    overflow: hidden;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.1); /* Added border for image */
+}
+
+.news-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.news-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.news-card:hover .news-image-overlay {
+    opacity: 1;
+}
+
+.news-category-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.news-card-content {
+    padding: 20px 30px 30px;
+    flex-grow: 1; /* Allow content to grow and take available space */
+}
+
 .news-card-header {
-    padding: 30px 30px 20px;
+    padding-bottom: 15px; /* Adjusted padding */
     border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+    margin-bottom: 15px; /* Added margin */
 }
 
 .news-meta {
     display: flex;
     gap: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Adjusted margin */
 }
 
-.news-date, .news-category {
+.news-date, .news-category, .news-time {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -324,7 +390,7 @@
     font-weight: 500;
 }
 
-.news-date i, .news-category i {
+.news-date i, .news-category i, .news-time i {
     color: #667eea;
 }
 
@@ -341,7 +407,7 @@
 }
 
 .news-card-body {
-    padding: 20px 30px 30px;
+    padding-top: 0; /* Adjusted padding */
 }
 
 .news-excerpt {
@@ -355,6 +421,7 @@
     display: flex;
     gap: 15px;
     align-items: center;
+    flex-wrap: wrap; /* Allow buttons to wrap */
 }
 
 .btn {
@@ -381,6 +448,26 @@
     background: transparent;
     color: #667eea;
     border: 2px solid #667eea;
+}
+
+.btn-icon {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 10px; /* Adjusted padding for icon-only button */
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-icon:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    text-decoration: none;
 }
 
 .btn::before {
@@ -538,14 +625,21 @@
     position: relative;
 }
 
-.search-input {
-    width: 100%;
-    padding: 14px 50px 14px 16px;
+.search-input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.9);
     border: 2px solid #e5e7ef;
     border-radius: 12px;
+    overflow: hidden;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 14px 16px;
+    border: none;
     font-size: 16px;
     transition: all 0.3s ease;
-    background: rgba(255,255,255,0.9);
 }
 
 .search-input:focus {
@@ -556,15 +650,11 @@
 }
 
 .search-btn {
-    position: absolute;
-    right: 35px;
-    top: 50%;
-    transform: translateY(-50%);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 12px 20px;
+    border-radius: 0 12px 12px 0;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
@@ -623,6 +713,23 @@
 
 .recent-item:last-child {
     border-bottom: none;
+}
+
+.recent-image {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.recent-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recent-content {
+    flex-grow: 1;
 }
 
 .recent-date {
@@ -716,14 +823,30 @@
         padding: 30px 20px;
     }
     
+    .news-card {
+        flex-direction: column; /* Stack image and content on small screens */
+    }
+
+    .news-image {
+        height: 200px; /* Adjust image height for smaller screens */
+        border-bottom: none; /* Remove border if stacked */
+        margin-bottom: 15px; /* Add margin below image */
+    }
+
+    .news-card-content {
+        padding: 0 20px 20px; /* Adjust content padding */
+    }
+
     .news-card-header {
-        padding: 20px 20px 15px;
+        padding-bottom: 10px; /* Adjust header padding */
+        margin-bottom: 10px; /* Adjust header margin */
     }
-    
-    .news-card-body {
-        padding: 15px 20px 20px;
+
+    .news-meta {
+        flex-direction: column; /* Stack meta items */
+        gap: 10px; /* Adjust gap */
     }
-    
+
     .news-title {
         font-size: 20px;
     }
@@ -789,3 +912,9 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<!-- Подключение JavaScript для функций новостей -->
+<script src="/assets/js/news-functions.js"></script>
+
+<!-- Подключение современного CSS для новостей -->
+<link href="/assets/css/news-modern.css?v=2.0.0" rel="stylesheet" type="text/css" />

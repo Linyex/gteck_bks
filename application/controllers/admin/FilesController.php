@@ -23,7 +23,7 @@ class FilesController extends BaseAdminController {
             
             $totalPages = ceil($total / $limit);
             
-            return $this->render('admin/files/index', [
+            $this->render('admin/files/index', [
                 'title' => 'Управление файлами',
                 'currentPage' => 'files',
                 'files' => $files,
@@ -39,7 +39,7 @@ class FilesController extends BaseAdminController {
                 ]
             ]);
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Не удалось загрузить файлы: ' . $e->getMessage()
             ]);
@@ -47,7 +47,7 @@ class FilesController extends BaseAdminController {
     }
     
     public function upload() {
-        return $this->render('admin/files/upload', [
+        $this->render('admin/files/upload', [
             'title' => 'Загрузить файл',
             'currentPage' => 'files',
             'additional_css' => [
@@ -141,7 +141,7 @@ class FilesController extends BaseAdminController {
             $file = Database::fetchOne("SELECT * FROM files WHERE files_id = ?", [$id]);
             
             if (!$file) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Файл не найден',
                     'message' => 'Файл с ID ' . $id . ' не найден'
                 ]);
@@ -150,7 +150,7 @@ class FilesController extends BaseAdminController {
             $filePath = 'assets/files/' . $file['files_path'];
             
             if (!file_exists($filePath)) {
-                return $this->render('admin/error/404', [
+                $this->render('admin/error/404', [
                     'title' => 'Файл не найден',
                     'message' => 'Физический файл не найден на сервере'
                 ]);
@@ -173,7 +173,7 @@ class FilesController extends BaseAdminController {
             exit;
             
         } catch (Exception $e) {
-            return $this->render('admin/error/error', [
+            $this->render('admin/error/error', [
                 'title' => 'Ошибка',
                 'message' => 'Ошибка при скачивании файла: ' . $e->getMessage()
             ]);
