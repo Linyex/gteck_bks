@@ -415,8 +415,9 @@
 .hero-title .highlight {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: currentColor; /* предотвращает невидимость в некоторых браузерах */
 }
 
 .hero-subtitle {

@@ -865,3 +865,75 @@ a:hover {
     display: block !important;
   }
 } 
+
+/* ===== BRANDED LINK ANIMATIONS ===== */
+@keyframes gradientShiftGtec {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.link-animated {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-image: linear-gradient(90deg, var(--primary-color), var(--secondary-color), #f59e0b);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: currentColor; /* безопасно для WebKit */
+  animation: gradientShiftGtec 6s ease-in-out infinite;
+  transition: transform var(--transition-base), text-shadow var(--transition-base);
+}
+
+.link-animated:hover {
+  transform: translateY(-1px);
+  text-shadow: 0 6px 18px rgba(139, 92, 246, 0.25);
+}
+
+.link-animated i {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Variants tuned to brand tones */
+.link-developer {
+  composes: link-animated;
+  background-image: linear-gradient(90deg, #8B5CF6, #10B981, #06B6D4);
+}
+
+.link-git {
+  composes: link-animated;
+  background-image: linear-gradient(90deg, #24292e, #8B5CF6, #10B981);
+}
+
+.link-telegram {
+  composes: link-animated;
+  background-image: linear-gradient(90deg, #229ED9, #8B5CF6, #10B981);
+}
+
+/* Underline shimmer on hover */
+.link-animated::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background-size: 200% 200%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.link-animated:hover::after {
+  transform: scaleX(1);
+}
