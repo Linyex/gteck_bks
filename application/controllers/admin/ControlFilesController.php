@@ -9,19 +9,78 @@ class ControlFilesController extends BaseAdminController {
         $this->requireAccessLevel(1); // Редакторы и выше
         
         try {
-            // Получаем все файлы с группами
-            $files = Database::fetchAll("
-                SELECT f.*, GROUP_CONCAT(j.group_name) as group_names 
+            // Параметры фильтрации
+            $filter_group = $_GET['group'] ?? '';
+            $search = $_GET['search'] ?? '';
+            
+            // Базовый SQL запрос
+            $sql = "
+                SELECT f.*, GROUP_CONCAT(j.group_name) as group_names
                 FROM dkrfiles f 
-                LEFT JOIN dkrjointable j ON f.id = j.fileid 
-                GROUP BY f.id 
-                ORDER BY f.upload_date DESC
+                LEFT JOIN dkrjointable j ON f.id = j.fileid
+            ";
+            
+            $where_conditions = [];
+            $params = [];
+            
+            // Фильтр по группам
+            if (!empty($filter_group)) {
+                $where_conditions[] = "j.group_name = ?";
+                $params[] = $filter_group;
+            }
+            
+            // Поиск по названию файла
+            if (!empty($search)) {
+                $where_conditions[] = "f.filename LIKE ?";
+                $params[] = '%' . $search . '%';
+            }
+            
+            if (!empty($where_conditions)) {
+                $sql .= " WHERE " . implode(' AND ', $where_conditions);
+            }
+            
+            $sql .= " GROUP BY f.id ORDER BY f.upload_date DESC";
+            
+            $files = Database::fetchAll($sql, $params);
+            
+            // Добавляем размер файла к каждому файлу
+            foreach ($files as &$file) {
+                $file_path = $_SERVER['DOCUMENT_ROOT'] . $file['path'];
+                if (file_exists($file_path)) {
+                    $file['filesize'] = filesize($file_path);
+                } else {
+                    $file['filesize'] = 0;
+                }
+            }
+            
+            // Получаем список всех групп для фильтра
+            $groups = Database::fetchAll("
+                SELECT DISTINCT group_name 
+                FROM dkrjointable 
+                ORDER BY group_name
             ");
+            
+            // Статистика
+            $stats = [
+                'total_files' => count($files),
+                'total_size' => 0,
+                'groups_count' => count($groups)
+            ];
+            
+            // Подсчитываем общий размер файлов
+            foreach ($files as $file) {
+                $stats['total_size'] += $file['filesize'];
+            }
             
             echo $this->render('admin/control-files/index', [
                 'files' => $files,
+                'groups' => $groups,
+                'stats' => $stats,
+                'filter_group' => $filter_group,
+                'search' => $search,
                 'title' => 'Управление файлами контрольных работ',
-                'currentPage' => 'control-files'
+                'currentPage' => 'control-files',
+                'formatFileSize' => [$this, 'formatFileSize']
             ]);
         } catch (Exception $e) {
             $this->handleError($e);
@@ -47,8 +106,8 @@ class ControlFilesController extends BaseAdminController {
                 
                 $file = $_FILES['file'];
                 
-                // Проверяем тип файла
-                $allowed_types = ['pdf', 'doc', 'docx', 'txt', 'zip', 'rar'];
+                // Проверяем тип файла (добавлен rtf)
+                $allowed_types = ['pdf', 'doc', 'docx', 'rtf', 'txt', 'zip', 'rar'];
                 $file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 
                 if (!in_array($file_ext, $allowed_types)) {
@@ -260,6 +319,19 @@ class ControlFilesController extends BaseAdminController {
             'message' => $e->getMessage(),
             'currentPage' => 'control-files'
         ]);
+    }
+    
+    /**
+     * Форматирует размер файла в читаемый вид
+     */
+    protected function formatFileSize($bytes) {
+        if ($bytes === 0) return '0 Bytes';
+        
+        $k = 1024;
+        $sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        $i = floor(log($bytes) / log($k));
+        
+        return round($bytes / pow($k, $i), 2) . ' ' . $sizes[$i];
     }
 }
 ?> 

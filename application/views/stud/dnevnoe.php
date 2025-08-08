@@ -10,7 +10,7 @@
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">737</span>
-                            <span class="stat-label">Студентов</span>
+                            <span class="stat-label">Учащихся</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">3</span>

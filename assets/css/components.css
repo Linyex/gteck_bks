@@ -905,17 +905,14 @@ a:hover {
 
 /* Variants tuned to brand tones */
 .link-developer {
-  composes: link-animated;
   background-image: linear-gradient(90deg, #8B5CF6, #10B981, #06B6D4);
 }
 
 .link-git {
-  composes: link-animated;
   background-image: linear-gradient(90deg, #24292e, #8B5CF6, #10B981);
 }
 
 .link-telegram {
-  composes: link-animated;
   background-image: linear-gradient(90deg, #229ED9, #8B5CF6, #10B981);
 }
 

@@ -4,6 +4,7 @@ class BaseController {
     protected $db;
     protected $config;
     protected $data = [];
+    protected $settings = [];
     
     public function __construct() {
         // Инициализируем подключение к БД
@@ -30,6 +31,12 @@ class BaseController {
         
         // Загружаем конфигурацию
         $this->config = require(APPLICATION_DIR . 'config.php');
+
+        // Глобальные настройки из БД
+        $this->loadAppSettings();
+
+        // Принудительное перенаправление на HTTPS при необходимости
+        $this->enforceHttpsIfRequired();
     }
     
     // Метод для загрузки модели
@@ -84,6 +91,10 @@ class BaseController {
             }
         }
         
+        // Безопасностные и кэш-заголовки при необходимости
+        $this->applySecurityHeaders();
+        $this->applyCacheHeaders();
+
         // Выводим содержимое буфера
         echo ob_get_clean();
     }
@@ -135,5 +146,83 @@ class BaseController {
     protected function isAjax() {
         return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+    }
+
+    // ====== Дополнительно: настройки приложения ======
+    protected function loadAppSettings() {
+        try {
+            $rows = Database::fetchAll("SELECT setting_key, setting_value FROM settings");
+            $settings = [];
+            foreach ($rows as $row) {
+                $settings[$row['setting_key']] = $row['setting_value'];
+            }
+
+            // Значения по умолчанию
+            $defaults = [
+                'site_name' => 'NoContrGtec',
+                'site_description' => 'Административная панель',
+                'admin_email' => 'admin@example.com',
+                'max_file_size' => 10,
+                'allowed_file_types' => 'jpg,jpeg,png,gif,pdf,doc,docx',
+                'enable_registration' => 1,
+                'enable_notifications' => 1,
+                'session_timeout' => 3600,
+                'maintenance_mode' => 0,
+                'enable_lazy_loading' => 1,
+                'enable_service_worker' => 1,
+                'cache_max_age' => 86400,
+                'security_enforce_https' => 0,
+                'security_content_security_policy' => "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'"
+            ];
+
+            $this->settings = array_merge($defaults, $settings);
+        } catch (Exception $e) {
+            // В случае ошибки используем дефолты
+            $this->settings = [
+                'enable_lazy_loading' => 1,
+                'enable_service_worker' => 1,
+                'cache_max_age' => 86400,
+                'security_enforce_https' => 0,
+                'security_content_security_policy' => "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'"
+            ];
+        }
+
+        // Прокидываем в представления
+        $this->data['settings'] = $this->settings;
+    }
+
+    protected function enforceHttpsIfRequired() {
+        if (!empty($this->settings['security_enforce_https'])) {
+            $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+                       (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
+                       (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+            if (!$isHttps) {
+                $host = $_SERVER['HTTP_HOST'] ?? '';
+                $uri = $_SERVER['REQUEST_URI'] ?? '/';
+                header('Location: https://' . $host . $uri, true, 301);
+                exit;
+            }
+        }
+    }
+
+    protected function applyCacheHeaders() {
+        if (!headers_sent() && $_SERVER['REQUEST_METHOD'] === 'GET') {
+            $maxAge = (int)($this->settings['cache_max_age'] ?? 0);
+            if ($maxAge > 0) {
+                header('Cache-Control: public, max-age=' . $maxAge);
+            }
+        }
+    }
+
+    protected function applySecurityHeaders() {
+        if (!headers_sent()) {
+            $csp = (string)($this->settings['security_content_security_policy'] ?? "");
+            if ($csp !== '') {
+                header('Content-Security-Policy: ' . $csp);
+            }
+            header('X-Content-Type-Options: nosniff');
+            header('X-Frame-Options: SAMEORIGIN');
+            header('Referrer-Policy: strict-origin-when-cross-origin');
+        }
     }
 } 

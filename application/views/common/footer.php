@@ -127,9 +127,9 @@
 
                         <!-- Студентам -->
                         <div class="col-lg-3 col-md-6 mb-4">
-                            <h4 class="footer-heading">Студентам</h4>
+                            <h4 class="footer-heading">Учащимся</h4>
                             <ul class="footer-links">
-                                <li><a href="/stud">Студенческий раздел</a></li>
+                                <li><a href="/stud">Учебный раздел</a></li>
                                 <li><a href="/stud/kontrolnui">Контрольные работы</a></li>
                                 <li><a href="/stud/library">Библиотека</a></li>
                                 <li><a href="/stud/hostel">Общежитие</a></li>
@@ -174,23 +174,37 @@
                                     © 2025 Гомельский торгово-экономический колледж. Все права защищены.
                                 </p>
                             </div>
-                            <div class="col-md-6 text-md-end">
-                                <div class="footer-bottom-links">
-                                    <a href="/okno">Одно окно</a>
-                                    <a href="/message">FAQ</a>
-                                    <a href="/search">Поиск</a>
+                                <div class="col-md-6 text-md-end">
+                                    <div class="footer-bottom-links">
+                                    <a>Сайт разработан - Тозиком Данилой Андреевичем</a>
+                                    <a href="https://github.com/Linyex" class="link-git link-animated"><i class="fa fa-github"></i>GitHub</a>
+                                    <a href="https://t.me/Nerso_LS" class="link-telegram link-animated"><i class="fa fa-telegram"></i>Telegram</a>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </footer>
 
             <!-- Оптимизированные JS Scripts -->
-            <script src="/assets/js/gtec.js"></script>
-            <script src="/assets/js/optimized.js?v=1.2.0"></script>
-            <script src="/assets/js/lazy-loading.js?v=1.2.0"></script>
-            <script src="/assets/js/main-page.js"></script>
+            <script src="/assets/js/gtec.js" defer></script>
+            <script src="/assets/js/optimized.js?v=1.2.0" defer></script>
+            <?php if (!empty($settings['enable_lazy_loading'])): ?>
+            <script src="/assets/js/lazy-loading.js?v=1.2.0" defer></script>
+            <?php endif; ?>
+            <script src="/assets/js/main-page.js" defer></script>
+
+            <?php if (!empty($settings['enable_service_worker'])): ?>
+            <script>
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', function() {
+                        navigator.serviceWorker.register('/sw.js').catch(function(err){
+                            console.warn('SW registration failed', err);
+                        });
+                    });
+                }
+            </script>
+            <?php endif; ?>
             
             <script type="text/javascript">
                 $(document).ready(function() {

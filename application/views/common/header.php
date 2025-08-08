@@ -5,6 +5,8 @@
     <title><?php echo $title; ?>Гомельский торгово-экономический колледж</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="gtec-bks.by" name="url" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Preload критических ресурсов -->
@@ -40,13 +42,16 @@
     <!-- Принудительное удаление размытий (загружается последним!) -->
     <link href="/assets/css/clear-blur.css?v=1.0.0" rel="stylesheet" type="text/css" />
     
+    <!-- Исправления для header (загружается последним!) -->
+    <link href="/assets/css/header-fixes.min.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.png" />
     
     <!-- Оптимизированные скрипты -->
     <script src="/assets/js/jquery.min.js?v=1.2.0"></script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="/assets/js/modern-components.js?v=1.2.0"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <script src="/assets/js/modern-components.js?v=1.2.0" defer></script>
 </head>
 <body>
     
@@ -57,16 +62,8 @@
             <div class="brand-section">
                 <div class="logo-container">
                     <a href="/" class="logo-link">
-                        <img class="logo-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" src="/assets/img/logos/logos.png">
-                            <rect width="40" height="40" rx="8" fill="url(#logoGradient)"/>
-                            <path d="M8 12h24v4H20v12h-4V16H8v-4z" fill="white"/>
-                            <defs>
-                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#8B5CF6"/>
-                                    <stop offset="100%" style="stop-color:#3B82F6"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                        <img class="logo-svg" width="40" height="40" src="/assets/img/logos/logos.png" alt="ГТЭК" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="logo-fallback" style="display: none;">🎓</div>
                     </a>
                 </div>
                 <div class="brand-text">
@@ -168,7 +165,7 @@
                                </ul>
                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/okno" style="cursor: pointer;">Одно окно</a>
+                                <a class="nav-link dropdown-toggle" style="cursor: pointer;">Одно окно</a>
                                <ul class="dropdown-menu">
                                    <li><a href="/okno/info">Общая информация в службе "Одно окно"</a></li>
                                    <li><a href="/okno/proc">Административные процедуры</a></li>
@@ -185,12 +182,21 @@
                        </ul>
                    </div>
 
-                <!-- Правая часть: кнопка для слабовидящих -->
+                <!-- Правая часть: кнопка для слабовидящих как выпадающее меню -->
                 <div class="actions-section">
-                    <a href="#" class="accessibility-btn" id="accessibility-toggle">
-                        <i class="fa fa-eye"></i>
-                        <span class="accessibility-text">для слабовидящих</span>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle accessibility-btn" style="cursor: pointer; display: inline-flex; align-items:center; gap:8px;">
+                            <i class="fa fa-eye"></i>
+                            <span class="accessibility-text">для слабовидящих</span>
+                        </a>
+                        <ul class="dropdown-menu" style="min-width: 260px;">
+                            <li><a href="#" class="js-accessibility-toggle">Переключить режим</a></li>
+                            <li><a href="#" class="js-font-plus">Увеличить шрифт</a></li>
+                            <li><a href="#" class="js-font-minus">Уменьшить шрифт</a></li>
+                            <li><a href="#" class="js-contrast-toggle">Высокая контрастность</a></li>
+                            <li><a href="#" class="js-reset-accessibility">Сбросить настройки</a></li>
+                        </ul>
+                    </div>
                     
                     <!-- Мобильная кнопка меню -->
                     <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Открыть меню">
@@ -376,5 +382,5 @@
         <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
 
     <!-- Подключение JavaScript для header -->
-    <script src="/assets/js/header.js?v=1.2.0"></script>
-    <script src="/assets/js/mobile-header.js?v=1.0.0"></script>
+    <script src="/assets/js/header.js?v=1.2.0" defer></script>
+    <script src="/assets/js/mobile-header.js?v=1.0.0" defer></script>

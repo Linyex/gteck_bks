@@ -78,7 +78,7 @@ if (!defined('SESSION_LIFETIME')) define('SESSION_LIFETIME', 3600);
 
 if (!defined('UPLOAD_PATH')) define('UPLOAD_PATH', __DIR__ . '/../uploads/');
 if (!defined('MAX_FILE_SIZE')) define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
-if (!defined('ALLOWED_EXTENSIONS')) define('ALLOWED_EXTENSIONS', serialize(['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx']));
+if (!defined('ALLOWED_EXTENSIONS')) define('ALLOWED_EXTENSIONS', serialize(['jpg', 'rtf', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx']));
 
 if (!defined('CSRF_TOKEN_NAME')) define('CSRF_TOKEN_NAME', 'csrf_token');
 if (!defined('PASSWORD_SALT')) define('PASSWORD_SALT', 'nocontrgtec_salt_2024');

@@ -88,7 +88,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Правоведение</span>
-                                                <span class="specialty-code">2-24 01 02</span>
+                                                <span class="specialty-code">5-04-0612-02</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">52</td>
@@ -101,7 +101,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Бухгалтерский учёт, анализ и контроль</span>
-                                                <span class="specialty-code">2-25 01 08</span>
+                                                <span class="specialty-code">5-04-0411-01</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">28</td>
@@ -114,7 +114,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Планово-экономическая и аналитическая деятельность</span>
-                                                <span class="specialty-code">2-25 01 07</span>
+                                                <span class="specialty-code">5-04-0311-01</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">28</td>
@@ -127,7 +127,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Разработка и сопровождение программного обеспечения информационных систем</span>
-                                                <span class="specialty-code">2-40 01 01</span>
+                                                <span class="specialty-code">5-04-0612-02</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">52</td>
@@ -140,7 +140,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Торговая деятельность</span>
-                                                <span class="specialty-code">2-26 02 02</span>
+                                                <span class="specialty-code">5-04-0413-01</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">50</td>
@@ -153,7 +153,7 @@
                                         <td class="specialty-name">
                                             <div class="specialty-info">
                                                 <span class="specialty-title">Торговое обслуживание</span>
-                                                <span class="specialty-code">3-26 02 31</span>
+                                                <span class="specialty-code">4-02-0413-01</span>
                                             </div>
                                         </td>
                                         <td class="number-cell">30</td>

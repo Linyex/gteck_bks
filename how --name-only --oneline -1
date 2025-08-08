@@ -1,0 +1,70 @@
+warning: in the working copy of 'application/config.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/controllers/admin/SettingsController.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/controllers/stud.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/abut/plan.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/abut/spec.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/control-files/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/enhanced-analytics/activity-details.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/enhanced-analytics/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/monitoring/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/security/audit.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/security/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/users/create.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/admin/users/index.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/common/footer.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/common/header.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/okno/osnovi.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/stud/byx.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/stud/dnevnoe.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/stud/hostel.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'application/views/stud/zaoch.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/css/admin-cyberpunk.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/css/header.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/js/admin-common.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/js/header.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'engine/BaseController.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'engine/main/admin_router.php', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'error_log', LF will be replaced by CRLF the next time Git touches it
+a.php
+application/config.php
+application/controllers/admin/ControlFilesController.php
+application/controllers/admin/MonitoringController.php
+application/controllers/admin/SettingsController.php
+application/controllers/stud.php
+application/views/abut/plan.php
+application/views/abut/spec.php
+application/views/admin/common/header.php
+application/views/admin/common/sidebar.php
+application/views/admin/control-files/index.php
+application/views/admin/control-files/upload.php
+application/views/admin/enhanced-analytics/activity-details.php
+application/views/admin/enhanced-analytics/index.php
+application/views/admin/layouts/base.php
+application/views/admin/layouts/header.php
+application/views/admin/monitoring/index.php
+application/views/admin/monitoring/logs.php
+application/views/admin/monitoring/reports.php
+application/views/admin/monitoring/settings.php
+application/views/admin/security/audit.php
+application/views/admin/security/index.php
+application/views/admin/settings/index.php
+application/views/admin/test_view.php
+application/views/admin/users/create.php
+application/views/admin/users/index.php
+application/views/common/footer.php
+application/views/common/header.php
+application/views/okno/osnovi.php
+application/views/stud/byx.php
+application/views/stud/dnevnoe.php
+application/views/stud/hostel.php
+application/views/stud/kontrolnui_old.php
+application/views/stud/zaoch.php
+assets/css/admin-cyberpunk.css
+assets/css/header.css
+assets/css/mobile-header.css
+assets/js/admin-common.js
+assets/js/header.js
+engine/BaseController.php
+engine/main/admin_router.php
+engine/services/SecurityMonitoringService.php
+error_log

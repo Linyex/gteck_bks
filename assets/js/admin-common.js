@@ -14,7 +14,6 @@ class AdminPanel {
     }
 
     setupEventListeners() {
-        // Global click handler for closing dropdowns
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.header-item')) {
                 this.closeAllDropdowns();
@@ -145,8 +144,10 @@ class AdminPanel {
             </a>
         `;
 
-        const button = document.querySelector('.header-btn[onclick="toggleNotifications()"]');
-        button.parentNode.appendChild(dropdown);
+        const button = document.querySelector('.action-btn[onclick="toggleNotifications()"]') || document.querySelector('.header-btn[onclick="toggleNotifications()"]');
+        if (button && button.parentNode) {
+            button.parentNode.appendChild(dropdown);
+        }
     }
 
     hideNotificationsDropdown() {
@@ -183,8 +184,10 @@ class AdminPanel {
             </a>
         `;
 
-        const button = document.querySelector('.header-btn[onclick="toggleUserMenu()"]');
-        button.parentNode.appendChild(dropdown);
+        const button = document.querySelector('.action-btn[onclick="toggleUserMenu()"]') || document.querySelector('.header-btn[onclick="toggleUserMenu()"]');
+        if (button && button.parentNode) {
+            button.parentNode.appendChild(dropdown);
+        }
     }
 
     hideUserDropdown() {
@@ -361,4 +364,66 @@ window.addEventListener('beforeunload', () => {
     if (window.adminPanel) {
         window.adminPanel.closeAllDropdowns();
     }
-}); 
+});
+
+// Улучшенная логика для dropdown меню
+document.addEventListener('DOMContentLoaded', function() {
+    // Функция для позиционирования dropdown
+    function positionDropdown(dropdownItem) {
+        const dropdownMenu = dropdownItem.querySelector('.dropdown-menu');
+        const rect = dropdownItem.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Проверяем, помещается ли dropdown снизу
+        if (rect.bottom + dropdownMenu.offsetHeight > viewportHeight) {
+            // Если не помещается, показываем сверху
+            dropdownMenu.style.top = 'auto';
+            dropdownMenu.style.bottom = '0';
+        } else {
+            // Показываем снизу
+            dropdownMenu.style.top = '0';
+            dropdownMenu.style.bottom = 'auto';
+        }
+    }
+    
+    // Обработчики для dropdown
+    document.querySelectorAll('.nav-item.dropdown').forEach(dropdownItem => {
+        const dropdownMenu = dropdownItem.querySelector('.dropdown-menu');
+        let hideTimeout;
+        
+        // Показать dropdown при наведении
+        dropdownItem.addEventListener('mouseenter', function() {
+            clearTimeout(hideTimeout);
+            positionDropdown(dropdownItem);
+            dropdownMenu.classList.add('show');
+        });
+        
+        // Скрыть dropdown при уходе курсора
+        dropdownItem.addEventListener('mouseleave', function() {
+            hideTimeout = setTimeout(() => {
+                dropdownMenu.classList.remove('show');
+            }, 300);
+        });
+        
+        // Не скрывать при наведении на dropdown
+        dropdownMenu.addEventListener('mouseenter', function() {
+            clearTimeout(hideTimeout);
+        });
+        
+        // Скрыть при уходе с dropdown
+        dropdownMenu.addEventListener('mouseleave', function() {
+            hideTimeout = setTimeout(() => {
+                dropdownMenu.classList.remove('show');
+            }, 100);
+        });
+    });
+    
+    // Закрытие всех dropdown при клике вне их
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-item.dropdown')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+});

@@ -30,8 +30,12 @@ class UsersController extends BaseAdminController {
                 $user['last_activity'] = $this->getUserLastActivity($user['user_id']);
             }
             
-            // Получаем статистику безопасности
+            // Получаем статистику безопасности (устойчиво к пустым/NULL)
             $securityStats = $this->getSecurityStats();
+            $securityStats['blocked_users'] = (int)($securityStats['blocked_users'] ?? 0);
+            $securityStats['suspicious_logins_24h'] = (int)($securityStats['suspicious_logins_24h'] ?? 0);
+            $securityStats['failed_logins_24h'] = (int)($securityStats['failed_logins_24h'] ?? 0);
+            $securityStats['active_sessions'] = (int)($securityStats['active_sessions'] ?? 0);
             
             // Получаем последние подозрительные активности
             $suspiciousActivities = $this->getSuspiciousActivities();
@@ -330,10 +334,30 @@ class UsersController extends BaseAdminController {
             return $this->redirect('/admin/users');
         }
         
+        // Поддержка JSON-запроса из fetch() на странице списка пользователей
+        $isJson = isset($_SERVER['CONTENT_TYPE']) && stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false;
         $action = $this->getPost('action');
         $userIds = $this->getPost('user_ids', []);
+        $newAccessLevel = null;
+        
+        if ($isJson || (empty($action) && empty($userIds))) {
+            $raw = file_get_contents('php://input');
+            if (!empty($raw)) {
+                $data = json_decode($raw, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
+                    $action = $data['action'] ?? $action;
+                    $userIds = $data['user_ids'] ?? $userIds;
+                    $newAccessLevel = isset($data['new_access_level']) ? (int)$data['new_access_level'] : null;
+                }
+            }
+        }
         
         if (empty($userIds) || !is_array($userIds)) {
+            if ($isJson) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'message' => 'Не переданы пользователи']);
+                exit;
+            }
             return $this->redirect('/admin/users');
         }
         
@@ -398,7 +422,9 @@ class UsersController extends BaseAdminController {
                     break;
                     
                 case 'change_access':
-                    $newAccessLevel = (int)$this->getPost('new_access_level', 1);
+                    if ($newAccessLevel === null) {
+                        $newAccessLevel = (int)$this->getPost('new_access_level', 1);
+                    }
                     foreach ($userIds as $userId) {
                         try {
                             Database::execute(
@@ -435,7 +461,19 @@ class UsersController extends BaseAdminController {
                     return $this->redirect('/admin/users');
             }
             
-            // Сохраняем результат в сессии для отображения
+            // Если запрос пришёл как JSON (fetch), возвращаем JSON
+            if ($isJson) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => empty($errors),
+                    'success_count' => $successCount,
+                    'errors' => $errors,
+                    'action' => $action
+                ]);
+                exit;
+            }
+            
+            // Иначе сохраняем результат в сессии для отображения
             $_SESSION['mass_action_result'] = [
                 'success_count' => $successCount,
                 'errors' => $errors,
@@ -443,6 +481,15 @@ class UsersController extends BaseAdminController {
             ];
             
         } catch (Exception $e) {
+            if ($isJson) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Общая ошибка: ' . $e->getMessage()
+                ]);
+                exit;
+            }
+            
             $_SESSION['mass_action_result'] = [
                 'success_count' => 0,
                 'errors' => ['Общая ошибка: ' . $e->getMessage()],
@@ -560,11 +607,13 @@ class UsersController extends BaseAdminController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = trim($this->getPost('login'));
             $password = $this->getPost('password');
-            $confirmPassword = $this->getPost('confirm_password');
+            // Имя поля подтверждения пароля в форме: password_confirm
+            $confirmPassword = $this->getPost('password_confirm');
             $fio = trim($this->getPost('fio'));
             $email = trim($this->getPost('email'));
             $accessLevel = (int)$this->getPost('access_level', 1);
-            $status = (int)$this->getPost('status', 1);
+            // В форме используется чекбокс is_active, приводим к 0/1
+            $status = $this->getPost('is_active') === '1' ? 1 : 0;
             
             // Валидация
             $errors = [];
@@ -591,9 +640,8 @@ class UsersController extends BaseAdminController {
                 $errors[] = 'ФИО обязательно';
             }
             
-            if (empty($email)) {
-                $errors[] = 'Email обязателен';
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            // Email необязателен, но если указан — валидируем
+            if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = 'Некорректный email';
             }
             
@@ -614,7 +662,7 @@ class UsersController extends BaseAdminController {
                     $errors[] = 'Пользователь с таким логином уже существует';
                 }
                 
-                // Проверяем email, если указан
+                // Проверяем email, если указан (поле необязательное)
                 if (!empty($email)) {
                     $existingEmail = Database::fetchOne("SELECT user_id FROM users WHERE user_email = ?", [$email]);
                     if ($existingEmail) {
@@ -677,6 +725,12 @@ class UsersController extends BaseAdminController {
             'formData' => $_POST ?? []
         ]);
     }
+
+    // Поддержка POST-маршрута /admin/users/create, ожидающего метод store
+    public function store() {
+        // Делегируем на create(), где уже реализована обработка POST
+        return $this->create();
+    }
     
     private function generateSecurePassword($length = 12) {
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
@@ -706,20 +760,51 @@ class UsersController extends BaseAdminController {
             $stats = [];
             
             // Количество заблокированных пользователей
-            $blockedUsers = Database::fetchOne("SELECT COUNT(*) as count FROM users WHERE user_status = 0");
-            $stats['blocked_users'] = $blockedUsers['count'] ?? 0;
+            $blockedUsers = Database::fetchOne("SELECT COUNT(*) AS count FROM users WHERE user_status = 0");
+            $stats['blocked_users'] = (int)($blockedUsers['count'] ?? 0);
             
-            // Количество подозрительных входов за последние 24 часа
-            $suspiciousLogins = Database::fetchOne("SELECT COUNT(*) as count FROM user_sessions WHERE suspicious = 1 AND login_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)");
-            $stats['suspicious_logins_24h'] = $suspiciousLogins['count'] ?? 0;
+            // Количество подозрительных событий за последние 24 часа
+            // Используем security_audit_log; при отсутствии таблицы/колонок будет fallback
+            try {
+                $suspiciousLogins = Database::fetchOne(
+                    "SELECT COUNT(*) AS count 
+                     FROM security_audit_log 
+                     WHERE action_type IN ('suspicious_login','suspicious_activity') 
+                     AND created_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)"
+                );
+                $stats['suspicious_logins_24h'] = (int)($suspiciousLogins['count'] ?? 0);
+            } catch (Exception $e) {
+                // Fallback на user_sessions если есть соответствующие поля
+                $suspiciousLogins = Database::fetchOne(
+                    "SELECT COUNT(*) AS count FROM user_sessions WHERE is_active = 1"
+                );
+                $stats['suspicious_logins_24h'] = 0; // не считаем как подозрительные, если нет журнала
+            }
             
             // Количество неудачных попыток входа за последние 24 часа
-            $failedLogins = Database::fetchOne("SELECT COUNT(*) as count FROM login_attempts WHERE success = 0 AND attempt_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)");
-            $stats['failed_logins_24h'] = $failedLogins['count'] ?? 0;
+            try {
+                $failedLogins = Database::fetchOne(
+                    "SELECT COUNT(*) AS count 
+                     FROM security_audit_log 
+                     WHERE action_type = 'login_failed' 
+                     AND created_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)"
+                );
+                $stats['failed_logins_24h'] = (int)($failedLogins['count'] ?? 0);
+            } catch (Exception $e) {
+                // Fallback на login_attempts если таблица используется
+                try {
+                    $failedLogins = Database::fetchOne(
+                        "SELECT COUNT(*) AS count FROM login_attempts WHERE success = 0 AND attempt_time > DATE_SUB(NOW(), INTERVAL 24 HOUR)"
+                    );
+                    $stats['failed_logins_24h'] = (int)($failedLogins['count'] ?? 0);
+                } catch (Exception $e2) {
+                    $stats['failed_logins_24h'] = 0;
+                }
+            }
             
-            // Количество активных сессий
-            $activeSessions = Database::fetchOne("SELECT COUNT(*) as count FROM user_sessions WHERE is_active = 1");
-            $stats['active_sessions'] = $activeSessions['count'] ?? 0;
+            // Количество активных сессий (за последние 15 мин)
+            $activeSessions = Database::fetchOne("SELECT COUNT(*) AS count FROM user_sessions WHERE is_active = 1 AND last_activity >= DATE_SUB(NOW(), INTERVAL 15 MINUTE)");
+            $stats['active_sessions'] = (int)($activeSessions['count'] ?? 0);
             
             return $stats;
         } catch (Exception $e) {

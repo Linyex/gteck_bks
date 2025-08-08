@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Обработка кнопки для слабовидящих
     initAccessibilityButton();
+    initAccessibilityDropdown();
     
     // Обработка мобильного меню
     initMobileMenu();
@@ -95,21 +96,22 @@ function initDropdownMenus() {
     const dropdowns = document.querySelectorAll('.nav-item.dropdown');
     
     dropdowns.forEach(dropdown => {
-        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const navLink = dropdown.querySelector('.nav-link');
         const menu = dropdown.querySelector('.dropdown-menu');
         
-        if (!toggle || !menu) return;
+        if (!navLink || !menu) return;
         
         let hideTimeout;
         
         // Функция для позиционирования dropdown меню
         function positionDropdown() {
-            const rect = toggle.getBoundingClientRect();
+            const rect = navLink.getBoundingClientRect();
             const menuHeight = menu.offsetHeight || 300; // Примерная высота
             const viewportHeight = window.innerHeight;
             
-            // Позиционируем dropdown под элементом
-            menu.style.left = (rect.left + rect.width / 2) + 'px';
+            // Позиционируем dropdown справа от элемента
+            menu.style.left = (rect.right + 5) + 'px';
+            menu.style.top = rect.top + 'px';
             
             // Проверяем, поместится ли меню снизу
             if (rect.bottom + menuHeight > viewportHeight) {
@@ -128,18 +130,20 @@ function initDropdownMenus() {
             // Позиционируем меню перед показом
             positionDropdown();
             
+            menu.classList.add('show');
             menu.style.opacity = '1';
             menu.style.visibility = 'visible';
-            menu.style.transform = 'translateX(-50%) translateY(0)';
+            menu.style.transform = 'translateY(0)';
             menu.style.pointerEvents = 'auto';
         });
         
         // Скрыть меню при уходе курсора
         dropdown.addEventListener('mouseleave', function() {
             hideTimeout = setTimeout(() => {
+                menu.classList.remove('show');
                 menu.style.opacity = '0';
                 menu.style.visibility = 'hidden';
-                menu.style.transform = 'translateX(-50%) translateY(10px)';
+                menu.style.transform = 'translateY(-10px)';
                 menu.style.pointerEvents = 'none';
             }, 150);
         });
@@ -190,46 +194,33 @@ function initDropdownMenus() {
                     submenuList.style.visibility = 'hidden';
                     submenuList.style.transform = 'translateX(-10px)';
                     submenuList.style.pointerEvents = 'none';
-                }, 100);
+                }, 150);
             });
         });
-        
-        // Закрыть меню при клике на ссылку
-        const links = menu.querySelectorAll('a[href]');
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                menu.style.opacity = '0';
-                menu.style.visibility = 'hidden';
-                menu.style.transform = 'translateX(-50%) translateY(10px)';
-                menu.style.pointerEvents = 'none';
-            });
+    });
+
+    // Глобальное обновление позиций всех dropdown при скролле/ресайзе
+    const repositionAllDropdowns = () => {
+        document.querySelectorAll('.nav-item.dropdown').forEach(dropdown => {
+            const navLink = dropdown.querySelector('.nav-link');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            if (!navLink || !menu) return;
+
+            const rect = navLink.getBoundingClientRect();
+            const menuHeight = menu.offsetHeight || 300;
+            const viewportHeight = window.innerHeight;
+
+            menu.style.left = (rect.right + 5) + 'px';
+            if (rect.bottom + menuHeight > viewportHeight) {
+                menu.style.top = (rect.top - menuHeight - 10) + 'px';
+            } else {
+                menu.style.top = (rect.bottom + 5) + 'px';
+            }
         });
-        
-        // Обновляем позицию при скролле/ресайзе
-        window.addEventListener('scroll', positionDropdown);
-        window.addEventListener('resize', positionDropdown);
-    });
-    
-    // Закрыть все меню при клике вне их
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.nav-item.dropdown')) {
-            const menus = document.querySelectorAll('.dropdown-menu');
-            menus.forEach(menu => {
-                menu.style.opacity = '0';
-                menu.style.visibility = 'hidden';
-                menu.style.transform = 'translateX(-50%) translateY(10px)';
-                menu.style.pointerEvents = 'none';
-            });
-            
-            const submenus = document.querySelectorAll('.dropdown-submenu-list');
-            submenus.forEach(submenu => {
-                submenu.style.opacity = '0';
-                submenu.style.visibility = 'hidden';
-                submenu.style.transform = 'translateX(-10px)';
-                submenu.style.pointerEvents = 'none';
-            });
-        }
-    });
+    };
+
+    window.addEventListener('scroll', repositionAllDropdowns, { passive: true });
+    window.addEventListener('resize', debounce(repositionAllDropdowns, 100));
 }
 
 // Кнопка для слабовидящих
@@ -266,6 +257,74 @@ function initAccessibilityButton() {
             }
         });
     }
+}
+
+// Выпадающее меню "для слабовидящих"
+function initAccessibilityDropdown() {
+    const root = document.documentElement;
+    const toggleLink = document.querySelector('.js-accessibility-toggle');
+    const fontPlus = document.querySelector('.js-font-plus');
+    const fontMinus = document.querySelector('.js-font-minus');
+    const contrastToggle = document.querySelector('.js-contrast-toggle');
+    const resetBtn = document.querySelector('.js-reset-accessibility');
+
+    // Настройки в localStorage
+    const LS_KEYS = {
+        enabled: 'accessibility-mode',
+        fontScale: 'accessibility-font-scale',
+        highContrast: 'accessibility-high-contrast'
+    };
+
+    // Применить сохраненные
+    const applySaved = () => {
+        const enabled = localStorage.getItem(LS_KEYS.enabled) === 'true';
+        const scale = parseFloat(localStorage.getItem(LS_KEYS.fontScale) || '1');
+        const high = localStorage.getItem(LS_KEYS.highContrast) === 'true';
+        document.body.classList.toggle('accessibility-mode', enabled);
+        root.style.setProperty('--font-scale', Math.min(Math.max(scale, 0.8), 1.6));
+        document.body.classList.toggle('high-contrast', high);
+    };
+
+    applySaved();
+
+    const saveScale = (s) => localStorage.setItem(LS_KEYS.fontScale, String(s));
+
+    toggleLink && toggleLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const enabled = document.body.classList.toggle('accessibility-mode');
+        localStorage.setItem(LS_KEYS.enabled, String(enabled));
+    });
+
+    fontPlus && fontPlus.addEventListener('click', (e) => {
+        e.preventDefault();
+        const current = parseFloat(getComputedStyle(root).getPropertyValue('--font-scale') || '1') || 1;
+        const next = Math.min(current + 0.1, 1.6);
+        root.style.setProperty('--font-scale', next);
+        saveScale(next);
+    });
+
+    fontMinus && fontMinus.addEventListener('click', (e) => {
+        e.preventDefault();
+        const current = parseFloat(getComputedStyle(root).getPropertyValue('--font-scale') || '1') || 1;
+        const next = Math.max(current - 0.1, 0.8);
+        root.style.setProperty('--font-scale', next);
+        saveScale(next);
+    });
+
+    contrastToggle && contrastToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const high = document.body.classList.toggle('high-contrast');
+        localStorage.setItem(LS_KEYS.highContrast, String(high));
+    });
+
+    resetBtn && resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem(LS_KEYS.enabled);
+        localStorage.removeItem(LS_KEYS.fontScale);
+        localStorage.removeItem(LS_KEYS.highContrast);
+        root.style.removeProperty('--font-scale');
+        document.body.classList.remove('high-contrast', 'accessibility-mode');
+    });
 }
 
 // Активация режима для слабовидящих

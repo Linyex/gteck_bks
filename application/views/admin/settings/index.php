@@ -76,6 +76,45 @@ $page_content = '
                 </label>
             </div>
         </div>
+
+        <div class="form-section">
+            <h3><i class="fas fa-rocket"></i> Производительность</h3>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="enable_lazy_loading" name="enable_lazy_loading" ' . (($settings['enable_lazy_loading'] ?? 1) ? 'checked' : '') . '>
+                    Включить Lazy Loading изображений
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="enable_service_worker" name="enable_service_worker" ' . (($settings['enable_service_worker'] ?? 1) ? 'checked' : '') . '>
+                    Включить Service Worker (офлайн кэш)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="cache_max_age">Максимальный размер кэша (секунды)</label>
+                <input type="number" id="cache_max_age" name="cache_max_age" value="' . ($settings['cache_max_age'] ?? 86400) . '" min="0" max="31536000">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3><i class="fas fa-shield-alt"></i> Безопасность</h3>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="security_enforce_https" name="security_enforce_https" ' . (($settings['security_enforce_https'] ?? 0) ? 'checked' : '') . '>
+                    Принудительное перенаправление на HTTPS
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="security_content_security_policy">Content Security Policy (CSP)</label>
+                <textarea id="security_content_security_policy" name="security_content_security_policy" rows="3">' . htmlspecialchars($settings['security_content_security_policy'] ?? "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'") . '</textarea>
+            </div>
+        </div>
         
         <div class="form-actions">
             <button type="submit" class="btn btn-blue">

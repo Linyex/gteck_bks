@@ -2,26 +2,28 @@
 
 /* Гамбургер-меню для мобильных устройств */
 .mobile-menu-toggle {
-    display: flex !important; /* Временно показываем на всех экранах */
+    display: none; /* По умолчанию скрыто на десктопе */
     flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    background: transparent;
-    border: none;
+    justify-content: space-between;
+    width: 42px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.25);
     cursor: pointer;
-    padding: 0;
-    z-index: 1001;
+    padding: 6px;
+    z-index: 1002;
     position: relative;
-    margin-left: 15px;
+    margin-left: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
 .mobile-menu-toggle span {
     width: 100%;
     height: 3px;
-    background: var(--primary-color);
-    border-radius: 2px;
-    transition: all 0.3s ease;
+    background: var(--text-dark, #374151);
+    border-radius: 3px;
+    transition: all 0.25s ease;
     transform-origin: center;
 }
 
@@ -36,6 +38,15 @@
 
 .mobile-menu-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Hover/Focus состояния для лучшей видимости */
+.mobile-menu-toggle:hover,
+.mobile-menu-toggle:focus {
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    outline: none;
 }
 
 /* Мобильная навигация */
@@ -217,14 +228,14 @@
     display: block !important; /* Принудительно показываем */
 }
 
-/* Адаптация для планшетов */
-@media (max-width: 1024px) {
+/* Адаптация для ноутбуков/планшетов (включая высокий масштаб на десктопах) */
+@media (max-width: 1280px) {
     .navigation-section {
         display: none !important;
     }
     
     .mobile-menu-toggle {
-        display: flex;
+        display: flex !important;
     }
     
     .header-container {
@@ -239,14 +250,29 @@
     }
     
     .actions-section {
-        margin-left: 20px;
+        margin-left: 12px;
+        gap: 8px !important;
     }
+
+    /* Показываем только иконку доступности, чтобы освободить место для бургера */
+    .accessibility-text { display: none !important; }
+    .accessibility-btn { padding: 8px 10px !important; }
 }
 
 /* Адаптация для мобильных */
 @media (max-width: 768px) {
+    /* Строим шапку в колонку: сначала бренд, затем блок действий */
+    .header-container {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 8px !important;
+    }
+
     .brand-section {
         min-width: 200px !important;
+        width: 100% !important;
+        justify-content: center !important;
     }
     
     .brand-subtitle {
@@ -258,16 +284,29 @@
     }
     
     .actions-section {
-        margin-left: 10px;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 4px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 6px 12px !important;
     }
     
-    .accessibility-text {
-        display: none;
-    }
+    /* Текст у кнопки доступности можно показывать, место снизу есть */
+    .accessibility-text { display: inline !important; }
     
     .accessibility-btn {
         padding: 8px 12px !important;
         font-size: 16px !important;
+    }
+
+    /* Гарантированно показываем бургер на iPhone (Safari) */
+    .mobile-menu-toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 1002 !important;
     }
 }
 
@@ -357,8 +396,4 @@
 }
 
 /* Принудительно показываем гамбургер-кнопку */
-#mobile-menu-toggle {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-} 
+/* На десктопе не форсируем отображение гамбургер-кнопки */

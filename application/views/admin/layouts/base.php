@@ -9,70 +9,6 @@
     <link rel="stylesheet" href="/assets/css/admin-cyberpunk.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Стили для подменю -->
-    <style>
-        .nav-item.has-submenu {
-            position: relative;
-        }
-        
-        .nav-item.has-submenu .nav-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .submenu-toggle {
-            transition: transform 0.3s ease;
-            font-size: 0.8em;
-        }
-        
-        .nav-item.has-submenu.active .submenu-toggle {
-            transform: rotate(180deg);
-        }
-        
-        .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: rgba(0, 0, 0, 0.1);
-            margin-left: 20px;
-            border-left: 2px solid rgba(0, 255, 255, 0.3);
-        }
-        
-        .nav-item.has-submenu.active .submenu {
-            max-height: 300px;
-        }
-        
-        .submenu-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 15px;
-            color: #b0b0b0;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-            border-left: 2px solid transparent;
-        }
-        
-        .submenu-item:hover {
-            color: #00ffff;
-            background: rgba(0, 255, 255, 0.1);
-            border-left-color: #00ffff;
-        }
-        
-        .submenu-item i {
-            margin-right: 8px;
-            width: 16px;
-            text-align: center;
-        }
-        
-        .submenu-item.active {
-            color: #00ffff;
-            background: rgba(0, 255, 255, 0.15);
-            border-left-color: #00ffff;
-        }
-    </style>
-    
     <!-- Дополнительные стили -->
     <?php if (isset($additional_css)): ?>
         <?php foreach ($additional_css as $css): ?>
@@ -97,374 +33,133 @@
     <!-- Admin Container -->
     <div class="admin-container">
         <!-- Header -->
-        <header class="admin-header">
-            <div class="header-container">
-                <div class="header-left">
-                    <button class="sidebar-toggle" onclick="toggleSidebar()">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="logo-text">CyberAdmin</div>
-                        <div class="logo-subtitle"><?php echo isset($subtitle) ? $subtitle : 'Admin Panel'; ?></div>
+        <header class="new-header">
+            <div class="header-wrapper">
+                <!-- Логотип и название -->
+                <div class="header-brand">
+                    <div class="brand-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h1>CyberAdmin</h1>
+                        <span>Admin Panel</span>
                     </div>
                 </div>
-                
-                <div class="header-center">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" class="header-search" placeholder="Поиск по админке...">
+
+                <!-- Правая часть header -->
+                <div class="header-actions"> 
+                    <!-- Мобильное меню -->
+                    <div class="action-item mobile-menu-toggle">
+                        <button class="action-btn" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars"></i>
+                        </button>
                     </div>
-                </div>
-                
-                <div class="header-right">
-                    <div class="header-item">
-                        <button class="header-btn" onclick="toggleNotifications()">
+                    
+                    <!-- Пользователь -->
+                    <div class="action-item">
+                        <button class="action-btn user-btn" onclick="toggleUserMenu()">
+                            <div class="user-avatar">A</div>
+                            <span class="user-name">Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <!-- Уведомления -->
+                    <div class="action-item">
+                        <button class="action-btn" onclick="toggleNotifications()">
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge">3</span>
                         </button>
                     </div>
-                    <div class="header-item">
-                        <button class="header-btn" onclick="openSettings()">
+
+                    <!-- Настройки -->
+                    <div class="action-item">
+                        <button class="action-btn" onclick="openSettings()">
                             <i class="fas fa-cog"></i>
                         </button>
                     </div>
-                    <div class="header-item">
-                        <button class="header-btn" onclick="toggleUserMenu()">
-                            <div class="user-avatar">A</div>
-                            <span class="user-name">Admin</span>
-                        </button>
-                    </div>
                 </div>
+            </div>
+            
+            <!-- Поднавигация для категорий -->
+            <div class="sub-navigation" id="subNavigation">
+                <!-- Поднавигация будет динамически добавляться через JavaScript -->
             </div>
         </header>
 
-        <!-- Sidebar -->
-        <aside class="admin-sidebar" id="admin-sidebar">
-            <div class="sidebar-header">
-                <h1>CyberAdmin</h1>
-                <p>Admin Panel</p>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <!-- Дашборд -->
-                <div class="nav-item">
+        <!-- Боковая навигация -->
+        <nav class="sidebar-nav">
+            <ul class="nav-menu">
+                <li class="nav-item">
                     <a href="/admin/dashboard" class="nav-link <?php echo isset($currentPage) && $currentPage === 'dashboard' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fas fa-tachometer-alt"></i>
                         <span>Дашборд</span>
                     </a>
-                </div>
-
-                <!-- Пользователи -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/users" class="nav-link <?php echo isset($currentPage) && $currentPage === 'users' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="fas fa-users"></i>
                         <span>Пользователи</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/users" class="submenu-item">
-                            <i class="fas fa-list"></i> Список пользователей
-                        </a>
-                        <a href="/admin/users/create" class="submenu-item">
-                            <i class="fas fa-user-plus"></i> Создать пользователя
-                        </a>
-                        <a href="/admin/users?filter=blocked" class="submenu-item">
-                            <i class="fas fa-user-slash"></i> Заблокированные
-                        </a>
-                        <a href="/admin/users?filter=active" class="submenu-item">
-                            <i class="fas fa-user-check"></i> Активные
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Новости -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/news" class="nav-link <?php echo isset($currentPage) && $currentPage === 'news' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-newspaper"></i>
+                        <i class="fas fa-newspaper"></i>
                         <span>Новости</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/news" class="submenu-item">
-                            <i class="fas fa-list"></i> Список новостей
-                        </a>
-                        <a href="/admin/news/create" class="submenu-item">
-                            <i class="fas fa-plus"></i> Создать новость
-                        </a>
-                        <a href="/admin/news?filter=published" class="submenu-item">
-                            <i class="fas fa-check-circle"></i> Опубликованные
-                        </a>
-                        <a href="/admin/news?filter=draft" class="submenu-item">
-                            <i class="fas fa-edit"></i> Черновики
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Файлы -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/files" class="nav-link <?php echo isset($currentPage) && $currentPage === 'files' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="fas fa-file"></i>
                         <span>Файлы</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/files" class="submenu-item">
-                            <i class="fas fa-list"></i> Список файлов
-                        </a>
-                        <a href="/admin/files/upload" class="submenu-item">
-                            <i class="fas fa-upload"></i> Загрузить файл
-                        </a>
-                        <a href="/admin/files?filter=recent" class="submenu-item">
-                            <i class="fas fa-clock"></i> Недавние
-                        </a>
-                        <a href="/admin/files?filter=large" class="submenu-item">
-                            <i class="fas fa-weight-hanging"></i> Большие файлы
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Фотографии -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/photos" class="nav-link <?php echo isset($currentPage) && $currentPage === 'photos' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-images"></i>
-                        <span>Фотографии</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                        <i class="fas fa-images"></i>
+                        <span>Медиа</span>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/photos" class="submenu-item">
-                            <i class="fas fa-list"></i> Список фотографий
-                        </a>
-                        <a href="/admin/photos/upload" class="submenu-item">
-                            <i class="fas fa-upload"></i> Загрузить фото
-                        </a>
-                        <a href="/admin/photos?filter=gallery" class="submenu-item">
-                            <i class="fas fa-images"></i> Галерея
-                        </a>
-                        <a href="/admin/photos?filter=albums" class="submenu-item">
-                            <i class="fas fa-folder"></i> Альбомы
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Аналитика -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/analytics" class="nav-link <?php echo isset($currentPage) && $currentPage === 'analytics' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-chart-line"></i>
+                        <i class="fas fa-chart-line"></i>
                         <span>Аналитика</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/analytics" class="submenu-item">
-                            <i class="fas fa-chart-bar"></i> Общая аналитика
-                        </a>
-                        <a href="/admin/analytics/security" class="submenu-item">
-                            <i class="fas fa-shield-alt"></i> Безопасность
-                        </a>
-                        <a href="/admin/analytics/user-activity" class="submenu-item">
-                            <i class="fas fa-user-clock"></i> Активность пользователей
-                        </a>
-                        <a href="/admin/analytics/sessions" class="submenu-item">
-                            <i class="fas fa-desktop"></i> Сессии
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Расширенная аналитика -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/enhanced-analytics" class="nav-link <?php echo isset($currentPage) && $currentPage === 'enhanced-analytics' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-brain"></i>
-                        <span>Расширенная аналитика</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/enhanced-analytics" class="submenu-item">
-                            <i class="fas fa-chart-pie"></i> Обзор
-                        </a>
-                        <a href="/admin/enhanced-analytics/geolocation" class="submenu-item">
-                            <i class="fas fa-globe"></i> Геолокация
-                        </a>
-                        <a href="/admin/enhanced-analytics/behavior" class="submenu-item">
-                            <i class="fas fa-route"></i> Поведение
-                        </a>
-                        <a href="/admin/enhanced-analytics/ml-anomalies" class="submenu-item">
-                            <i class="fas fa-exclamation-triangle"></i> ML Аномалии
-                        </a>
-                        <a href="/admin/enhanced-analytics/notifications" class="submenu-item">
-                            <i class="fas fa-bell"></i> Уведомления
-                        </a>
-                        <a href="/admin/enhanced-analytics/reports" class="submenu-item">
-                            <i class="fas fa-file-alt"></i> Отчеты
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Мониторинг системы -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/monitoring" class="nav-link <?php echo isset($currentPage) && $currentPage === 'monitoring' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-shield-alt"></i>
-                        <span>Мониторинг</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/monitoring" class="submenu-item">
-                            <i class="fas fa-tachometer-alt"></i> Главная панель
-                        </a>
-                        <a href="/admin/monitoring/logs" class="submenu-item">
-                            <i class="fas fa-file-alt"></i> Логи системы
-                        </a>
-                        <a href="/admin/monitoring/threats" class="submenu-item">
-                            <i class="fas fa-exclamation-triangle"></i> Угрозы безопасности
-                        </a>
-                        <a href="/admin/monitoring/reports" class="submenu-item">
-                            <i class="fas fa-chart-line"></i> Отчеты безопасности
-                        </a>
-                        <a href="/admin/monitoring/settings" class="submenu-item">
-                            <i class="fas fa-cog"></i> Настройки мониторинга
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Безопасность -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/security" class="nav-link <?php echo isset($currentPage) && $currentPage === 'security' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-lock"></i>
+                        <i class="fas fa-lock"></i>
                         <span>Безопасность</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/security" class="submenu-item">
-                            <i class="fas fa-shield-alt"></i> Обзор безопасности
-                        </a>
-                        <a href="/admin/security/audit" class="submenu-item">
-                            <i class="fas fa-search"></i> Аудит безопасности
-                        </a>
-                        <a href="/admin/security/blocked-ips" class="submenu-item">
-                            <i class="fas fa-ban"></i> Заблокированные IP
-                        </a>
-                        <a href="/admin/security/suspicious-activity" class="submenu-item">
-                            <i class="fas fa-eye"></i> Подозрительная активность
-                        </a>
-                        <a href="/admin/security/2fa" class="submenu-item">
-                            <i class="fas fa-mobile-alt"></i> 2FA управление
-                        </a>
-                        <a href="/admin/security/settings" class="submenu-item">
-                            <i class="fas fa-cog"></i> Настройки безопасности
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Уведомления -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/notifications" class="nav-link <?php echo isset($currentPage) && $currentPage === 'notifications' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-bell"></i>
-                        <span>Уведомления</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/admin/monitoring" class="nav-link <?php echo isset($currentPage) && $currentPage === 'monitoring' ? 'active' : ''; ?>">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Мониторинг</span>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/notifications" class="submenu-item">
-                            <i class="fas fa-list"></i> Все уведомления
-                        </a>
-                        <a href="/admin/notifications/settings" class="submenu-item">
-                            <i class="fas fa-cog"></i> Настройки
-                        </a>
-                        <a href="/admin/notifications?filter=unread" class="submenu-item">
-                            <i class="fas fa-envelope"></i> Непрочитанные
-                        </a>
-                        <a href="/admin/notifications?filter=critical" class="submenu-item">
-                            <i class="fas fa-exclamation-circle"></i> Критические
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Настройки -->
-                <div class="nav-item has-submenu">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/settings" class="nav-link <?php echo isset($currentPage) && $currentPage === 'settings' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-cog"></i>
+                        <i class="fas fa-cog"></i>
                         <span>Настройки</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
                     </a>
-                    <div class="submenu">
-                        <a href="/admin/settings" class="submenu-item">
-                            <i class="fas fa-sliders-h"></i> Общие настройки
-                        </a>
-                        <a href="/admin/settings?section=security" class="submenu-item">
-                            <i class="fas fa-shield-alt"></i> Безопасность
-                        </a>
-                        <a href="/admin/settings?section=notifications" class="submenu-item">
-                            <i class="fas fa-bell"></i> Уведомления
-                        </a>
-                        <a href="/admin/settings?section=backup" class="submenu-item">
-                            <i class="fas fa-database"></i> Резервное копирование
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Пароли групп -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/group-passwords" class="nav-link <?php echo isset($currentPage) && $currentPage === 'group-passwords' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-key"></i>
-                        <span>Пароли групп</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/group-passwords" class="submenu-item">
-                            <i class="fas fa-list"></i> Список паролей
-                        </a>
-                        <a href="/admin/group-passwords/create" class="submenu-item">
-                            <i class="fas fa-plus"></i> Добавить пароль
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Файлы контрольных работ -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/control-files" class="nav-link <?php echo isset($currentPage) && $currentPage === 'control-files' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-file-pdf-o"></i>
-                        <span>Контрольные работы</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/control-files" class="submenu-item">
-                            <i class="fas fa-list"></i> Список файлов
-                        </a>
-                        <a href="/admin/control-files/upload" class="submenu-item">
-                            <i class="fas fa-upload"></i> Загрузить файл
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Профиль -->
-                <div class="nav-item has-submenu">
-                    <a href="/admin/profile" class="nav-link <?php echo isset($currentPage) && $currentPage === 'profile' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-user"></i>
-                        <span>Профиль</span>
-                        <i class="fas fa-chevron-down submenu-toggle"></i>
-                    </a>
-                    <div class="submenu">
-                        <a href="/admin/profile" class="submenu-item">
-                            <i class="fas fa-user-edit"></i> Редактировать профиль
-                        </a>
-                        <a href="/admin/profile?section=password" class="submenu-item">
-                            <i class="fas fa-key"></i> Сменить пароль
-                        </a>
-                        <a href="/admin/profile?section=2fa" class="submenu-item">
-                            <i class="fas fa-mobile-alt"></i> 2FA
-                        </a>
-                        <a href="/admin/profile?section=activity" class="submenu-item">
-                            <i class="fas fa-history"></i> Активность
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Выход -->
-                <div class="nav-item">
+                </li>
+                
+                <li class="nav-item">
                     <a href="/admin/logout" class="nav-link">
-                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <i class="fas fa-sign-out-alt"></i>
                         <span>Выход</span>
                     </a>
-                </div>
-            </nav>
-        </aside>
+                </li>
+            </ul>
+        </nav>
 
         <!-- Main Content -->
         <main class="admin-main">
@@ -480,87 +175,133 @@
     <script src="/assets/js/background-animations.js"></script>
     <script src="/assets/js/admin-common.js"></script>
     
-    <!-- JavaScript для подменю -->
+    <!-- JavaScript для боковой навигации -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Обработка кликов по элементам с подменю
-            const submenuItems = document.querySelectorAll('.nav-item.has-submenu .nav-link');
-            
-            submenuItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const navItem = this.closest('.nav-item');
-                    const isActive = navItem.classList.contains('active');
-                    
-                    // Закрываем все другие подменю
-                    document.querySelectorAll('.nav-item.has-submenu').forEach(nav => {
-                        if (nav !== navItem) {
-                            nav.classList.remove('active');
-                        }
-                    });
-                    
-                    // Переключаем текущее подменю
-                    navItem.classList.toggle('active');
-                    
-                    // Если подменю открыто, переходим по ссылке
-                    if (!isActive) {
-                        const href = this.getAttribute('href');
-                        if (href && href !== '#') {
-                            setTimeout(() => {
-                                window.location.href = href;
-                            }, 300);
-                        }
-                    }
-                });
-            });
-            
-            // Обработка кликов по элементам подменю
-            const submenuLinks = document.querySelectorAll('.submenu-item');
-            
-            submenuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Убираем активный класс со всех элементов подменю
-                    document.querySelectorAll('.submenu-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Добавляем активный класс к текущему элементу
-                    this.classList.add('active');
-                });
-            });
-            
             // Автоматическое определение активного элемента на основе URL
             const currentPath = window.location.pathname;
-            const currentSearch = window.location.search;
             
-            // Проверяем основной пункт меню
-            document.querySelectorAll('.nav-item.has-submenu').forEach(navItem => {
-                const mainLink = navItem.querySelector('.nav-link');
-                const href = mainLink.getAttribute('href');
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                const link = navItem.querySelector('.nav-link');
+                const href = link.getAttribute('href');
                 
                 if (href && currentPath.startsWith(href)) {
                     navItem.classList.add('active');
-                    
-                    // Проверяем элементы подменю
-                    const submenuItems = navItem.querySelectorAll('.submenu-item');
-                    submenuItems.forEach(subItem => {
-                        const subHref = subItem.getAttribute('href');
-                        if (subHref && (currentPath + currentSearch).includes(subHref.split('?')[0])) {
-                            subItem.classList.add('active');
-                        }
-                    });
                 }
             });
             
-            // Обработка клика вне подменю для их закрытия
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.nav-item.has-submenu')) {
-                    document.querySelectorAll('.nav-item.has-submenu').forEach(nav => {
-                        nav.classList.remove('active');
-                    });
+            // Закрытие мобильного меню при изменении размера окна
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1200) {
+                    document.querySelector('.sidebar-nav').classList.remove('mobile-open');
+                    document.querySelector('.admin-main').classList.remove('mobile-open');
                 }
             });
+            
+            // Динамическое создание поднавигации
+            function createSubNavigation() {
+                const subNav = document.getElementById('subNavigation');
+                const currentPath = window.location.pathname;
+                
+                // Определяем категорию на основе текущего пути
+                let category = '';
+                let subLinks = [];
+                
+                if (currentPath.startsWith('/admin/users')) {
+                    category = 'Пользователи';
+                    subLinks = [
+                        { href: '/admin/users', text: 'Список пользователей', icon: 'fas fa-list' },
+                        { href: '/admin/users/create', text: 'Создать пользователя', icon: 'fas fa-user-plus' },
+                        { href: '/admin/users/groups', text: 'Группы', icon: 'fas fa-users' }
+                    ];
+                } else if (currentPath.startsWith('/admin/news')) {
+                    category = 'Новости';
+                    subLinks = [
+                        { href: '/admin/news', text: 'Все новости', icon: 'fas fa-list' },
+                        { href: '/admin/news/create', text: 'Создать новость', icon: 'fas fa-plus' },
+                        { href: '/admin/news/categories', text: 'Категории', icon: 'fas fa-tags' }
+                    ];
+                } else if (currentPath.startsWith('/admin/files')) {
+                    category = 'Файлы';
+                    subLinks = [
+                        { href: '/admin/files', text: 'Все файлы', icon: 'fas fa-list' },
+                        { href: '/admin/files/upload', text: 'Загрузить файл', icon: 'fas fa-upload' },
+                        { href: '/admin/control-files', text: 'Контрольные работы', icon: 'fas fa-file-pdf-o' },
+                        { href: '/admin/umk-files', text: 'УМК файлы', icon: 'fas fa-book' }
+                    ];
+                } else if (currentPath.startsWith('/admin/photos')) {
+                    category = 'Медиа';
+                    subLinks = [
+                        { href: '/admin/photos', text: 'Фотографии', icon: 'fas fa-images' },
+                        { href: '/admin/photos/upload', text: 'Загрузить фото', icon: 'fas fa-upload' },
+                        { href: '/admin/photos/albums', text: 'Альбомы', icon: 'fas fa-folder' }
+                    ];
+                } else if (currentPath.startsWith('/admin/analytics')) {
+                    category = 'Аналитика';
+                    subLinks = [
+                        { href: '/admin/analytics', text: 'Основная аналитика', icon: 'fas fa-chart-bar' },
+                        { href: '/admin/enhanced-analytics', text: 'Расширенная аналитика', icon: 'fas fa-brain' },
+                        { href: '/admin/analytics/reports', text: 'Отчеты', icon: 'fas fa-file-alt' }
+                    ];
+                } else if (currentPath.startsWith('/admin/security')) {
+                    category = 'Безопасность';
+                    subLinks = [
+                        { href: '/admin/security', text: 'Обзор безопасности', icon: 'fas fa-shield-alt' },
+                        { href: '/admin/security/audit', text: 'Аудит', icon: 'fas fa-clipboard-list' },
+                        { href: '/admin/security/sessions', text: 'Активные сессии', icon: 'fas fa-users' },
+                        { href: '/admin/security/logs', text: 'Логи безопасности', icon: 'fas fa-file-alt' }
+                    ];
+                } else if (currentPath.startsWith('/admin/monitoring')) {
+                    category = 'Мониторинг';
+                    subLinks = [
+                        { href: '/admin/monitoring', text: 'Дашборд мониторинга', icon: 'fas fa-tachometer-alt' },
+                        { href: '/admin/monitoring/logs', text: 'Системные логи', icon: 'fas fa-file-alt' },
+                        { href: '/admin/monitoring/performance', text: 'Производительность', icon: 'fas fa-chart-line' }
+                    ];
+                } else if (currentPath.startsWith('/admin/settings')) {
+                    category = 'Настройки';
+                    subLinks = [
+                        { href: '/admin/settings', text: 'Общие настройки', icon: 'fas fa-cog' },
+                        { href: '/admin/group-passwords', text: 'Пароли групп', icon: 'fas fa-key' },
+                        { href: '/admin/notifications', text: 'Уведомления', icon: 'fas fa-bell' },
+                        { href: '/admin/profile', text: 'Профиль', icon: 'fas fa-user' }
+                    ];
+                }
+                
+                // Создаем поднавигацию только если есть категория
+                if (category && subLinks.length > 0) {
+                    let subNavHTML = `
+                        <div class="sub-nav-container">
+                            <div class="sub-nav-header">
+                                <h3>${category}</h3>
+                            </div>
+                            <div class="sub-nav-links">
+                    `;
+                    
+                    subLinks.forEach(link => {
+                        const isActive = currentPath === link.href;
+                        subNavHTML += `
+                            <a href="${link.href}" class="sub-nav-link ${isActive ? 'active' : ''}">
+                                <i class="${link.icon}"></i>
+                                <span>${link.text}</span>
+                            </a>
+                        `;
+                    });
+                    
+                    subNavHTML += `
+                            </div>
+                        </div>
+                    `;
+                    
+                    subNav.innerHTML = subNavHTML;
+                    subNav.style.display = 'block';
+                } else {
+                    subNav.style.display = 'none';
+                }
+            }
+            
+            // Запускаем создание поднавигации
+            createSubNavigation();
         });
     </script>
     

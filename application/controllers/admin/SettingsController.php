@@ -51,7 +51,13 @@ class SettingsController extends BaseAdminController {
                 'enable_registration' => isset($_POST['enable_registration']) ? 1 : 0,
                 'enable_notifications' => isset($_POST['enable_notifications']) ? 1 : 0,
                 'session_timeout' => (int)($_POST['session_timeout'] ?? 3600),
-                'maintenance_mode' => isset($_POST['maintenance_mode']) ? 1 : 0
+                'maintenance_mode' => isset($_POST['maintenance_mode']) ? 1 : 0,
+                // Новые расширенные настройки
+                'enable_lazy_loading' => isset($_POST['enable_lazy_loading']) ? 1 : 0,
+                'enable_service_worker' => isset($_POST['enable_service_worker']) ? 1 : 0,
+                'cache_max_age' => (int)($_POST['cache_max_age'] ?? 86400),
+                'security_enforce_https' => isset($_POST['security_enforce_https']) ? 1 : 0,
+                'security_content_security_policy' => $_POST['security_content_security_policy'] ?? ''
             ];
             
             // Обновляем настройки
@@ -91,7 +97,13 @@ class SettingsController extends BaseAdminController {
                 'enable_registration' => 1,
                 'enable_notifications' => 1,
                 'session_timeout' => 3600,
-                'maintenance_mode' => 0
+                'maintenance_mode' => 0,
+                // Новые расширенные настройки (дефолты)
+                'enable_lazy_loading' => 1,
+                'enable_service_worker' => 1,
+                'cache_max_age' => 86400,
+                'security_enforce_https' => 0,
+                'security_content_security_policy' => "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'"
             ];
             
             return array_merge($defaults, $result);
@@ -105,7 +117,13 @@ class SettingsController extends BaseAdminController {
                 'enable_registration' => 1,
                 'enable_notifications' => 1,
                 'session_timeout' => 3600,
-                'maintenance_mode' => 0
+                'maintenance_mode' => 0,
+                // Новые расширенные настройки (fallback)
+                'enable_lazy_loading' => 1,
+                'enable_service_worker' => 1,
+                'cache_max_age' => 86400,
+                'security_enforce_https' => 0,
+                'security_content_security_policy' => "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'"
             ];
         }
     }

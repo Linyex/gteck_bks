@@ -64,6 +64,7 @@ class AdminRouter {
             '/admin/monitoring/api/stats' => ['MonitoringController', 'apiStats'],
             '/admin/monitoring/api/threats' => ['MonitoringController', 'apiThreats'],
             '/admin/monitoring/api/logs' => ['MonitoringController', 'apiLogs'],
+            '/admin/monitoring/api/run-monitoring' => ['MonitoringController', 'apiRunMonitoring'],
             // Уведомления
             '/admin/notifications' => ['NotificationController', 'index'],
             '/admin/notifications/settings' => ['NotificationController', 'settings'],

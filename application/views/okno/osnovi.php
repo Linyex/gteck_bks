@@ -1,4 +1,3 @@
-<?php echo $header ?>
 <!-- Hero Section для нормативных актов -->
 <section class="stud-hero osnovi-hero">
     <div class="container">
@@ -87,38 +86,8 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="document-card" data-aos="slide-up" data-aos-delay="700">
-                    <div class="document-number">4</div>
-                    <div class="document-info">
-                        <h4>Постановление Совета Министров № 156</h4>
-                        <p>Об утверждении единого перечня административных процедур, осуществляемых государственными органами и иными организациями</p>
-                        <div class="document-meta">
-                            <span class="document-date">17 февраля 2012 г.</span>
-                        </div>
-                        <a href="http://etalonline.by/document/?regnum=c21200156&q_id=651252" target="_blank" class="document-link">
-                            <i class="fas fa-external-link-alt"></i> Читать документ
-                        </a>
-                    </div>
-                </div>
-
-                <div class="document-card" data-aos="slide-up" data-aos-delay="800">
-                    <div class="document-number">5</div>
-                    <div class="document-info">
-                        <h4>Постановление Совета Министров № 529</h4>
-                        <p>Об административных процедурах, подлежащих осуществлению в электронной форме</p>
-                        <div class="document-meta">
-                            <span class="document-date">14 июля 2017 г.</span>
-                        </div>
-                        <a href="http://etalonline.by/document/?regnum=c21700529&q_id=651255" target="_blank" class="document-link">
-                            <i class="fas fa-external-link-alt"></i> Читать документ
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
 </div>
-
-<?php echo $footer ?>
