@@ -190,3 +190,16 @@ Stack trace:
 #5 {main}
   thrown in /home/gtecbks/public_html/application/views/news/mane.php on line 53
 [11-Aug-2025 10:42:25 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[11-Aug-2025 10:58:20 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[11-Aug-2025 11:01:10 Europe/Minsk] AdminRouter: URI = /admin/test, Method = GET
+[11-Aug-2025 11:01:10 Europe/Minsk] AdminRouter: Точное совпадение найдено для /admin/test
+[11-Aug-2025 11:01:10 Europe/Minsk] AdminRouter: Выполняем TestController::index
+[11-Aug-2025 11:01:10 Europe/Minsk] PHP Warning:  require_once(/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php): failed to open stream: No such file or directory in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[11-Aug-2025 11:01:10 Europe/Minsk] PHP Fatal error:  require_once(): Failed opening required '/home/gtecbks/public_html/engine/controllers/admin/BaseAdminController.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/gtecbks/public_html/application/controllers/admin/TestController.php on line 3
+[11-Aug-2025 11:02:13 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View okno/index not found in /home/gtecbks/public_html/engine/BaseController.php:84
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/okno.php(7): BaseController->render('okno/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): oknoController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 84
