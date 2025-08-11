@@ -50,13 +50,22 @@
                     <!-- Категории -->
                     <div class="sidebar-widget categories-widget">
                         <h4>📂 Категории</h4>
+                        <?php $categories = isset($categories) ? $categories : []; ?>
                         <ul class="categories-list">
-                            <li><a href="/news" class="category-link <?php echo (!isset($_GET['category'])) ? 'active' : ''; ?>">Все новости</a></li>
-                            <li><a href="/news/category/abiturient" class="category-link">Абитуриентам</a></li>
-                            <li><a href="/news/category/student" class="category-link">Студентам</a></li>
-                            <li><a href="/news/category/teacher" class="category-link">Преподавателям</a></li>
-                            <li><a href="/news/category/event" class="category-link">События</a></li>
-                            <li><a href="/news/category/announcement" class="category-link">Объявления</a></li>
+                            <li>
+                                <a href="/news" class="category-link active">Все новости</a>
+                            </li>
+                            <?php if (!empty($categories)): ?>
+                                <?php foreach ($categories as $cat): ?>
+                                    <li>
+                                        <a href="/news/category/<?php echo rawurlencode($cat['category_name']); ?>" class="category-link">
+                                            <?php echo htmlspecialchars($cat['category_name']); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <li><span class="category-link">Категории не найдены</span></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     
@@ -99,16 +108,7 @@
                         <?php endif; ?>
                     </div>
                     
-                    <!-- Архив -->
-                    <div class="sidebar-widget archive-widget">
-                        <h4>📅 Архив</h4>
-                        <div class="archive-list">
-                            <a href="#" class="archive-link">Январь 2025</a>
-                            <a href="#" class="archive-link">Декабрь 2024</a>
-                            <a href="#" class="archive-link">Ноябрь 2024</a>
-                            <a href="#" class="archive-link">Октябрь 2024</a>
-                        </div>
-                    </div>
+                    <!-- Архив убран по требованию -->
                 </div>
             </div>
             

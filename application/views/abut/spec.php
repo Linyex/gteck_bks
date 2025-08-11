@@ -364,17 +364,24 @@
                         <h4>📅 Важные даты</h4>
                         <div class="dates-list">
                             <div class="date-item">
-                                <div class="date-number">20</div>
+                                <div class="date-number">18</div>
                                 <div class="date-content">
                                     <span class="date-month">Июля</span>
                                     <span class="date-description">Начало приема документов</span>
                                 </div>
                             </div>
                             <div class="date-item">
-                                <div class="date-number">13</div>
+                                <div class="date-number">12</div>
                                 <div class="date-content">
                                     <span class="date-month">Августа</span>
-                                    <span class="date-description">Завершение приема</span>
+                                    <span class="date-description">Завершение приема 9 классов</span>
+                                </div>
+                            </div>
+                            <div class="date-item">
+                                <div class="date-number">14</div>
+                                <div class="date-content">
+                                    <span class="date-month">Августа</span>
+                                    <span class="date-description">Завершение приема 11 классов</span>
                                 </div>
                             </div>
                             <div class="date-item">

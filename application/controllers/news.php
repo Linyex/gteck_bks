@@ -15,6 +15,8 @@ class newsController extends BaseController {
             header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', time()));
             
             $newsModel = $this->loadModel('news');
+            // Загружаем категории для сайдбара
+            $categories = method_exists($newsModel, 'getAllCategories') ? ($newsModel->getAllCategories() ?? []) : [];
             
             // Используем новый метод для получения новостей с пагинацией
             $news = $newsModel->getAllNewsWithPagination($page, $this->limit);
@@ -30,6 +32,7 @@ class newsController extends BaseController {
                 'currentPage' => $page,
                 'totalNews' => $total,
                 'newsModel' => $newsModel, // Передаем модель в представление
+                'categories' => $categories,
                 'additional_css' => [
                     '/assets/css/news-modern.css'
                 ],
@@ -45,6 +48,7 @@ class newsController extends BaseController {
                 'title' => 'Новости',
                 'error' => 'Не удалось загрузить новости',
                 'newsModel' => $this->loadModel('news'), // Передаем модель даже при ошибке
+                'categories' => [],
                 'additional_css' => [
                     '/assets/css/news-modern.css'
                 ],
@@ -111,6 +115,8 @@ class newsController extends BaseController {
             }
             
             $newsModel = $this->loadModel('news');
+            // Загружаем категории для сайдбара
+            $categories = method_exists($newsModel, 'getAllCategories') ? ($newsModel->getAllCategories() ?? []) : [];
             
             // Проверяем существование категории
             $category = $newsModel->getCategoryByName($categoryname);
@@ -146,6 +152,7 @@ class newsController extends BaseController {
                 'namecat' => $namecat,
                 'title' => "Новости - {$namecat}",
                 'newsModel' => $newsModel, // Передаем модель в представление
+                'categories' => $categories,
                 'additional_css' => [
                     '/assets/css/news-modern.css'
                 ],

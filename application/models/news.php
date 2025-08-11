@@ -158,6 +158,19 @@ class newsModel {
         return $this->db->fetchOne($sql, ['category_name' => $categoryName]);
     }
     
+    /**
+     * Возвращает список всех категорий новостей
+     */
+    public function getAllCategories() {
+        try {
+            $sql = "SELECT category_id, category_name FROM category ORDER BY category_name ASC";
+            return $this->db->fetchAll($sql);
+        } catch (Exception $e) {
+            error_log('Error in getAllCategories: ' . $e->getMessage());
+            return [];
+        }
+    }
+    
     public function getLastNews() {
         $sql = "SELECT news_id AS count FROM news ORDER BY news_id DESC LIMIT 1";
         $result = $this->db->fetchOne($sql);
