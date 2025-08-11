@@ -59,7 +59,7 @@
                                 <?php foreach ($categories as $cat): ?>
                                     <li>
                                         <a href="/news/category/<?php echo rawurlencode($cat['category_name']); ?>" class="category-link">
-                                            <?php echo htmlspecialchars($cat['category_name']); ?>
+                                            <?php echo htmlspecialchars($cat['category_text'] ?? $cat['category_name']); ?>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>

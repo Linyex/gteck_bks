@@ -124,27 +124,26 @@ class newsController extends BaseController {
                 return $this->redirect('/news');
             }
             
-            $total = $newsModel->getTotalNewsCat($categoryname, ['category']);
+            // Подсчитываем количество новостей по ID категории (надёжнее)
+            $total = $newsModel->getTotalnews(['category_id' => (int)$category['category_id']]);
             
             if (empty($total)) {
                 return $this->redirect('/news');
             }
             
-            $sort = ['news_date_add' => 'DESC'];
             $options = [
                 'start' => ((int)$page - 1) * $this->limit,
                 'limit' => $this->limit
             ];
             
-            $news = $newsModel->getnews($categoryname, ['category'], $sort, $options);
+            // Получаем новости по категории с пагинацией
+            $news = $newsModel->getNewsByCategoryPaginated((int)$category['category_id'], $options['start'], $options['limit']);
             
             // Исправляем URL для пагинации
             $pagination = $this->createPagination($total, $page, $this->limit, "/news/category/{$categoryname}?page={page}");
             
-            $namecat = '';
-            if (!empty($news)) {
-                $namecat = $news[0]['category_name'] ?? 'Категория';
-            }
+            // Человекочитаемое имя категории
+            $namecat = $category['category_text'] ?? ($category['category_name'] ?? 'Категория');
             
             return $this->render('news/category', [
                 'news' => $news ?? [],
@@ -153,6 +152,7 @@ class newsController extends BaseController {
                 'title' => "Новости - {$namecat}",
                 'newsModel' => $newsModel, // Передаем модель в представление
                 'categories' => $categories,
+                'currentCategoryName' => $categoryname,
                 'additional_css' => [
                     '/assets/css/news-modern.css'
                 ],

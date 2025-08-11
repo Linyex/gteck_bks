@@ -163,7 +163,7 @@ class newsModel {
      */
     public function getAllCategories() {
         try {
-            $sql = "SELECT category_id, category_name FROM category ORDER BY category_name ASC";
+            $sql = "SELECT category_id, category_name, category_text FROM category ORDER BY category_text ASC, category_name ASC";
             return $this->db->fetchAll($sql);
         } catch (Exception $e) {
             error_log('Error in getAllCategories: ' . $e->getMessage());
@@ -182,7 +182,7 @@ class newsModel {
      */
     public function getImportantNews($limit = 6) {
         try {
-            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name 
+            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name, c.category_text 
                     FROM news n 
                     LEFT JOIN category c ON n.category_id = c.category_id 
                     WHERE n.category_id IN (1, 5, 6) 
@@ -201,7 +201,7 @@ class newsModel {
      */
     public function getRegularNews($limit = 4) {
         try {
-            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name 
+            $sql = "SELECT n.news_id, n.news_title, n.news_text, n.news_image, n.news_date_add, c.category_name, c.category_text 
                     FROM news n 
                     LEFT JOIN category c ON n.category_id = c.category_id 
                     WHERE n.category_id NOT IN (1, 5, 6) 
@@ -219,7 +219,7 @@ class newsModel {
     public function getAllNewsWithPagination($page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;
         
-        $sql = "SELECT n.*, c.category_name 
+        $sql = "SELECT n.*, c.category_name, c.category_text 
                 FROM news n 
                 LEFT JOIN category c ON n.category_id = c.category_id 
                 ORDER BY n.news_date_add DESC 
@@ -233,7 +233,7 @@ class newsModel {
     
     // Получение новостей по категории
     public function getNewsByCategory($categoryId, $limit = 10) {
-        $sql = "SELECT n.*, c.category_name 
+        $sql = "SELECT n.*, c.category_name, c.category_text 
                 FROM news n 
                 LEFT JOIN category c ON n.category_id = c.category_id 
                 WHERE n.category_id = :category_id 
@@ -246,9 +246,25 @@ class newsModel {
         ]);
     }
     
+    // Получение новостей по категории с пагинацией
+    public function getNewsByCategoryPaginated($categoryId, $start = 0, $limit = 10) {
+        $sql = "SELECT n.*, c.category_name, c.category_text 
+                FROM news n 
+                LEFT JOIN category c ON n.category_id = c.category_id 
+                WHERE n.category_id = :category_id 
+                ORDER BY n.news_date_add DESC 
+                LIMIT :limit OFFSET :offset";
+        
+        return $this->db->fetchAll($sql, [
+            'category_id' => (int)$categoryId,
+            'limit' => (int)$limit,
+            'offset' => (int)$start
+        ]);
+    }
+    
     // Поиск новостей
     public function searchNews($searchText, $limit = 10) {
-        $sql = "SELECT n.*, c.category_name 
+        $sql = "SELECT n.*, c.category_name, c.category_text 
                 FROM news n 
                 LEFT JOIN category c ON n.category_id = c.category_id 
                 WHERE n.news_title LIKE :search OR n.news_text LIKE :search 
