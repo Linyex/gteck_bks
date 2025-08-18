@@ -155,7 +155,7 @@
                     </div>
                     
                     <!-- Пагинация -->
-                    <?php if (!empty($pagination)): ?>
+                            <?php if (!empty($pagination)): ?>
                         <div class="pagination-wrapper" data-aos="fade-up">
                             <?php echo $pagination; ?>
                         </div>

@@ -203,3 +203,19 @@ Stack trace:
 #2 /home/gtecbks/public_html/index.php(130): Router->dispatch('okno')
 #3 {main}
   thrown in /home/gtecbks/public_html/engine/BaseController.php on line 84
+[11-Aug-2025 11:07:24 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View kol/index not found in /home/gtecbks/public_html/engine/BaseController.php:84
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/kol.php(7): BaseController->render('kol/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): kolController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('kol/foto')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 84
+[11-Aug-2025 11:14:54 Europe/Minsk] PHP Fatal error:  Uncaught Exception: View dopage/index not found in /home/gtecbks/public_html/engine/BaseController.php:84
+Stack trace:
+#0 /home/gtecbks/public_html/application/controllers/dopage.php(7): BaseController->render('dopage/index', Array)
+#1 /home/gtecbks/public_html/engine/Router.php(90): dopageController->index()
+#2 /home/gtecbks/public_html/index.php(130): Router->dispatch('dopage/contact')
+#3 {main}
+  thrown in /home/gtecbks/public_html/engine/BaseController.php on line 84
+[11-Aug-2025 11:21:29 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'
+[11-Aug-2025 11:23:08 Europe/Minsk] Error in getNewsAdditionalImages: Query failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'img_order' in 'order clause'

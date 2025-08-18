@@ -19,17 +19,18 @@ class newsController extends BaseController {
             $categories = method_exists($newsModel, 'getAllCategories') ? ($newsModel->getAllCategories() ?? []) : [];
             
             // Используем новый метод для получения новостей с пагинацией
-            $news = $newsModel->getAllNewsWithPagination($page, $this->limit);
+            $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : (int)$page;
+            $news = $newsModel->getAllNewsWithPagination($currentPage, $this->limit);
             $total = $newsModel->getTotalnews();
             
             // Исправляем URL для пагинации
-            $pagination = $this->createPagination($total, $page, $this->limit, '/news?page={page}');
+            $pagination = $this->createPagination($total, $currentPage, $this->limit, '/news?page={page}');
             
             return $this->render('news/mane', [
                 'news' => $news ?? [],
                 'pagination' => $pagination,
                 'title' => 'Новости',
-                'currentPage' => $page,
+                'currentPage' => $currentPage,
                 'totalNews' => $total,
                 'newsModel' => $newsModel, // Передаем модель в представление
                 'categories' => $categories,
@@ -85,9 +86,13 @@ class newsController extends BaseController {
                 exit;
             }
             
+            // Пред/след новости
+            $adjacent = $newsModel->getPrevNext((int)$newsId);
+
             return $this->render('news/view', [
                 'title' => $news['news_title'],
                 'news' => $news,
+                'adjacent' => $adjacent,
                 'newsModel' => $newsModel, // Передаем модель в представление
                 'additional_css' => [
                     '/assets/css/news-modern.css'
@@ -118,32 +123,25 @@ class newsController extends BaseController {
             // Загружаем категории для сайдбара
             $categories = method_exists($newsModel, 'getAllCategories') ? ($newsModel->getAllCategories() ?? []) : [];
             
-            // Проверяем существование категории
-            $category = $newsModel->getCategoryByName($categoryname);
-            if (!$category) {
-                return $this->redirect('/news');
-            }
-            
-            // Подсчитываем количество новостей по ID категории (надёжнее)
-            $total = $newsModel->getTotalnews(['category_id' => (int)$category['category_id']]);
+            // Определяем имя категории для заголовка и подсчёт по slug
+            $displayName = $newsModel->getCategoryDisplayNameBySlug($categoryname);
+            $total = $newsModel->countNewsBySlug($categoryname);
             
             if (empty($total)) {
                 return $this->redirect('/news');
             }
             
-            $options = [
-                'start' => ((int)$page - 1) * $this->limit,
-                'limit' => $this->limit
-            ];
+            $currentPage = isset($_GET['page']) ? max(1, (int)$_GET['page']) : (int)$page;
+            $start = ($currentPage - 1) * $this->limit;
             
-            // Получаем новости по категории с пагинацией
-            $news = $newsModel->getNewsByCategoryPaginated((int)$category['category_id'], $options['start'], $options['limit']);
+            // Получаем новости по slug категории с пагинацией (работает и со старой, и с новой схемой)
+            $news = $newsModel->getNewsBySlugPaginated($categoryname, $start, $this->limit);
             
             // Исправляем URL для пагинации
-            $pagination = $this->createPagination($total, $page, $this->limit, "/news/category/{$categoryname}?page={page}");
+            $pagination = $this->createPagination($total, $currentPage, $this->limit, "/news/category/{$categoryname}?page={page}");
             
             // Человекочитаемое имя категории
-            $namecat = $category['category_text'] ?? ($category['category_name'] ?? 'Категория');
+            $namecat = $displayName;
             
             return $this->render('news/category', [
                 'news' => $news ?? [],

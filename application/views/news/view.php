@@ -102,14 +102,18 @@
                     <!-- Навигация по новостям -->
                     <div class="news-navigation" data-aos="fade-up">
                         <div class="nav-links">
-                            <a href="#" class="nav-link prev-link">
+                            <?php if (!empty($adjacent['prev'])): ?>
+                            <a href="/news/view/<?php echo (int)$adjacent['prev']['news_id']; ?>" class="nav-link prev-link">
                                 <i class="fa fa-chevron-left"></i>
-                                <span>Предыдущая новость</span>
+                                <span><?php echo htmlspecialchars(mb_strimwidth($adjacent['prev']['news_title'], 0, 40, '…')); ?></span>
                             </a>
-                            <a href="#" class="nav-link next-link">
-                                <span>Следующая новость</span>
+                            <?php endif; ?>
+                            <?php if (!empty($adjacent['next'])): ?>
+                            <a href="/news/view/<?php echo (int)$adjacent['next']['news_id']; ?>" class="nav-link next-link">
+                                <span><?php echo htmlspecialchars(mb_strimwidth($adjacent['next']['news_title'], 0, 40, '…')); ?></span>
                                 <i class="fa fa-chevron-right"></i>
                             </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                     
