@@ -1,11 +1,10 @@
-
-<!-- Hero Section для студентов -->
+<!-- Hero Section для учащихся -->
 <section class="stud-hero">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
-                    <h1 class="hero-title"><span class="hero-icon">👨‍🎓</span>Студентам</h1>
+                    <h1 class="hero-title"><span class="hero-icon">👨‍🎓</span>Учащимся</h1>
                     <p class="hero-subtitle">Все необходимые материалы и инструменты для успешной учебы</p>
                     <div class="hero-stats">
                         <div class="stat-item">
@@ -42,11 +41,6 @@
                             <div class="section-content">
                                 <h3>Контрольные работы</h3>
                                 <p>Просмотр и скачивание домашних контрольных работ по всем предметам</p>
-                                <div class="section-features">
-                                    <span class="feature">📄 Все предметы</span>
-                                    <span class="feature">⬇️ Скачивание</span>
-                                    <span class="feature">📱 Мобильная версия</span>
-                                </div>
                                 <a href="/stud/kontrolnui" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Перейти к работам
@@ -59,11 +53,6 @@
                             <div class="section-content">
                                 <h3>Расписание занятий</h3>
                                 <p>Актуальное расписание занятий по всем группам и преподавателям</p>
-                                <div class="section-features">
-                                    <span class="feature">📚 По группам</span>
-                                    <span class="feature">👨‍🏫 По преподавателям</span>
-                                    <span class="feature">📱 Мобильная версия</span>
-                                </div>
                                 <a href="/stud/schedule" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Открыть расписание
@@ -71,33 +60,13 @@
                             </div>
                         </div>
                         
-                        <div class="section-card">
-                            <div class="section-icon">📊</div>
-                            <div class="section-content">
-                                <h3>Успеваемость</h3>
-                                <p>Просмотр оценок, рейтинга и академической успеваемости</p>
-                                <div class="section-features">
-                                    <span class="feature">📈 Рейтинг</span>
-                                    <span class="feature">📝 Оценки</span>
-                                    <span class="feature">📊 Статистика</span>
-                                </div>
-                                <a href="/stud/grades" class="section-btn">
-                                    <i class="fa fa-arrow-right"></i>
-                                    Просмотр оценок
-                                </a>
-                            </div>
-                        </div>
+                       
                         
                         <div class="section-card">
                             <div class="section-icon">📚</div>
                             <div class="section-content">
                                 <h3>Библиотека</h3>
                                 <p>Доступ к учебным материалам, пособиям и дополнительной литературе</p>
-                                <div class="section-features">
-                                    <span class="feature">📖 Учебники</span>
-                                    <span class="feature">📋 Пособия</span>
-                                    <span class="feature">🔍 Поиск</span>
-                                </div>
                                 <a href="/stud/library" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Открыть библиотеку
@@ -110,11 +79,6 @@
                             <div class="section-content">
                                 <h3>Общежитие</h3>
                                 <p>Информация о проживании в общежитии и правила проживания</p>
-                                <div class="section-features">
-                                    <span class="feature">🏢 Информация</span>
-                                    <span class="feature">📋 Правила</span>
-                                    <span class="feature">📞 Контакты</span>
-                                </div>
                                 <a href="/stud/hostel" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Подробнее
@@ -127,11 +91,6 @@
                             <div class="section-content">
                                 <h3>Учебные материалы</h3>
                                 <p>Доступ к УМК, методическим материалам и учебным планам</p>
-                                <div class="section-features">
-                                    <span class="feature">📋 УМК</span>
-                                    <span class="feature">📅 Планы</span>
-                                    <span class="feature">📖 Методички</span>
-                                </div>
                                 <a href="/stud/ymk" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Открыть материалы
@@ -142,13 +101,8 @@
                         <div class="section-card">
                             <div class="section-icon">📰</div>
                             <div class="section-content">
-                                <h3>Новости студентам</h3>
-                                <p>Актуальные объявления, события и новости студенческой жизни</p>
-                                <div class="section-features">
-                                    <span class="feature">📢 Объявления</span>
-                                    <span class="feature">🎉 События</span>
-                                    <span class="feature">⚡ Срочные</span>
-                                </div>
+                                <h3>Новости учащимся</h3>
+                                <p>Актуальные объявления, события и новости учащейся жизни</p>
                                 <a href="/news" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Читать новости
@@ -156,33 +110,13 @@
                             </div>
                         </div>
                         
-                        <div class="section-card">
-                            <div class="section-icon">🏆</div>
-                            <div class="section-content">
-                                <h3>Олимпиады и конкурсы</h3>
-                                <p>Участие в олимпиадах, конкурсах и интеллектуальных соревнованиях</p>
-                                <div class="section-features">
-                                    <span class="feature">🥇 Олимпиады</span>
-                                    <span class="feature">🏅 Конкурсы</span>
-                                    <span class="feature">🎯 Результаты</span>
-                                </div>
-                                <a href="/stud/competitions" class="section-btn">
-                                    <i class="fa fa-arrow-right"></i>
-                                    Участвовать
-                                </a>
-                            </div>
-                        </div>
+                       
                         
                         <div class="section-card">
                             <div class="section-icon">🎭</div>
                             <div class="section-content">
-                                <h3>Студенческая жизнь</h3>
-                                <p>Кружки, секции, мероприятия и активности для студентов</p>
-                                <div class="section-features">
-                                    <span class="feature">🎪 Кружки</span>
-                                    <span class="feature">⚽ Секции</span>
-                                    <span class="feature">🎊 Мероприятия</span>
-                                </div>
+                                <h3>Учащиеся жизнь</h3>
+                                <p>Кружки, секции, мероприятия и активности для учащихся</p>
                                 <a href="/dopage/social" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Присоединиться
@@ -229,55 +163,60 @@
                 <div class="stud-sidebar">
                     <!-- Последние материалы -->
                     <div class="sidebar-widget recent-widget">
-                        <h4>🕒 Последние материалы</h4>
+                        <h4 class="section-title">🕒 Последние материалы</h4>
                         <div class="recent-materials">
-                            <div class="material-item">
-                                <div class="material-icon">📝</div>
-                                <div class="material-content">
-                                    <h5>Контрольная по математике</h5>
-                                    <span class="material-date">Сегодня</span>
+                            <?php if (!empty($recentMaterials)): ?>
+                                <?php foreach ($recentMaterials as $item): ?>
+                                    <?php
+                                        $isUmk = ($item['type'] === 'umk');
+                                        $icon = $isUmk ? '📚' : '📝';
+                                        $title = htmlspecialchars($item['filename']);
+                                        $date = !empty($item['upload_date']) ? date('d.m.Y H:i', strtotime($item['upload_date'])) : '';
+                                        $sectionUrl = $isUmk ? '/stud/ymk' : '/stud/kontrolnui';
+                                    ?>
+                                    <a class="material-item" href="<?php echo $sectionUrl; ?>">
+                                        <div class="material-icon"><?php echo $icon; ?></div>
+                                        <div class="material-content">
+                                            <h5><?php echo $title; ?></h5>
+                                            <span class="material-date"><?php echo $date; ?> · перейти в раздел</span>
+                                        </div>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="material-item">
+                                    <div class="material-icon">ℹ️</div>
+                                    <div class="material-content">
+                                        <h5>Пока нет загруженных материалов</h5>
+                                        <span class="material-date">—</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-icon">📚</div>
-                                <div class="material-content">
-                                    <h5>Учебник по экономике</h5>
-                                    <span class="material-date">Вчера</span>
-                                </div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-icon">📋</div>
-                                <div class="material-content">
-                                    <h5>Методичка по праву</h5>
-                                    <span class="material-date">2 дня назад</span>
-                                </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     
                     <!-- Статистика -->
                     <div class="sidebar-widget stats-widget">
-                        <h4>📊 Статистика</h4>
+                        <h4 class="section-title">📊 Статистика</h4>
                         <div class="stats-list">
                             <div class="stat-item">
                                 <div class="stat-icon">📝</div>
                                 <div class="stat-content">
-                                    <span class="stat-number">156</span>
+                                    <span class="stat-number"><?php echo isset($stats['dkr_total']) ? (int)$stats['dkr_total'] : 0; ?></span>
                                     <span class="stat-label">Контрольных работ</span>
                                 </div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-icon">📚</div>
                                 <div class="stat-content">
-                                    <span class="stat-number">89</span>
-                                    <span class="stat-label">Учебных материалов</span>
+                                    <span class="stat-number"><?php echo isset($stats['umk_total']) ? (int)$stats['umk_total'] : 0; ?></span>
+                                    <span class="stat-label">Учебных материалов (УМК)</span>
                                 </div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-icon">👥</div>
                                 <div class="stat-content">
-                                    <span class="stat-number">1,234</span>
-                                    <span class="stat-label">Скачиваний</span>
+                                    <span class="stat-number"><?php echo isset($stats['downloads_total']) ? (int)$stats['downloads_total'] : 0; ?></span>
+                                    <span class="stat-label">Просмотров/загрузок</span>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +224,7 @@
                     
                     <!-- Полезные ссылки -->
                     <div class="sidebar-widget links-widget">
-                        <h4>🔗 Полезные ссылки</h4>
+                        <h4 class="section-title">🔗 Полезные ссылки</h4>
                         <ul class="useful-links">
                             <li><a href="/stud/dnevnoe">📅 Дневное отделение</a></li>
                             <li><a href="/stud/zaoch">📚 Заочное отделение</a></li>
@@ -297,7 +236,7 @@
                     
                     <!-- Контакты -->
                     <div class="sidebar-widget contacts-widget">
-                        <h4>📞 Контакты</h4>
+                        <h4 class="section-title">📞 Контакты</h4>
                         <div class="contacts-list">
                             <div class="contact-item">
                                 <div class="contact-icon">📞</div>
@@ -329,7 +268,7 @@
 </div>
 
 <style>
-/* Hero Section для студентов */
+/* Hero Section для учащихся */
 .stud-hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 80px 0;

@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
                     <h1 class="hero-title"><span class="hero-icon">🏠</span>Общежитие</h1>
-                    <p class="hero-subtitle">Комфортное проживание в центре города для всех студентов колледжа</p>
+                    <p class="hero-subtitle">Комфортное проживание в центре города для всех учащихся колледжа</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">100%</span>
@@ -181,7 +181,7 @@
                             <div class="activity-icon">🎓</div>
                             <div class="activity-info">
                                 <h4>"Татьянин день"</h4>
-                                <p>Празднование дня российского студенчества</p>
+                                <p>Празднование дня российского учащихся</p>
                             </div>
                         </div>
                         <div class="activity-item">

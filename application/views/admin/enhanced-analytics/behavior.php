@@ -70,7 +70,7 @@
                     <label>Группа пользователей</label>
                     <select id="userGroup" class="form-select">
                         <option value="all">Все группы</option>
-                        <option value="students">Студенты</option>
+                        <option value="students">Учащиеся</option>
                         <option value="teachers">Преподаватели</option>
                         <option value="admins">Администраторы</option>
                     </select>

@@ -6,6 +6,8 @@ require_once APPLICATION_DIR . 'controllers/admin/BaseAdminController.php';
 class NewsController extends BaseAdminController {
     
     public function index() {
+        // Доступ к новостям: 4 (Зам. по воспитательной), 6 (Директор), 7 (Соц. педагог), 8 (Психолог), 10 (Админ)
+        if (!$this->hasAnyAccessLevel([4,6,7,8,10])) { $this->requireAccessLevel(999); }
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
@@ -49,6 +51,7 @@ class NewsController extends BaseAdminController {
     }
     
     public function create() {
+        if (!$this->hasAnyAccessLevel([4,6,7,8,10])) { $this->requireAccessLevel(999); }
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
@@ -80,6 +83,7 @@ class NewsController extends BaseAdminController {
     }
     
     public function store() {
+        if (!$this->hasAnyAccessLevel([4,6,7,8,10])) { $this->requireAccessLevel(999); }
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /admin/news');
             exit;
@@ -132,6 +136,7 @@ class NewsController extends BaseAdminController {
     }
     
     public function edit($id) {
+        if (!$this->hasAnyAccessLevel([4,6,7,8,10])) { $this->requireAccessLevel(999); }
         try {
             require_once ENGINE_DIR . 'main/db.php';
             
@@ -175,6 +180,7 @@ class NewsController extends BaseAdminController {
     }
     
     public function update($id) {
+        if (!$this->hasAnyAccessLevel([4,6,7,8,10])) { $this->requireAccessLevel(999); }
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /admin/news');
             exit;
@@ -229,6 +235,7 @@ class NewsController extends BaseAdminController {
     }
     
     public function delete($id) {
+        $this->requireAccessLevel(4);
         try {
             require_once ENGINE_DIR . 'main/db.php';
             

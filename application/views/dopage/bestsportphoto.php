@@ -148,7 +148,7 @@
                 <div class="sport-type-card" data-aos="slide-right" data-aos-delay="1100">
                     <div class="sport-icon">🏃‍♀️</div>
                     <h4>Лёгкая атлетика</h4>
-                    <p>Личные рекорды студентов в различных дисциплинах</p>
+                    <p>Личные рекорды учащихся в различных дисциплинах</p>
                 </div>
                 <div class="sport-type-card" data-aos="slide-left" data-aos-delay="1200">
                     <div class="sport-icon">♟️</div>
@@ -158,7 +158,7 @@
             </div>
         </div>
 
-        <!-- Мотивация для студентов -->
+        <!-- Мотивация для учащихся -->
         <div class="content-section" data-aos="fade-up" data-aos-delay="1000">
             <div class="motivation-banner sports-motivation">
                 <h3>🌟 Стань частью спортивной семьи!</h3>

@@ -10,8 +10,41 @@ class studController extends BaseController {
         header('Pragma: no-cache');
         header('Expires: 0');
         
+        // Загружаем последние материалы (УМК и контрольные) из БД
+        $recentMaterials = [];
+        $stats = [
+            'dkr_total' => 0,
+            'umk_total' => 0,
+            'downloads_total' => 0,
+        ];
+        try {
+            $sql = "
+                SELECT 'umk' AS type, id, filename, path, upload_date
+                FROM umk_files
+                UNION ALL
+                SELECT 'dkr' AS type, id, filename, path, upload_date
+                FROM dkrfiles
+                ORDER BY upload_date DESC
+                LIMIT 5
+            ";
+            $recentMaterials = $this->db->fetchAll($sql) ?? [];
+            // Реальная статистика
+            $dkr = $this->db->fetchOne("SELECT COUNT(*) AS cnt FROM dkrfiles");
+            $umk = $this->db->fetchOne("SELECT COUNT(*) AS cnt FROM umk_files");
+            $downloads = $this->db->fetchOne("SELECT COALESCE(SUM(file_downloads),0) AS cnt FROM user_behavior");
+            $stats['dkr_total'] = (int)($dkr['cnt'] ?? 0);
+            $stats['umk_total'] = (int)($umk['cnt'] ?? 0);
+            $stats['downloads_total'] = (int)($downloads['cnt'] ?? 0);
+        } catch (Exception $e) {
+            $recentMaterials = [];
+            // Статистика по умолчанию, если таблиц нет
+            $stats = [ 'dkr_total' => 0, 'umk_total' => 0, 'downloads_total' => 0 ];
+        }
+        
         return $this->render('stud/index', [
-            'title' => 'Студенческий раздел'
+            'title' => 'Учащимся',
+            'recentMaterials' => $recentMaterials,
+            'stats' => $stats,
         ]);
     }
     

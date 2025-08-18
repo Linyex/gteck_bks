@@ -58,7 +58,7 @@
                 <div class="activity-card" data-aos="flip-left" data-aos-delay="600">
                     <div class="activity-icon">🏠</div>
                     <h4>Жилищно-бытовые вопросы</h4>
-                    <p>Решение жилищно-бытовых проблем студентов</p>
+                    <p>Решение жилищно-бытовых проблем учащихся</p>
                 </div>
                 <div class="activity-card" data-aos="flip-left" data-aos-delay="700">
                     <div class="activity-icon">🎭</div>
@@ -201,4 +201,3 @@
 </div>
 
 
-<?php echo $footer ?>

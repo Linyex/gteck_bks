@@ -56,27 +56,25 @@
                     </div>
                     
                     <!-- Пользователь -->
-                    <div class="action-item">
+                    <div class="action-item user-menu">
                         <button class="action-btn user-btn" onclick="toggleUserMenu()">
-                            <div class="user-avatar">A</div>
-                            <span class="user-name">Admin</span>
-                            <i class="fas fa-chevron-down"></i>
+                            <div class="user-avatar"><?php echo strtoupper(mb_substr($adminUser['user_fio'] ?? 'U', 0, 1)); ?></div>
+                            <span class="user-name"><?php echo htmlspecialchars($adminUser['user_fio'] ?? 'Пользователь'); ?></span>
                         </button>
+                        <div class="user-dropdown" id="userDropdown" style="display:none;">
+                            <div class="user-summary">
+                                <div class="user-initials"><?php echo strtoupper(mb_substr($adminUser['user_fio'] ?? 'U', 0, 1)); ?></div>
+                                <div class="user-meta">
+                                    <div class="name"><?php echo htmlspecialchars($adminUser['user_fio'] ?? ''); ?></div>
+                                    <div class="login"><?php echo htmlspecialchars($adminUser['user_login'] ?? ''); ?></div>
+                                </div>
+                            </div>
+                            <a class="user-link" href="/admin/profile"><i class="fas fa-user"></i> Профиль</a>
+                            <a class="user-link" href="/admin/logout"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                        </div>
                     </div>
-                    <!-- Уведомления -->
-                    <div class="action-item">
-                        <button class="action-btn" onclick="toggleNotifications()">
-                            <i class="fas fa-bell"></i>
-                            <span class="notification-badge">3</span>
-                        </button>
-                    </div>
-
-                    <!-- Настройки -->
-                    <div class="action-item">
-                        <button class="action-btn" onclick="openSettings()">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                    </div>
+                   
+                   
                 </div>
             </div>
             
@@ -97,6 +95,34 @@
                 </li>
                 
                 <li class="nav-item">
+                    <a href="/admin/tables" class="nav-link <?php echo isset($currentPage) && $currentPage === 'tables' ? 'active' : ''; ?>">
+                        <i class="fas fa-table"></i>
+                        <span>Таблицы</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/content" class="nav-link <?php echo isset($currentPage) && $currentPage === 'content' ? 'active' : ''; ?>">
+                        <i class="fas fa-edit"></i>
+                        <span>Управление контентом</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/admin/info-widget" class="nav-link <?php echo isset($currentPage) && $currentPage === 'info-widget' ? 'active' : ''; ?>">
+                        <i class="fas fa-edit"></i>
+                        <span>Управление виджетами</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/admin/banners" class="nav-link <?php echo isset($currentPage) && $currentPage === 'banners' ? 'active' : ''; ?>">
+                        <i class="fas fa-edit"></i>
+                        <span>Управление баннерами</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="/admin/users" class="nav-link <?php echo isset($currentPage) && $currentPage === 'users' ? 'active' : ''; ?>">
                         <i class="fas fa-users"></i>
                         <span>Пользователи</span>
@@ -109,18 +135,19 @@
                         <span>Новости</span>
                     </a>
                 </li>
+
                 
                 <li class="nav-item">
                     <a href="/admin/files" class="nav-link <?php echo isset($currentPage) && $currentPage === 'files' ? 'active' : ''; ?>">
-                        <i class="fas fa-file"></i>
+                        <i class="fas fa-file-alt"></i>
                         <span>Файлы</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
-                    <a href="/admin/photos" class="nav-link <?php echo isset($currentPage) && $currentPage === 'photos' ? 'active' : ''; ?>">
-                        <i class="fas fa-images"></i>
-                        <span>Медиа</span>
+                    <a href="/admin/group-passwords" class="nav-link <?php echo isset($currentPage) && $currentPage === 'group-passwords' ? 'active' : ''; ?>">
+                        <i class="fas fa-key"></i>
+                        <span>Пароли групп</span>
                     </a>
                 </li>
                 
@@ -142,13 +169,6 @@
                     <a href="/admin/monitoring" class="nav-link <?php echo isset($currentPage) && $currentPage === 'monitoring' ? 'active' : ''; ?>">
                         <i class="fas fa-shield-alt"></i>
                         <span>Мониторинг</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="/admin/settings" class="nav-link <?php echo isset($currentPage) && $currentPage === 'settings' ? 'active' : ''; ?>">
-                        <i class="fas fa-cog"></i>
-                        <span>Настройки</span>
                     </a>
                 </li>
                 
@@ -211,8 +231,7 @@
                     category = 'Пользователи';
                     subLinks = [
                         { href: '/admin/users', text: 'Список пользователей', icon: 'fas fa-list' },
-                        { href: '/admin/users/create', text: 'Создать пользователя', icon: 'fas fa-user-plus' },
-                        { href: '/admin/users/groups', text: 'Группы', icon: 'fas fa-users' }
+                        { href: '/admin/users/create', text: 'Создать пользователя', icon: 'fas fa-user-plus' }
                     ];
                 } else if (currentPath.startsWith('/admin/news')) {
                     category = 'Новости';

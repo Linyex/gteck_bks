@@ -5,65 +5,33 @@
             <div class="banner-section" data-aos="fade-up" style="background: var(--glass-bg); backdrop-filter: var(--glass-backdrop); border-radius: var(--radius-xl); margin: var(--space-8) 0; padding: var(--space-8); box-shadow: var(--shadow-soft); width: 100%; max-width: none;">
                 <div class="container-fluid">
                     <h3 class="section-title">Информационные баннеры</h3>
+<?php
+try {
+    require_once ENGINE_DIR . 'main/db.php';
+    require_once APPLICATION_DIR . 'models/BannerModel.php';
+    $bm = new BannerModel();
+    $footerBanners = $bm->listPublic();
+} catch (Exception $e) {
+    $footerBanners = [];
+}
+?>
+<?php if (!empty($footerBanners)): ?>
                     <div class="banner-slider">
-                        <div class="banner-item active">
-                            <a href="https://fest-sbv.gck.by/" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/Имидж_рус_900х300.jpg);"></div>
+<?php $i=0; foreach ($footerBanners as $b): ?>
+                        <div class="banner-item<?php echo $i===0 ? ' active' : ''; ?>">
+                            <a href="<?php echo htmlspecialchars($b['link_url'] ?: '#'); ?>" target="_blank">
+                                <div class="banner-image" style="background-image: url(<?php echo htmlspecialchars($b['image_path']); ?>);"></div>
                             </a>
                         </div>
-                        <div class="banner-item">
-                            <a href="https://gomel.gov.by/ru/content/god-blagoustroystva" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/god_blagoustroistvo.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="/dopage/oblisp" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/Oblisp.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="https://president.gov.by/ru/documents/direktiva-no-11-ot-2-aprela-2025-g" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/11_direct.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="https://president.gov.by/ru/documents/direktiva-no-12-ot-9-aprela-2025-g" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/12_directiva.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="https://gomel-region.by/ru/80-ru" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/80_let_pobedy.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="http://xn----7sbgfh2alwzdhpc0c.xn--90ais/organization/15516/org-page" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/yslygi.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="https://pomogut.by/" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/pomow.jpg);"></div>
-                            </a>
-                        </div>
-                        <div class="banner-item">
-                            <a href="https://president.gov.by/ru/documents/direktiva-1-ot-11-marta-2004-g-1397" target="_blank">
-                                <div class="banner-image" style="background-image: url(/assets/media/mini-slider/der1.jpg);"></div>
-                            </a>
-                        </div>
+<?php $i++; endforeach; ?>
                     </div>
                     <!-- Banner Navigation -->
                     <div class="banner-nav">
-                        <div class="banner-dot active" data-slide="0"></div>
-                        <div class="banner-dot" data-slide="1"></div>
-                        <div class="banner-dot" data-slide="2"></div>
-                        <div class="banner-dot" data-slide="3"></div>
-                        <div class="banner-dot" data-slide="4"></div>
-                        <div class="banner-dot" data-slide="5"></div>
-                        <div class="banner-dot" data-slide="6"></div>
-                        <div class="banner-dot" data-slide="7"></div>
-                        <div class="banner-dot" data-slide="8"></div>
+<?php for ($j=0; $j<$i; $j++): ?>
+                        <div class="banner-dot<?php echo $j===0 ? ' active' : ''; ?>" data-slide="<?php echo $j; ?>"></div>
+<?php endfor; ?>
                     </div>
+<?php endif; ?>
                 </div>
             </div>
 
@@ -125,7 +93,7 @@
                             </ul>
                         </div>
 
-                        <!-- Студентам -->
+                        <!-- Учащимся -->
                         <div class="col-lg-3 col-md-6 mb-4">
                             <h4 class="footer-heading">Учащимся</h4>
                             <ul class="footer-links">

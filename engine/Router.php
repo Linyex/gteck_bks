@@ -23,15 +23,18 @@ class Router {
         $this->routes['okno'] = ['controller' => 'okno', 'action' => 'index'];
         $this->routes['dopage'] = ['controller' => 'dopage', 'action' => 'index'];
         $this->routes['search'] = ['controller' => 'search', 'action' => 'index'];
+        $this->routes['api'] = ['controller' => 'api', 'action' => 'index'];
         $this->routes['message'] = ['controller' => 'message', 'action' => 'index'];
         $this->routes['files'] = ['controller' => 'files', 'action' => 'index'];
+        $this->routes['tables'] = ['controller' => 'tables', 'action' => 'index'];
         $this->routes['error'] = ['controller' => 'error', 'action' => 'index'];
     }
     
     public function dispatch($url) {
         // Очищаем URL от лишних символов
         $url = trim($url, '/');
-        $url = preg_replace("/[^\w\d\s\/]/", '', $url);
+        // Разрешаем дефисы в URL (для slug), не удаляем '-'
+        $url = preg_replace("/[^\w\d\s\/\-]/", '', $url);
         
         // Разбиваем URL на части
         $parts = explode('/', $url);
@@ -42,13 +45,15 @@ class Router {
         $action = $this->defaultAction;
         $params = [];
         
+        $rawAction = null;
         if (!empty($parts)) {
             // Первая часть - контроллер
             $controller = array_shift($parts);
             
             if (!empty($parts)) {
-                // Вторая часть - действие
-                $action = array_shift($parts);
+                // Вторая часть - действие (кандидат)
+                $rawAction = array_shift($parts);
+                $action = $rawAction;
                 
                 // Остальные части - параметры
                 $params = $parts;
@@ -82,9 +87,24 @@ class Router {
         
         // Проверяем существование метода
         if (!method_exists($controllerInstance, $action)) {
+            // Если метода нет, воспринимаем сегмент действия как первый параметр для index
+            if ($rawAction !== null) { array_unshift($params, $rawAction); }
             $action = 'index';
         }
         
+        // Поддержка вложенных методов для API, например /api/content-overrides
+        if ($controller === 'api') {
+            if (!empty($params)) {
+                $subaction = str_replace('-', '', implode('', $params));
+                if (method_exists($controllerInstance, $subaction)) {
+                    return $controllerInstance->$subaction();
+                }
+            }
+            // POST /api/translate
+            if ($action === 'translate' && method_exists($controllerInstance, 'translate')) {
+                return $controllerInstance->translate();
+            }
+        }
         // Вызываем метод контроллера
         if (empty($params)) {
             return $controllerInstance->$action();

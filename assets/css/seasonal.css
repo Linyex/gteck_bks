@@ -1,0 +1,91 @@
+/* Базовые сезонные темы: управляются классом на body: .season-spring | .season-summer | .season-autumn | .season-winter */
+
+/* Общие переменные цветов через :root переопределяются на body */
+.site-public {
+	--season-bg: #ffffff;
+	--season-accent: #667eea;
+	--season-accent-2: #764ba2;
+	--season-text: #1a1a1a;
+	--season-soft: rgba(0,0,0,0.04);
+}
+
+.site-public.season-spring {
+	--season-bg: #f6fff6;
+	--season-accent: #2ecc71;
+	--season-accent-2: #27ae60;
+	--season-text: #16331f;
+	--season-soft: rgba(46, 204, 113, 0.08);
+}
+
+.site-public.season-summer {
+	--season-bg: #fffdf3;
+	--season-accent: #f39c12;
+	--season-accent-2: #e67e22;
+	--season-text: #3a2a00;
+	--season-soft: rgba(243, 156, 18, 0.10);
+}
+
+.site-public.season-autumn {
+	--season-bg: #fff8f1;
+	--season-accent: #d35400;
+	--season-accent-2: #c0392b;
+	--season-text: #3b1e07;
+	--season-soft: rgba(211, 84, 0, 0.10);
+}
+
+.site-public.season-winter {
+	--season-bg: #f7fbff;
+	--season-accent: #4aa3ff;
+	--season-accent-2: #6c5ce7;
+	--season-text: #0f2437;
+	--season-soft: rgba(76, 139, 245, 0.10);
+}
+
+/* Применение темовых переменных к ключевым зонам */
+.site-public {
+	background-color: var(--season-bg);
+	color: var(--season-text);
+}
+
+/* Акцентные элементы */
+.site-public .btn-primary,
+.site-public .action-link:hover,
+.site-public .pagination .active,
+.site-public .status-badge,
+.site-public .level-badge {
+	background: linear-gradient(135deg, var(--season-accent), var(--season-accent-2));
+	border-color: transparent;
+}
+
+/* Убираем перекраску фоновых карточек, только акценты и заголовки — фон оставляем базовый темы сайта */
+
+/* Заголовки с градиентом из сезонных цветов (использует уже добавленный background-clip) */
+@supports (-webkit-background-clip: text) {
+	.site-public .section-title,
+	.site-public h2.section-title,
+	.site-public h3.section-title {
+		background-image: linear-gradient(135deg, var(--season-accent), var(--season-accent-2), var(--season-accent));
+	}
+}
+
+/* Нижняя градиентная линия */
+.site-public .section-title::after,
+.site-public h2.section-title::after,
+.site-public h3.section-title::after {
+	background: linear-gradient(135deg, var(--season-accent), var(--season-accent-2), var(--season-accent));
+}
+
+/* Хедер и навигация лёгкая подстройка */
+.site-public .header-container,
+.site-public .main-nav .nav-link:hover,
+.site-public .dropdown-menu a:hover {
+	border-color: var(--season-accent);
+}
+
+/* Ссылки при наведении */
+.site-public a:hover { color: var(--season-accent-2); }
+
+/* Футер акценты */
+.site-public .footer a:hover { color: var(--season-accent); }
+
+

@@ -20,6 +20,7 @@ class MonitoringController extends BaseAdminController {
      * Главная страница мониторинга
      */
     public function index() {
+        $this->requireAccessLevel(10);
         try {
             $rawSecurityStats = $this->securityMonitoring->getSecurityStats(30);
             
@@ -82,6 +83,7 @@ class MonitoringController extends BaseAdminController {
      * Страница логов
      */
     public function logs() {
+        $this->requireAccessLevel(10);
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = 50;
         $offset = ($page - 1) * $limit;
@@ -125,6 +127,7 @@ class MonitoringController extends BaseAdminController {
      * Страница угроз
      */
     public function threats() {
+        $this->requireAccessLevel(10);
         try {
             require_once __DIR__ . '/../../../engine/main/db.php';
             $threats = Database::fetchAll(
@@ -155,6 +158,7 @@ class MonitoringController extends BaseAdminController {
      * Страница отчетов
      */
     public function reports() {
+        $this->requireAccessLevel(10);
         try {
             $reports = $this->db->fetchAll(
                 "SELECT sr.*, u.user_fio as generated_by_name 
@@ -184,6 +188,7 @@ class MonitoringController extends BaseAdminController {
      * Страница настроек мониторинга
      */
     public function settings() {
+        $this->requireAccessLevel(10);
         try {
             $settings = $this->db->fetchAll(
                 "SELECT * FROM monitoring_settings ORDER BY setting_key"
@@ -210,6 +215,7 @@ class MonitoringController extends BaseAdminController {
      * Обновление настроек мониторинга
      */
     public function updateSettings() {
+        $this->requireAccessLevel(10);
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/monitoring/settings');
         }
@@ -243,6 +249,7 @@ class MonitoringController extends BaseAdminController {
      * Разрешение угрозы
      */
     public function resolveThreat() {
+        $this->requireAccessLevel(10);
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/monitoring/threats');
         }
@@ -279,6 +286,7 @@ class MonitoringController extends BaseAdminController {
      * Создание отчета безопасности
      */
     public function generateReport() {
+        $this->requireAccessLevel(10);
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/monitoring/reports');
         }
@@ -318,6 +326,7 @@ class MonitoringController extends BaseAdminController {
      * Экспорт логов
      */
     public function exportLogs() {
+        $this->requireAccessLevel(10);
         $filters = [
             'level' => $_GET['level'] ?? null,
             'user_id' => $_GET['user_id'] ?? null,
@@ -353,6 +362,7 @@ class MonitoringController extends BaseAdminController {
      * Очистка старых логов
      */
     public function cleanupLogs() {
+        $this->requireAccessLevel(10);
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->redirect('/admin/monitoring/logs');
         }
@@ -381,6 +391,7 @@ class MonitoringController extends BaseAdminController {
      * API для получения статистики мониторинга
      */
     public function apiStats() {
+        $this->requireAccessLevel(10);
         try {
             $stats = $this->securityMonitoring->getSecurityStats(30);
             
@@ -401,6 +412,7 @@ class MonitoringController extends BaseAdminController {
      * API для получения текущих угроз
      */
     public function apiThreats() {
+        $this->requireAccessLevel(10);
         try {
             $threats = $this->securityMonitoring->monitorRealTime();
             
@@ -421,6 +433,7 @@ class MonitoringController extends BaseAdminController {
      * API для запуска мониторинга в реальном времени
      */
     public function apiRunMonitoring() {
+        $this->requireAccessLevel(10);
         try {
             $threats = $this->securityMonitoring->monitorRealTime();
             
@@ -442,6 +455,7 @@ class MonitoringController extends BaseAdminController {
      * API для получения логов
      */
     public function apiLogs() {
+        $this->requireAccessLevel(10);
         try {
             $filters = [
                 'level' => $_GET['level'] ?? null,

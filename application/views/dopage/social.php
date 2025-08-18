@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
                     <h1 class="hero-title"><span class="hero-icon">🤝</span>Социальные педагоги</h1>
-                    <p class="hero-subtitle">Профессиональная помощь и поддержка студентов и их семей</p>
+                    <p class="hero-subtitle">Профессиональная помощь и поддержка учащихся и их семей</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">2</span>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Дополнительные стили -->
-    <?php foreach ($additional_css as $css): ?>
+    <?php $navPage = 'security'; if (!empty($additional_css)) foreach ($additional_css as $css): ?>
         <link rel="stylesheet" href="<?= $css ?>">
     <?php endforeach; ?>
 
@@ -288,7 +288,7 @@
     </div>
 
     <!-- Дополнительные скрипты -->
-    <?php foreach ($additional_js as $js): ?>
+    <?php if (!empty($additional_js)) foreach ($additional_js as $js): ?>
         <script src="<?= $js ?>"></script>
     <?php endforeach; ?>
 

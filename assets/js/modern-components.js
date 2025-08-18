@@ -794,9 +794,166 @@
   if (document.readyState === 'loading') {
     Utils.on(document, 'DOMContentLoaded', () => {
       window.componentManager = new ComponentManager();
+      try { applyContentOverrides(); } catch(e) {}
+      try {
+        // Безопасный детектор эмодзи: охватывает основные диапазоны Юникода
+        const emojiRegex = /[\u{1F1E6}-\u{1F1FF}\u{1F200}-\u{1F251}\u{1F300}-\u{1F6FF}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+        const titles = document.querySelectorAll('.site-public .section-title, .site-public h2.section-title, .site-public h3.section-title');
+        const wrapNodeEmojis = (textNode) => {
+          const text = textNode.nodeValue;
+          const frag = document.createDocumentFragment();
+          for (const ch of text) {
+            if (emojiRegex.test(ch)) {
+              const span = document.createElement('span');
+              span.className = 'title-emoji';
+              span.textContent = ch;
+              frag.appendChild(span);
+            } else {
+              frag.appendChild(document.createTextNode(ch));
+            }
+          }
+          textNode.parentNode.replaceChild(frag, textNode);
+        };
+        titles.forEach((title) => {
+          if (title.dataset.emojiWrapped === '1' || title.querySelector('span.title-emoji')) return;
+          const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT, null);
+          const nodesToProcess = [];
+          let node;
+          while ((node = walker.nextNode())) {
+            if (node.nodeValue && emojiRegex.test(node.nodeValue)) nodesToProcess.push(node);
+          }
+          nodesToProcess.forEach(wrapNodeEmojis);
+          title.dataset.emojiWrapped = '1';
+        });
+      } catch (_) {}
     });
   } else {
     window.componentManager = new ComponentManager();
+    try { applyContentOverrides(); } catch(e) {}
+    try {
+      const emojiRegex = /[\u{1F1E6}-\u{1F1FF}\u{1F200}-\u{1F251}\u{1F300}-\u{1F6FF}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+      const titles = document.querySelectorAll('.site-public .section-title, .site-public h2.section-title, .site-public h3.section-title');
+      const wrapNodeEmojis = (textNode) => {
+        const text = textNode.nodeValue;
+        const frag = document.createDocumentFragment();
+        for (const ch of text) {
+          if (emojiRegex.test(ch)) {
+            const span = document.createElement('span');
+            span.className = 'title-emoji';
+            span.textContent = ch;
+            frag.appendChild(span);
+          } else {
+            frag.appendChild(document.createTextNode(ch));
+          }
+        }
+        textNode.parentNode.replaceChild(frag, textNode);
+      };
+      titles.forEach((title) => {
+        if (title.dataset.emojiWrapped === '1' || title.querySelector('span.title-emoji')) return;
+        const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT, null);
+        const nodesToProcess = [];
+        let node;
+        while ((node = walker.nextNode())) {
+          if (node.nodeValue && emojiRegex.test(node.nodeValue)) nodesToProcess.push(node);
+        }
+        nodesToProcess.forEach(wrapNodeEmojis);
+        title.dataset.emojiWrapped = '1';
+      });
+    } catch (_) {}
   }
 
+  // Применение правок контента из БД (с пере-применением)
+  let __gtecOverrides = null;
+  function applyOverridesToDom(list) {
+    if (!Array.isArray(list)) return;
+    list.forEach(ov => {
+      try {
+        document.querySelectorAll(ov.css_selector).forEach(el => {
+          if (ov.is_html == 1 || ov.is_html === true) el.innerHTML = ov.content; else el.textContent = ov.content;
+        });
+      } catch (_) {}
+    });
+  }
+
+  async function applyContentOverrides() {
+    try {
+      const path = location.pathname;
+      const res = await fetch('/api/content-overrides?path=' + encodeURIComponent(path), { credentials: 'same-origin' });
+      if (!res.ok) { return; }
+      let overrides = [];
+      try { overrides = await res.json(); } catch (_) { overrides = []; }
+      __gtecOverrides = overrides;
+      applyOverridesToDom(overrides);
+      // Повторно применим после полной загрузки и через небольшой таймаут
+      window.addEventListener('load', () => { applyOverridesToDom(__gtecOverrides); });
+      setTimeout(() => { applyOverridesToDom(__gtecOverrides); }, 800);
+      // Небольшой наблюдатель мутаций, на случай отложенного рендера
+      try {
+        const mo = new MutationObserver(Utils.debounce(() => applyOverridesToDom(__gtecOverrides), 120));
+        mo.observe(document.documentElement, { childList: true, subtree: true });
+        // Отключим наблюдатель через 5 секунд, чтобы не держать его постоянно
+        setTimeout(() => mo.disconnect(), 5000);
+      } catch (_) {}
+    } catch (_) {}
+  }
+
+  // === Auto-translate whole page to selected language (client-side) ===
+  async function autoTranslatePageIfNeeded() {
+    try {
+      const cookieLang = (document.cookie.match(/(?:^|; )lang=([^;]+)/)||[])[1];
+      const htmlTag = document.documentElement;
+      if (!cookieLang || cookieLang === 'ru') return;
+      if (htmlTag && (htmlTag.getAttribute('data-translated') === '1')) return;
+      const allowed = ['ru','be','en','zh','fr','es','ja','hi','ar','pt','ur','bn'];
+      if (!allowed.includes(cookieLang)) return;
+      const original = document.documentElement.outerHTML;
+      const form = new FormData();
+      form.append('lang', cookieLang);
+      form.append('html', original);
+      const res = await fetch('/api/translate', { method: 'POST', body: form, credentials: 'same-origin' });
+      if (!res.ok) { console.warn('Translate API HTTP error', res.status); return fallbackGoogleTranslate(cookieLang); }
+      const text = await res.text();
+      let j;
+      try { j = JSON.parse(text); } catch (e) { console.warn('Translate API non-JSON', (text||'').slice(0,120)); return fallbackGoogleTranslate(cookieLang); }
+      if (j && j.success && j.html) {
+        document.open();
+        document.write(j.html);
+        document.close();
+      } else {
+        console.warn('Translate API bad payload', j);
+        return fallbackGoogleTranslate(cookieLang);
+      }
+    } catch (e) { console.error('Translate failed', e); return fallbackGoogleTranslate((document.cookie.match(/(?:^|; )lang=([^;]+)/)||[])[1]||''); }
+  }
+
+  function setCookie(name, value) {
+    try {
+      const host = location.hostname;
+      const parts = host.split('.');
+      const domain = parts.length > 1 ? '.' + parts.slice(-2).join('.') : host;
+      document.cookie = name + '=' + value + '; path=/';
+      document.cookie = name + '=' + value + '; path=/; domain=' + domain;
+    } catch(_) {}
+  }
+
+  function fallbackGoogleTranslate(lang) {
+    if (!lang) return;
+    const map = { 'zh': 'zh-CN' };
+    const to = map[lang] || lang;
+    setCookie('googtrans', '/ru/' + to);
+    // Если виджет уже есть — дергаем его инициализацию, иначе перезагрузка
+    setTimeout(() => {
+      if (window.google && window.google.translate && typeof window.googleTranslateElementInit === 'function') {
+        try { window.googleTranslateElementInit(); } catch(_) {}
+      } else {
+        location.reload();
+      }
+    }, 200);
+  }
+
+  // Экспорт и различные точки запуска
+  window.autoTranslatePageIfNeeded = autoTranslatePageIfNeeded;
+  try { autoTranslatePageIfNeeded(); } catch(_) {}
+  document.addEventListener('DOMContentLoaded', () => { try { autoTranslatePageIfNeeded(); } catch(_) {} });
+  window.addEventListener('load', () => { try { autoTranslatePageIfNeeded(); } catch(_) {} });
 })(); 

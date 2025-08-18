@@ -1,3 +1,21 @@
+/* Фикс: в диапазоне 1700-1800px элементы справа не должны налезать на FAQ */
+@media (min-width: 1700px) and (max-width: 1800px) {
+	/* Переходим на 3 ряда, как на меньших разрешениях */
+	.header-container { display: flex; align-items: flex-start; flex-wrap: wrap; }
+	.header-container .brand-section { flex: 0 0 auto; margin-right: 12px; }
+	.header-container .actions-section { order: 1; flex: 0 0 auto; white-space: nowrap; margin-left: auto; }
+	.header-container .navigation-section { order: 2; flex: 1 1 100%; min-width: 0; margin-top: 10px; }
+
+	/* Ужимаем подписи справа */
+	.header-container .actions-section .nav-item .nav-link .fa-globe + span { display: none; }
+	.header-container .actions-section .accessibility-text { display: none; }
+
+	/* Сетка навигации: 3 колонки, несколько рядов */
+	.header-container .main-nav { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+	.header-container .main-nav .nav-item { margin: 0 !important; flex: 0 1 calc(33.333% - 12px); }
+	.header-container .main-nav .nav-link { width: 100%; justify-content: center; padding: 8px 10px; font-size: 15px; }
+}
+
 /* ===== ИСПРАВЛЕНИЯ ДЛЯ HEADER ===== */
 
 /* Исправление основного контейнера header */

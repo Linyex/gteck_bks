@@ -1,0 +1,69 @@
+#season-effects {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0; /* ниже контента, чтобы не перекрывать highlight */
+}
+
+#season-effects canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #season-effects { display: none; }
+}
+
+/* Сугробы на заголовках (зима). Декоративные псевдо-элементы позади текста */
+.site-public.season-winter .section-title,
+.site-public.season-winter h2.section-title,
+.site-public.season-winter h3.section-title {
+	position: relative;
+	z-index: 1;
+	padding-top: 10px; /* место для "шапки" снега */
+	text-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+
+.site-public.season-winter .section-title::before,
+.site-public.season-winter h2.section-title::before,
+.site-public.season-winter h3.section-title::before {
+	content: '';
+	position: absolute;
+	left: -8px; right: -8px; top: -8px;
+	height: 24px;
+	pointer-events: none;
+	z-index: 0;
+	/* несколько "сугробов" из радиальных градиентов */
+	background:
+		radial-gradient(14px 10px at 8% 60%, rgba(255,255,255,0.98) 0 12px, transparent 13px),
+		radial-gradient(18px 12px at 26% 55%, rgba(255,255,255,0.98) 0 14px, transparent 15px),
+		radial-gradient(16px 11px at 44% 62%, rgba(255,255,255,0.98) 0 13px, transparent 14px),
+		radial-gradient(20px 13px at 64% 58%, rgba(255,255,255,0.98) 0 15px, transparent 16px),
+		radial-gradient(16px 11px at 82% 63%, rgba(255,255,255,0.98) 0 13px, transparent 14px);
+	background-repeat: no-repeat;
+	background-size: 14% 100%, 16% 100%, 16% 100%, 18% 100%, 14% 100%;
+	background-position: 0 0, 20% 0, 40% 0, 65% 0, 85% 0;
+	filter: drop-shadow(0 1px 0 rgba(140,170,210,0.15)) drop-shadow(0 3px 6px rgba(120,150,190,0.18));
+}
+
+.site-public.season-winter .section-title::after,
+.site-public.season-winter h2.section-title::after,
+.site-public.season-winter h3.section-title::after {
+	/* Небольшой "сугроб" внизу как подложка, чтобы не мешать чтению */
+	content: '';
+	position: absolute;
+	left: 10%; right: 10%; bottom: -8px;
+	height: 10px;
+	border-radius: 999px;
+	background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.65));
+	filter: drop-shadow(0 1px 2px rgba(140,170,210,0.2));
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* Не трогаем highlight-блоки: никакой шапки на их заголовках */
+.site-public.season-winter .highlight .section-title::before,
+.site-public.season-winter .highlight .section-title::after { display: none; }
+
+

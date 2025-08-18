@@ -113,15 +113,15 @@ $currentPage = 'users';
                         </label>
                         <select id="access_level" name="access_level" class="form-control" required>
                             <option value="">Выберите уровень доступа</option>
-                            <option value="1" <?php echo ($formData['access_level'] ?? '') == '1' ? 'selected' : ''; ?>>
-                                Пользователь (1)
-                            </option>
-                            <option value="2" <?php echo ($formData['access_level'] ?? '') == '2' ? 'selected' : ''; ?>>
-                                Модератор (2)
-                            </option>
-                            <option value="3" <?php echo ($formData['access_level'] ?? '') == '3' ? 'selected' : ''; ?>>
-                                Администратор (3)
-                            </option>
+                            <option value="1" <?php echo ($formData['access_level'] ?? '') == '1' ? 'selected' : ''; ?>>Преподаватель (1)</option>
+                            <option value="2" <?php echo ($formData['access_level'] ?? '') == '2' ? 'selected' : ''; ?>>Методист (2)</option>
+                            <option value="3" <?php echo ($formData['access_level'] ?? '') == '3' ? 'selected' : ''; ?>>Зав. отделением (3)</option>
+                            <option value="4" <?php echo ($formData['access_level'] ?? '') == '4' ? 'selected' : ''; ?>>Зам. директора по воспитательной работе (4)</option>
+                            <option value="5" <?php echo ($formData['access_level'] ?? '') == '5' ? 'selected' : ''; ?>>Зам. директора по учебной работе (5)</option>
+                            <option value="6" <?php echo ($formData['access_level'] ?? '') == '6' ? 'selected' : ''; ?>>Директор (6)</option>
+                            <option value="7" <?php echo ($formData['access_level'] ?? '') == '7' ? 'selected' : ''; ?>>Социальный педагог (7)</option>
+                            <option value="8" <?php echo ($formData['access_level'] ?? '') == '8' ? 'selected' : ''; ?>>Психолог (8)</option>
+                            <option value="10" <?php echo ($formData['access_level'] ?? '') == '10' ? 'selected' : ''; ?>>Администратор (10)</option>
                         </select>
                         <div class="form-help">
                             Определяет права доступа пользователя в системе

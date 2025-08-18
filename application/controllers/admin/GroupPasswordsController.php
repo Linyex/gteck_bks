@@ -5,7 +5,8 @@ require_once __DIR__ . '/BaseAdminController.php';
 class GroupPasswordsController extends BaseAdminController {
     
     public function index() {
-        $this->requireAccessLevel(10); // Только администраторы
+        // Доступ: Зав. отделением (3), Зам. по учебной (5), Директор (6), Админ (10)
+        $this->requireAccessLevel(3);
         
         try {
             $passwords = Database::fetchAll("SELECT * FROM group_passwords ORDER BY group_name");
@@ -21,7 +22,7 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function create() {
-        $this->requireAccessLevel(10); // Только администраторы
+        $this->requireAccessLevel(5); // Создавать могут: Зам. по учебной (5), Директор (6), Админ (10)
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -63,7 +64,7 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function edit($id = null) {
-        $this->requireAccessLevel(10); // Только администраторы
+        $this->requireAccessLevel(5); // Править могут: Зам. по учебной (5), Директор (6), Админ (10)
         
         if (!$id) {
             header('Location: /admin/group-passwords');
@@ -137,7 +138,7 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function delete() {
-        $this->requireAccessLevel(10); // Только администраторы
+        $this->requireAccessLevel(10); // Удалять — только админ
         
         $id = $_POST['id'] ?? null;
         if (!$id) {
@@ -165,7 +166,7 @@ class GroupPasswordsController extends BaseAdminController {
     }
     
     public function toggle() {
-        $this->requireAccessLevel(10); // Только администраторы
+        $this->requireAccessLevel(5); // Включать/выключать — 5+
         
         $id = $_POST['id'] ?? null;
         if (!$id) {

@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
                     <h1 class="hero-title"><span class="hero-icon">👥</span>Списки учебных групп</h1>
-                    <p class="hero-subtitle">Списки студентов всех учебных групп колледжа</p>
+                    <p class="hero-subtitle">Списки учащихся всех учебных групп колледжа</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">40+</span>
@@ -13,7 +13,7 @@
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">800+</span>
-                            <span class="stat-label">Студентов</span>
+                            <span class="stat-label">Учащихся</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number">4</span>
@@ -50,7 +50,7 @@
                                         <span class="specialty-badge">Программирование</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 28</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 28</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Петрова А.И.</p>
                                     </div>
                                     <div class="group-actions">
@@ -66,7 +66,7 @@
                                         <span class="specialty-badge">Веб-дизайн</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 25</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 25</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Сидоров В.П.</p>
                                     </div>
                                     <div class="group-actions">
@@ -82,7 +82,7 @@
                                         <span class="specialty-badge">Экономика</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 22</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 22</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Иванова М.С.</p>
                                     </div>
                                     <div class="group-actions">
@@ -104,7 +104,7 @@
                                         <span class="specialty-badge">Программирование</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 26</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 26</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Козлов Д.В.</p>
                                     </div>
                                     <div class="group-actions">
@@ -120,7 +120,7 @@
                                         <span class="specialty-badge">Веб-дизайн</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 24</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 24</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Орлова Е.А.</p>
                                     </div>
                                     <div class="group-actions">
@@ -142,7 +142,7 @@
                                         <span class="specialty-badge">Программирование</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 23</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 23</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Морозов А.В.</p>
                                     </div>
                                     <div class="group-actions">
@@ -174,7 +174,7 @@
                                         <span class="specialty-badge zaoch-badge">Экономика</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 18</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 18</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Васильева Т.И.</p>
                                     </div>
                                     <div class="group-actions">
@@ -190,7 +190,7 @@
                                         <span class="specialty-badge zaoch-badge">Бухгалтерия</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 20</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 20</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Романова Н.П.</p>
                                     </div>
                                     <div class="group-actions">
@@ -212,7 +212,7 @@
                                         <span class="specialty-badge zaoch-badge">Экономика</span>
                                     </div>
                                     <div class="group-info">
-                                        <p><i class="fa fa-users"></i> Студентов: 17</p>
+                                        <p><i class="fa fa-users"></i> Учащихся: 17</p>
                                         <p><i class="fa fa-user-circle"></i> Куратор: Федоров К.М.</p>
                                     </div>
                                     <div class="group-actions">
@@ -262,7 +262,7 @@
         </div>
         <div class="modal-body">
             <div id="groupListContent">
-                <!-- Здесь будет загружаться список студентов -->
+                <!-- Здесь будет загружаться список учащихся -->
                 <div class="loading">
                     <i class="fa fa-spinner fa-spin"></i>
                     Загрузка списка...
@@ -633,7 +633,7 @@ function hideGroupList() {
 }
 
 function generateGroupList(groupCode) {
-    // Генерация примера списка студентов
+    // Генерация примера списка учащихся
     const students = [
         'Иванов Иван Иванович',
         'Петров Петр Петрович', 
@@ -650,15 +650,15 @@ function generateGroupList(groupCode) {
     let html = `
         <div class="student-list">
             <div class="list-header">
-                <h4>Студенты группы ${groupCode}</h4>
-                <p>Всего студентов: ${students.length}</p>
+                <h4>Учащиеся группы ${groupCode}</h4>
+                <p>Всего учащихся: ${students.length}</p>
             </div>
             <div class="students-table">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>№</th>
-                            <th>ФИО студента</th>
+                            <th>ФИО учащегося</th>
                             <th>Статус</th>
                         </tr>
                     </thead>

@@ -59,6 +59,36 @@ if ($isStaticFile) {
                 header('Content-Type: image/gif');
                 header('Cache-Control: public, max-age=31536000');
                 break;
+            case 'pdf':
+                // Отдаём PDF для просмотра в браузере, а не скачивания
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'doc':
+                header('Content-Type: application/msword');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'docx':
+                header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'xls':
+                header('Content-Type: application/vnd.ms-excel');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'xlsx':
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'ppt':
+                header('Content-Type: application/vnd.ms-powerpoint');
+                header('Cache-Control: public, max-age=86400');
+                break;
+            case 'pptx':
+                header('Content-Type: application/vnd.openxmlformats-officedocument.presentationml.presentation');
+                header('Cache-Control: public, max-age=86400');
+                break;
             case 'webp':
                 header('Content-Type: image/webp');
                 header('Cache-Control: public, max-age=31536000');

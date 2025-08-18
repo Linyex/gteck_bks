@@ -96,7 +96,7 @@ echo $header;
                             <span class="stat-label">Лет истории</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number" data-count="4">4</span>
+                            <span class="stat-number" data-count="4">6</span>
                             <span class="stat-label">Специальности</span>
                         </div>
                         <div class="stat-item">
@@ -143,8 +143,8 @@ echo $header;
                                         <i class="fa fa-trophy"></i>
                                     </div>
                                     <div class="info-text">
-                                        <h4>Достижения студентов</h4>
-                                        <p>Наши студенты заняли первое место в республиканской олимпиаде по экономике</p>
+                                        <h4>Достижения учащихся</h4>
+                                        <p>Наши учащиеся заняли первое место в республиканской олимпиаде по экономике</p>
                                         <a href="/news" class="info-link">Подробнее <i class="fa fa-arrow-right"></i></a>
                                     </div>
                                 </div>
@@ -200,32 +200,25 @@ echo $header;
                     <!-- Информация -->
                     <div class="info-widget" data-aos="fade-left" data-aos-delay="100">
                         <h4><i class="fa fa-info-circle"></i> Дополнительная информация</h4>
-                        <?php if (!empty($lastzamena['zamena_file'])): ?>
-                            <div class="info-item">
-                                <a href="/<?php echo ($lastzamena['zamena_file']) ?>" target="_blank" class="info-link">
-                                    <i class="fa fa-calendar"></i>
-                                    <span>Изменения в расписании<br><?php echo $lastzamena['zamena_text'] ?></span>
-                                </a>
-                            </div>
+                        <?php $items = $infoWidgetItems ?? []; ?>
+                        <?php if (!empty($items)): ?>
+                            <?php foreach ($items as $it): ?>
+                                <?php
+                                    $href = !empty($it['file_path']) ? $it['file_path'] : ($it['url'] ?? '#');
+                                    $icon = !empty($it['icon']) ? $it['icon'] : 'fa fa-link';
+                                ?>
+                                <div class="info-item">
+                                    <a href="<?php echo htmlspecialchars($href); ?>" target="_blank" class="info-link">
+                                        <i class="<?php echo htmlspecialchars($icon); ?>"></i>
+                                        <span><?php echo htmlspecialchars($it['title']); ?><?php if (!empty($it['description'])): ?><br><?php echo htmlspecialchars($it['description']); ?><?php endif; ?></span>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
                         <?php else: ?>
                             <div class="info-item">
-                                <span class="info-text"><i class="fa fa-check"></i> Изменений в расписании нет</span>
+                                <span class="info-text"><i class="fa fa-info-circle"></i> Информация появится позже</span>
                             </div>
                         <?php endif; ?>
-                        
-                        <div class="info-item">
-                            <a href="http://178.124.196.1:8881/stat2/hs/hsgetstat/allstat/?unp=400058708" target="_blank" class="info-link">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Ход приёма документов</span>
-                            </a>
-                        </div>
-                        
-                        <div class="info-item">
-                            <a href="/assets/files/№ 88 от 27.03.2025 Об утверждении Порядка приема на 2025 год.pdf" target="_blank" class="info-link">
-                                <i class="fa fa-file-pdf-o"></i>
-                                <span>Порядок приёма абитуриентов 2025 год</span>
-                            </a>
-                        </div>
                     </div>
                     
                     <!-- Контакты -->
@@ -430,11 +423,6 @@ echo $header;
                             <div class="section-content">
                                 <h3>Новости</h3>
                                 <p>Последние новости и события колледжа</p>
-                                <div class="section-features">
-                                    <span class="feature">📖 Читать</span>
-                                    <span class="feature">📅 Архив</span>
-                                    <span class="feature">🔔 Уведомления</span>
-                                </div>
                                 <a href="/news" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Перейти к новостям
@@ -447,11 +435,6 @@ echo $header;
                             <div class="section-content">
                                 <h3>Абитуриентам</h3>
                                 <p>Информация для поступающих в колледж</p>
-                                <div class="section-features">
-                                    <span class="feature">📚 Специальности</span>
-                                    <span class="feature">📋 Документы</span>
-                                    <span class="feature">📅 Сроки</span>
-                                </div>
                                 <a href="/abut" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
                                     Информация для абитуриентов
@@ -462,16 +445,11 @@ echo $header;
                         <div class="section-card">
                             <div class="section-icon">👨‍🎓</div>
                             <div class="section-content">
-                                <h3>Студентам</h3>
-                                <p>Материалы и ресурсы для студентов</p>
-                                <div class="section-features">
-                                    <span class="feature">📝 Контрольные</span>
-                                    <span class="feature">📚 Библиотека</span>
-                                    <span class="feature">🏠 Общежитие</span>
-                                </div>
+                                <h3>Учащимся</h3>
+                                <p>Материалы и ресурсы для учащихся</p>
                                 <a href="/stud" class="section-btn">
                                     <i class="fa fa-arrow-right"></i>
-                                    Студенческий раздел
+                                    Учащийся раздел
                                 </a>
                             </div>
                         </div>

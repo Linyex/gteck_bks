@@ -427,3 +427,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ============ User menu toggle ============
+function toggleUserMenu(){
+  const dd = document.getElementById('userDropdown');
+  if (!dd) return;
+  dd.style.display = (dd.style.display === 'none' || dd.style.display === '') ? 'block' : 'none';
+}
+
+// ============ Notifications ============
+async function toggleNotifications(){
+  const box = document.getElementById('notificationsDropdown');
+  const badge = document.getElementById('notifBadge');
+  if (!box) return;
+  if (box.dataset.loaded !== '1') {
+    try {
+      const res = await fetch('/admin/enhanced-analytics/api?action=notifications', {credentials:'same-origin'});
+      let data = [];
+      try { data = await res.json(); } catch(_){ data = []; }
+      // data может быть объектом; приводим к массиву
+      if (!Array.isArray(data) && data && data.securityAlerts) data = data.securityAlerts;
+      box.innerHTML = (Array.isArray(data) ? data : []).slice(0,10).map(a => `
+        <div class="notif-item ${a.severity||''}">
+          <div class="notif-title">${escapeHtml(a.title||'')}</div>
+          <div class="notif-desc">${escapeHtml(a.description||'')}</div>
+          <div class="notif-time">${escapeHtml(a.created_at||'')}</div>
+        </div>
+      `).join('') || '<div class="notif-empty">Нет уведомлений</div>';
+      const count = Array.isArray(data) ? data.length : 0;
+      if (badge) { badge.textContent = count; badge.style.display = count>0 ? 'inline-block':'none'; }
+      box.dataset.loaded = '1';
+    } catch(_){ box.innerHTML = '<div class="notif-empty">Ошибка загрузки</div>'; }
+  }
+  box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
+}
+
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[m])); }

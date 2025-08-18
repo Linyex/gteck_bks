@@ -11,7 +11,7 @@ $currentPage = 'control-files';
             <h1>Загрузить файл контрольной работы</h1>
         </div>
         <div class="page-subtitle">
-            Добавление нового файла с привязкой к группам студентов
+            Добавление нового файла с привязкой к группам учащихся
         </div>
         <div class="page-actions">
             <a href="/admin/control-files" class="btn btn-secondary">
@@ -83,7 +83,7 @@ $currentPage = 'control-files';
                                placeholder="Введите название файла для отображения" 
                                required>
                         <div class="form-help">
-                            Это имя будет отображаться студентам в списке работ. По умолчанию подставляется из имени файла.
+                            Это имя будет отображаться учащимся в списке работ. По умолчанию подставляется из имени файла.
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@ $currentPage = 'control-files';
                                    name="description" 
                                    class="form-control" 
                                    rows="4"
-                                   placeholder="Краткое описание файла и инструкции для студентов"></textarea>
+                                   placeholder="Краткое описание файла и инструкции для учащихся"></textarea>
                         <div class="form-help">Описание не обязательно</div>
                     </div>
                 </div>

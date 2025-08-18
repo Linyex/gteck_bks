@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
                     <h1 class="hero-title"><span class="hero-icon">💼</span>Бухгалтерия</h1>
-                    <p class="hero-subtitle">Финансовая информация, контакты и реквизиты для студентов</p>
+                    <p class="hero-subtitle">Финансовая информация, контакты и реквизиты для учащихся</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">4</span>

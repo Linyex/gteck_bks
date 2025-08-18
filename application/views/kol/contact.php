@@ -153,6 +153,13 @@
                     </div>
                 </div>
 
+                <!-- Ссылка на личные приемы -->
+                <div class="callout" style="margin: 10px 0 30px;">
+                    <a href="/kol/receptions" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fa fa-calendar"></i> График личного приема и прямых телефонных линий
+                    </a>
+                </div>
+
                 <!-- Заведующие отделениями -->
                 <div class="departments-section" data-aos="fade-up" data-aos-delay="400">
                     <div class="section-header">

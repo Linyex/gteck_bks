@@ -264,7 +264,7 @@
                         <ul class="quick-links">
                             <li><a href="/news" class="quick-link">Все новости</a></li>
                             <li><a href="/news/category/abiturient" class="quick-link">Новости для абитуриентов</a></li>
-                            <li><a href="/news/category/student" class="quick-link">Новости для студентов</a></li>
+                            <li><a href="/news/category/student" class="quick-link">Новости для учащихся</a></li>
                             <li><a href="/news/category/teacher" class="quick-link">Новости для преподавателей</a></li>
                         </ul>
                     </div>

@@ -27,7 +27,7 @@
 </section>
 
 <!-- Основной контент -->
-<div class="c-layout-page">
+<div class="c-layout-page okno-proc">
     <div class="container">
         
         <!-- Правовая основа -->
@@ -46,8 +46,8 @@
         <div class="content-section" data-aos="fade-up" data-aos-delay="300">
             <h2 class="section-title">📋 Административные процедуры</h2>
             <div class="procedures-table-container">
-                <div class="table-responsive">
-                    <table class="procedures-table table table-hover">
+                <div class="table-responsive" style="overflow-x: visible;">
+                    <table class="procedures-table table table-hover" style="table-layout: fixed; width: 100%;">
                         <thead>
                             <tr>
                                 <th>Наименование административной процедуры</th>

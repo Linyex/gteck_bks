@@ -117,10 +117,7 @@
 }
 </style>
 
-<?php
-// Устанавливаем текущую страницу для активного состояния навигации
-$currentPage = 'security';
-?>
+<?php $navPage = 'security'; ?>
 
 <!-- Security Audit Content -->
 <div class="security-audit-dashboard">
@@ -159,6 +156,15 @@ $currentPage = 'security';
                 <div class="filter-group">
                     <label>Дата:</label>
                     <input type="date" id="dateFilter">
+                </div>
+                <div class="filter-group">
+                    <label>Период:</label>
+                    <select id="periodQuick">
+                        <option value="">—</option>
+                        <option value="1d">Последние 24 часа</option>
+                        <option value="7d">Последние 7 дней</option>
+                        <option value="30d" selected>Последние 30 дней</option>
+                    </select>
                 </div>
 
                 <button class="btn btn-primary" onclick="applyFilters()">
@@ -202,7 +208,7 @@ $currentPage = 'security';
                                 <th>Дата</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="auditBody">
                             <?php if (!empty($logs)): ?>
                                 <?php foreach ($logs as $log): ?>
                                     <tr>
@@ -243,30 +249,8 @@ $currentPage = 'security';
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                <?php if ($totalPages > 1): ?>
-                    <div class="pagination">
-                        <?php if ($currentPage > 1): ?>
-                            <a href="?page=<?= $currentPage - 1 ?>">
-                                <i class="fas fa-chevron-left"></i> Назад
-                            </a>
-                        <?php endif; ?>
-
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <?php if ($i == $currentPage): ?>
-                                <span class="current"><?= $i ?></span>
-                            <?php else: ?>
-                                <a href="?page=<?= $i ?>"><?= $i ?></a>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-
-                        <?php if ($currentPage < $totalPages): ?>
-                            <a href="?page=<?= $currentPage + 1 ?>">
-                                Вперед <i class="fas fa-chevron-right"></i>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+                <!-- Pagination (AJAX) -->
+                <div class="pagination" id="auditPagination"></div>
             </div>
         </main>
     </div>
@@ -289,24 +273,9 @@ $currentPage = 'security';
 
 <script>
 // Функции для работы с аудитом
-function applyFilters() {
-    const actionType = document.getElementById('actionTypeFilter').value;
-    const userFilter = document.getElementById('userFilter').value;
-    const ipFilter = document.getElementById('ipFilter').value;
-    const dateFilter = document.getElementById('dateFilter').value;
+function applyFilters() { if (window.SecurityAudit) window.SecurityAudit.applyFilters(); }
 
-    let url = '/admin/security/audit?';
-    if (actionType) url += `action_type=${actionType}&`;
-    if (userFilter) url += `user_id=${userFilter}&`;
-    if (ipFilter) url += `ip_address=${ipFilter}&`;
-    if (dateFilter) url += `date=${dateFilter}&`;
-
-    window.location.href = url;
-}
-
-function refreshAudit() {
-    location.reload();
-}
+function refreshAudit() { if (window.SecurityAudit) window.SecurityAudit.refresh(); }
 
 function cleanupLogs() {
     if (confirm('Вы уверены, что хотите удалить старые логи? Это действие нельзя отменить.')) {

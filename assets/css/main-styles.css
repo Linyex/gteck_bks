@@ -10,7 +10,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Основные переменные - Мягкие Hi-Tech цвета */
+/* Основные переменные */
 :root {
     --primary-color: #8B5CF6;
     --primary-light: #A78BFA;
@@ -237,3 +237,148 @@ p {
         font-size: 0.9rem;
     }
 } 
+
+/* Градиентная анимация заголовков разделов на всём публичном сайте */
+.site-public .section-title,
+.site-public h2.section-title,
+.site-public h3.section-title {
+  /* Безопасный цвет по умолчанию (fallback) и жёсткий сброс fill */
+  color: var(--text-dark) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
+/* Включаем градиент ТОЛЬКО в браузерах, поддерживающих background-clip:text */
+@supports (-webkit-background-clip: text) {
+  .site-public .section-title,
+  .site-public h2.section-title,
+  .site-public h3.section-title {
+    background-image: linear-gradient(135deg, #667eea, #764ba2, #667eea) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    background-size: 300% 300% !important;
+    animation: st-global-gradient 16s linear infinite !important;
+  }
+}
+
+@keyframes st-global-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-public .section-title,
+  .site-public h2.section-title,
+  .site-public h3.section-title {
+    animation: none;
+  }
+}
+
+/* Анимированное подчеркивание (не влияет на читаемость текста) */
+.site-public .section-title,
+.site-public h2.section-title,
+.site-public h3.section-title {
+  position: relative;
+}
+
+/* Таблица процедур: фиксированная верстка без горизонтального скролла */
+.procedures-table {
+  table-layout: fixed;
+  width: 100%;
+}
+.procedures-table th,
+.procedures-table td {
+  word-wrap: break-word;
+  white-space: normal;
+}
+.procedures-table td .badge { white-space: nowrap; }
+.procedures-table-container .table-responsive { overflow-x: visible; }
+
+/* Расширенная ширина для страницы процедур */
+.okno-proc .container {
+  max-width: 1800px;
+}
+.okno-proc .procedures-table {
+  width: 100%;
+}
+
+/* Мобильная читабельность таблицы процедур: карточная раскладка */
+@media (max-width: 768px) {
+  .okno-proc .procedures-table { display: block; border-collapse: separate; }
+  .okno-proc .procedures-table thead { display: none; }
+  .okno-proc .procedures-table tbody { display: block; }
+  .okno-proc .procedures-table tr {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    overflow: hidden;
+  }
+  .okno-proc .procedures-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    white-space: normal;
+    word-break: break-word;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .okno-proc .procedures-table td:first-child { border-top: none; }
+  .okno-proc .procedures-table td::before {
+    display: block;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 6px;
+    content: attr(data-label);
+  }
+  /* Если нет data-label, подставим через nth-child */
+  .okno-proc .procedures-table td:nth-child(1)::before { content: 'Наименование административной процедуры'; }
+  .okno-proc .procedures-table td:nth-child(2)::before { content: 'К кому обратиться'; }
+  .okno-proc .procedures-table td:nth-child(3)::before { content: 'Необходимые документы'; }
+  .okno-proc .procedures-table td:nth-child(4)::before { content: 'Размер платы'; }
+  .okno-proc .procedures-table td:nth-child(5)::before { content: 'Срок выполнения'; }
+  .okno-proc .procedures-table td:nth-child(6)::before { content: 'Срок действия'; }
+  .okno-proc .procedures-table td .badge { white-space: nowrap; }
+}
+
+.site-public .section-title .title-emoji,
+.site-public h2.section-title .title-emoji,
+.site-public h3.section-title .title-emoji {
+  /* Отключаем градиент и прозрачную заливку для эмодзи */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: var(--section-title-emoji-color, var(--text-dark)) !important;
+}
+
+.site-public .section-title::after,
+.site-public h2.section-title::after,
+.site-public h3.section-title::after {
+  content: '';
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+  background-size: 200% 100%;
+  animation: st-underline 12s linear infinite;
+}
+
+@keyframes st-underline {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-public .section-title::after,
+  .site-public h2.section-title::after,
+  .site-public h3.section-title::after {
+    animation: none;
+  }
+}

@@ -6,7 +6,8 @@ require_once ENGINE_DIR . 'main/db.php';
 class ControlFilesController extends BaseAdminController {
     
     public function index() {
-        $this->requireAccessLevel(1); // Редакторы и выше
+        // Доступ: Преподаватель (1), Зав. отделением (3), Зам. по учебной (5), Директор (6), Админ (10)
+        $this->requireAccessLevel(1);
         
         try {
             // Параметры фильтрации

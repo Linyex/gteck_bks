@@ -33,12 +33,18 @@ class mainController extends BaseController {
                 'specialties' => 4,
                 'graduates' => 30
             ];
+
+            // Инфо-виджет (динамический)
+            require_once APPLICATION_DIR . 'models/InfoWidgetModel.php';
+            $iwModel = new InfoWidgetModel();
+            $infoWidgetItems = $iwModel->listPublic();
             
             return $this->render('main/index', [
                 'title' => 'Главная',
                 'importantNews' => $importantNews,
                 'regularNews' => $regularNews,
-                'stats' => $stats
+                'stats' => $stats,
+                'infoWidgetItems' => $infoWidgetItems
             ]);
         } catch (Exception $e) {
             return $this->render('error/error', [

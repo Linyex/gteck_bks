@@ -5,6 +5,8 @@ class BaseController {
     protected $config;
     protected $data = [];
     protected $settings = [];
+    protected $lang = 'ru';
+    protected $i18n = [];
     
     public function __construct() {
         // Инициализируем подключение к БД
@@ -37,6 +39,9 @@ class BaseController {
 
         // Принудительное перенаправление на HTTPS при необходимости
         $this->enforceHttpsIfRequired();
+
+        // Локализация
+        $this->initI18n();
     }
     
     // Метод для загрузки модели
@@ -97,6 +102,51 @@ class BaseController {
 
         // Выводим содержимое буфера
         echo ob_get_clean();
+    }
+
+    protected function initI18n() {
+        $allowed = ['ru','be','en','zh','fr','es','ja','hi','ar','pt','ur','bn'];
+        $reqLang = isset($_GET['lang']) ? strtolower(preg_replace('/[^a-z]/', '', $_GET['lang'])) : null;
+        if ($reqLang && in_array($reqLang, $allowed, true)) {
+            setcookie('lang', $reqLang, time() + 3600*24*365, '/');
+            $this->lang = $reqLang;
+            // Мягкий редирект на тот же путь без параметра
+            $path = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+            header('Location: ' . $path, true, 302);
+            exit;
+        }
+        $cookieLang = isset($_COOKIE['lang']) ? strtolower(preg_replace('/[^a-z]/', '', $_COOKIE['lang'])) : null;
+        if ($cookieLang && in_array($cookieLang, $allowed, true)) {
+            $this->lang = $cookieLang;
+        }
+        $this->i18n = $this->loadLangFile($this->lang);
+        $this->data['lang'] = $this->lang;
+        $GLOBALS['__i18n'] = $this->i18n;
+        $GLOBALS['__i18n_lang'] = $this->lang;
+        if (!function_exists('__')) {
+            function __($key, $default = '') {
+                $lang = isset($GLOBALS['__i18n_lang']) ? $GLOBALS['__i18n_lang'] : 'ru';
+                $dict = isset($GLOBALS['__i18n']) && is_array($GLOBALS['__i18n']) ? $GLOBALS['__i18n'] : [];
+                if (isset($dict[$key]) && $dict[$key] !== '') return $dict[$key];
+                // Попытка подгрузить RU как фолбэк
+                static $ruCache = null;
+                if ($ruCache === null) {
+                    $file = APPLICATION_DIR . 'lang/ru.php';
+                    $ruCache = file_exists($file) ? (include $file) : [];
+                }
+                if (isset($ruCache[$key]) && $ruCache[$key] !== '') return $ruCache[$key];
+                return $default !== '' ? $default : $key;
+            }
+        }
+    }
+
+    protected function loadLangFile($lang) {
+        $file = APPLICATION_DIR . 'lang/' . $lang . '.php';
+        if (file_exists($file)) {
+            $arr = include $file;
+            return is_array($arr) ? $arr : [];
+        }
+        return [];
     }
     
     // Метод для рендеринга без header/footer (для AJAX)

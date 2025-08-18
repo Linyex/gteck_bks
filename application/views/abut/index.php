@@ -13,7 +13,7 @@
                             <span class="stat-label">Лет истории</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-number">4</span>
+                            <span class="stat-number">6</span>
                             <span class="stat-label">Специальности</span>
                         </div>
                         <div class="stat-item">
@@ -129,7 +129,7 @@
                 <div class="abut-sidebar">
                     <!-- Быстрые ссылки -->
                     <div class="sidebar-widget links-widget">
-                        <h4>🔗 Быстрые ссылки</h4>
+                        <h4 class="section-title">🔗 Быстрые ссылки</h4>
                         <ul class="quick-links">
                             <li><a href="/abut/spec">📚 Специальности</a></li>
                             <li><a href="/abut/plan">📋 План приема</a></li>
@@ -142,7 +142,7 @@
                     
                     <!-- Важные даты -->
                     <div class="sidebar-widget dates-widget">
-                        <h4>📅 Важные даты</h4>
+                        <h4 class="section-title">📅 Важные даты</h4>
                         <div class="dates-list">
                             <div class="date-item">
                                 <div class="date-number">15</div>
@@ -170,7 +170,7 @@
                     
                     <!-- Контакты приемной комиссии -->
                     <div class="sidebar-widget contacts-widget">
-                        <h4>📞 Приемная комиссия</h4>
+                        <h4 class="section-title">📞 Приемная комиссия</h4>
                         <div class="contacts-list">
                             <div class="contact-item">
                                 <div class="contact-icon">📞</div>
@@ -205,7 +205,7 @@
                     
                     <!-- Документы для поступления -->
                     <div class="sidebar-widget docs-widget">
-                        <h4>📋 Документы для поступления</h4>
+                        <h4 class="section-title">📋 Документы для поступления</h4>
                         <ul class="docs-list">
                             <li>Заявление установленного образца</li>
                             <li>Оригинал документа об образовании</li>

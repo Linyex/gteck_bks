@@ -10,7 +10,7 @@ class UsersController extends BaseAdminController {
     }
     
     public function index() {
-        $this->requireAccessLevel(5); // Только модераторы и выше
+        $this->requireAccessLevel(10); // Только администраторы
         
         try {
             require_once 'engine/main/db.php';
@@ -58,7 +58,7 @@ class UsersController extends BaseAdminController {
     }
     
     public function view($id) {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -113,6 +113,16 @@ class UsersController extends BaseAdminController {
                     'title' => 'Пользователь не найден',
                     'message' => 'Пользователь с ID ' . $id . ' не найден'
                 ]);
+            }
+            // Дешифруем причину блокировки для отображения в форме
+            try {
+                if (!empty($user['user_block_reason'])) {
+                    $user['user_block_reason_dec'] = Encryption::decryptFromDatabase($user['user_block_reason']);
+                } else {
+                    $user['user_block_reason_dec'] = '';
+                }
+            } catch (Exception $e) {
+                $user['user_block_reason_dec'] = '';
             }
             
             $this->render('admin/users/edit', [
@@ -497,7 +507,7 @@ class UsersController extends BaseAdminController {
             ];
         }
         
-        return $this->redirect('/admin/users');
+        return $this->redirect('/admin/users/edit/' . $id);
     }
     
     public function resetPassword($id) {
@@ -710,12 +720,15 @@ class UsersController extends BaseAdminController {
             }
         }
         
-        // Получаем список уровней доступа
+        // Получаем список уровней доступа (полный перечень)
         $accessLevels = [
             1 => 'Преподаватель',
-            3 => 'Методист',
-            5 => 'Дирекция колледжа',
-            10 => 'Администратор'
+            2 => 'Методист',
+            3 => 'Зав. отделением',
+            4 => 'Зам. директора по воспитательной работе',
+            5 => 'Зам. директора по учебной работе',
+            6 => 'Директор',
+            10 => 'Администратор',
         ];
         
         $this->render('admin/users/create', [

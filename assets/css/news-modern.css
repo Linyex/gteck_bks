@@ -1124,13 +1124,37 @@ body {
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 25px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* Плавная анимация градиента для заголовков разделов */
+@supports (-webkit-background-clip: text) {
+    .section-title.is-animated {
+        /* Используем основные цвета сайта */
+        --st-c1: #667eea;
+        --st-c2: #764ba2;
+        background-image: linear-gradient(135deg, var(--st-c1), var(--st-c2), var(--st-c1));
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: sectionTitleGradient 16s linear infinite;
+    }
+}
+
+@keyframes sectionTitleGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Уважение предпочтений пользователей: отключаем анимацию при reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+    .section-title.is-animated {
+        animation: none;
+    }
 }
 
 .slider-controls {

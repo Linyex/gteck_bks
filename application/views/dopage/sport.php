@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="hero-content text-center" data-aos="fade-up">
                     <h1 class="hero-title"><span class="hero-icon">🏆</span>Наши спортивные достижения</h1>
-                    <p class="hero-subtitle">Гордость колледжа - успехи наших студентов в спорте</p>
+                    <p class="hero-subtitle">Гордость колледжа - успехи наших учащихся в спорте</p>
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number">7</span>
@@ -83,7 +83,7 @@
                     <div class="achievement-icon">🏠</div>
                     <div class="achievement-info">
                         <h4>Месячник физкультуры в общежитии</h4>
-                        <p>Спортивные мероприятия для проживающих студентов</p>
+                        <p>Спортивные мероприятия для проживающих учащихся</p>
                         <div class="achievement-meta">
                             <span class="year">2024 год</span>
                             <span class="status event">Событие</span>

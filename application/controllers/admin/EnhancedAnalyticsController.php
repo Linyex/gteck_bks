@@ -17,7 +17,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // Главная страница расширенной аналитики
     public function index() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -64,7 +64,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // Геолокация и карта активности
     public function geolocation() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -91,7 +91,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // Поведенческая аналитика
     public function behavior() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -124,7 +124,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // ML Аномалии
     public function mlAnomalies() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -151,7 +151,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // Уведомления
     public function notifications() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -174,7 +174,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // Отчеты
     public function reports() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         try {
             require_once 'engine/main/db.php';
@@ -197,7 +197,7 @@ class EnhancedAnalyticsController extends BaseAdminController {
     
     // API endpoints
     public function api() {
-        $this->requireAccessLevel(5);
+        $this->requireAccessLevel(10);
         
         $action = $_GET['action'] ?? '';
         

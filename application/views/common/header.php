@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="<?php echo htmlspecialchars($lang ?? 'ru'); ?>" data-translated="0">
 <head>
     <meta charset="utf-8" />
     <title><?php echo $title; ?>Гомельский торгово-экономический колледж</title>
@@ -12,7 +12,7 @@
     <!-- Preload критических ресурсов -->
     <link rel="preload" href="/assets/css/optimized.css" as="style">
     <link rel="preload" href="/assets/js/main-page.js" as="script">
-    <link rel="preload" href="/assets/font-manrope/Manrope-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="/assets/css/font-manrope/Manrope-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
     
     <!-- Критические стили -->
     <link href="/assets/css/optimized.css?v=1.2.0" rel="stylesheet" type="text/css" />
@@ -22,7 +22,7 @@
     
     <!-- Остальные стили БЕЗ Bootstrap -->
     <link href="/assets/css/font-awesome/css/font-awesome.css?v=1.2.0" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/main-styles.css?v=1.2.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/main-styles.css?v=1.2.1" rel="stylesheet" type="text/css" />
     <link href="/assets/css/footer.css?v=1.2.0" rel="stylesheet" type="text/css" />
     <link href="/assets/css/main-page.css?v=1.2.0" rel="stylesheet" type="text/css" />
     <link href="/assets/css/banners-soft.css?v=1.2.0" rel="stylesheet" type="text/css" />
@@ -43,7 +43,10 @@
     <link href="/assets/css/clear-blur.css?v=1.0.0" rel="stylesheet" type="text/css" />
     
     <!-- Исправления для header (загружается последним!) -->
-    <link href="/assets/css/header-fixes.min.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/header-fixes.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/seasonal-effects.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    <!-- Сезонные стили (перекрывают базовые) -->
+    <link href="/assets/css/seasonal.css?v=1.0.0" rel="stylesheet" type="text/css" />
     
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.png" />
@@ -51,19 +54,44 @@
     <!-- Оптимизированные скрипты -->
     <script src="/assets/js/jquery.min.js?v=1.2.0"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-    <script src="/assets/js/modern-components.js?v=1.2.0" defer></script>
+    <script src="/assets/js/modern-components.js?v=1.2.2" defer></script>
+    <script src="/assets/js/seasonal-effects.js?v=1.0.0" defer></script>
+    <!-- Fallback: Google Website Translator (клиентский автоперевод всей страницы) -->
+    <script>
+        window.googleTranslateElementInit = function(){
+            try {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'ru',
+                    includedLanguages: 'ru,be,en,zh-CN,fr,es,ja,hi,ar,pt,ur,bn',
+                    autoDisplay: false
+                }, 'google_translate_element');
+            } catch(_) {}
+        };
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 </head>
-<body>
+<?php
+    $month = (int)date('n');
+    $season = 'spring';
+    if ($month === 12 || $month === 1 || $month === 2) { $season = 'winter'; }
+    elseif ($month >= 3 && $month <= 5) { $season = 'spring'; }
+    elseif ($month >= 6 && $month <= 8) { $season = 'summer'; }
+    else { $season = 'autumn'; }
+?>
+<!--  -->
+<body class="site-public season-<?php echo $season; ?>">
     
     <!-- HEADER -->
     <div class="c-layout-header" id="header">
+        <div id="google_translate_element" style="display:none"></div>
         <header class="header-container">
+            <div id="season-effects"><canvas></canvas></div>
             <!-- Левая часть - Логотип и название -->
             <div class="brand-section">
                 <div class="logo-container">
                     <a href="/" class="logo-link">
-                        <img class="logo-svg" width="40" height="40" src="/assets/img/logos/logos.png" alt="ГТЭК" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="logo-fallback" style="display: none;">🎓</div>
+                        <img class="logo-svg" width="40" height="40" src="/assets/media/img/logos/logo.png" alt="ГТЭК" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <img class="logo-fallback" width="40" height="40" src="/assets/media/img/logos/head.png" alt="ГТЭК логотип" style="display: none;">
                     </a>
                 </div>
                 <div class="brand-text">
@@ -75,11 +103,11 @@
                                    <!-- Центральная навигация -->
                    <div class="navigation-section">
                        <ul class="main-nav">
-                           <li class="nav-item">
-                               <a class="nav-link" href="/">Главная</a>
-                           </li>
+                            <li class="nav-item">
+                               <a class="nav-link" href="/"><?php echo __('nav.home','Главная'); ?></a>
+                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" style="cursor: pointer;">О колледже</a>
+                                <a class="nav-link dropdown-toggle" style="cursor: pointer;"><?php echo __('nav.about','О колледже'); ?></a>
                                <ul class="dropdown-menu">
                                    <li><a href="/kol/grafik">Режим работы колледжа</a></li>
                                    <li><a href="/kol/history">История</a></li>
@@ -90,11 +118,11 @@
                                    <li><a href="/assets/files/О видеонаблюдении.pdf">О видеонаблюдении</a></li>
                                </ul>
                            </li>
-                           <li class="nav-item">
-                               <a class="nav-link" href="/news">Новости</a>
-                           </li>
+                            <li class="nav-item">
+                               <a class="nav-link" href="/news"><?php echo __('nav.news','Новости'); ?></a>
+                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/abut" style="cursor: pointer;">Абитуриенту</a>
+                                <a class="nav-link dropdown-toggle" href="/abut" style="cursor: pointer;"><?php echo __('nav.applicant','Абитуриенту'); ?></a>
                                <ul class="dropdown-menu">
                                    <li><a href="/abut/sroki">Сроки приема документов</a></li>
                                    <li><a href="/abut/spec">Специальности</a></li>
@@ -108,7 +136,7 @@
                                </ul>
                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/stud" style="cursor: pointer;">Учащемуся</a>
+                                <a class="nav-link dropdown-toggle" href="/stud" style="cursor: pointer;"><?php echo __('nav.student','Учащемуся'); ?></a>
                                <ul class="dropdown-menu">
                                    <li><a href="/stud/dnevnoe">Дневное отделение</a></li>
                                    <li><a href="/stud/zaoch">Заочная форма получения образования</a></li>
@@ -158,14 +186,14 @@
                                </ul>
                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="/prepod" style="cursor: pointer;">Преподавателю</a>
+                                <a class="nav-link dropdown-toggle" href="/prepod" style="cursor: pointer;"><?php echo __('nav.teacher','Преподавателю'); ?></a>
                                <ul class="dropdown-menu">
                                    <li><a href="/prepod/metod">Методическая работа</a></li>
                                    <li><a href="/prepod/kyrator">Куратору</a></li>
                                </ul>
                            </li>
                                                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" style="cursor: pointer;">Одно окно</a>
+                                <a class="nav-link dropdown-toggle" style="cursor: pointer;"><?php echo __('nav.one_window','Одно окно'); ?></a>
                                <ul class="dropdown-menu">
                                    <li><a href="/okno/info">Общая информация в службе "Одно окно"</a></li>
                                    <li><a href="/okno/proc">Административные процедуры</a></li>
@@ -177,13 +205,30 @@
                                </ul>
                            </li>
                            <li class="nav-item">
-                               <a class="nav-link" href="/dopage/faq">FAQ</a>
+                               <a class="nav-link" href="/dopage/faq"><?php echo __('nav.faq','FAQ'); ?></a>
                            </li>
                        </ul>
                    </div>
 
                 <!-- Правая часть: кнопка для слабовидящих как выпадающее меню -->
                 <div class="actions-section">
+                    <div class="nav-item dropdown" style="margin-right:10px">
+                        <a class="nav-link dropdown-toggle" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="fa fa-globe"></i>
+                            <span><?php echo __('lang.select','Язык'); ?></span>
+                        </a>
+                        <ul class="dropdown-menu" style="min-width: 220px; max-height: 60vh; overflow:auto">
+                            <?php
+                            $langs = [
+                                'ru'=>'Русский','be'=>'Беларуская','en'=>'English','zh'=>'中文','fr'=>'Français','es'=>'Español','ja'=>'日本語','hi'=>'हिन्दी','ar'=>'العربية','pt'=>'Português','ur'=>'اردو','bn'=>'বাংলা'
+                            ];
+                            $path = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+                            foreach ($langs as $code=>$name):
+                            ?>
+                                <li><a href="<?php echo $path; ?>?lang=<?php echo $code; ?>" class="dropdown-item" style="display:flex;justify-content:space-between"><span><?php echo htmlspecialchars($name); ?></span><?php if(($lang??'ru')===$code): ?><i class="fa fa-check"></i><?php endif; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle accessibility-btn" style="cursor: pointer; display: inline-flex; align-items:center; gap:8px;">
                             <i class="fa fa-eye"></i>

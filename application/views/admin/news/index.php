@@ -112,32 +112,16 @@ $deleted = $deleted ?? '';
                             <h3><?= htmlspecialchars($item['news_title'] ?? 'Без названия') ?></h3>
                         </div>
                         <div class="news-card-actions">
-                            <div class="dropdown" style="position: relative; display: inline-block;">
-                                <button class="btn btn-icon dropdown-toggle" onclick="toggleDropdown(this)" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6; border: 1px solid rgba(139, 92, 246, 0.2); padding: 8px 12px; border-radius: 6px; cursor: pointer;">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <div class="dropdown-menu" style="position: absolute; top: 100%; right: 0; min-width: 200px; padding: 8px 0; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); background: white; border: 1px solid rgba(139, 92, 246, 0.2); z-index: 10000; display: none; margin-top: 5px;">
-                                    <a href="/admin/news/edit/<?= $item['news_id'] ?>" class="dropdown-item" style="padding: 10px 20px; color: #374151; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
-                                        <i class="fas fa-edit"></i>
-                                        Редактировать
-                                    </a>
-                                    <a href="/news/view/<?= $item['news_id'] ?>" class="dropdown-item" target="_blank" style="padding: 10px 20px; color: #374151; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
-                                        <i class="fas fa-eye"></i>
-                                        Просмотреть
-                                    </a>
-                                    <div style="height: 1px; background: rgba(139, 92, 246, 0.2); margin: 5px 0;"></div>
-                                    <a href="/admin/news/confirm-delete/<?= $item['news_id'] ?>" class="dropdown-item text-danger" style="padding: 10px 20px; color: #ef4444; text-decoration: none; display: block; width: 100%; text-align: left; cursor: pointer;">
-                                        <i class="fas fa-trash"></i>
-                                        Удалить
-                                    </a>
-                                </div>
+                            <div class="news-card-buttons" style="display:flex; gap:10px;">
+                                <a href="/admin/news/confirm-delete/<?= $item['news_id'] ?>" class="btn btn-danger btn-sm" style="padding: 6px 12px; font-size: 12px;">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить
+                                </a>
+                                <a href="/admin/news/edit/<?= $item['news_id'] ?>" class="btn btn-secondary btn-sm" style="padding: 6px 12px; font-size: 12px;">
+                                    <i class="fas fa-edit"></i>
+                                    Редактировать
+                                </a>
                             </div>
-                            
-                            <!-- Альтернативная кнопка удаления -->
-                            <a href="/admin/news/confirm-delete/<?= $item['news_id'] ?>" class="btn btn-danger btn-sm" style="margin-left: 10px; padding: 6px 12px; font-size: 12px;">
-                                <i class="fas fa-trash"></i>
-                                Удалить
-                            </a>
                         </div>
                     </div>
                     

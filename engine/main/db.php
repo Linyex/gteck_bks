@@ -139,5 +139,60 @@ class Database {
             return $connection->insert_id;
         }
     }
+
+    public static function update($table, $data, $where, $params = []) {
+        $connection = self::getConnection();
+        $type = self::getConnectionType();
+        if ($type === 'pdo') {
+            $setClauses = [];
+            $allParams = is_array($params) ? $params : [];
+            foreach ($data as $col => $val) {
+                $ph = 'set_' . preg_replace('/[^a-zA-Z0-9_]/', '_', (string)$col);
+                $setClauses[] = "`$col` = :$ph";
+                $allParams[$ph] = $val;
+            }
+            $sql = "UPDATE `$table` SET " . implode(', ', $setClauses) . " WHERE $where";
+            $stmt = self::executePDOQuery($connection, $sql, $allParams);
+            return $stmt->rowCount() >= 0;
+        } else {
+            $setParts = [];
+            foreach ($data as $col => $val) {
+                $setParts[] = "`$col` = '" . $connection->real_escape_string($val) . "'";
+            }
+            $whereSql = $where;
+            if (!empty($params)) {
+                foreach ($params as $key => $value) {
+                    $value = $connection->real_escape_string($value);
+                    $whereSql = str_replace(":" . $key, "'" . $value . "'", $whereSql);
+                }
+            }
+            $sql = "UPDATE `$table` SET " . implode(', ', $setParts) . " WHERE " . $whereSql;
+            $res = $connection->query($sql);
+            if ($res === false) { throw new Exception("Query failed: " . $connection->error); }
+            return true;
+        }
+    }
+
+    public static function delete($table, $where, $params = []) {
+        $connection = self::getConnection();
+        $type = self::getConnectionType();
+        if ($type === 'pdo') {
+            $sql = "DELETE FROM `$table` WHERE $where";
+            $stmt = self::executePDOQuery($connection, $sql, $params);
+            return $stmt->rowCount() >= 0;
+        } else {
+            $whereSql = $where;
+            if (!empty($params)) {
+                foreach ($params as $key => $value) {
+                    $value = $connection->real_escape_string($value);
+                    $whereSql = str_replace(":" . $key, "'" . $value . "'", $whereSql);
+                }
+            }
+            $sql = "DELETE FROM `$table` WHERE " . $whereSql;
+            $res = $connection->query($sql);
+            if ($res === false) { throw new Exception("Query failed: " . $connection->error); }
+            return true;
+        }
+    }
 }
 ?> 

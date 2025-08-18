@@ -27,7 +27,15 @@ class AdminRouter {
             '/admin/photos' => ['PhotosController', 'index'],
             '/admin/photos/upload' => ['PhotosController', 'upload'],
             '/admin/settings' => ['SettingsController', 'index'],
+            '/admin/content' => ['ContentController', 'index'],
+            '/admin/info-widget' => ['InfoWidgetController', 'index'],
+            '/admin/banners' => ['BannersController', 'index'],
+            '/admin/tables' => ['TablesController', 'index'],
+            '/admin/tables/edit' => ['TablesController', 'edit'],
+            '/admin/tables/template-admission' => ['TablesController', 'templateAdmission'],
             '/admin/profile' => ['ProfileController', 'index'],
+            '/admin/content/list-files' => ['ContentController', 'listFiles'],
+            '/admin/content/open' => ['ContentController', 'open'],
             // Аналитика
             '/admin/analytics' => ['AnalyticsController', 'index'],
             '/admin/analytics/security' => ['AnalyticsController', 'security'],
@@ -55,6 +63,8 @@ class AdminRouter {
             '/admin/security/cleanup-logs' => ['SecurityController', 'cleanupLogs'],
             '/admin/security/api/stats' => ['SecurityController', 'apiStats'],
             '/admin/security/api/events' => ['SecurityController', 'apiEvents'],
+            '/admin/security/api/audit' => ['SecurityController', 'apiAudit'],
+            '/admin/security/api/sessions' => ['SecurityController', 'apiSessions'],
             // Мониторинг
             '/admin/monitoring' => ['MonitoringController', 'index'],
             '/admin/monitoring/logs' => ['MonitoringController', 'logs'],
@@ -87,6 +97,7 @@ class AdminRouter {
             '/api/users/{id}' => ['UsersApiController', 'show'],
             '/api/news' => ['NewsApiController', 'index'],
             '/api/news/{id}' => ['NewsApiController', 'show']
+            , '/api/content-overrides' => ['ContentApiController', 'getOverrides']
         ],
         'POST' => [
             '/admin/login' => ['AuthController', 'login'],
@@ -114,6 +125,27 @@ class AdminRouter {
             '/admin/photos/delete/{id}' => ['PhotosController', 'delete'],
             '/admin/settings' => ['SettingsController', 'update'],
             '/admin/profile' => ['ProfileController', 'update'],
+            '/admin/content/save-file' => ['ContentController', 'saveFile'],
+            '/admin/content/save' => ['ContentController', 'save'],
+            '/admin/content/delete' => ['ContentController', 'delete'],
+            '/admin/info-widget/store' => ['InfoWidgetController', 'store'],
+            '/admin/info-widget/update' => ['InfoWidgetController', 'update'],
+            '/admin/info-widget/delete' => ['InfoWidgetController', 'delete'],
+            '/admin/info-widget/reorder' => ['InfoWidgetController', 'reorder'],
+            '/admin/banners/store' => ['BannersController', 'store'],
+            '/admin/banners/update' => ['BannersController', 'update'],
+            '/admin/banners/delete' => ['BannersController', 'delete'],
+            '/admin/banners/reorder' => ['BannersController', 'reorder'],
+            '/admin/tables/save-meta' => ['TablesController', 'saveMeta'],
+            '/admin/tables/save-data' => ['TablesController', 'saveData'],
+            '/admin/tables/delete' => ['TablesController', 'delete'],
+            '/admin/tables/create-admission-template' => ['TablesController', 'createAdmissionTemplate'],
+            '/admin/tables/export-csv' => ['TablesController', 'exportCsv'],
+            '/admin/tables/export-xls' => ['TablesController', 'exportXls'],
+            '/admin/tables/export-pdf' => ['TablesController', 'exportPdf'],
+            '/admin/tables/import-csv' => ['TablesController', 'importCsv'],
+            '/admin/tables/import-xlsx-create' => ['TablesController', 'importXlsxCreate'],
+            '/admin/tables/import-json-create' => ['TablesController', 'importJsonCreate'],
             // API аналитики
             '/admin/analytics/mark-notification-read' => ['AnalyticsController', 'markNotificationRead'],
             '/admin/analytics/mark-all-notifications-read' => ['AnalyticsController', 'markAllNotificationsRead'],
@@ -186,7 +218,8 @@ class AdminRouter {
     ];
     
     public function route($uri, $method = 'GET') {
-        // Убираем trailing slash
+        // Убираем query string и trailing slash
+        $uri = strtok($uri, '?');
         $uri = rtrim($uri, '/');
         
         // Отладочная информация

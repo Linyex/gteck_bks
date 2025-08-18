@@ -49,4 +49,13 @@ class kolController extends BaseController {
             'title' => 'Видео'
         ]);
     }
+
+    public function receptions() {
+        return $this->render('kol/receptions', [
+            'title' => 'Личный прием и прямые телефонные линии',
+            'additional_css' => [
+                '/assets/css/forms-soft.css'
+            ]
+        ]);
+    }
 }

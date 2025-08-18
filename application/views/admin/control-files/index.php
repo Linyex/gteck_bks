@@ -12,7 +12,7 @@ $currentPage = 'control-files';
             <h1>Управление файлами контрольных работ</h1>
         </div>
         <div class="page-subtitle">
-            Загрузка, управление и организация файлов для студентов
+            Загрузка, управление и организация файлов для учащихся
         </div>
         <div class="page-actions">
             <a href="/admin/control-files/upload" class="btn btn-primary">

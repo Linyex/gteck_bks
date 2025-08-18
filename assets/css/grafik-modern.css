@@ -99,6 +99,34 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Центровка основного контента на странице графика */
+.grafik-container .container {
+    display: grid;
+    place-items: center;
+}
+
+.grafik-container .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.grafik-container .col-lg-10 {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.grafik-container .content-section {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grafik-container .schedule-card {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .content-section {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
@@ -178,6 +206,8 @@
     gap: 30px;
     margin-top: 30px;
     justify-items: center;
+    align-items: stretch;
+    justify-content: center;
 }
 
 .schedule-item {

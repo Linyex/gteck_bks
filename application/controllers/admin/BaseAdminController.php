@@ -199,16 +199,27 @@ class BaseAdminController extends BaseController {
     }
     
     protected function getAccessLevelName($level) {
-        switch ($level) {
-            case 10:
-                return 'Администратор';
-            case 5:
-                return 'Модератор';
-            case 1:
-                return 'Редактор';
-            default:
-                return 'Пользователь';
+        // 1 – Преподаватель; 2 – Методист; 3 – Заведующий отделением; 4 – Зам. директора по воспитательной; 5 – Зам. директора по учебной; 6 – Директор; 7 – Социальный педагог; 8 – Психолог; 10 – Админ
+        switch ((int)$level) {
+            case 1: return 'Преподаватель';
+            case 2: return 'Методист';
+            case 3: return 'Зав. отделением';
+            case 4: return 'Зам. директора по воспитательной работе';
+            case 5: return 'Зам. директора по учебной работе';
+            case 6: return 'Директор';
+            case 7: return 'Социальный педагог';
+            case 8: return 'Психолог';
+            case 10: return 'Администратор';
+            default: return 'Пользователь';
         }
+    }
+
+    /**
+     * Проверка роли по списку уровней доступа
+     */
+    protected function hasAnyAccessLevel(array $allowedLevels): bool {
+        if (!$this->adminUser) return false;
+        return in_array((int)$this->adminUser['user_access_level'], array_map('intval', $allowedLevels), true);
     }
     
     /**
